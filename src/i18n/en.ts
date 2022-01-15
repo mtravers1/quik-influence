@@ -44,7 +44,7 @@ const customEnglishMessages: TranslationMessages = mergeTranslations(
                 },
                 timeline: 'Timeline',
                 welcome: {
-                    title: 'Welcome to the react-admin enterprise edition demo',
+                    title: 'Welcome to the Quik Influence CRM Admin',
                     subtitle:
                         "This is the admin of an imaginary poster shop showcasing enterprise edition private modules usage. Feel free to explore and modify the data - it's local to your computer, and will reset each time you reload.",
                     ra_button: 'react-admin enterprise edition site',

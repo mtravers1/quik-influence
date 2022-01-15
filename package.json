@@ -1,8 +1,7 @@
 {
-    "name": "demo",
-    "version": "3.0.0",
+    "name": "quik-influence",
+    "version": "1.0.0",
     "private": true,
-    "homepage": "https://marmelab.com/ra-enterprise-demo",
     "scripts": {
         "analyze": "source-map-explorer 'build/static/js/*.js'",
         "start": "export NPM_TOKEN=$NPM_TOKEN && react-scripts start",

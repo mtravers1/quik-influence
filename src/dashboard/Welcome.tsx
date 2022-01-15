@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { FC } from 'react';
 import { Box, Card, CardActions, Button, Typography } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
+// import HomeIcon from '@material-ui/icons/Home';
 import TourIcon from '@material-ui/icons/Flag';
-import GitHubIcon from '@material-ui/icons/GitHub';
+// import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslate } from 'react-admin';
 
@@ -60,7 +60,7 @@ const Welcome: FC = () => {
                         >
                             {translate('pos.dashboard.welcome.demo_button')}
                         </Button>
-                        <Button
+                        {/* <Button
                             variant="contained"
                             href="https://marmelab.com/ra-enterprise/"
                             startIcon={<HomeIcon />}
@@ -74,7 +74,7 @@ const Welcome: FC = () => {
                             startIcon={<GitHubIcon />}
                         >
                             {translate('pos.dashboard.welcome.github_button')}
-                        </Button>
+                        </Button> */}
                     </CardActions>
                 </Box>
 
