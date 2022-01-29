@@ -2,8 +2,8 @@ import '../styles/globals.css'
 import '../styles/404.css'
 import type { AppProps } from 'next/app'
 import { Box, ChakraProvider, Divider, extendTheme, Stack, ThemeConfig } from '@chakra-ui/react'
-import Header from '../src/components/Header'
-import SideBarMenu from '../src/components/SideBarMenu'
+import Header from 'components/Header'
+import SideBarMenu from 'components/SideBarMenu'
 
 const colors = {
   brand: {

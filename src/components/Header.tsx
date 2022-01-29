@@ -17,7 +17,7 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { theme } from "../../pages/_app";
 import AppIcon from "../assets/icon.png";
-import quikColorConstants from "../utils/colorConstants";
+import quikColorConstants from "utils/colorConstants";
 
 const Header = ({ ...rest }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

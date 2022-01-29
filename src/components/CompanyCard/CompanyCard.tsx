@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react"
 import { faMoneyBillWaveAlt, faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import quikColorConstants from "../../utils/colorConstants"
+import quikColorConstants from "utils/colorConstants"
 
 type CompanyCardProps = {
   companyName: string
