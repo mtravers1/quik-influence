@@ -1,53 +1,34 @@
-# React-admin Enterprise Edition Demo
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This is a demo of the [react-admin](https://github.com/marmelab/react-admin) framework augmented by [Enterprise Edition modules](https://marmelab.com/ra-enterprise/#private-modules). It shows a working administration for a fake poster shop named Posters Galore. It is a modified version of the [Posters Galore Open-source demo](https://marmelab.com/react-admin-demo/#/). 
+## Getting Started
 
-You can test it online at https://marmelab.com/ra-enterprise-demo.
+First, run the development server:
 
-[![react-admin-demo](https://marmelab.com/ra-enterprise/assets/ra-enterprise-demo.png)](https://marmelab.com/ra-enterprise-demo)
-
-React-admin usually requires a REST/GraphQL server to provide data. In this demo however, the API is simulated by the browser (using [FakeRest](https://github.com/marmelab/FakeRest)). The source data is generated at runtime by a package called [data-generator](https://github.com/marmelab/react-admin/tree/master/examples/data-generator).
-
-To explore the source code, start with [src/App.js](https://github.com/marmelab/react-admin/blob/master/examples/demo/src/App.js).
-
-**Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-
-## How to run
-
-1. Setup your credentials to marmelab registry in `.npmrc`
-
-2. Install dependencies
-
-```sh
-make install
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-3. Run
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```sh
-make start
-```
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-## Available Scripts
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-In the project directory, you can run:
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-### `make start`
+## Learn More
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To learn more about Next.js, take a look at the following resources:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### `make deploy`
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-Build and deploy the app to gh-pages.
+## Deploy on Vercel
 
-### `make build`
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
