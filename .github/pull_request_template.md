@@ -1,4 +1,4 @@
-[Trello Card #NUMBER](TRELLO_CARD_LINK) - _Describe the card if necessary_
+[Zenhub issue #NUMBER](ZENHUB_CARD_LINK) - _Describe the card if necessary_
 
 _Describe the goal of this pull request in a few lines_
 
