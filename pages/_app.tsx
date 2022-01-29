@@ -1,25 +1,32 @@
-import '../styles/globals.css'
-import '../styles/404.css'
-import type { AppProps } from 'next/app'
-import { Box, ChakraProvider, Divider, extendTheme, Stack, ThemeConfig } from '@chakra-ui/react'
-import Header from 'components/Header'
-import SideBarMenu from 'components/SideBarMenu'
+import "../styles/globals.css";
+import "../styles/404.css";
+import { AppProps } from "next/app";
+import {
+  Box,
+  ChakraProvider,
+  Divider,
+  extendTheme,
+  Stack,
+  ThemeConfig
+} from "@chakra-ui/react";
+import Header from "components/Header";
+import SideBarMenu from "components/SideBarMenu";
 
 const colors = {
   brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac',
-  },
-}
+    900: "#1a365d",
+    800: "#153e75",
+    700: "#2a69ac"
+  }
+};
 
 const config: ThemeConfig = {
-  initialColorMode: 'light',
+  initialColorMode: "light",
   useSystemColorMode: false,
-  cssVarPrefix: 'quik'
-}
+  cssVarPrefix: "quik"
+};
 
-export const theme = extendTheme({ config, colors })
+export const theme = extendTheme({ config, colors });
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   return (
@@ -31,13 +38,13 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
             <SideBarMenu />
             <Divider orientation="vertical" height="100vh" />
             <Box width="100%" px={20} py={10}>
-                <Component {...pageProps} />
+              <Component {...pageProps} />
             </Box>
           </Stack>
         </Stack>
       </Box>
     </ChakraProvider>
-  )
+  );
 }
 
-export default QuikInfluenceApp
+export default QuikInfluenceApp;
