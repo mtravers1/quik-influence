@@ -1,21 +1,29 @@
 import { Flex, Box } from "@chakra-ui/layout";
-import React, { useState } from "react";
-import quikColorConstants from "../util/colorConstants";
+import React, { useEffect, useState } from "react";
+import quikColorConstants from "utils/colorConstants";
 import NextLink from "./NextLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SideBarMenuOptions } from "../modules";
-import { SideBarOptionMenu } from "../types";
+import { SideBarMenuOptions } from "modules";
+import { SideBarOptionMenu } from "types";
+import { useRouter } from "next/router";
 
 const SideBarMenu = () => {
   const [activeMenu, setActiveMenu] = useState("");
+  const route = useRouter();
+  const { pathname } = route;
+  const _sideBarOptions = Object.values(SideBarMenuOptions);
+
+  useEffect(() => {
+    if (!activeMenu) {
+      setActiveMenu(_sideBarOptions[0].path);
+    }
+  }, []);
 
   return (
     <Flex flexDirection="column" width="250px" py={10}>
-      {Object.values(
-        SideBarMenuOptions
-      ).map(({ name, icon, path, isShown }: SideBarOptionMenu) => {
+      {_sideBarOptions.map(({ name, icon, path, isShown }: SideBarOptionMenu) => {
         if (!isShown) return;
-        
+
         return (
           <Box
             key={name}
@@ -26,12 +34,14 @@ const SideBarMenu = () => {
               backgroundColor: quikColorConstants.greyLight
             }}
             bg={
-              activeMenu === name ? quikColorConstants.greyLight : "transparent"
+              (activeMenu || pathname) === path
+                ? quikColorConstants.greyLight
+                : "transparent"
             }
-            borderLeft={`3px solid ${activeMenu === name
+            borderLeft={`3px solid ${(activeMenu || pathname) === path
               ? quikColorConstants.influenceRed
               : quikColorConstants.greyLight}`}
-            onClick={() => setActiveMenu(name)}
+            onClick={() => setActiveMenu(path)}
           >
             <NextLink
               href={path}

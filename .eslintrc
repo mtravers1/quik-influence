@@ -24,6 +24,23 @@
     "settings": {
         "react": {
             "version": "detect"
+        },
+        "import/resolver": {
+            "node": {
+                "paths": [
+                    "./src",
+                    "./src/components",
+                    "./src/modules",
+                    "./src/utils",
+                    "./src/types"
+                ],
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
         }
     },
     "rules": {
