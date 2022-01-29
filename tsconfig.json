@@ -17,16 +17,16 @@
     "baseUrl": "./src",
     "paths": {
       "components/*": [
-        "components"
+        "./components/*"
       ],
       "modules/*": [
-        "modules"
+        "./modules/*"
       ],
       "utils/*": [
-        "utils"
+        "./utils/*"
       ],
       "types/*": [
-        "types"
+        "./types/*"
       ],
     }
   },

@@ -27,12 +27,8 @@
         },
         "import/resolver": {
             "node": {
-                "paths": [
-                    "./src",
-                    "./src/components",
-                    "./src/modules",
-                    "./src/utils",
-                    "./src/types"
+                "moduleDirectory": [
+                    "src/"
                 ],
                 "extensions": [
                     ".js",

@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/layout";
-import CompanyCard from "../../components/CompanyCard";
-import DropdownSelect from "../../components/DropdownSelect";
+import CompanyCard from "components/CompanyCard";
+import DropdownSelect from "components/DropdownSelect";
 
 const DashboardOverview = () => {
   return (
