@@ -5,44 +5,56 @@ import {
   Box,
   ChakraProvider,
   Divider,
-  extendTheme,
+  Flex,
   Stack,
-  ThemeConfig
+  useColorMode
 } from "@chakra-ui/react";
 import Header from "components/Header";
 import SideBarMenu from "components/SideBarMenu";
+import theme from "../styles/theme";
+import { NextComponentType, NextPageContext } from "next";
+import {
+  bgThemeColor,
+  themeColor
+} from "utils/colorConstants";
+import { css } from "@emotion/react";
 
-const colors = {
-  brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac"
-  }
+interface MainContentProps {
+  Component: NextComponentType<NextPageContext, any, {}>;
+  pageProps: any;
+}
+
+const MainContent = ({ Component, pageProps }: MainContentProps) => {
+  const { colorMode } = useColorMode();
+
+  return (
+    <Stack>
+      <Header bgColor={bgThemeColor[colorMode]} color={themeColor[colorMode]} />
+      <Flex flexDirection="row" css={css`& { margin-top: 1px !important; }`}>
+        <SideBarMenu bgColor={bgThemeColor[colorMode]} colorMode={colorMode} />
+        <Divider
+          bgColor={bgThemeColor[colorMode]}
+          orientation="vertical"
+          height="100vh"
+        />
+        <Box
+          width="100%"
+          px={20}
+          py={10}
+          bgColor={bgThemeColor[colorMode]}
+          color={themeColor[colorMode]}
+        >
+          <Component {...pageProps} />
+        </Box>
+      </Flex>
+    </Stack>
+  );
 };
-
-const config: ThemeConfig = {
-  initialColorMode: "light",
-  useSystemColorMode: false,
-  cssVarPrefix: "quik"
-};
-
-export const theme = extendTheme({ config, colors });
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Box>
-        <Stack>
-          <Header />
-          <Stack flexDirection="row" mt={10}>
-            <SideBarMenu />
-            <Divider orientation="vertical" height="100vh" />
-            <Box width="100%" px={20} py={10}>
-              <Component {...pageProps} />
-            </Box>
-          </Stack>
-        </Stack>
-      </Box>
+      <MainContent Component={Component} pageProps={pageProps} />
     </ChakraProvider>
   );
 }

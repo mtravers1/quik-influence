@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Box,
-  Stack,
   Heading,
   Flex,
   Text,
@@ -9,17 +8,22 @@ import {
   useDisclosure,
   ColorModeScript,
   Image,
-  HStack,
   Avatar,
   Tag,
-  TagLabel
+  TagLabel,
+  FlexProps,
+  useColorMode
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { theme } from "../../pages/_app";
 import AppIcon from "../assets/icon.png";
-import quikColorConstants from "utils/colorConstants";
+import quikColorConstants, { bgThemeColor, themeColor } from "utils/colorConstants";
+import { DarkModeSwitch } from "./DarkModeSwitch";
+import theme from "../../styles/theme";
 
-const Header = ({ ...rest }) => {
+interface HeaderProps extends FlexProps {}
+
+const Header = ({ ...rest }: HeaderProps) => {
+  const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
 
@@ -55,19 +59,6 @@ const Header = ({ ...rest }) => {
         <HamburgerIcon />
       </Box>
 
-      {/* <Stack
-        direction={{ base: "column", md: "row" }}
-        display={{ base: isOpen ? "block" : "none", md: "flex" }}
-        width={{ base: "full", md: "auto" }}
-        alignItems="center"
-        flexGrow={1}
-        mt={{ base: 4, md: 0 }}
-      >
-        <Text>Docs</Text>
-        <Text>Examples</Text>
-        <Text>Blog</Text>
-      </Stack> */}
-
       <Box>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       </Box>
@@ -82,6 +73,7 @@ const Header = ({ ...rest }) => {
         >
           Create account
         </Button>
+        <DarkModeSwitch />
         <Tag size="lg" colorScheme="grey.500" borderRadius="full">
           <Avatar
             src="https://bit.ly/sage-adebayo"

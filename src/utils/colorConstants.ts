@@ -1,14 +1,33 @@
 const quikColorConstants = {
-    // Primary
-    grey: '#F5F8F9',
-    greyLight: '#FAFAFB',
-    white: '#FFFFFF',
-    black: '#171725',
-    greyDarker: '#696974',
-    greyDark: '#92929D',
-    greyLighter: '#A1A2AB',
-    influenceRed: '#FF0000',
-    influenceRedWithOpacity: '#FC5A5A',
-}
+  // Primary
+  greyPrimary: '#fafafb',
+  grey: "#F5F8F9",
+  greyLight: "#ededed",
+  white: "#FFFFFF",
+  black: "#171725",
+  greyDarker: "#696974",
+  greyDark: "#92929D",
+  greyLighter: "#A1A2AB",
+  influenceRed: "#FF0000",
+  influenceRedWithOpacity: "#FC5A5A"
+};
 
-export default quikColorConstants
+export const bgThemeColor = { light: "#FAFAFB", dark: "gray.800" };
+export const themeColor = { light: "black", dark: "white" };
+
+export const sidebarBg = {
+  light: quikColorConstants.greyLight,
+  dark: quikColorConstants.greyDarker
+};
+
+export const borderThemeColor = {
+  light: quikColorConstants.greyDarker,
+  dark: quikColorConstants.greyLight
+};
+
+export const cardThemeColor = {
+  light: quikColorConstants.white,
+  dark: quikColorConstants.greyDarker
+};
+
+export default quikColorConstants;
