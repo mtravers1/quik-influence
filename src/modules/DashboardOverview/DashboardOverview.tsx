@@ -1,21 +1,11 @@
-import { Box, Text } from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/layout";
 import CustomButton from "../../components/Button";
-import CompanyCard from "../../components/CompanyCard";
+import CompanyCard from "../../components/CompanyCard"; 
+import DropdownSelect from "components/DropdownSelect";
 
 const DashboardOverview = () => {
   return (
     <Box>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
-
       <Box width="275px" m={10}>
         <CompanyCard
           companyName="Microphone Company"
@@ -34,6 +24,10 @@ const DashboardOverview = () => {
         <br />
         <CustomButton variant="gray">Send Contact </CustomButton>
 
+        <DropdownSelect options={[
+          { label: "Option 1", value: "option-1" },
+          { label: "Option 2", value: "option-2" },
+        ]} />
       </Box>
     </Box>
   );
