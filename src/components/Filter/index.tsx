@@ -15,8 +15,10 @@ import ByApplication from "./ByApplication";
 import Gender from "./Gender";
 import RecentActivity from "./RecentActivity";
 import Status from "./Status";
+import { useRouter } from "next/router";
 
 const Filter = () => {
+	const router = useRouter();
   const { colorMode } = useColorMode();
 	const [filter, setFilter] = React.useState<T>({});
 
@@ -26,6 +28,7 @@ const Filter = () => {
 
 	const handleClick = () => {
 		console.log(queryString.stringify(filter, {arrayFormat: 'comma'})); // Result: age=26-32,18-25,33-50&gender=female,male
+		router.push(`?${queryString.stringify(filter, {arrayFormat: 'comma'})}`);
 	}
 
   return (
