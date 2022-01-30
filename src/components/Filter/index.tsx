@@ -5,6 +5,8 @@ import {
   Stack,
   useColorMode
 } from "@chakra-ui/react";
+import queryString from 'query-string';
+import CustomButton from "components/Button";
 import React from "react";
 import { T } from "types";
 import { cardThemeColor } from "utils/colorConstants";
@@ -22,7 +24,9 @@ const Filter = () => {
 		setFilter({ ...filter, ...val });
 	}
 
-	console.log(filter);
+	const handleClick = () => {
+		console.log(queryString.stringify(filter, {arrayFormat: 'comma'})); // Result: age=26-32,18-25,33-50&gender=female,male
+	}
 
   return (
     <Stack p={10} bg={cardThemeColor[colorMode]}>
@@ -48,6 +52,7 @@ const Filter = () => {
 					{({ isExpanded }) => <ByApplication onChange={handleChange} isExpanded={isExpanded} />}
         </AccordionItem>
       </Accordion>
+      <CustomButton onClick={handleClick} variant="outline">Filter Search</CustomButton>
     </Stack>
   );
 };
