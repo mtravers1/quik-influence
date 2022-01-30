@@ -1,9 +1,7 @@
-import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react"
+import { Box, Divider, Flex, Heading, Text, useColorMode } from "@chakra-ui/react"
 import { faMoneyBillWaveAlt, faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import quikColorConstants from "../../util/colorConstants"
-
-
+import quikColorConstants, { cardThemeColor, borderThemeColor } from "utils/colorConstants"
 
 type CompanyCardProps = {
   companyName: string
@@ -21,10 +19,11 @@ const CompanyCard = ({
   leads,
   revenue
 }: CompanyCardProps) => {
+  const { colorMode } = useColorMode();
   return (
     <Flex
       padding={[6, 6]}
-      background={'#FFFFFF'}
+      background={cardThemeColor[colorMode]}
       width="100%"
       borderRadius='8px'
       flexWrap="wrap"
@@ -37,11 +36,11 @@ const CompanyCard = ({
           height='48px'
           width='48px'
           bgColor={quikColorConstants.influenceRedWithOpacity}
-          border="1px solid #FFFFFF"
+          border={`1px solid ${borderThemeColor[colorMode]}`}
           marginRight="6px"
           borderRadius="10px">
         </Box>
-        <Text margin='auto 0' fontSize='2xl' color={quikColorConstants.black} letterSpacing='0.2px'>{companyName}</Text>
+        <Text margin='auto 0' fontSize='2xl'  letterSpacing='0.2px'>{companyName}</Text>
       </Flex>
       <Divider />
 
@@ -57,9 +56,8 @@ const CompanyCard = ({
               margin: "auto"
             }}
             size="sm"
-            color={quikColorConstants.greyLighter}
             icon={faUser} />
-          <Text color={quikColorConstants.greyLighter} paddingLeft="5px" fontSize="lg" margin="auto">{users} Users</Text>
+          <Text paddingLeft="5px" fontSize="lg" margin="auto">{users} Users</Text>
         </Flex>
 
         <Flex paddingX="1px" >
@@ -68,9 +66,8 @@ const CompanyCard = ({
               margin: "auto"
             }}
             size="sm"
-            color={quikColorConstants.greyLighter}
             icon={faUser} />
-          <Text color={quikColorConstants.greyLighter} paddingLeft="5px" fontSize="lg" margin="auto">{leads} Leads</Text>
+          <Text paddingLeft="5px" fontSize="lg" margin="auto">{leads} Leads</Text>
         </Flex>
 
 
@@ -80,9 +77,8 @@ const CompanyCard = ({
               margin: "auto"
             }}
             size="sm"
-            color={quikColorConstants.greyLighter}
             icon={faMoneyBillWaveAlt} />
-          <Text color={quikColorConstants.greyLighter} paddingLeft="5px" fontSize="lg" margin="auto">{revenue}K</Text>
+          <Text paddingLeft="5px" fontSize="lg" margin="auto">{revenue}K</Text>
         </Flex>
 
       </Flex>

@@ -1,57 +1,76 @@
 import { Flex, Box } from "@chakra-ui/layout";
-import React, { useState } from "react";
-import quikColorConstants from "../util/colorConstants";
+import React, { useEffect, useState } from "react";
+import quikColorConstants, { sidebarBg } from "utils/colorConstants";
 import NextLink from "./NextLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SideBarMenuOptions } from "../modules";
-import { SideBarOptionMenu } from "../types";
+import { SideBarMenuOptions } from "modules";
+import { SideBarOptionMenu } from "types";
+import { useRouter } from "next/router";
+import { ColorMode } from "@chakra-ui/react";
 
-const SideBarMenu = () => {
+interface SideBarMenuProps {
+  bgColor?: string;
+  color?: string;
+  colorMode: ColorMode;
+}
+
+const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
   const [activeMenu, setActiveMenu] = useState("");
+  const route = useRouter();
+  const { pathname } = route;
+  const _sideBarOptions = Object.values(SideBarMenuOptions);
+
+  useEffect(() => {
+    if (!activeMenu) {
+      setActiveMenu(_sideBarOptions[0].path);
+    }
+  }, []);
 
   return (
-    <Flex flexDirection="column" width="250px" py={10}>
-      {Object.values(
-        SideBarMenuOptions
-      ).map(({ name, icon, path, isShown }: SideBarOptionMenu) => {
-        if (!isShown) return;
-        
-        return (
-          <Box
-            key={name}
-            py={5}
-            px={10}
-            minW="100%"
-            _hover={{
-              backgroundColor: quikColorConstants.greyLight
-            }}
-            bg={
-              activeMenu === name ? quikColorConstants.greyLight : "transparent"
-            }
-            borderLeft={`3px solid ${activeMenu === name
-              ? quikColorConstants.influenceRed
-              : quikColorConstants.greyLight}`}
-            onClick={() => setActiveMenu(name)}
-          >
-            <NextLink
-              href={path}
-              display="block"
+    <Flex flexDirection="column" width="250px" py={10} bgColor={bgColor}>
+      {_sideBarOptions.map(
+        ({ name, icon, path, isShown }: SideBarOptionMenu) => {
+          if (!isShown) return;
+
+          return (
+            <Box
+              key={name}
+              py={5}
+              px={10}
+              minW="100%"
               _hover={{
-                textDecoration: "none"
+                backgroundColor: sidebarBg[colorMode]
               }}
-              _focus={{
-                border: "none",
-                textDecoration: "none"
-                //   border
-              }}
-              fontFamily="Avenir"
-              fontWeight="bold"
+              bg={
+                (activeMenu || pathname) === path
+                  ? sidebarBg[colorMode]
+                  : "transparent"
+              }
+              borderLeft={`3px solid ${(activeMenu || pathname) === path
+                ? quikColorConstants.influenceRed
+                : sidebarBg[colorMode]}`}
+              onClick={() => setActiveMenu(path)}
             >
-              <FontAwesomeIcon icon={icon} /> {name}
-            </NextLink>
-          </Box>
-        );
-      })}
+              <NextLink
+                href={path}
+                display="block"
+                _hover={{
+                  textDecoration: "none",
+                  color: 'inherit'
+                }}
+                _focus={{
+                  border: "none",
+                  textDecoration: "none"
+                }}
+                fontFamily="Avenir"
+                fontWeight="bold"
+              >
+                <FontAwesomeIcon icon={icon} /> {name}
+              </NextLink>
+            </Box>
+          );
+        }
+      )}
     </Flex>
   );
 };

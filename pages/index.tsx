@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import NextLink from '../src/components/NextLink'
+import NextLink from 'components/NextLink'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {

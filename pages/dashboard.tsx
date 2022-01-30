@@ -1,4 +1,4 @@
-import DashboardOverview from "../src/modules/DashboardOverview";
+import DashboardOverview from "modules/DashboardOverview";
 
 const Dashboard = () => {
   return (
