@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Button, ButtonProps } from "@chakra-ui/react"
-import quikColorConstants from "../../util/colorConstants"
+import quikColorConstants from "utils/colorConstants"
 
 type CustomButtonPropType = ButtonProps & {
   variant?: 'outline' | 'default' | 'gray'
