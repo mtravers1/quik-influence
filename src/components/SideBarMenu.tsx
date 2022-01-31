@@ -1,12 +1,12 @@
-import { Flex, Box } from "@chakra-ui/layout";
-import React, { useEffect, useState } from "react";
-import quikColorConstants, { sidebarBg } from "utils/colorConstants";
-import NextLink from "./NextLink";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SideBarMenuOptions } from "modules";
-import { SideBarOptionMenu } from "types";
-import { useRouter } from "next/router";
-import { ColorMode } from "@chakra-ui/react";
+import { Flex, Box } from '@chakra-ui/layout';
+import React, { useEffect, useState } from 'react';
+import quikColorConstants, { sidebarBg } from 'utils/colorConstants';
+import NextLink from './NextLink';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SideBarMenuOptions } from 'modules';
+import { SideBarOptionMenu } from 'types';
+import { useRouter } from 'next/router';
+import { ColorMode } from '@chakra-ui/react';
 
 interface SideBarMenuProps {
   bgColor?: string;
@@ -15,7 +15,7 @@ interface SideBarMenuProps {
 }
 
 const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
-  const [activeMenu, setActiveMenu] = useState("");
+  const [activeMenu, setActiveMenu] = useState('');
   const route = useRouter();
   const { pathname } = route;
   const _sideBarOptions = Object.values(SideBarMenuOptions);
@@ -39,28 +39,30 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
               px={10}
               minW="100%"
               _hover={{
-                backgroundColor: sidebarBg[colorMode]
+                backgroundColor: sidebarBg[colorMode],
               }}
               bg={
                 (activeMenu || pathname) === path
                   ? sidebarBg[colorMode]
-                  : "transparent"
+                  : 'transparent'
               }
-              borderLeft={`3px solid ${(activeMenu || pathname) === path
-                ? quikColorConstants.influenceRed
-                : sidebarBg[colorMode]}`}
+              borderLeft={`3px solid ${
+                (activeMenu || pathname) === path
+                  ? quikColorConstants.influenceRed
+                  : sidebarBg[colorMode]
+              }`}
               onClick={() => setActiveMenu(path)}
             >
               <NextLink
                 href={path}
                 display="block"
                 _hover={{
-                  textDecoration: "none",
-                  color: 'inherit'
+                  textDecoration: 'none',
+                  color: 'inherit',
                 }}
                 _focus={{
-                  border: "none",
-                  textDecoration: "none"
+                  border: 'none',
+                  textDecoration: 'none',
                 }}
                 fontFamily="Avenir"
                 fontWeight="bold"

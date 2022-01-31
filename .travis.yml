@@ -2,13 +2,13 @@ language: node_js
 addons:
   chrome: stable
 node_js:
-    - 14
+  - 14
 env:
-    - GENERATE_SOURCEMAP=false
+  - GENERATE_SOURCEMAP=false
 cache:
-    yarn: true
-    directories:
-        - build
+  yarn: true
+  directories:
+    - build
 
 before_install:
   # Repo for Yarn
@@ -17,19 +17,19 @@ before_install:
   - cp .npmrc.dist .npmrc
 
 install:
-    - yarn install --frozen-lockfile
-    - yarn cypress install
-    - yarn cypress verify
+  - yarn install --frozen-lockfile
+  - yarn cypress install
+  - yarn cypress verify
 
 script:
-    - make build
-    - make e2e
+  - make build
+  - make e2e
 
 deploy:
-    provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    local_dir: build
-    keep_history: true
-    on:
-        branch: master
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: build
+  keep_history: true
+  on:
+    branch: master

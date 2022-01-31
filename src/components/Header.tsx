@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Heading,
@@ -12,13 +12,16 @@ import {
   Tag,
   TagLabel,
   FlexProps,
-  useColorMode
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import AppIcon from "../assets/icon.png";
-import quikColorConstants, { bgThemeColor, themeColor } from "utils/colorConstants";
-import { DarkModeSwitch } from "./DarkModeSwitch";
-import theme from "../../styles/theme";
+  useColorMode,
+} from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import AppIcon from '../assets/icon.png';
+import quikColorConstants, {
+  bgThemeColor,
+  themeColor,
+} from 'utils/colorConstants';
+import { DarkModeSwitch } from './DarkModeSwitch';
+import theme from '../../styles/theme';
 
 interface HeaderProps extends FlexProps {}
 
@@ -45,7 +48,7 @@ const Header = ({ ...rest }: HeaderProps) => {
           src={AppIcon.src}
           alt="quik-influence logo"
         />
-        <Heading as="h1" size="lg" ml={3} letterSpacing={"tighter"}>
+        <Heading as="h1" size="lg" ml={3} letterSpacing={'tighter'}>
           <Flex>
             <Text color={quikColorConstants.influenceRed} mr={1}>
               Quik
@@ -55,7 +58,7 @@ const Header = ({ ...rest }: HeaderProps) => {
         </Heading>
       </Flex>
 
-      <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
+      <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
         <HamburgerIcon />
       </Box>
 
@@ -64,12 +67,12 @@ const Header = ({ ...rest }: HeaderProps) => {
       </Box>
 
       <Box
-        display={{ base: isOpen ? "block" : "none", md: "block" }}
+        display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
         mt={{ base: 4, md: 0 }}
       >
         <Button
           variant="outline"
-          _hover={{ bg: "grey.700", borderColor: "teal.700" }}
+          _hover={{ bg: 'grey.700', borderColor: 'teal.700' }}
         >
           Create account
         </Button>

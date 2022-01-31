@@ -1,9 +1,7 @@
-import DashboardOverview from "modules/DashboardOverview";
+import DashboardOverview from 'modules/DashboardOverview';
 
 const Dashboard = () => {
-  return (
-    <DashboardOverview />
-  );
+  return <DashboardOverview />;
 };
 
 export default Dashboard;

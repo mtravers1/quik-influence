@@ -1,7 +1,7 @@
-import { Box } from "@chakra-ui/layout";
-import CustomButton from "components/Button";
-import CompanyCard from "components/CompanyCard";
-import Filter from "components/Filter";
+import { Box } from '@chakra-ui/layout';
+import CustomButton from 'components/Button';
+import CompanyCard from 'components/CompanyCard';
+import Filter from 'components/Filter';
 
 const DashboardOverview = () => {
   return (

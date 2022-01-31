@@ -1,14 +1,14 @@
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/layout'
-import Link from 'next/link'
-import React from 'react'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/layout';
+import Link from 'next/link';
+import React from 'react';
 
 export type NextLinkProps = Omit<LinkProps, 'as'> & {
-  href: string
-  as?: string
-  isInternal?: boolean
-  onClick?: () => void
-  hardRefresh?: boolean
-}
+  href: string;
+  as?: string;
+  isInternal?: boolean;
+  onClick?: () => void;
+  hardRefresh?: boolean;
+};
 
 const NextLink: React.FC<NextLinkProps> = ({
   href,
@@ -30,22 +30,22 @@ const NextLink: React.FC<NextLinkProps> = ({
           {children}
         </ChakraLink>
       </Link>
-    )
+    );
   }
 
-  let finalHref: string
-  const pathToUrl = as ?? href
+  let finalHref: string;
+  const pathToUrl = as ?? href;
   if (/^(http|mailto)/.test(pathToUrl)) {
-    finalHref = pathToUrl
+    finalHref = pathToUrl;
   } else {
-    finalHref = `/${pathToUrl}`
+    finalHref = `/${pathToUrl}`;
   }
 
   return (
     <ChakraLink href={finalHref} onClick={onClick} {...rest}>
       {children}
     </ChakraLink>
-  )
-}
+  );
+};
 
-export default NextLink
+export default NextLink;
