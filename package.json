@@ -5,7 +5,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "next test",
+    "coverage": "next coverage",
+    "coverage-report": "next coverage-report",
+    "prettier": "npx prettier --write ."
+
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
