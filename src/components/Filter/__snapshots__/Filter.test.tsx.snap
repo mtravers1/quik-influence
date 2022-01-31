@@ -122,6 +122,7 @@ exports[`renders Filter component 1`] = `
               >
                 <select
                   class="chakra-select css-1ik61og"
+                  data-test-id="select-component"
                   id="country"
                 >
                   <option
@@ -130,21 +131,25 @@ exports[`renders Filter component 1`] = `
                     Select ---
                   </option>
                   <option
+                    data-testid="select-option"
                     value="active"
                   >
                     Active
                   </option>
                   <option
+                    data-testid="select-option"
                     value="inactive"
                   >
                     Inactive
                   </option>
                   <option
+                    data-testid="select-option"
                     value="incomplete"
                   >
                     Incomplete
                   </option>
                   <option
+                    data-testid="select-option"
                     value="complete"
                   >
                     Complete
@@ -224,6 +229,7 @@ exports[`renders Filter component 1`] = `
               >
                 <select
                   class="chakra-select css-1ik61og"
+                  data-test-id="select-component"
                   id="country"
                 >
                   <option
@@ -232,21 +238,25 @@ exports[`renders Filter component 1`] = `
                     Select ---
                   </option>
                   <option
+                    data-testid="select-option"
                     value="18-25"
                   >
                     18-25
                   </option>
                   <option
+                    data-testid="select-option"
                     value="26-32"
                   >
                     26-32
                   </option>
                   <option
+                    data-testid="select-option"
                     value="33-50"
                   >
                     33-50
                   </option>
                   <option
+                    data-testid="select-option"
                     value="51-above"
                   >
                     51-above
@@ -326,6 +336,7 @@ exports[`renders Filter component 1`] = `
               >
                 <select
                   class="chakra-select css-1ik61og"
+                  data-test-id="select-component"
                   id="country"
                 >
                   <option
@@ -334,16 +345,19 @@ exports[`renders Filter component 1`] = `
                     Select ---
                   </option>
                   <option
+                    data-testid="select-option"
                     value="male"
                   >
                     Male
                   </option>
                   <option
+                    data-testid="select-option"
                     value="female"
                   >
                     Female
                   </option>
                   <option
+                    data-testid="select-option"
                     value="other"
                   >
                     Other
@@ -423,6 +437,7 @@ exports[`renders Filter component 1`] = `
               >
                 <select
                   class="chakra-select css-1ik61og"
+                  data-test-id="select-component"
                   id="country"
                 >
                   <option
@@ -431,16 +446,19 @@ exports[`renders Filter component 1`] = `
                     Select ---
                   </option>
                   <option
+                    data-testid="select-option"
                     value="quikSession"
                   >
                     QuikSession
                   </option>
                   <option
+                    data-testid="select-option"
                     value="idemandBeauti"
                   >
                     IdemandBeauti
                   </option>
                   <option
+                    data-testid="select-option"
                     value="asd_exchange"
                   >
                     ASD Exchange

@@ -11,6 +11,7 @@ exports[`renders DropdownSelect component 1`] = `
     >
       <select
         class="chakra-select css-1ik61og"
+        data-test-id="select-component"
         id="country"
       >
         <option
@@ -19,16 +20,19 @@ exports[`renders DropdownSelect component 1`] = `
           Select ---
         </option>
         <option
+          data-testid="select-option"
           value="1"
         >
           Option 1
         </option>
         <option
+          data-testid="select-option"
           value="2"
         >
           Option 2
         </option>
         <option
+          data-testid="select-option"
           value="3"
         >
           Option 3

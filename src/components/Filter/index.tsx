@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import filterOptionsWithSelectConstants from "./filterOptionsWithSelectConstants";
 
 const Filter = () => {
-  const router = useRouter();
+  const router = useRouter() || { push: () => {} };
   const { colorMode } = useColorMode();
   const [filter, setFilter] = React.useState<T>({});
 
@@ -25,7 +25,9 @@ const Filter = () => {
   };
 
   const handleClick = () => {
-		const _queryString = queryString.stringify(filter, { arrayFormat: "comma" })
+    const _queryString = queryString.stringify(filter, {
+      arrayFormat: "comma"
+    });
     console.log(_queryString); // Result: age=26-32,18-25,33-50&gender=female,male
     router.push(`?${_queryString}`);
   };
@@ -39,14 +41,16 @@ const Filter = () => {
             <RecentActivity onChange={handleChange} isExpanded={isExpanded} />}
         </AccordionItem>
 
-        {Object.keys(filterOptionsWithSelectConstants).map((filterItem, index) =>
+        {Object.keys(
+          filterOptionsWithSelectConstants
+        ).map((filterItem, index) =>
           <AccordionItem key={index} border="none">
             {({ isExpanded }) =>
               <FilterOptionWithSelect
                 onChange={handleChange}
                 isExpanded={isExpanded}
                 title={filterItem}
-								// @ts-ignore
+                // @ts-ignore
                 selectOptions={filterOptionsWithSelectConstants[filterItem]}
               />}
           </AccordionItem>

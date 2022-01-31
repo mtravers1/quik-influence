@@ -35,7 +35,7 @@ const NextLink: React.FC<NextLinkProps> = ({
 
   let finalHref: string;
   const pathToUrl = as ?? href;
-  if (/^(http|mailto)/.test(pathToUrl)) {
+  if (/^(https|http|mailto)/.test(pathToUrl)) {
     finalHref = pathToUrl;
   } else {
     finalHref = `/${pathToUrl}`;

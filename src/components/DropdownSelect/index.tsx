@@ -27,10 +27,11 @@ const DropdownSelect = ({
         size={size}
         id="country"
         placeholder={`Select ${label || '---'}`}
+        data-test-id="select-component"
       >
         {options.map(option => {
           return (
-            <option key={option.value} value={option.value}>
+            <option data-testid="select-option" key={option.value} value={option.value}>
               {option.label}
             </option>
           );
