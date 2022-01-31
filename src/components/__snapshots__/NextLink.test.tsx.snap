@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders NextLink component 1`] = `
+<div>
+  <a
+    class="chakra-link css-0"
+    href="/#"
+  />
+</div>
+`;

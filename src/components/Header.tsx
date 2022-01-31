@@ -20,13 +20,12 @@ import quikColorConstants, {
   bgThemeColor,
   themeColor,
 } from 'utils/colorConstants';
-import { DarkModeSwitch } from './DarkModeSwitch';
+import DarkModeSwitch from './DarkModeSwitch';
 import theme from '../../styles/theme';
 
 interface HeaderProps extends FlexProps {}
 
 const Header = ({ ...rest }: HeaderProps) => {
-  const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
 

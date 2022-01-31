@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders DataTable component 1`] = `
+<div>
+  <table
+    class="chakra-table css-0"
+    role="table"
+  >
+    <thead
+      class="css-0"
+    >
+      <tr
+        class="css-0"
+        role="row"
+      >
+        <th
+          class="css-0"
+          colspan="1"
+          role="columnheader"
+          style="cursor: pointer;"
+          title="Toggle SortBy"
+        >
+          To convert
+          <span
+            class="css-131wcsq"
+          />
+        </th>
+        <th
+          class="css-0"
+          colspan="1"
+          role="columnheader"
+          style="cursor: pointer;"
+          title="Toggle SortBy"
+        >
+          Into
+          <span
+            class="css-131wcsq"
+          />
+        </th>
+        <th
+          class="css-0"
+          colspan="1"
+          data-is-numeric="true"
+          role="columnheader"
+          style="cursor: pointer;"
+          title="Toggle SortBy"
+        >
+          Multiply by
+          <span
+            class="css-131wcsq"
+          />
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="css-0"
+      role="rowgroup"
+    >
+      <tr
+        class="css-0"
+        role="row"
+      >
+        <td
+          class="css-0"
+          role="cell"
+        >
+          inches
+        </td>
+        <td
+          class="css-0"
+          role="cell"
+        >
+          millimetres (mm)
+        </td>
+        <td
+          class="css-0"
+          data-is-numeric="true"
+          role="cell"
+        >
+          25.4
+        </td>
+      </tr>
+      <tr
+        class="css-0"
+        role="row"
+      >
+        <td
+          class="css-0"
+          role="cell"
+        >
+          feet
+        </td>
+        <td
+          class="css-0"
+          role="cell"
+        >
+          centimetres (cm)
+        </td>
+        <td
+          class="css-0"
+          data-is-numeric="true"
+          role="cell"
+        >
+          30.48
+        </td>
+      </tr>
+      <tr
+        class="css-0"
+        role="row"
+      >
+        <td
+          class="css-0"
+          role="cell"
+        >
+          yards
+        </td>
+        <td
+          class="css-0"
+          role="cell"
+        >
+          metres (m)
+        </td>
+        <td
+          class="css-0"
+          data-is-numeric="true"
+          role="cell"
+        >
+          0.91444
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
