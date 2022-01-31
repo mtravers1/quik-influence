@@ -1,0 +1,502 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Filter component 1`] = `
+<div>
+  <div
+    class="chakra-stack css-17r4hs2"
+  >
+    <h2
+      class="chakra-heading css-0"
+    >
+      Filter
+    </h2>
+    <div
+      class="chakra-accordion css-odz94x"
+    >
+      <div
+        class="chakra-accordion__item css-cn9ye4"
+      >
+        <h2>
+          <button
+            aria-controls="accordion-panel-1"
+            aria-expanded="false"
+            class="chakra-accordion__button css-12ttzao"
+            data-index="0"
+            id="accordion-button-1"
+            type="button"
+          >
+            <div
+              class="css-8tcdg7"
+            >
+              Recent Activity
+            </div>
+            <svg
+              class="chakra-icon css-1hiix9"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </h2>
+        <div
+          class="chakra-collapse"
+          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+        >
+          <div
+            aria-labelledby="accordion-button-1"
+            class="chakra-accordion__panel css-4rbilf"
+            id="accordion-panel-1"
+            role="region"
+          >
+            <div
+              class="chakra-stack css-1qwdsol"
+            >
+              <span
+                class="css-1ehzxp"
+              >
+                Email Open
+              </span>
+              <span
+                class="css-1ehzxp"
+              >
+                Sms Open
+              </span>
+              <span
+                class="css-1ehzxp"
+              >
+                Non tag
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-accordion__item css-cn9ye4"
+      >
+        <h2>
+          <button
+            aria-controls="accordion-panel-3"
+            aria-expanded="false"
+            class="chakra-accordion__button css-12ttzao"
+            data-index="1"
+            id="accordion-button-3"
+            type="button"
+          >
+            <div
+              class="css-8tcdg7"
+            >
+              status
+            </div>
+            <svg
+              class="chakra-icon css-1hiix9"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </h2>
+        <div
+          class="chakra-collapse"
+          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+        >
+          <div
+            aria-labelledby="accordion-button-3"
+            class="chakra-accordion__panel css-4rbilf"
+            id="accordion-panel-3"
+            role="region"
+          >
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-1ik61og"
+                  data-test-id="select-component"
+                  id="country"
+                >
+                  <option
+                    value=""
+                  >
+                    Select ---
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="active"
+                  >
+                    Active
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="inactive"
+                  >
+                    Inactive
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="incomplete"
+                  >
+                    Incomplete
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="complete"
+                  >
+                    Complete
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-bkneeg"
+              spacing="4"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-accordion__item css-cn9ye4"
+      >
+        <h2>
+          <button
+            aria-controls="accordion-panel-5"
+            aria-expanded="false"
+            class="chakra-accordion__button css-12ttzao"
+            data-index="2"
+            id="accordion-button-5"
+            type="button"
+          >
+            <div
+              class="css-8tcdg7"
+            >
+              age
+            </div>
+            <svg
+              class="chakra-icon css-1hiix9"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </h2>
+        <div
+          class="chakra-collapse"
+          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+        >
+          <div
+            aria-labelledby="accordion-button-5"
+            class="chakra-accordion__panel css-4rbilf"
+            id="accordion-panel-5"
+            role="region"
+          >
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-1ik61og"
+                  data-test-id="select-component"
+                  id="country"
+                >
+                  <option
+                    value=""
+                  >
+                    Select ---
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="18-25"
+                  >
+                    18-25
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="26-32"
+                  >
+                    26-32
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="33-50"
+                  >
+                    33-50
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="51-above"
+                  >
+                    51-above
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-bkneeg"
+              spacing="4"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-accordion__item css-cn9ye4"
+      >
+        <h2>
+          <button
+            aria-controls="accordion-panel-7"
+            aria-expanded="false"
+            class="chakra-accordion__button css-12ttzao"
+            data-index="3"
+            id="accordion-button-7"
+            type="button"
+          >
+            <div
+              class="css-8tcdg7"
+            >
+              gender
+            </div>
+            <svg
+              class="chakra-icon css-1hiix9"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </h2>
+        <div
+          class="chakra-collapse"
+          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+        >
+          <div
+            aria-labelledby="accordion-button-7"
+            class="chakra-accordion__panel css-4rbilf"
+            id="accordion-panel-7"
+            role="region"
+          >
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-1ik61og"
+                  data-test-id="select-component"
+                  id="country"
+                >
+                  <option
+                    value=""
+                  >
+                    Select ---
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="male"
+                  >
+                    Male
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="female"
+                  >
+                    Female
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="other"
+                  >
+                    Other
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-bkneeg"
+              spacing="4"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-accordion__item css-cn9ye4"
+      >
+        <h2>
+          <button
+            aria-controls="accordion-panel-9"
+            aria-expanded="false"
+            class="chakra-accordion__button css-12ttzao"
+            data-index="4"
+            id="accordion-button-9"
+            type="button"
+          >
+            <div
+              class="css-8tcdg7"
+            >
+              application
+            </div>
+            <svg
+              class="chakra-icon css-1hiix9"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0,12a1.5,1.5,0,0,0,1.5,1.5h8.75a.25.25,0,0,1,.25.25V22.5a1.5,1.5,0,0,0,3,0V13.75a.25.25,0,0,1,.25-.25H22.5a1.5,1.5,0,0,0,0-3H13.75a.25.25,0,0,1-.25-.25V1.5a1.5,1.5,0,0,0-3,0v8.75a.25.25,0,0,1-.25.25H1.5A1.5,1.5,0,0,0,0,12Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </h2>
+        <div
+          class="chakra-collapse"
+          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+        >
+          <div
+            aria-labelledby="accordion-button-9"
+            class="chakra-accordion__panel css-4rbilf"
+            id="accordion-panel-9"
+            role="region"
+          >
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-1ik61og"
+                  data-test-id="select-component"
+                  id="country"
+                >
+                  <option
+                    value=""
+                  >
+                    Select ---
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="quikSession"
+                  >
+                    QuikSession
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="idemandBeauti"
+                  >
+                    IdemandBeauti
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="asd_exchange"
+                  >
+                    ASD Exchange
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-bkneeg"
+              spacing="4"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="chakra-button css-1i4yx9k"
+      type="button"
+    >
+      Filter Search
+    </button>
+  </div>
+</div>
+`;

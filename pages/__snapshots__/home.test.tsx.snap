@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Home Page 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <main
+      class="main"
+    >
+      <h1
+        class="title"
+      >
+        Welcome to 
+        <a
+          href="#"
+        >
+          Quik Influence!
+        </a>
+      </h1>
+      <p
+        class="description"
+      >
+        Get started by logging in 
+      </p>
+      <div
+        class="grid"
+      >
+        <a
+          class="chakra-link card css-0"
+          href="/dashboard"
+        >
+          <h2>
+            Get Started →
+          </h2>
+        </a>
+      </div>
+    </main>
+  </div>
+</div>
+`;

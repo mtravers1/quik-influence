@@ -17,7 +17,7 @@ interface SideBarMenuProps {
 const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
   const [activeMenu, setActiveMenu] = useState('');
   const route = useRouter();
-  const { pathname } = route;
+  const { pathname } = route || { pathname: '/' };
   const _sideBarOptions = Object.values(SideBarMenuOptions);
 
   useEffect(() => {

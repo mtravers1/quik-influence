@@ -45,7 +45,7 @@ const FilterOptionWithSelect = ({ isExpanded, onChange, title = '', selectOption
                 colorScheme="blackAlpha"
               >
                 {opt}
-                <TagCloseButton onClick={() => handleRemoveOpt(opt)} />
+                <TagCloseButton data-test-id="remove-opt" onClick={() => handleRemoveOpt(opt)} />
               </Tag>
             ))}
         </Flex>

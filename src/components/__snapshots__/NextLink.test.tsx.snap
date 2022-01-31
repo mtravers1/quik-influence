@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders NextLink component 1`] = `
+<div>
+  <a
+    class="chakra-link css-0"
+    href="/#"
+  />
+</div>
+`;
+
+exports[`renders NextLink component 2`] = `
+<div>
+  <a
+    class="chakra-link css-0"
+    href="https://www.google.com"
+  />
+</div>
+`;
+
+exports[`renders NextLink component 3`] = `
+<div>
+  <a
+    class="chakra-link css-0"
+    href="/dashboard"
+  />
+</div>
+`;
+
+exports[`renders NextLink component 4`] = `
+<div>
+  <a
+    class="chakra-link css-0"
+    href="/dashboard"
+  />
+</div>
+`;

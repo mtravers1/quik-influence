@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Header component 1`] = `
+<div>
+  <nav
+    class="css-1kgr93l"
+  >
+    <div
+      class="css-1c714fi"
+    >
+      <img
+        alt="quik-influence logo"
+        class="chakra-image css-1ko1n4n"
+      />
+      <h1
+        class="chakra-heading css-8mmjuy"
+      >
+        <div
+          class="css-k008qs"
+        >
+          <p
+            class="chakra-text css-67ii6d"
+          >
+            Quik
+          </p>
+          <p
+            class="chakra-text css-0"
+          >
+            Influence
+          </p>
+        </div>
+      </h1>
+    </div>
+    <div
+      class="css-dsyim5"
+    >
+      <svg
+        class="chakra-icon css-onkibi"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    <div
+      class="css-0"
+    >
+      <script>
+        (function setScript(initialValue) {
+  var mql = window.matchMedia("(prefers-color-scheme: dark)");
+  var systemPreference = mql.matches ? "dark" : "light";
+  var persistedPreference = systemPreference;
+
+  try {
+    persistedPreference = localStorage.getItem("chakra-ui-color-mode");
+  } catch (error) {
+    console.log("Chakra UI: localStorage is not available. Color mode persistence might not work as expected");
+  }
+
+  var colorMode;
+
+  if (persistedPreference) {
+    colorMode = persistedPreference;
+  } else if (initialValue === "system") {
+    colorMode = systemPreference;
+  } else {
+    colorMode = initialValue != null ? initialValue : systemPreference;
+  }
+
+  if (colorMode) {
+    /**
+     * Keep in sync with \`root.set() {@file ./color-mode.utils.ts}
+     */
+    document.documentElement.style.setProperty("--chakra-ui-color-mode", colorMode);
+    document.documentElement.setAttribute("data-theme", colorMode);
+  }
+})('light')
+      </script>
+    </div>
+    <div
+      class="css-iqqio3"
+    >
+      <button
+        class="chakra-button css-158uetl"
+        type="button"
+      >
+        Create account
+      </button>
+      <label
+        class="chakra-switch css-tm8ajn"
+      >
+        <input
+          class="chakra-switch__input"
+          style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+          type="checkbox"
+          value=""
+        />
+        <span
+          aria-hidden="true"
+          class="chakra-switch__track css-14qxnv8"
+        >
+          <span
+            class="chakra-switch__thumb css-0"
+          />
+        </span>
+      </label>
+      <span
+        class="css-1ehzxp"
+      >
+        <span
+          class="chakra-avatar css-o11zrc"
+        >
+          <div
+            aria-label="Segun Adebayo"
+            class="chakra-avatar__initials css-0"
+            role="img"
+          >
+            SA
+          </div>
+        </span>
+        <span
+          class="css-8uhtka"
+        >
+          Segun
+        </span>
+      </span>
+    </div>
+  </nav>
+</div>
+`;

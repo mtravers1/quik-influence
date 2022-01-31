@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders FilterOptionWithSelect component 1`] = `
+<div>
+  <div
+    class="chakra-accordion css-0"
+  >
+    <div
+      class="chakra-accordion__item css-cn9ye4"
+    >
+      <h2>
+        <button
+          aria-controls="accordion-panel-2"
+          aria-expanded="false"
+          class="chakra-accordion__button css-12ttzao"
+          data-index="0"
+          id="accordion-button-2"
+          type="button"
+        >
+          <div
+            class="css-8tcdg7"
+          >
+            test
+          </div>
+          <svg
+            class="chakra-icon css-1hiix9"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="currentColor"
+            >
+              <rect
+                height="4"
+                width="20"
+                x="2"
+                y="10"
+              />
+            </g>
+          </svg>
+        </button>
+      </h2>
+      <div
+        class="chakra-collapse"
+        style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+      >
+        <div
+          aria-labelledby="accordion-button-2"
+          class="chakra-accordion__panel css-4rbilf"
+          id="accordion-panel-2"
+          role="region"
+        >
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <div
+              class="chakra-select__wrapper css-42b2qy"
+            >
+              <select
+                class="chakra-select css-1ik61og"
+                data-test-id="select-component"
+                id="country"
+              >
+                <option
+                  value=""
+                >
+                  Select ---
+                </option>
+                <option
+                  data-testid="select-option"
+                  value="active"
+                >
+                  Active
+                </option>
+                <option
+                  data-testid="select-option"
+                  value="inactive"
+                >
+                  Inactive
+                </option>
+                <option
+                  data-testid="select-option"
+                  value="incomplete"
+                >
+                  Incomplete
+                </option>
+                <option
+                  data-testid="select-option"
+                  value="complete"
+                >
+                  Complete
+                </option>
+              </select>
+              <div
+                class="chakra-select__icon-wrapper css-162mkon"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-select__icon"
+                  focusable="false"
+                  role="presentation"
+                  style="width: 1em; height: 1em; color: currentColor;"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            class="css-bkneeg"
+            spacing="4"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
