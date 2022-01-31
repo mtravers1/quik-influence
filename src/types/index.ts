@@ -3,6 +3,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 export interface User {}
 
 export type T = { [key: string]: string[] };
+export type SelectProps = { label: string; value: string; };
 
 export interface SideBarOptionMenu {
   name: string;
@@ -18,4 +19,6 @@ export interface SideBarOptionMenu {
 export interface FilterItemProps {
   onChange: (val: T) => void;
   isExpanded: boolean;
+  title?: string;
+  selectOptions?: SelectProps[];
 }
