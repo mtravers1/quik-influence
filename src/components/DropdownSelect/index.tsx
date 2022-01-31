@@ -1,5 +1,5 @@
-import { FormControl, FormLabel, Select } from "@chakra-ui/react";
-import React from "react";
+import { FormControl, FormLabel, Select } from '@chakra-ui/react';
+import React from 'react';
 
 type DropdownSelectOption = {
   label: string;
@@ -10,16 +10,24 @@ interface DropdownSelectProp {
   size?: string;
   label?: string;
   options: DropdownSelectOption[];
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const DropdownSelect = ({ size = "lg", label, options }: DropdownSelectProp) => {
+const DropdownSelect = ({
+  size = 'lg',
+  label,
+  options,
+  onChange,
+}: DropdownSelectProp) => {
   return (
     <FormControl>
-      {!!label &&
-        <FormLabel htmlFor="country">
-          {label}
-        </FormLabel>}
-      <Select size={size} id="country" placeholder={`Select ${label || '---'}`}>
+      {!!label && <FormLabel htmlFor="country">{label}</FormLabel>}
+      <Select
+        onChange={onChange}
+        size={size}
+        id="country"
+        placeholder={`Select ${label || '---'}`}
+      >
         {options.map(option => {
           return (
             <option key={option.value} value={option.value}>

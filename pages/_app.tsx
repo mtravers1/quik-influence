@@ -1,23 +1,20 @@
-import "../styles/globals.css";
-import "../styles/404.css";
-import { AppProps } from "next/app";
+import '../styles/globals.css';
+import '../styles/404.css';
+import { AppProps } from 'next/app';
 import {
   Box,
   ChakraProvider,
   Divider,
   Flex,
   Stack,
-  useColorMode
-} from "@chakra-ui/react";
-import Header from "components/Header";
-import SideBarMenu from "components/SideBarMenu";
-import theme from "../styles/theme";
-import { NextComponentType, NextPageContext } from "next";
-import {
-  bgThemeColor,
-  themeColor
-} from "utils/colorConstants";
-import { css } from "@emotion/react";
+  useColorMode,
+} from '@chakra-ui/react';
+import Header from 'components/Header';
+import SideBarMenu from 'components/SideBarMenu';
+import theme from '../styles/theme';
+import { NextComponentType, NextPageContext } from 'next';
+import { bgThemeColor, themeColor } from 'utils/colorConstants';
+import { css } from '@emotion/react';
 
 interface MainContentProps {
   Component: NextComponentType<NextPageContext, any, {}>;
@@ -30,7 +27,14 @@ const MainContent = ({ Component, pageProps }: MainContentProps) => {
   return (
     <Stack>
       <Header bgColor={bgThemeColor[colorMode]} color={themeColor[colorMode]} />
-      <Flex flexDirection="row" css={css`& { margin-top: 1px !important; }`}>
+      <Flex
+        flexDirection="row"
+        css={css`
+          & {
+            margin-top: 1px !important;
+          }
+        `}
+      >
         <SideBarMenu bgColor={bgThemeColor[colorMode]} colorMode={colorMode} />
         <Divider
           bgColor={bgThemeColor[colorMode]}

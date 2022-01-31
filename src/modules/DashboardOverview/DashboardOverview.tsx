@@ -1,7 +1,7 @@
-import { Box } from "@chakra-ui/layout";
-import CustomButton from "../../components/Button";
-import CompanyCard from "../../components/CompanyCard"; 
-import DropdownSelect from "components/DropdownSelect";
+import { Box } from '@chakra-ui/layout';
+import CustomButton from 'components/Button';
+import CompanyCard from 'components/CompanyCard';
+import Filter from 'components/Filter';
 
 const DashboardOverview = () => {
   return (
@@ -18,16 +18,14 @@ const DashboardOverview = () => {
         <CustomButton>Send Contact </CustomButton>
         <br />
         <br />
-        <br />
         <CustomButton variant="outline">Send Contact </CustomButton>
         <br />
         <br />
         <CustomButton variant="gray">Send Contact </CustomButton>
-
-        <DropdownSelect options={[
-          { label: "Option 1", value: "option-1" },
-          { label: "Option 2", value: "option-2" },
-        ]} />
+        <br />
+        <br />
+        <Filter />
+        <br />
       </Box>
     </Box>
   );

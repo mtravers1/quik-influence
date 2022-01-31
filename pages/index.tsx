@@ -1,7 +1,7 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import NextLink from 'components/NextLink'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import NextLink from 'components/NextLink';
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
@@ -17,9 +17,7 @@ const Home: NextPage = () => {
           Welcome to <a href="#">Quik Influence!</a>
         </h1>
 
-        <p className={styles.description}>
-          Get started by logging in{' '}
-        </p>
+        <p className={styles.description}>Get started by logging in </p>
 
         <div className={styles.grid}>
           <NextLink href="/dashboard" className={styles.card}>
@@ -28,7 +26,7 @@ const Home: NextPage = () => {
         </div>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
