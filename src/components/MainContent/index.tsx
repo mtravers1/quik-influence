@@ -2,7 +2,7 @@ import { Stack, Flex, Divider, Box, useColorMode } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import Header from "components/Header";
 import SideBarMenu from "components/SideBarMenu";
-import { bgThemeColor, themeColor } from "utils/colorConstants";
+import { bgThemeColor, themeColor } from "utils/constants/colorConstants";
 
 interface MainContentProps {
   children: React.ReactElement;
