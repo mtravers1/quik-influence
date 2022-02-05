@@ -21,7 +21,7 @@ import quikColorConstants, {
   themeColor,
 } from 'utils/colorConstants';
 import DarkModeSwitch from './DarkModeSwitch';
-import theme from '../../styles/theme';
+import theme from '../styles/theme';
 
 interface HeaderProps extends FlexProps {}
 

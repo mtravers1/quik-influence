@@ -1,9 +1,16 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import NextLink from 'components/NextLink';
 import styles from '../styles/Home.module.css';
 
-const Home: NextPage = () => {
+type pageContent = {
+  author: string;
+  content: string;
+};
+
+const Home: NextPage = ({
+  pageContent,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -27,6 +34,15 @@ const Home: NextPage = () => {
       </main>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      pageContent: '',
+    },
+    revalidate: 10,
+  };
 };
 
 export default Home;
