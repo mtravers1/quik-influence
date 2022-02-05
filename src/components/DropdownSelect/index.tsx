@@ -1,5 +1,6 @@
-import { FormControl, FormLabel, Select } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormLabel, FormLabelProps, Select, SelectProps } from '@chakra-ui/react';
 import React from 'react';
+import quikColorConstants from 'utils/colorConstants';
 
 type DropdownSelectOption = {
   label: string;
@@ -11,6 +12,10 @@ interface DropdownSelectProp {
   label?: string;
   options: DropdownSelectOption[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  inputId?: string;
+  labelProps?: FormLabelProps;
+  selectProps?: SelectProps;
+  error?: string
 }
 
 const DropdownSelect = ({
@@ -18,16 +23,32 @@ const DropdownSelect = ({
   label,
   options,
   onChange,
+  inputId='',
+  labelProps,
+  selectProps,
+  error
 }: DropdownSelectProp) => {
   return (
-    <FormControl>
-      {!!label && <FormLabel htmlFor="country">{label}</FormLabel>}
+    <FormControl isInvalid={!!error}>
+      {
+        !!label &&
+          <FormLabel
+            fontSize='1.6rem'
+            color={quikColorConstants.black}
+            htmlFor={inputId}
+            {...labelProps}>
+            {label}
+          </FormLabel>
+      }
       <Select
         onChange={onChange}
         size={size}
-        id="country"
+        border='1px solid #D5D5DC'
+        borderRadius='xl' 
+        id={inputId}
         placeholder={`Select ${label || '---'}`}
         data-test-id="select-component"
+        {...selectProps}
       >
         {options.map(option => {
           return (
@@ -37,6 +58,13 @@ const DropdownSelect = ({
           );
         })}
       </Select>
+      {
+        error &&
+        <FormErrorMessage 
+          fontSize='xl'>
+            {error}
+        </FormErrorMessage>
+      }
     </FormControl>
   );
 };

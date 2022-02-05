@@ -424,9 +424,9 @@ exports[`renders DashBoard Page 1`] = `
                           class="chakra-select__wrapper css-42b2qy"
                         >
                           <select
-                            class="chakra-select css-1ik61og"
+                            class="chakra-select css-l65hh7"
                             data-test-id="select-component"
-                            id="country"
+                            id=""
                           >
                             <option
                               value=""
@@ -531,9 +531,9 @@ exports[`renders DashBoard Page 1`] = `
                           class="chakra-select__wrapper css-42b2qy"
                         >
                           <select
-                            class="chakra-select css-1ik61og"
+                            class="chakra-select css-l65hh7"
                             data-test-id="select-component"
-                            id="country"
+                            id=""
                           >
                             <option
                               value=""
@@ -638,9 +638,9 @@ exports[`renders DashBoard Page 1`] = `
                           class="chakra-select__wrapper css-42b2qy"
                         >
                           <select
-                            class="chakra-select css-1ik61og"
+                            class="chakra-select css-l65hh7"
                             data-test-id="select-component"
-                            id="country"
+                            id=""
                           >
                             <option
                               value=""
@@ -739,9 +739,9 @@ exports[`renders DashBoard Page 1`] = `
                           class="chakra-select__wrapper css-42b2qy"
                         >
                           <select
-                            class="chakra-select css-1ik61og"
+                            class="chakra-select css-l65hh7"
                             data-test-id="select-component"
-                            id="country"
+                            id=""
                           >
                             <option
                               value=""
@@ -802,6 +802,257 @@ exports[`renders DashBoard Page 1`] = `
               </button>
             </div>
             <br />
+            <br />
+            <br />
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <input
+                class="chakra-input css-1lohn59"
+                id="field-11"
+                placeholder="Email"
+                type="email"
+                value=""
+              />
+            </div>
+            <br />
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-1lxtfqi"
+                data-testid="textInput-label"
+                for=""
+                id="field-12-label"
+              >
+                POC
+              </label>
+              <input
+                class="chakra-input css-1lohn59"
+                id="field-12"
+                placeholder="Email"
+                type="email"
+                value=""
+              />
+            </div>
+            <br />
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-1lxtfqi"
+                data-invalid=""
+                data-testid="textInput-label"
+                for=""
+                id="field-13-label"
+              >
+                POC
+              </label>
+              <input
+                aria-describedby="field-13-feedback"
+                aria-invalid="true"
+                class="chakra-input css-1lohn59"
+                id="field-13"
+                placeholder="Email"
+                type="email"
+                value=""
+              />
+              <div
+                aria-live="polite"
+                class="chakra-form__error-message css-s4fyc4"
+                data-testid="textInput-error"
+                id="field-13-feedback"
+              >
+                Invalid email
+              </div>
+            </div>
+            <br />
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-160ag6o"
+                for=""
+                id="field-14-label"
+              >
+                Payout Model
+              </label>
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-l65hh7"
+                  data-test-id="select-component"
+                  id=""
+                >
+                  <option
+                    value=""
+                  >
+                    Select Payout Model
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="test"
+                  >
+                    test
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="atest"
+                  >
+                    atest
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="btest"
+                  >
+                    btest
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  class="chakra-select css-js7600"
+                  data-test-id="select-component"
+                  id=""
+                >
+                  <option
+                    value=""
+                  >
+                    Select ---
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="test"
+                  >
+                    test
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="atest"
+                  >
+                    atest
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="btest"
+                  >
+                    btest
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  aria-describedby="field-16-feedback"
+                  aria-invalid="true"
+                  class="chakra-select css-js7600"
+                  data-test-id="select-component"
+                  id=""
+                >
+                  <option
+                    value=""
+                  >
+                    Select ---
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="test"
+                  >
+                    test
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="atest"
+                  >
+                    atest
+                  </option>
+                  <option
+                    data-testid="select-option"
+                    value="btest"
+                  >
+                    btest
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="chakra-select__icon"
+                    focusable="false"
+                    role="presentation"
+                    style="width: 1em; height: 1em; color: currentColor;"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                aria-live="polite"
+                class="chakra-form__error-message css-s4fyc4"
+                id="field-16-feedback"
+              >
+                select one to proceed
+              </div>
+            </div>
           </div>
         </div>
       </div>
