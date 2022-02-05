@@ -121,9 +121,9 @@ exports[`renders Filter component 1`] = `
                 class="chakra-select__wrapper css-42b2qy"
               >
                 <select
-                  class="chakra-select css-1ik61og"
+                  class="chakra-select css-l65hh7"
                   data-test-id="select-component"
-                  id="country"
+                  id=""
                 >
                   <option
                     value=""
@@ -228,9 +228,9 @@ exports[`renders Filter component 1`] = `
                 class="chakra-select__wrapper css-42b2qy"
               >
                 <select
-                  class="chakra-select css-1ik61og"
+                  class="chakra-select css-l65hh7"
                   data-test-id="select-component"
-                  id="country"
+                  id=""
                 >
                   <option
                     value=""
@@ -335,9 +335,9 @@ exports[`renders Filter component 1`] = `
                 class="chakra-select__wrapper css-42b2qy"
               >
                 <select
-                  class="chakra-select css-1ik61og"
+                  class="chakra-select css-l65hh7"
                   data-test-id="select-component"
-                  id="country"
+                  id=""
                 >
                   <option
                     value=""
@@ -436,9 +436,9 @@ exports[`renders Filter component 1`] = `
                 class="chakra-select__wrapper css-42b2qy"
               >
                 <select
-                  class="chakra-select css-1ik61og"
+                  class="chakra-select css-l65hh7"
                   data-test-id="select-component"
-                  id="country"
+                  id=""
                 >
                   <option
                     value=""
