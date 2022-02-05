@@ -19,7 +19,7 @@ import AppIcon from '../assets/icon.png';
 import quikColorConstants, {
   bgThemeColor,
   themeColor,
-} from 'utils/colorConstants';
+} from 'utils/constants/colorConstants';
 import DarkModeSwitch from './DarkModeSwitch';
 import theme from '../styles/theme';
 

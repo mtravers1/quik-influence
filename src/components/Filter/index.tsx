@@ -9,7 +9,7 @@ import queryString from "query-string";
 import CustomButton from "components/Button";
 import React from "react";
 import { T } from "types";
-import { cardThemeColor } from "utils/colorConstants";
+import { cardThemeColor } from "utils/constants/colorConstants";
 import FilterOptionWithSelect from "./FilterOptionWithSelect";
 import RecentActivity from "./RecentActivity";
 import { useRouter } from "next/router";

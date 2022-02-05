@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import quikColorConstants, {
   cardThemeColor,
   borderThemeColor,
-} from 'utils/colorConstants';
+} from 'utils/constants/colorConstants';
 
 type CompanyCardProps = {
   companyName: string;
