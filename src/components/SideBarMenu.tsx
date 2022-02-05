@@ -1,6 +1,6 @@
 import { Flex, Box } from '@chakra-ui/layout';
 import React, { useEffect, useState } from 'react';
-import quikColorConstants, { sidebarBg } from 'utils/colorConstants';
+import quikColorConstants, { sidebarBg } from 'utils/constants/colorConstants';
 import NextLink from './NextLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SideBarMenuOptions } from 'modules';
