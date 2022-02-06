@@ -1,12 +1,12 @@
-import React from "react";
-import { Button, ButtonProps } from "@chakra-ui/react";
-import quikColorConstants from "utils/constants/colorConstants";
+import React from 'react';
+import { Button, ButtonProps } from '@chakra-ui/react';
+import quikColorConstants from 'utils/constants/colorConstants';
 
 type CustomButtonPropType = ButtonProps & {
-  variant?: "outline" | "default" | "gray";
+  variant?: 'outline' | 'default' | 'gray';
 };
 
-const BaseButton: React.FC<ButtonProps> = ({ children, ...props }) =>
+const BaseButton: React.FC<ButtonProps> = ({ children, ...props }) => (
   <Button
     width="full"
     padding="2rem"
@@ -16,15 +16,16 @@ const BaseButton: React.FC<ButtonProps> = ({ children, ...props }) =>
     {...props}
   >
     {children}
-  </Button>;
+  </Button>
+);
 
 const CustomButton: React.FC<CustomButtonPropType> = ({
-  variant = "default",
+  variant = 'default',
   children,
   ...props
 }) => {
   switch (variant) {
-    case "outline":
+    case 'outline':
       return (
         <BaseButton
           border="1px solid #FF0000"
@@ -32,17 +33,17 @@ const CustomButton: React.FC<CustomButtonPropType> = ({
           bgColor={quikColorConstants.white}
           _hover={{
             color: quikColorConstants.white,
-            bgColor: quikColorConstants.influenceRed
+            bgColor: quikColorConstants.influenceRed,
           }}
           _active={{
-            bgColor: quikColorConstants.influenceRedWithOpacity
+            bgColor: quikColorConstants.influenceRedWithOpacity,
           }}
           {...props}
         >
           {children}
         </BaseButton>
       );
-    case "gray":
+    case 'gray':
       return (
         <BaseButton
           color={quikColorConstants.white}
@@ -50,7 +51,7 @@ const CustomButton: React.FC<CustomButtonPropType> = ({
           _hover={{
             color: quikColorConstants.greyDarker,
             bgColor: quikColorConstants.white,
-            border: "1px solid #696974"
+            border: '1px solid #696974',
           }}
           {...props}
         >
@@ -63,10 +64,10 @@ const CustomButton: React.FC<CustomButtonPropType> = ({
           color={quikColorConstants.white}
           bgColor={quikColorConstants.influenceRed}
           _hover={{
-            opacity: 0.8
+            opacity: 0.8,
           }}
           _active={{
-            bgColor: quikColorConstants.influenceRedWithOpacity
+            bgColor: quikColorConstants.influenceRedWithOpacity,
           }}
           {...props}
         >

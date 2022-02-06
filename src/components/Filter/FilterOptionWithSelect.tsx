@@ -1,14 +1,14 @@
-import { AccordionPanel, Flex, Tag, TagCloseButton } from "@chakra-ui/react";
-import DropdownSelect from "components/DropdownSelect";
-import React, { useEffect, useState } from "react";
-import { FilterItemProps } from "types";
-import CustomAccordionButton from "./AccordionButton";
+import { AccordionPanel, Flex, Tag, TagCloseButton } from '@chakra-ui/react';
+import DropdownSelect from 'components/DropdownSelect';
+import React, { useEffect, useState } from 'react';
+import { FilterItemProps } from 'types';
+import CustomAccordionButton from './AccordionButton';
 
 const FilterOptionWithSelect = ({
   isExpanded,
   onChange,
-  title = "",
-  selectOptions
+  title = '',
+  selectOptions,
 }: FilterItemProps) => {
   const [selectedOpt, setSelectedAge] = useState<Array<string>>([]);
 
@@ -19,7 +19,7 @@ const FilterOptionWithSelect = ({
   };
 
   const handleRemoveOpt = (removeOpt: string) => {
-    setSelectedAge(selectedOpt.filter((opt) => opt !== removeOpt));
+    setSelectedAge(selectedOpt.filter(opt => opt !== removeOpt));
   };
 
   useEffect(() => {

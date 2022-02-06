@@ -1,13 +1,11 @@
-import Authentication from "modules/Authentication"
-
+import Authentication from 'modules/Authentication';
 
 const Signup = () => {
-
   return (
     <section>
-      <Authentication type='signup' />
+      <Authentication type="signup" />
     </section>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

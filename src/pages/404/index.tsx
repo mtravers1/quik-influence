@@ -1,6 +1,6 @@
-import { Center } from "@chakra-ui/react";
-import NextLink from "components/NextLink";
-import React from "react";
+import { Center } from '@chakra-ui/react';
+import NextLink from 'components/NextLink';
+import React from 'react';
 
 const NotFoundPage = () => {
   return (

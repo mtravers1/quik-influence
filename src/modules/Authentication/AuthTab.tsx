@@ -1,32 +1,26 @@
-import React from "react";
-import { AuthenticationProps } from "./types";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import quikColorConstants from "utils/constants/colorConstants";
-import Login from "./Login";
-import Register from "./Register";
+import React from 'react';
+import { AuthenticationProps } from './types';
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import quikColorConstants from 'utils/constants/colorConstants';
+import Login from './Login';
+import Register from './Register';
 
-
-const CustomTab: React.FC<{title:string}> = ({title}) => (
+const CustomTab: React.FC<{ title: string }> = ({ title }) => (
   <Tab
     color={quikColorConstants.influenceRedWithOpacity}
     _selected={{
       color: quikColorConstants.influenceRed,
-      borderColor: quikColorConstants.influenceRed
+      borderColor: quikColorConstants.influenceRed,
     }}
-    fontSize='xl'
+    fontSize="xl"
   >
     {title}
   </Tab>
-)
+);
 
-
-const AuthTab: React.FC<AuthenticationProps> = ({
-  type
-}) => {
+const AuthTab: React.FC<AuthenticationProps> = ({ type }) => {
   return (
-    <Tabs
-      mt={6}
-    >
+    <Tabs mt={6}>
       <TabList>
         <CustomTab title="Login" />
         <CustomTab title="Sign up" />
@@ -36,12 +30,12 @@ const AuthTab: React.FC<AuthenticationProps> = ({
         <TabPanel padding={0}>
           <Login />
         </TabPanel>
-        <TabPanel  padding={0}>
+        <TabPanel padding={0}>
           <Register />
         </TabPanel>
       </TabPanels>
     </Tabs>
-  )
-}
+  );
+};
 
-export default AuthTab
+export default AuthTab;

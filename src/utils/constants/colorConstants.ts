@@ -1,4 +1,4 @@
-import { Q } from "types";
+import { Q } from 'types';
 
 const quikColorConstants = {
   // Primary

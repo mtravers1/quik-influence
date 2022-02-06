@@ -1,5 +1,3 @@
-
-
 export type AuthenticationProps = {
-  type: 'login' | 'signup'
-}
+  type: 'login' | 'signup';
+};

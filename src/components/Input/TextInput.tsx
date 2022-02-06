@@ -5,10 +5,10 @@ import {
   FormLabel,
   FormLabelProps,
   Input,
-  InputProps
-} from "@chakra-ui/react";
-import React from "react";
-import quikColorConstants from "utils/constants/colorConstants";
+  InputProps,
+} from '@chakra-ui/react';
+import React from 'react';
+import quikColorConstants from 'utils/constants/colorConstants';
 
 type TextInputProps = {
   type: string;
@@ -27,13 +27,13 @@ const TextInput: React.FC<TextInputProps> = ({
   type,
   labelProps,
   TextInputProps,
-  placeholder = "",
+  placeholder = '',
   value,
   handleChange,
   label,
-  inputId = "",
+  inputId = '',
   error,
-  formControlProps
+  formControlProps,
 }) => {
   return (
     <FormControl isInvalid={!!error} {...formControlProps}>

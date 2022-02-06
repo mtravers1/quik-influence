@@ -7,25 +7,25 @@ import { TextInput } from 'components/Input';
 import { useState } from 'react';
 
 const DashboardOverview = () => {
-  const [value, setValue] = useState('')
-  const handleChange = (event: any) => setValue(event.target.value)
+  const [value, setValue] = useState('');
+  const handleChange = (event: any) => setValue(event.target.value);
   const handleDropdownChange = (event: any) => {
-    console.log(event.target.value)
-  }
+    console.log(event.target.value);
+  };
   const selectOptions = [
     {
       label: 'test',
-      value: 'test'
+      value: 'test',
     },
     {
       label: 'atest',
-      value: 'atest'
+      value: 'atest',
     },
     {
       label: 'btest',
-      value: 'btest'
-    }
-  ]
+      value: 'btest',
+    },
+  ];
   return (
     <Box>
       <Box width="275px" m={10}>
@@ -53,18 +53,18 @@ const DashboardOverview = () => {
         <TextInput
           value={value}
           handleChange={handleChange}
-          type='email' placeholder='Email'
-          TextInputProps={{
-          }}
+          type="email"
+          placeholder="Email"
+          TextInputProps={{}}
         />
         <br />
 
         <TextInput
           value={value}
           handleChange={handleChange}
-          type='email' placeholder='Email'
-          TextInputProps={{
-          }}
+          type="email"
+          placeholder="Email"
+          TextInputProps={{}}
           label="POC"
         />
         <br />
@@ -72,9 +72,9 @@ const DashboardOverview = () => {
         <TextInput
           value={value}
           handleChange={handleChange}
-          type='email' placeholder='Email'
-          TextInputProps={{
-          }}
+          type="email"
+          placeholder="Email"
+          TextInputProps={{}}
           label="POC"
           error="Invalid email"
         />
@@ -83,29 +83,30 @@ const DashboardOverview = () => {
           onChange={handleDropdownChange}
           label="Payout Model"
           labelProps={{
-            fontSize:'1.2rem'
+            fontSize: '1.2rem',
           }}
-          options={selectOptions || []} />
-        
-          <br />
-          <DropdownSelect
-            onChange={handleDropdownChange} 
-            selectProps={{
-              height:'4rem',
-              fontSize: '1.4rem'
-            }}
-            options={selectOptions || []} />
-            <br />
-            <DropdownSelect
-              onChange={handleDropdownChange} 
-              selectProps={{
-                height:'4rem',
-                fontSize: '1.4rem'
-              }}
-              error="select one to proceed"
-              options={selectOptions || []} />
-  
+          options={selectOptions || []}
+        />
 
+        <br />
+        <DropdownSelect
+          onChange={handleDropdownChange}
+          selectProps={{
+            height: '4rem',
+            fontSize: '1.4rem',
+          }}
+          options={selectOptions || []}
+        />
+        <br />
+        <DropdownSelect
+          onChange={handleDropdownChange}
+          selectProps={{
+            height: '4rem',
+            fontSize: '1.4rem',
+          }}
+          error="select one to proceed"
+          options={selectOptions || []}
+        />
       </Box>
     </Box>
   );

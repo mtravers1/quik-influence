@@ -10,30 +10,30 @@ import {
   As,
   OmitCommonProps,
   TableCellProps,
-  TableRowProps
-} from "@chakra-ui/react";
-import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
-import { useTable, useSortBy } from "react-table";
-import React from "react";
+  TableRowProps,
+} from '@chakra-ui/react';
+import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
+import { useTable, useSortBy } from 'react-table';
+import React from 'react';
 
 const DataTable = () => {
   const data = React.useMemo(
     () => [
       {
-        fromUnit: "inches",
-        toUnit: "millimetres (mm)",
-        factor: 25.4
+        fromUnit: 'inches',
+        toUnit: 'millimetres (mm)',
+        factor: 25.4,
       },
       {
-        fromUnit: "feet",
-        toUnit: "centimetres (cm)",
-        factor: 30.48
+        fromUnit: 'feet',
+        toUnit: 'centimetres (cm)',
+        factor: 30.48,
       },
       {
-        fromUnit: "yards",
-        toUnit: "metres (m)",
-        factor: 0.91444
-      }
+        fromUnit: 'yards',
+        toUnit: 'metres (m)',
+        factor: 0.91444,
+      },
     ],
     []
   );
@@ -41,18 +41,18 @@ const DataTable = () => {
   const columns = React.useMemo(
     () => [
       {
-        Header: "To convert",
-        accessor: "fromUnit"
+        Header: 'To convert',
+        accessor: 'fromUnit',
       },
       {
-        Header: "Into",
-        accessor: "toUnit"
+        Header: 'Into',
+        accessor: 'toUnit',
       },
       {
-        Header: "Multiply by",
-        accessor: "factor",
-        isNumeric: true
-      }
+        Header: 'Multiply by',
+        accessor: 'factor',
+        isNumeric: true,
+      },
     ],
     []
   );
@@ -62,7 +62,7 @@ const DataTable = () => {
     getTableBodyProps,
     headerGroups,
     rows,
-    prepareRow
+    prepareRow,
     //@ts-ignore
   } = useTable({ columns, data }, useSortBy);
 
@@ -87,14 +87,12 @@ const DataTable = () => {
               headers: any[];
             },
             hdIndex
-          ) =>
+          ) => (
             <Tr key={hdIndex} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(
                 (
                   column: {
-                    getHeaderProps: (
-                      arg0: any
-                    ) => JSX.IntrinsicAttributes &
+                    getHeaderProps: (arg0: any) => JSX.IntrinsicAttributes &
                       OmitCommonProps<
                         React.DetailedHTMLProps<
                           React.ThHTMLAttributes<HTMLTableHeaderCellElement>,
@@ -121,23 +119,27 @@ const DataTable = () => {
                     isSortedDesc: any;
                   },
                   clIndex
-                ) =>
+                ) => (
                   <Th
                     key={clIndex}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     isNumeric={column.isNumeric}
                   >
-                    {column.render("Header")}
+                    {column.render('Header')}
                     <chakra.span pl="4">
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? <TriangleDownIcon aria-label="sorted descending" />
-                          : <TriangleUpIcon aria-label="sorted ascending" />
-                        : null}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <TriangleDownIcon aria-label="sorted descending" />
+                        ) : (
+                          <TriangleUpIcon aria-label="sorted ascending" />
+                        )
+                      ) : null}
                     </chakra.span>
                   </Th>
+                )
               )}
             </Tr>
+          )
         )}
       </Thead>
       <Tbody {...getTableBodyProps()}>
@@ -193,14 +195,15 @@ const DataTable = () => {
                         | undefined;
                     },
                     tdIndex
-                  ) =>
+                  ) => (
                     <Td
                       key={tdIndex}
                       {...cell.getCellProps()}
                       isNumeric={cell.column.isNumeric}
                     >
-                      {cell.render("Cell")}
+                      {cell.render('Cell')}
                     </Td>
+                  )
                 )}
               </Tr>
             );

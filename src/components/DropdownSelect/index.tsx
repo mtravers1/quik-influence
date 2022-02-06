@@ -1,4 +1,11 @@
-import { FormControl, FormErrorMessage, FormLabel, FormLabelProps, Select, SelectProps } from '@chakra-ui/react';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  FormLabelProps,
+  Select,
+  SelectProps,
+} from '@chakra-ui/react';
 import React from 'react';
 import quikColorConstants from 'utils/constants/colorConstants';
 
@@ -15,7 +22,7 @@ interface DropdownSelectProp {
   inputId?: string;
   labelProps?: FormLabelProps;
   selectProps?: SelectProps;
-  error?: string
+  error?: string;
 }
 
 const DropdownSelect = ({
@@ -23,28 +30,28 @@ const DropdownSelect = ({
   label,
   options,
   onChange,
-  inputId='',
+  inputId = '',
   labelProps,
   selectProps,
-  error
+  error,
 }: DropdownSelectProp) => {
   return (
     <FormControl isInvalid={!!error}>
-      {
-        !!label &&
-          <FormLabel
-            fontSize='1.6rem'
-            color={quikColorConstants.black}
-            htmlFor={inputId}
-            {...labelProps}>
-            {label}
-          </FormLabel>
-      }
+      {!!label && (
+        <FormLabel
+          fontSize="1.6rem"
+          color={quikColorConstants.black}
+          htmlFor={inputId}
+          {...labelProps}
+        >
+          {label}
+        </FormLabel>
+      )}
       <Select
         onChange={onChange}
         size={size}
-        border='1px solid #D5D5DC'
-        borderRadius='xl' 
+        border="1px solid #D5D5DC"
+        borderRadius="xl"
         id={inputId}
         placeholder={`Select ${label || '---'}`}
         data-test-id="select-component"
@@ -52,19 +59,17 @@ const DropdownSelect = ({
       >
         {options.map(option => {
           return (
-            <option data-testid="select-option" key={option.value} value={option.value}>
+            <option
+              data-testid="select-option"
+              key={option.value}
+              value={option.value}
+            >
               {option.label}
             </option>
           );
         })}
       </Select>
-      {
-        error &&
-        <FormErrorMessage 
-          fontSize='xl'>
-            {error}
-        </FormErrorMessage>
-      }
+      {error && <FormErrorMessage fontSize="xl">{error}</FormErrorMessage>}
     </FormControl>
   );
 };
