@@ -1,6 +1,6 @@
 import { FormControl, FormErrorMessage, FormLabel, FormLabelProps, Select, SelectProps } from '@chakra-ui/react';
 import React from 'react';
-import quikColorConstants from 'utils/colorConstants';
+import quikColorConstants from 'utils/constants/colorConstants';
 
 type DropdownSelectOption = {
   label: string;
