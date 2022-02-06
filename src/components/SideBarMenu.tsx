@@ -24,7 +24,7 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
     if (!activeMenu) {
       setActiveMenu(_sideBarOptions[0].path);
     }
-  }, []);
+  }, [_sideBarOptions, activeMenu]);
 
   return (
     <Flex flexDirection="column" width="250px" py={10} bgColor={bgColor}>
