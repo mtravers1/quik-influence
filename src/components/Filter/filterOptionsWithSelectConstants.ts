@@ -1,4 +1,4 @@
-export default {
+const filterOptions = {
   status: [
     { label: "Active", value: "active" },
     { label: "Inactive", value: "inactive" },
@@ -22,3 +22,5 @@ export default {
     { label: "ASD Exchange", value: "asd_exchange" }
   ]
 };
+
+export default filterOptions;
