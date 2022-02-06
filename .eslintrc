@@ -51,7 +51,7 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "react/prop-types": "off",
     "no-console": [
-      "error",
+      "warning",
       {
         "allow": ["log", "warn"]
       }

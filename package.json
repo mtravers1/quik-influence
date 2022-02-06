@@ -5,10 +5,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "test": "jest --watch",
     "coverage": "jest --coverage",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "check-types": "tsc --noemit",
+    "eslint": "eslint",
+    "lint": "yarn eslint && yarn check-types"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
