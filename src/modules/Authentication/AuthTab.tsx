@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { AuthenticationProps } from './types';
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
-import quikColorConstants from 'utils/constants/colorConstants';
-import Login from './Login';
-import Register from './Register';
+import React, { useState } from "react";
+import { AuthenticationProps } from "./types";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import quikColorConstants from "utils/constants/colorConstants";
+import Login from "./Login";
+import Register from "./Register";
+import Router, { useRouter } from "next/router";
 
 const CustomTab: React.FC<{ title: string }> = ({ title }) => (
   <Tab
     color={quikColorConstants.influenceRedWithOpacity}
     _selected={{
       color: quikColorConstants.influenceRed,
-      borderColor: quikColorConstants.influenceRed,
+      borderColor: quikColorConstants.influenceRed
     }}
     fontSize="xl"
   >
@@ -19,11 +20,14 @@ const CustomTab: React.FC<{ title: string }> = ({ title }) => (
 );
 
 const AuthTab: React.FC<AuthenticationProps> = ({ type }) => {
-  const [tabIndex, setTabIndex] = useState(type === 'login' ? 0 : 1)
+  const router = useRouter();
+  const [tabIndex, setTabIndex] = useState(type === "login" ? 0 : 1);
 
   const handleTabsChange = (index: any) => {
-    setTabIndex(index)
-  }
+    setTabIndex(index);
+    router.push(`/${index === 0 ? "login" : "signup"}`);
+  };
+
   return (
     <Tabs mt={6} index={tabIndex} onChange={handleTabsChange}>
       <TabList>
@@ -31,7 +35,7 @@ const AuthTab: React.FC<AuthenticationProps> = ({ type }) => {
         <CustomTab title="Sign up" />
       </TabList>
 
-      <TabPanels >
+      <TabPanels>
         <TabPanel padding={0}>
           <Login />
         </TabPanel>
