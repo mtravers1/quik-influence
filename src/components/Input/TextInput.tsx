@@ -6,9 +6,10 @@ import {
   FormLabelProps,
   Input,
   InputProps,
+  useColorMode,
 } from '@chakra-ui/react';
 import React from 'react';
-import quikColorConstants from 'utils/constants/colorConstants';
+import quikColorConstants, { borderThemeColor } from 'utils/constants/colorConstants';
 
 type TextInputProps = {
   type: string;
@@ -35,12 +36,13 @@ const TextInput: React.FC<TextInputProps> = ({
   error,
   formControlProps,
 }) => {
+  const {colorMode} = useColorMode()
   return (
     <FormControl isInvalid={!!error} {...formControlProps}>
       {!!label && (
         <FormLabel
           fontSize="1.6rem"
-          color={quikColorConstants.black}
+          color={colorMode === 'light' ? quikColorConstants.black : '#FFFFFF'}
           htmlFor={inputId}
           data-testid="textInput-label"
           {...labelProps}
@@ -52,7 +54,7 @@ const TextInput: React.FC<TextInputProps> = ({
         type={type}
         value={value}
         onChange={handleChange}
-        border="1px solid #D5D5DC"
+        border={`1px solid ${borderThemeColor[colorMode]}`}
         size="xl"
         p="1rem"
         borderRadius="xl"
