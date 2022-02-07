@@ -1,10 +1,13 @@
+import { Box, useColorMode } from '@chakra-ui/react';
 import Authentication from 'modules/Authentication';
-
+import { bgThemeColor } from 'utils/constants/colorConstants';
 const Signup = () => {
+
+  const { colorMode} = useColorMode()
   return (
-    <section>
+    <Box as='section' bgColor={bgThemeColor[colorMode]}>
       <Authentication type="signup" />
-    </section>
+    </Box>
   );
 };
 
