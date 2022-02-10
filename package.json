@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "test-dev": "jest --watch",
-    "test": "jest",
+    "test": "jest -u",
     "coverage": "jest --coverage",
     "prettier": "npx prettier --write .",
     "check-types": "tsc --noemit",
