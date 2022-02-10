@@ -6,6 +6,7 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faMoneyBillWaveAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import quikColorConstants, {
@@ -59,7 +60,7 @@ const CompanyCard = ({
               margin: 'auto',
             }}
             size="sm"
-            icon={faUser}
+            icon={faUser as IconProp}
           />
           <Text paddingLeft="5px" fontSize="lg" margin="auto">
             {users} Users
@@ -72,7 +73,7 @@ const CompanyCard = ({
               margin: 'auto',
             }}
             size="sm"
-            icon={faUser}
+            icon={faUser as IconProp}
           />
           <Text paddingLeft="5px" fontSize="lg" margin="auto">
             {leads} Leads
@@ -85,7 +86,7 @@ const CompanyCard = ({
               margin: 'auto',
             }}
             size="sm"
-            icon={faMoneyBillWaveAlt}
+            icon={faMoneyBillWaveAlt as IconProp}
           />
           <Text paddingLeft="5px" fontSize="lg" margin="auto">
             {revenue}K

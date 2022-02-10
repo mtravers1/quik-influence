@@ -7,6 +7,7 @@ import { SideBarMenuOptions } from 'modules';
 import { SideBarOptionMenu } from 'types';
 import { useRouter } from 'next/router';
 import { ColorMode } from '@chakra-ui/react';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface SideBarMenuProps {
   bgColor?: string;
@@ -67,7 +68,7 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
                 fontFamily="Avenir"
                 fontWeight="bold"
               >
-                <FontAwesomeIcon icon={icon} /> {name}
+                <FontAwesomeIcon icon={icon as IconProp} /> {name}
               </NextLink>
             </Box>
           );
