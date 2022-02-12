@@ -24,6 +24,3 @@ export interface FilterItemProps {
   selectOptions?: SelectProps[];
 }
 
-export interface BannerProps{
-  
-}
