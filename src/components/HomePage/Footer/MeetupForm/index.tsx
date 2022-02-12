@@ -4,9 +4,9 @@ import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import Input from '../../Input';
 import CustomButton from 'components/Button';
 import useInput from 'hooks/useInput';
-import formdata from 'utils/constants/formData/contactus';
+import formdata from 'utils/constants/formData/meetTeam';
 
-const ContactForm = () => {
+const MeetupForm = () => {
   const { handleChange, inputTypes, handleSubmit, errors } = useInput({
     inputs: formdata.map(data => ({
       name: data.name,
@@ -19,32 +19,28 @@ const ContactForm = () => {
   });
 
   return (
-    <Box
+    <Flex
       display="flex"
-      width="full"
       as="form"
       onSubmit={handleSubmit}
-      flexWrap={{ base: 'wrap', lg: 'unset' }}
+      flexDirection="column"
+      flexGrow={1}
+      alignItems="center"
     >
-      <Flex
-        flexGrow={1}
-        justifyContent="space-between"
-        flexWrap={{ base: 'wrap', lg: 'unset' }}
-      >
+      <Flex flexWrap="wrap" marginBottom={30} justifyContent="space-between">
         {formdata.map((data, i) => (
           <FormControl
             key={`contact_form_${i}`}
-            width={{ base: '100%', lg: '32%' }}
-            maxW={{ base: '100%', md: '300px', lg: 'unset' }}
+            width={{ base: '100%', md: '48%' }}
             isInvalid={errors[data.name]}
             isRequired={data.required}
-            marginBottom={{ base: '10px', lg: 'unset' }}
+            margin="3px 0"
           >
             <Box position={'relative'}>
-              {' '}
               <Input
                 name={data.name}
                 placeholder={data.label}
+                paddingLeft={50}
                 onChange={handleChange}
                 value={inputTypes[data.name]}
                 datatest-id={`test-${data.name}`}
@@ -76,13 +72,13 @@ const ContactForm = () => {
         borderRadius={40}
         maxWidth={320}
         fontSize={14}
-        padding="25px 10px"
-        marginLeft={{ base: 'unset', lg: '50px' }}
+        paddingTop={23}
+        paddingBottom={23}
       >
         CONTACT US
       </CustomButton>
-    </Box>
+    </Flex>
   );
 };
 
-export default ContactForm;
+export default MeetupForm;

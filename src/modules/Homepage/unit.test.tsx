@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
-import Home, { getStaticProps } from '.';
-import data from '../__mockData__/content';
+import Home, { getStaticProps } from '../../pages';
+import data from '../../__mockData__/content';
 
 describe('Home page Tests', () => {
   afterAll(() => {
     jest.resetAllMocks();
-    jest.resetModules();
+    jest.resetModules(); 
   });
 
   test('renders Home Page', () => {
@@ -14,7 +14,7 @@ describe('Home page Tests', () => {
   });
 
   test('getStaticProps shpuld return data', async () => {
-    const staticData = await getStaticProps();
+    const staticData = await getStaticProps({});
 
     expect(staticData.props.pageContent.banner).toEqual(data.homepage.banner);
   });

@@ -1,7 +1,7 @@
 import { useState, SyntheticEvent } from 'react';
 import { validate } from 'utils/helpers';
 
-type input = { name: string; required: boolean };
+type input = { name: string; required?: boolean };
 
 type props = {
   inputs?: input[];
@@ -46,6 +46,8 @@ export default function Input({
 
   const handleSubmit = async (e: SyntheticEvent) => {
     // e.preventDefault();
+
+    console.log('Here')
 
     const requiredKeys = inputs?.reduce((acc: any, input: any) => {
       if (input.required || inputTypes[input.name]) {
@@ -127,6 +129,9 @@ export default function Input({
       const newErrors = { ...errors, [name]: !validate(value, name) };
       newErrors.onSubmit = false;
       newErrors.reset = false;
+
+      console.log(newErrors)
+
       setErrors(newErrors);
     }
 

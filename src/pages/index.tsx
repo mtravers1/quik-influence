@@ -2,23 +2,21 @@ import Head from 'next/head';
 import { InferGetStaticPropsType, GetStaticProps } from 'next';
 import { axiosInstance } from 'utils/helpers';
 import styles from '../styles/Home.module.css';
-import {
-  APP_NAME,
-  HOME_PAGE_NAME,
-  NAV_NAME,
-} from 'utils/constants/pageDataConstants';
+import { APP_NAME, HOME_PAGE_NAME } from 'utils/constants/pageDataConstants';
 import NavBar from 'components/NavBar';
-import EditableWrapper from 'components/EditableWrapper';
-import { Box, Flex } from '@chakra-ui/react';
 import Banner from 'components/HomePage/Banner';
+import Footer from 'components/HomePage/Footer';
+import InfoSec from 'components/HomePage/InfoSec';
 
 type IpageContent = {
   banner: any;
-  nav: any;
+  footer: any;
+  info: any;
 };
 
 const Home = ({
   pageContent,
+  nav,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
@@ -28,26 +26,23 @@ const Home = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <NavBar links={pageContent.nav[0].content.navLinks} />
-        <Banner banner={pageContent.banner[0].content} />
+        <NavBar links={nav[0].content.navLinks} />
+        <Banner banner={pageContent.banner} />
+        <InfoSec info={pageContent.info} />
+        <Footer footer={pageContent.footer} />
       </main>
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const banner = await axiosInstance.get(
+  const content = await axiosInstance.get(
     `/content?resource=${APP_NAME}&page=${HOME_PAGE_NAME}`
   );
-
-  const nav = await axiosInstance.get(
-    `/content?resource=${APP_NAME}&page=${NAV_NAME}`
+  const pageContent: IpageContent = content.data.data.reduce(
+    (acc: any, cur: any) => ({ ...acc, [cur.type]: cur }),
+    {}
   );
-
-  const pageContent: IpageContent = {
-    banner: banner.data.data,
-    nav: nav.data.data,
-  };
 
   return {
     props: {

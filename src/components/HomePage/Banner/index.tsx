@@ -2,12 +2,14 @@ import EditableWrapper from 'components/EditableWrapper';
 import Section from '../Section';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import ContactForm from './ContactForm';
+import { css } from '@emotion/react';
 
 const Banner = ({ banner }: { banner: any }) => {
   return (
     <Section
       background={`linear-gradient(to right, #000 50%, transparent), right / cover no-repeat url("/homepage.jpg")`}
-      paddingTop="173px"
+      padding={{ base: '200px 15px 50px', lg: '173px 15px 0' }}
+      h={{ base: 'unset', lg: '100vh' }}
     >
       <Box
         w="100%"
@@ -25,9 +27,21 @@ const Banner = ({ banner }: { banner: any }) => {
         direction="column"
         h="100%"
       >
-        <Flex justifyContent="space-between" marginBottom={90}>
-          <Box width="55%">
-            <EditableWrapper sectionId="">
+        <Flex
+          justifyContent="space-between"
+          alignItems="center"
+          marginBottom={{ lg: '90px', base: '40px' }}
+          direction={{ base: 'column', lg: 'row' }}
+        >
+          <Box
+            width={{ base: '100%', lg: '55%' }}
+            marginBottom={{ lg: 0, base: '40px' }}
+          >
+            <EditableWrapper
+              sectionId="sub_header"
+              data={banner}
+              sectionName="banner"
+            >
               <Box
                 as="h3"
                 color="white"
@@ -37,28 +51,52 @@ const Banner = ({ banner }: { banner: any }) => {
                 fontWeight="bold"
                 marginBottom="24px"
               >
-                {banner.sub_header}
+                {banner.content.sub_header}
               </Box>
             </EditableWrapper>
-            <EditableWrapper sectionId="">
+            <EditableWrapper
+              sectionId="header"
+              data={banner}
+              sectionName="banner"
+            >
               <Box
                 as="h1"
                 color="white"
-                fontSize="76px"
+                fontSize={{ base: '30px', lg: '50px', xl: '76px' }}
                 marginBottom="15px"
-                fontWeight="bold"
+                fontWeight="500"
               >
-                {banner.header}
+                {banner.content.header}
               </Box>
             </EditableWrapper>
 
-            <EditableWrapper sectionId="">
-              <Box as="p" color="white" fontSize="18px">
-                {banner.header_desc}
+            <EditableWrapper
+              sectionId="header_desc"
+              data={banner}
+              sectionName="banner"
+            >
+              <Box
+                as="p"
+                color="white"
+                fontSize={{ base: '15px', lg: '16px', xl: '18px' }}
+                textAlign={{ base: 'justify', sm: 'left' }}
+                whiteSpace={{ base: 'pre-line', md: 'unset' }}
+                css={css`
+                  & {
+                    hyphens: auto;
+                  }
+                `}
+              >
+                {banner.content.header_desc}
               </Box>
             </EditableWrapper>
           </Box>
-          <Box width="38%" border="4px solid red">
+
+          <Box
+            width={{ base: '100%', lg: '38%' }}
+            border="4px solid red"
+            height="fit-content"
+          >
             <Image
               src="/homepage.jpg"
               alt="Homepage"
