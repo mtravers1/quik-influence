@@ -22,3 +22,7 @@ export interface FilterItemProps {
   title?: string;
   selectOptions?: SelectProps[];
 }
+
+export interface BannerProps{
+  
+}
