@@ -1,9 +1,9 @@
-import { MinusIcon, AddIcon } from "@chakra-ui/icons";
-import { AccordionButton, Box } from "@chakra-ui/react";
+import { MinusIcon, AddIcon } from '@chakra-ui/icons';
+import { AccordionButton, Box } from '@chakra-ui/react';
 
 const CustomAccordionButton = ({
   label,
-  isExpanded
+  isExpanded,
 }: {
   label: string;
   isExpanded: boolean;
@@ -19,9 +19,11 @@ const CustomAccordionButton = ({
         >
           {label}
         </Box>
-        {isExpanded
-          ? <MinusIcon fontSize="12px" />
-          : <AddIcon fontSize="12px" />}
+        {isExpanded ? (
+          <MinusIcon fontSize="12px" />
+        ) : (
+          <AddIcon fontSize="12px" />
+        )}
       </AccordionButton>
     </h2>
   );

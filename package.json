@@ -5,15 +5,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "jest --watch",
+    "test-dev": "jest --watch",
+    "test": "jest -u",
     "coverage": "jest --coverage",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "check-types": "tsc --noemit",
+    "eslint": "eslint",
+    "lint": "yarn eslint && yarn check-types",
+    "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.8.1",
-    "@emotion/react": "^11",
+    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -36,10 +40,13 @@
     "@types/node": "17.0.13",
     "@types/react": "17.0.38",
     "@types/react-table": "^7.7.9",
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
     "eslint": "8.7.0",
     "eslint-config-next": "12.0.9",
+    "eslint-plugin-prettier": "^4.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.7",
+    "prettier": "^2.5.1",
     "typescript": "4.5.5"
   }
 }

@@ -1,15 +1,15 @@
-import {
-  AccordionPanel,
-  Flex,
-  Tag,
-  TagCloseButton,
-} from '@chakra-ui/react';
+import { AccordionPanel, Flex, Tag, TagCloseButton } from '@chakra-ui/react';
 import DropdownSelect from 'components/DropdownSelect';
 import React, { useEffect, useState } from 'react';
 import { FilterItemProps } from 'types';
 import CustomAccordionButton from './AccordionButton';
 
-const FilterOptionWithSelect = ({ isExpanded, onChange, title = '', selectOptions }: FilterItemProps) => {
+const FilterOptionWithSelect = ({
+  isExpanded,
+  onChange,
+  title = '',
+  selectOptions,
+}: FilterItemProps) => {
   const [selectedOpt, setSelectedAge] = useState<Array<string>>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -30,10 +30,8 @@ const FilterOptionWithSelect = ({ isExpanded, onChange, title = '', selectOption
     <>
       <CustomAccordionButton label={title} isExpanded={isExpanded} />
       <AccordionPanel pl="unset" pb={4}>
-        <DropdownSelect
-          onChange={handleChange}
-          options={selectOptions || []}
-        />
+        <DropdownSelect onChange={handleChange} options={selectOptions || []} />
+        {/* @ts-ignore */}
         <Flex flexWrap="wrap" spacing={4} mt={5}>
           {selectedOpt &&
             selectedOpt.map((opt, index) => (
@@ -45,7 +43,10 @@ const FilterOptionWithSelect = ({ isExpanded, onChange, title = '', selectOption
                 colorScheme="blackAlpha"
               >
                 {opt}
-                <TagCloseButton data-test-id="remove-opt" onClick={() => handleRemoveOpt(opt)} />
+                <TagCloseButton
+                  data-test-id="remove-opt"
+                  onClick={() => handleRemoveOpt(opt)}
+                />
               </Tag>
             ))}
         </Flex>

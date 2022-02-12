@@ -38,9 +38,10 @@ const CustomButton: React.FC<CustomButtonPropType> = ({
           _active={{
             bgColor: quikColorConstants.influenceRedWithOpacity,
           }}
-          children={children}
           {...props}
-        />
+        >
+          {children}
+        </BaseButton>
       );
     case 'gray':
       return (
@@ -52,9 +53,10 @@ const CustomButton: React.FC<CustomButtonPropType> = ({
             bgColor: quikColorConstants.white,
             border: '1px solid #696974',
           }}
-          children={children}
           {...props}
-        />
+        >
+          {children}
+        </BaseButton>
       );
     default:
       return (
@@ -67,9 +69,10 @@ const CustomButton: React.FC<CustomButtonPropType> = ({
           _active={{
             bgColor: quikColorConstants.influenceRedWithOpacity,
           }}
-          children={children}
           {...props}
-        />
+        >
+          {children}
+        </BaseButton>
       );
   }
 };

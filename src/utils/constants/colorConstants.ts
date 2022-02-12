@@ -1,3 +1,5 @@
+import { Q } from 'types';
+
 const quikColorConstants = {
   // Primary
   greyPrimary: '#fafafb',
@@ -12,20 +14,20 @@ const quikColorConstants = {
   influenceRedWithOpacity: '#FC5A5A',
 };
 
-export const bgThemeColor = { light: '#FAFAFB', dark: 'gray.800' };
-export const themeColor = { light: 'black', dark: 'white' };
+export const bgThemeColor: Q = { light: '#FAFAFB', dark: 'gray.800' };
+export const themeColor: Q = { light: 'black', dark: 'white' };
 
-export const sidebarBg = {
+export const sidebarBg: Q = {
   light: quikColorConstants.greyLight,
   dark: quikColorConstants.greyDarker,
 };
 
-export const borderThemeColor = {
+export const borderThemeColor: Q = {
   light: quikColorConstants.greyDarker,
   dark: quikColorConstants.greyLight,
 };
 
-export const cardThemeColor = {
+export const cardThemeColor: Q = {
   light: quikColorConstants.white,
   dark: quikColorConstants.greyDarker,
 };

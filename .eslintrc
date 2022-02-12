@@ -33,6 +33,8 @@
     }
   },
   "rules": {
+    "react-hooks/exhaustive-deps": false,
+    "react/no-unescaped-entities": 0,
     "prettier/prettier": "error",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -49,7 +51,7 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "react/prop-types": "off",
     "no-console": [
-      "error",
+      "warning",
       {
         "allow": ["log", "warn"]
       }

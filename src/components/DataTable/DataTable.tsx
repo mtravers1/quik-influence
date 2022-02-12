@@ -70,51 +70,58 @@ const DataTable = () => {
     <Table {...getTableProps()}>
       <Thead>
         {headerGroups.map(
-          (headerGroup: {
-            getHeaderGroupProps: () => JSX.IntrinsicAttributes &
-              OmitCommonProps<
-                React.DetailedHTMLProps<
-                  React.HTMLAttributes<HTMLTableRowElement>,
-                  HTMLTableRowElement
-                >,
-                keyof TableRowProps
-              > &
-              TableRowProps &
-              OmitCommonProps<any, keyof TableRowProps> & {
-                as?: As<any> | undefined;
-              };
-            headers: any[];
-          }) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
+          (
+            headerGroup: {
+              getHeaderGroupProps: () => JSX.IntrinsicAttributes &
+                OmitCommonProps<
+                  React.DetailedHTMLProps<
+                    React.HTMLAttributes<HTMLTableRowElement>,
+                    HTMLTableRowElement
+                  >,
+                  keyof TableRowProps
+                > &
+                TableRowProps &
+                OmitCommonProps<any, keyof TableRowProps> & {
+                  as?: As<any> | undefined;
+                };
+              headers: any[];
+            },
+            hdIndex
+          ) => (
+            <Tr key={hdIndex} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(
-                (column: {
-                  getHeaderProps: (arg0: any) => JSX.IntrinsicAttributes &
-                    OmitCommonProps<
-                      React.DetailedHTMLProps<
-                        React.ThHTMLAttributes<HTMLTableHeaderCellElement>,
-                        HTMLTableHeaderCellElement
-                      >,
-                      keyof TableColumnHeaderProps
-                    > &
-                    TableColumnHeaderProps &
-                    OmitCommonProps<any, keyof TableColumnHeaderProps> & {
-                      as?: As<any> | undefined;
-                    };
-                  getSortByToggleProps: () => any;
-                  isNumeric: boolean | undefined;
-                  render: (
-                    arg0: string
-                  ) =>
-                    | boolean
-                    | React.ReactChild
-                    | React.ReactFragment
-                    | React.ReactPortal
-                    | null
-                    | undefined;
-                  isSorted: any;
-                  isSortedDesc: any;
-                }) => (
+                (
+                  column: {
+                    getHeaderProps: (arg0: any) => JSX.IntrinsicAttributes &
+                      OmitCommonProps<
+                        React.DetailedHTMLProps<
+                          React.ThHTMLAttributes<HTMLTableHeaderCellElement>,
+                          HTMLTableHeaderCellElement
+                        >,
+                        keyof TableColumnHeaderProps
+                      > &
+                      TableColumnHeaderProps &
+                      OmitCommonProps<any, keyof TableColumnHeaderProps> & {
+                        as?: As<any> | undefined;
+                      };
+                    getSortByToggleProps: () => any;
+                    isNumeric: boolean | undefined;
+                    render: (
+                      arg0: string
+                    ) =>
+                      | boolean
+                      | React.ReactChild
+                      | React.ReactFragment
+                      | React.ReactPortal
+                      | null
+                      | undefined;
+                    isSorted: any;
+                    isSortedDesc: any;
+                  },
+                  clIndex
+                ) => (
                   <Th
+                    key={clIndex}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     isNumeric={column.isNumeric}
                   >
@@ -137,53 +144,60 @@ const DataTable = () => {
       </Thead>
       <Tbody {...getTableBodyProps()}>
         {rows.map(
-          (row: {
-            getRowProps: () => JSX.IntrinsicAttributes &
-              OmitCommonProps<
-                React.DetailedHTMLProps<
-                  React.HTMLAttributes<HTMLTableRowElement>,
-                  HTMLTableRowElement
-                >,
-                keyof TableRowProps
-              > &
-              TableRowProps &
-              OmitCommonProps<any, keyof TableRowProps> & {
-                as?: As<any> | undefined;
-              };
-            cells: any[];
-          }) => {
+          (
+            row: {
+              getRowProps: () => JSX.IntrinsicAttributes &
+                OmitCommonProps<
+                  React.DetailedHTMLProps<
+                    React.HTMLAttributes<HTMLTableRowElement>,
+                    HTMLTableRowElement
+                  >,
+                  keyof TableRowProps
+                > &
+                TableRowProps &
+                OmitCommonProps<any, keyof TableRowProps> & {
+                  as?: As<any> | undefined;
+                };
+              cells: any[];
+            },
+            trIndex
+          ) => {
             //@ts-ignore
             prepareRow(row);
             return (
-              <Tr {...row.getRowProps()}>
+              <Tr key={trIndex} {...row.getRowProps()}>
                 {row.cells.map(
-                  (cell: {
-                    getCellProps: () => JSX.IntrinsicAttributes &
-                      OmitCommonProps<
-                        React.DetailedHTMLProps<
-                          React.TdHTMLAttributes<HTMLTableDataCellElement>,
-                          HTMLTableDataCellElement
-                        >,
-                        keyof TableCellProps
-                      > &
-                      TableCellProps &
-                      OmitCommonProps<any, keyof TableCellProps> & {
-                        as?: As<any> | undefined;
+                  (
+                    cell: {
+                      getCellProps: () => JSX.IntrinsicAttributes &
+                        OmitCommonProps<
+                          React.DetailedHTMLProps<
+                            React.TdHTMLAttributes<HTMLTableDataCellElement>,
+                            HTMLTableDataCellElement
+                          >,
+                          keyof TableCellProps
+                        > &
+                        TableCellProps &
+                        OmitCommonProps<any, keyof TableCellProps> & {
+                          as?: As<any> | undefined;
+                        };
+                      column: {
+                        isNumeric: boolean | undefined;
                       };
-                    column: {
-                      isNumeric: boolean | undefined;
-                    };
-                    render: (
-                      arg0: string
-                    ) =>
-                      | boolean
-                      | React.ReactChild
-                      | React.ReactFragment
-                      | React.ReactPortal
-                      | null
-                      | undefined;
-                  }) => (
+                      render: (
+                        arg0: string
+                      ) =>
+                        | boolean
+                        | React.ReactChild
+                        | React.ReactFragment
+                        | React.ReactPortal
+                        | null
+                        | undefined;
+                    },
+                    tdIndex
+                  ) => (
                     <Td
+                      key={tdIndex}
                       {...cell.getCellProps()}
                       isNumeric={cell.column.isNumeric}
                     >
