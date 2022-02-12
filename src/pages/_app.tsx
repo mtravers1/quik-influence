@@ -18,22 +18,14 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
 }
 
 QuikInfluenceApp.getInitialProps = async () => {
-  // console.log(req, res);
-
-  // const cookies = new Cookies(req, res);
-  // const staicCoookie = cookies.get('jayne-static');
-
-  // console.log(staicCoookie);
-
   if (typeof window === 'undefined') {
     let nav:any;
 
     try {
-      const nav = await axiosInstance.get(
+       nav = await axiosInstance.get(
         `/content?resource=${APP_NAME}&page=${NAV_NAME}`
       );
     } catch (err) {
-      //
     }
 
     return {
