@@ -17,7 +17,7 @@ const EditableWrapper: FC<{ children: ReactElement; sectionId: string }> = ({
   children,
   sectionId,
 }) => {
-  const [editing, setEditing] = useState({ edit: true, close: true });
+  const [editing, setEditing] = useState({ edit: false, close: false });
   const [loading, setLoading] = useState(false);
   const startEditing = () => {
     setEditing({ edit: true, close: true });
@@ -34,17 +34,16 @@ const EditableWrapper: FC<{ children: ReactElement; sectionId: string }> = ({
   };
 
   return (
-    <Box
-      onClick={startEditing}
-      tabIndex={-1}
-      onBlur={finishEditing}
-      position="relative"
-    >
+    <Box position="relative">
       <Flex
         css={styles}
         transition="0.3s ease"
         opacity={editing.edit ? '1' : '0'}
-        top={editing.edit ? '5px' : '0'}
+        top={editing.edit ? '-30px' : '0'}
+        background="white"
+        mixBlendMode="difference"
+        padding="5px"
+        backdropFilter="blur(2px)"
       >
         {editing.edit && (
           <FontAwesomeIcon
@@ -69,6 +68,9 @@ const EditableWrapper: FC<{ children: ReactElement; sectionId: string }> = ({
         ...children.props,
         id: sectionId,
         contentEditable: editing.edit,
+        tabIndex: -1,
+        onBlur: finishEditing,
+        onClick: startEditing,
       })}
     </Box>
   );
