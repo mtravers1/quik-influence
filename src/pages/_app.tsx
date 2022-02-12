@@ -3,8 +3,11 @@ import '../styles/404.css';
 import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from "react-query";
-import theme from '../styles/theme';
 import Fonts from 'utils/Fonts';
+import { axiosInstance } from 'utils/helpers';
+import theme from '../styles/theme';
+import { wrapper } from '../store';
+import { APP_NAME, NAV_NAME } from 'utils/constants/pageDataConstants';
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -24,4 +27,25 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default QuikInfluenceApp;
+QuikInfluenceApp.getInitialProps = async () => {
+  if (typeof window === 'undefined') {
+    let nav:any;
+
+    try {
+       nav = await axiosInstance.get(
+        `/content?resource=${APP_NAME}&page=${NAV_NAME}`
+      );
+    } catch (err) {
+    }
+
+    return {
+      pageProps: {
+        nav: nav.data.data,
+      },
+    };
+  }
+
+  return {};
+};
+
+export default wrapper.withRedux(QuikInfluenceApp);
