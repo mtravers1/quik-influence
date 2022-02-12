@@ -12,6 +12,7 @@ import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import OverviewSkeletonLoaders from "components/SkeletonLoaders";
 import React from "react";
 import { cardThemeColor } from "utils/constants/colorConstants";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const DashboardOverview = () => {
   const { colorMode } = useColorMode();
@@ -48,7 +49,7 @@ const DashboardOverview = () => {
                   <IconButton
                     aria-label="menu options"
                     variant="ghost"
-                    icon={<FontAwesomeIcon icon={faEllipsisH} />}
+                    icon={<FontAwesomeIcon icon={faEllipsisH as IconProp} />}
                   />
                 </Flex>
                 <Box w="500px">
@@ -80,7 +81,7 @@ const DashboardOverview = () => {
                   <IconButton
                     aria-label="menu options"
                     variant="ghost"
-                    icon={<FontAwesomeIcon icon={faEllipsisH} />}
+                    icon={<FontAwesomeIcon icon={faEllipsisH as IconProp} />}
                   />
                 </Flex>
                 <Box>
@@ -112,7 +113,7 @@ const DashboardOverview = () => {
                   <IconButton
                     aria-label="menu options"
                     variant="ghost"
-                    icon={<FontAwesomeIcon icon={faEllipsisH} />}
+                    icon={<FontAwesomeIcon icon={faEllipsisH as IconProp} />}
                   />
                 </Flex>
                 <Box>
@@ -144,7 +145,7 @@ const DashboardOverview = () => {
                   <IconButton
                     aria-label="menu options"
                     variant="ghost"
-                    icon={<FontAwesomeIcon icon={faEllipsisH} />}
+                    icon={<FontAwesomeIcon icon={faEllipsisH as IconProp} />}
                   />
                 </Flex>
                 <Box>
@@ -176,7 +177,7 @@ const DashboardOverview = () => {
                   <IconButton
                     aria-label="menu options"
                     variant="ghost"
-                    icon={<FontAwesomeIcon icon={faEllipsisH} />}
+                    icon={<FontAwesomeIcon icon={faEllipsisH as IconProp} />}
                   />
                 </Flex>
                 <Box>
