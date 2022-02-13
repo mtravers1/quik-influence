@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="#">Quik Influence!</a>
+          Welcome to <a href="#">Quik Influence!TEST</a>
         </h1>
 
         <p className={styles.description}>Get started by logging in </p>
