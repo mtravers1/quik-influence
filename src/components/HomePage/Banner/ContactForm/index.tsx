@@ -5,6 +5,7 @@ import Input from '../../Input';
 import CustomButton from 'components/Button';
 import useInput from 'hooks/useInput';
 import formdata from 'utils/constants/formData/contactus';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const ContactForm = () => {
   const { handleChange, inputTypes, handleSubmit, errors } = useInput({
