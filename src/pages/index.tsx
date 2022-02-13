@@ -3,6 +3,7 @@ import { InferGetStaticPropsType, GetStaticProps } from 'next';
 import { axiosInstance } from 'utils/helpers';
 import styles from '../styles/Home.module.css';
 import { APP_NAME, HOME_PAGE_NAME } from 'utils/constants/pageDataConstants';
+import { CONTENT_URL } from 'utils/constants';
 import NavBar from 'components/NavBar';
 import Banner from 'components/HomePage/Banner';
 import Footer from 'components/HomePage/Footer';
@@ -37,7 +38,7 @@ const Home = ({
 
 export const getStaticProps: GetStaticProps = async () => {
   const content = await axiosInstance.get(
-    `/content?resource=${APP_NAME}&page=${HOME_PAGE_NAME}`
+    `${CONTENT_URL}?resource=${APP_NAME}&page=${HOME_PAGE_NAME}`
   );
   const pageContent: IpageContent = content.data.data.reduce(
     (acc: any, cur: any) => ({ ...acc, [cur.type]: cur }),

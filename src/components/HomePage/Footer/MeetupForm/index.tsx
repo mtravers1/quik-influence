@@ -22,7 +22,6 @@ const MeetupForm = () => {
     <Flex
       display="flex"
       as="form"
-      onSubmit={handleSubmit}
       flexDirection="column"
       flexGrow={1}
       alignItems="center"
@@ -74,6 +73,7 @@ const MeetupForm = () => {
         fontSize={14}
         paddingTop={23}
         paddingBottom={23}
+        onClick={handleSubmit}
       >
         CONTACT US
       </CustomButton>

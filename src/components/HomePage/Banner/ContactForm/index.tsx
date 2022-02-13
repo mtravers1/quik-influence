@@ -23,7 +23,6 @@ const ContactForm = () => {
       display="flex"
       width="full"
       as="form"
-      onSubmit={handleSubmit}
       flexWrap={{ base: 'wrap', lg: 'unset' }}
     >
       <Flex
@@ -78,6 +77,7 @@ const ContactForm = () => {
         fontSize={14}
         padding="25px 10px"
         marginLeft={{ base: 'unset', lg: '50px' }}
+        onClick={handleSubmit}
       >
         CONTACT US
       </CustomButton>

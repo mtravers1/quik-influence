@@ -5,7 +5,11 @@ import EditableWrapper from '.';
 describe('Editable Wrapper tests', () => {
   test('Should render with the given text', () => {
     render(
-      <EditableWrapper sectionId="test-section">
+      <EditableWrapper
+        sectionId="desc"
+        data={{ content: { desc: 'Thisis a text node' } }}
+        sectionName="info"
+      >
         <p>This is a text node</p>
       </EditableWrapper>
     );

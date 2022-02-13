@@ -1,13 +1,14 @@
 const mockAxios: any = jest.genMockFromModule('axios');
-import data from '../__mockData__/content';
+import { homepageContent } from '../__mockData__/content';
+import { CONTENT_URL } from 'utils/constants';
 
 export const getMocks = (url: string) => {
   return new Promise(resolve => {
     const path = url.split('?')[0];
     switch (path) {
-      case '/content': {
+      case CONTENT_URL: {
         return resolve({
-          data: data.homepage.banner,
+          data: { data: homepageContent },
         });
       }
       default: {

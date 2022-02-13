@@ -47,8 +47,6 @@ export default function Input({
   const handleSubmit = async (e: SyntheticEvent) => {
     // e.preventDefault();
 
-    console.log('Here')
-
     const requiredKeys = inputs?.reduce((acc: any, input: any) => {
       if (input.required || inputTypes[input.name]) {
         return { ...acc, [input.name]: inputTypes[input.name] };
@@ -129,8 +127,6 @@ export default function Input({
       const newErrors = { ...errors, [name]: !validate(value, name) };
       newErrors.onSubmit = false;
       newErrors.reset = false;
-
-      console.log(newErrors)
 
       setErrors(newErrors);
     }
