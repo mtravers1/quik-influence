@@ -5,6 +5,7 @@ import Input from '../../Input';
 import CustomButton from 'components/Button';
 import useInput from 'hooks/useInput';
 import formdata from 'utils/constants/formData/meetTeam';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const MeetupForm = () => {
   const { handleChange, inputTypes, handleSubmit, errors } = useInput({
@@ -53,7 +54,7 @@ const MeetupForm = () => {
                   transform: 'translateY(-50%)',
                   zIndex: 1,
                 }}
-                icon={data.icon}
+                icon={data.icon as IconProp}
                 color="red"
               />
             </Box>

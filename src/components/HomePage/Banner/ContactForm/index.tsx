@@ -57,7 +57,7 @@ const ContactForm = () => {
                   transform: 'translateY(-50%)',
                   zIndex: 1,
                 }}
-                icon={data.icon}
+                icon={data.icon as IconProp}
                 color="red"
               />
             </Box>

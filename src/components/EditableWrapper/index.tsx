@@ -2,6 +2,7 @@ import { useState, FC, cloneElement, ReactElement } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faXRay } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import loader from 'assets/loader.gif';
 import { css } from '@emotion/react';
 import Image from 'next/image';
@@ -91,14 +92,14 @@ const EditableWrapper: FC<{
               width: '20px',
               fontWeight: 300,
             }}
-            icon={faCheck}
+            icon={faCheck as IconProp}
           />
         )}
         <FontAwesomeIcon
           style={{
             width: '20px',
           }}
-          icon={faXRay}
+          icon={faXRay as IconProp}
         />
         {loading && <Image src={loader} alt="loader" width={30} height={30} />}
       </Flex>
