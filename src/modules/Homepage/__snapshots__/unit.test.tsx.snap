@@ -1,0 +1,1008 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page Tests renders Home Page 1`] = `
+<div>
+  <main
+    class="main"
+  >
+    <header
+      class="css-k9u1u2"
+    >
+      <nav
+        class="css-1dldq37"
+      >
+        <div
+          class="css-1i3qxgd"
+        >
+          <div
+            class="css-1sylyko"
+          >
+            Get help for this site or any of our apps with -
+          </div>
+          <div
+            class="css-1igu7p5"
+          >
+            <div
+              class="css-j5b9iu"
+            >
+              QUIK ASSISTANT
+            </div>
+            <a
+              class="chakra-link css-1v994a0"
+              href="/video-help"
+            >
+              <button
+                class="chakra-button css-2awih0"
+                type="button"
+              >
+                Get Video Help
+              </button>
+            </a>
+            <a
+              class="chakra-link css-0"
+              href="/text-help"
+            >
+              <button
+                class="chakra-button css-2awih0"
+                type="button"
+              >
+                Get Text Help
+              </button>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div
+            class="css-eqo9nf"
+          >
+            <div
+              class="css-ncghwh"
+            >
+              <img
+                alt="logo"
+                class="chakra-image css-1kr8y19"
+                src="/logo-white.png"
+              />
+              <div
+                class="css-1e9igf2"
+              >
+                <div
+                  class="css-0"
+                >
+                  <a
+                    class="chakra-link css-0"
+                    href="/"
+                    style="color: red;"
+                  >
+                    Home
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <section
+      class="css-1aw2lrc"
+    >
+      <div
+        class="css-6m9kzq"
+      />
+      <div
+        class="css-p7r2ak"
+      >
+        <div
+          class="css-1fzwqmz"
+        >
+          <div
+            class="css-1sufl1u"
+          >
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="css-ux3rt2"
+                contenteditable="false"
+                id="banner_sub_header"
+                tabindex="-1"
+              >
+                QUIK INFLUENCE THE CAPABLE CRM
+              </h3>
+            </div>
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <h1
+                class="css-e30yqx"
+                contenteditable="false"
+                id="banner_header"
+                tabindex="-1"
+              >
+                Find your customer with Quik Influence
+              </h1>
+            </div>
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-kwm4yt"
+                contenteditable="false"
+                id="banner_header_desc"
+                tabindex="-1"
+              >
+                QuikInfluence is a new cutting-edge media publisher. With its foundation built on partnerships with many of the largest influencers on social media and a network of over a dozen proprietary apps, our data feeds and ad placement options are not found anywhere else. Add in some revolutionary technology collaborations and it’s everything you’ve been waiting for in online marketing! Official launch scheduled for late March 2022, stay turned for more details. Can’t wait until the launch? Please contact our partners at Email Agency for more info on our platform at 561-899-0712 or Amie@emailagency.com
+              </p>
+            </div>
+          </div>
+          <div
+            class="css-fvtyyp"
+          >
+            <img
+              alt="Homepage"
+              class="chakra-image css-bh4wo8"
+              src="/homepage.jpg"
+            />
+          </div>
+        </div>
+        <form
+          class="css-1x7pkf7"
+        >
+          <div
+            class="css-126pau8"
+          >
+            <div
+              class="chakra-form-control css-1ovjf9q"
+              role="group"
+            >
+              <div
+                class="css-79elbk"
+              >
+                 
+                <input
+                  aria-required="true"
+                  class="chakra-input css-33e2gg"
+                  datatest-id="test-name"
+                  id="field-1"
+                  name="name"
+                  placeholder="Your Name"
+                  required=""
+                  value=""
+                />
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-user fa-w-14 "
+                  color="red"
+                  data-icon="user"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                  viewBox="0 0 448 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              
+            </div>
+            <div
+              class="chakra-form-control css-1ovjf9q"
+              role="group"
+            >
+              <div
+                class="css-79elbk"
+              >
+                 
+                <input
+                  aria-required="true"
+                  class="chakra-input css-33e2gg"
+                  datatest-id="test-phoneNumber"
+                  id="field-2"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  required=""
+                  value=""
+                />
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-phone fa-w-16 "
+                  color="red"
+                  data-icon="phone"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              
+            </div>
+            <div
+              class="chakra-form-control css-1ovjf9q"
+              role="group"
+            >
+              <div
+                class="css-79elbk"
+              >
+                 
+                <input
+                  aria-required="true"
+                  class="chakra-input css-33e2gg"
+                  datatest-id="test-email"
+                  id="field-3"
+                  name="email"
+                  placeholder="Your Email Address"
+                  required=""
+                  value=""
+                />
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-mail-bulk fa-w-18 "
+                  color="red"
+                  data-icon="mail-bulk"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                  viewBox="0 0 576 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M160 448c-25.6 0-51.2-22.4-64-32-64-44.8-83.2-60.8-96-70.4V480c0 17.67 14.33 32 32 32h256c17.67 0 32-14.33 32-32V345.6c-12.8 9.6-32 25.6-96 70.4-12.8 9.6-38.4 32-64 32zm128-192H32c-17.67 0-32 14.33-32 32v16c25.6 19.2 22.4 19.2 115.2 86.4 9.6 6.4 28.8 25.6 44.8 25.6s35.2-19.2 44.8-22.4c92.8-67.2 89.6-67.2 115.2-86.4V288c0-17.67-14.33-32-32-32zm256-96H224c-17.67 0-32 14.33-32 32v32h96c33.21 0 60.59 25.42 63.71 57.82l.29-.22V416h192c17.67 0 32-14.33 32-32V192c0-17.67-14.33-32-32-32zm-32 128h-64v-64h64v64zm-352-96c0-35.29 28.71-64 64-64h224V32c0-17.67-14.33-32-32-32H96C78.33 0 64 14.33 64 32v192h96v-32z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              
+            </div>
+          </div>
+          <button
+            class="chakra-button css-ht105s"
+            type="button"
+          >
+            CONTACT US
+          </button>
+        </form>
+      </div>
+    </section>
+    <section
+      class="css-15a0p7b"
+    >
+      <div
+        class="css-p7r2ak"
+      >
+        <div
+          class="css-79elbk"
+        >
+          <div
+            class="css-1lx80g1"
+          >
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-x-ray fa-w-20 "
+              data-icon="x-ray"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style="width: 20px;"
+              viewBox="0 0 640 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <h2
+            class="css-1tpxf1l"
+            contenteditable="false"
+            id="info_header"
+            tabindex="-1"
+          >
+            Our Specialized apps and services make customer acquisition easy
+          </h2>
+        </div>
+        <div
+          class="css-79elbk"
+        >
+          <div
+            class="css-1lx80g1"
+          >
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-x-ray fa-w-20 "
+              data-icon="x-ray"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style="width: 20px;"
+              viewBox="0 0 640 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <p
+            class="css-1h356hx"
+            contenteditable="false"
+            id="info_sub_header"
+            tabindex="-1"
+          >
+            We craft unique digital experiences, Because of this we have an endless supply of leads all organic and verified.
+          </p>
+        </div>
+        <div
+          class="css-b69u32"
+        >
+          <div
+            class="css-9chr40"
+          >
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="css-1mws978"
+                contenteditable="false"
+                id="info_cards__0__header"
+                tabindex="-1"
+              >
+                Industry Experts
+              </h3>
+            </div>
+            <img
+              class="chakra-image css-20teaf"
+              src="/icon.png"
+            />
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1yxu09j"
+                contenteditable="false"
+                id="info_cards__0__desc"
+                tabindex="-1"
+              >
+                Not sure what your looking for? Our team can help you dial in on what will be your next audience.
+              </p>
+            </div>
+          </div>
+          <div
+            class="css-9chr40"
+          >
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="css-1mws978"
+                contenteditable="false"
+                id="info_cards__1__header"
+                tabindex="-1"
+              >
+                100's of industries
+              </h3>
+            </div>
+            <img
+              class="chakra-image css-20teaf"
+              src="/icon.png"
+            />
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1yxu09j"
+                contenteditable="false"
+                id="info_cards__1__desc"
+                tabindex="-1"
+              >
+                Our leads are sourced from a Multi-Channel system that spans across many different platforms and industries
+              </p>
+            </div>
+          </div>
+          <div
+            class="css-9chr40"
+          >
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="css-1mws978"
+                contenteditable="false"
+                id="info_cards__2__header"
+                tabindex="-1"
+              >
+                Custom experience
+              </h3>
+            </div>
+            <img
+              class="chakra-image css-20teaf"
+              src="/icon.png"
+            />
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1yxu09j"
+                contenteditable="false"
+                id="info_cards__2__desc"
+                tabindex="-1"
+              >
+                Our amazing development team can create an expereince tailored to your comapnies needs. No matter what.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-79elbk"
+        >
+          <div
+            class="css-1lx80g1"
+          >
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-x-ray fa-w-20 "
+              data-icon="x-ray"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style="width: 20px;"
+              viewBox="0 0 640 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <p
+            class="css-bg3st0"
+            contenteditable="false"
+            id="info_footer"
+            tabindex="-1"
+          >
+            Contact us about custom plans and agreements to ensure we meet your specific needs!
+          </p>
+        </div>
+      </div>
+    </section>
+    <section
+      class="css-1o6wpkk"
+    >
+      <div
+        class="css-m5rldb"
+      >
+        <div
+          class="css-1x741jx"
+        >
+          <div
+            class="css-153k912"
+          >
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <h3
+                class="css-1a96edy"
+                contenteditable="false"
+                id="footer_sub_header"
+                tabindex="-1"
+              >
+                Connecting dots one lead at a time.
+              </h3>
+            </div>
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <h1
+                class="css-1lx5veh"
+                contenteditable="false"
+                id="footer_header"
+                tabindex="-1"
+              >
+                Ready to find your next audience with us?
+              </h1>
+            </div>
+            <div
+              class="css-79elbk"
+            >
+              <div
+                class="css-1lx80g1"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  data-icon="x-ray"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style="width: 20px;"
+                  viewBox="0 0 640 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <p
+                class="css-1dombsd"
+                contenteditable="false"
+                id="footer_header_desc"
+                tabindex="-1"
+              >
+                No matter the size of the project, Quik Influence can create a custom service plan for you! And with access to leads in a seeminly limitless field of industries and niches, it’s no wonder we’re the go to for CRM needs.
+              </p>
+            </div>
+          </div>
+          <form
+            class="css-1iq1sz"
+          >
+            <div
+              class="css-12r6igv"
+            >
+              <div
+                class="chakra-form-control css-15ucb8w"
+                role="group"
+              >
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    aria-required="true"
+                    class="chakra-input css-mxr0mj"
+                    datatest-id="test-phoneNumber"
+                    id="field-4"
+                    name="phoneNumber"
+                    placeholder="Phone Number"
+                    required=""
+                    value=""
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-phone fa-w-16 "
+                    color="red"
+                    data-icon="phone"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                    viewBox="0 0 512 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                
+              </div>
+              <div
+                class="chakra-form-control css-15ucb8w"
+                role="group"
+              >
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    class="chakra-input css-mxr0mj"
+                    datatest-id="test-isInfluencer"
+                    id="field-5"
+                    name="isInfluencer"
+                    placeholder="Are You an Influencer"
+                    value=""
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-phone fa-w-16 "
+                    color="red"
+                    data-icon="phone"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                    viewBox="0 0 512 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                
+              </div>
+              <div
+                class="chakra-form-control css-15ucb8w"
+                role="group"
+              >
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    aria-required="true"
+                    class="chakra-input css-mxr0mj"
+                    datatest-id="test-name"
+                    id="field-6"
+                    name="name"
+                    placeholder="Your Name"
+                    required=""
+                    value=""
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-user fa-w-14 "
+                    color="red"
+                    data-icon="user"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                    viewBox="0 0 448 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                
+              </div>
+              <div
+                class="chakra-form-control css-15ucb8w"
+                role="group"
+              >
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    aria-required="true"
+                    class="chakra-input css-mxr0mj"
+                    datatest-id="test-company"
+                    id="field-7"
+                    name="company"
+                    placeholder="Company Name"
+                    required=""
+                    value=""
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-user fa-w-14 "
+                    color="red"
+                    data-icon="user"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                    viewBox="0 0 448 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                
+              </div>
+              <div
+                class="chakra-form-control css-15ucb8w"
+                role="group"
+              >
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    aria-required="true"
+                    class="chakra-input css-mxr0mj"
+                    datatest-id="test-email"
+                    id="field-8"
+                    name="email"
+                    placeholder="Your Email Address"
+                    required=""
+                    value=""
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-mail-bulk fa-w-18 "
+                    color="red"
+                    data-icon="mail-bulk"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                    viewBox="0 0 576 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M160 448c-25.6 0-51.2-22.4-64-32-64-44.8-83.2-60.8-96-70.4V480c0 17.67 14.33 32 32 32h256c17.67 0 32-14.33 32-32V345.6c-12.8 9.6-32 25.6-96 70.4-12.8 9.6-38.4 32-64 32zm128-192H32c-17.67 0-32 14.33-32 32v16c25.6 19.2 22.4 19.2 115.2 86.4 9.6 6.4 28.8 25.6 44.8 25.6s35.2-19.2 44.8-22.4c92.8-67.2 89.6-67.2 115.2-86.4V288c0-17.67-14.33-32-32-32zm256-96H224c-17.67 0-32 14.33-32 32v32h96c33.21 0 60.59 25.42 63.71 57.82l.29-.22V416h192c17.67 0 32-14.33 32-32V192c0-17.67-14.33-32-32-32zm-32 128h-64v-64h64v64zm-352-96c0-35.29 28.71-64 64-64h224V32c0-17.67-14.33-32-32-32H96C78.33 0 64 14.33 64 32v192h96v-32z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                
+              </div>
+              <div
+                class="chakra-form-control css-15ucb8w"
+                role="group"
+              >
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    class="chakra-input css-mxr0mj"
+                    datatest-id="test-industry"
+                    id="field-9"
+                    name="industry"
+                    placeholder="Industry"
+                    value=""
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="svg-inline--fa fa-mail-bulk fa-w-18 "
+                    color="red"
+                    data-icon="mail-bulk"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style="width: 10px; position: absolute; top: 50%; left: 30px; transform: translateY(-50%); z-index: 1;"
+                    viewBox="0 0 576 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M160 448c-25.6 0-51.2-22.4-64-32-64-44.8-83.2-60.8-96-70.4V480c0 17.67 14.33 32 32 32h256c17.67 0 32-14.33 32-32V345.6c-12.8 9.6-32 25.6-96 70.4-12.8 9.6-38.4 32-64 32zm128-192H32c-17.67 0-32 14.33-32 32v16c25.6 19.2 22.4 19.2 115.2 86.4 9.6 6.4 28.8 25.6 44.8 25.6s35.2-19.2 44.8-22.4c92.8-67.2 89.6-67.2 115.2-86.4V288c0-17.67-14.33-32-32-32zm256-96H224c-17.67 0-32 14.33-32 32v32h96c33.21 0 60.59 25.42 63.71 57.82l.29-.22V416h192c17.67 0 32-14.33 32-32V192c0-17.67-14.33-32-32-32zm-32 128h-64v-64h64v64zm-352-96c0-35.29 28.71-64 64-64h224V32c0-17.67-14.33-32-32-32H96C78.33 0 64 14.33 64 32v192h96v-32z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                
+              </div>
+            </div>
+            <button
+              class="chakra-button css-17mu9ok"
+              type="button"
+            >
+              CONTACT US
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+`;

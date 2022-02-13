@@ -7,6 +7,7 @@ import Fonts from 'utils/Fonts';
 import { axiosInstance } from 'utils/helpers';
 import theme from '../styles/theme';
 import { wrapper } from '../store';
+import { CONTENT_URL } from 'utils/constants';
 import { APP_NAME, NAV_NAME } from 'utils/constants/pageDataConstants';
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
@@ -29,14 +30,13 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
 
 QuikInfluenceApp.getInitialProps = async () => {
   if (typeof window === 'undefined') {
-    let nav:any;
+    let nav: any;
 
     try {
-       nav = await axiosInstance.get(
-        `/content?resource=${APP_NAME}&page=${NAV_NAME}`
+      nav = await axiosInstance.get(
+        `${CONTENT_URL}?resource=${APP_NAME}&page=${NAV_NAME}`
       );
-    } catch (err) {
-    }
+    } catch (err) {}
 
     return {
       pageProps: {
