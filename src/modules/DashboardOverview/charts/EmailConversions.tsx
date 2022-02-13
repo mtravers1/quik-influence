@@ -37,9 +37,7 @@ const EmailConversions: React.FC = ({ }) => {
 
     return (
         <Flex
-            padding={[6, 8]}
-            background={cardThemeColor[colorMode]}
-            borderRadius="8px"
+            padding={[6, 8]} 
             flexDirection="column"
         >
             <ChartsHeader title="Email Conversions" />
