@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import Input from '../../Input';
 import CustomButton from 'components/Button';
-import useInput from 'hooks/useInput';
+import useInput from 'hooks/useForm';
 import formdata from 'utils/constants/formData/contactus';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
