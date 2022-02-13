@@ -9,7 +9,9 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import React from 'react';
-import quikColorConstants, { borderThemeColor } from 'utils/constants/colorConstants';
+import quikColorConstants, {
+  borderThemeColor,
+} from 'utils/constants/colorConstants';
 
 type TextInputProps = {
   type: string;
@@ -36,7 +38,7 @@ const TextInput: React.FC<TextInputProps> = ({
   error,
   formControlProps,
 }) => {
-  const {colorMode} = useColorMode()
+  const { colorMode } = useColorMode();
   return (
     <FormControl isInvalid={!!error} {...formControlProps}>
       {!!label && (

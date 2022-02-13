@@ -1,10 +1,6 @@
-import { useMutation } from "react-query"
-import { axiosInstance } from "utils/helpers"
+import { useMutation } from 'react-query';
+import { axiosInstance } from 'utils/helpers';
 
+const useLogin = () => {};
 
-const useLogin = () => {
-   
-}
-
-
-export { useLogin }
+export { useLogin };
