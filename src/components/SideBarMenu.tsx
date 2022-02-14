@@ -39,7 +39,7 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
               py={5}
               px={10}
               minW="100%"
-              fontSize={['lg', 'xl']}
+              fontSize="xl"
               _hover={{
                 backgroundColor: sidebarBg[colorMode],
               }}
