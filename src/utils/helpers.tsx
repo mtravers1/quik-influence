@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseurl = "https://quik-influence-prod.herokuapp.com";
+const baseurl = "https://quik-influence.herokuapp.com";
 // const baseurl =
 //   process.env.NODE_ENV === "production"
 //     ? "https://quik-influence-prod.herokuapp.com"
