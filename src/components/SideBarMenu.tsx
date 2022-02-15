@@ -8,6 +8,7 @@ import { SideBarOptionMenu } from 'types';
 import { useRouter } from 'next/router';
 import { ColorMode } from '@chakra-ui/react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { css } from '@emotion/react';
 
 interface SideBarMenuProps {
   bgColor?: string;
@@ -27,6 +28,24 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
     }
   }, [_sideBarOptions, activeMenu]);
 
+  const navcss = (isActive: boolean) => css`
+    & {
+      &:hover {
+        &::before {
+          background: ${quikColorConstants.influenceRed};
+          height: 80%;
+        }
+      }
+
+      &::before {
+        background: ${isActive
+          ? quikColorConstants.influenceRed
+          : sidebarBg[colorMode]};
+        height: ${isActive ? '80%;' : '0'};
+      }
+    }
+  `;
+
   return (
     <Flex flexDirection="column" width="250px" py={10} bgColor={bgColor}>
       {_sideBarOptions.map(
@@ -39,19 +58,25 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
               py={5}
               px={10}
               minW="100%"
-              _hover={{
-                backgroundColor: sidebarBg[colorMode],
+              position="relative"
+              css={navcss((activeMenu || pathname) === path)}
+              _before={{
+                content: '""',
+                position: 'absolute',
+                left: 0,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                height: 0,
+                width: '5px',
+                background: quikColorConstants.influenceRed,
+                borderRadius: '0 10px 10px 0',
+                transition: '0.3s ease',
               }}
               bg={
                 (activeMenu || pathname) === path
                   ? sidebarBg[colorMode]
                   : 'transparent'
               }
-              borderLeft={`3px solid ${
-                (activeMenu || pathname) === path
-                  ? quikColorConstants.influenceRed
-                  : sidebarBg[colorMode]
-              }`}
               onClick={() => setActiveMenu(path)}
             >
               <NextLink
@@ -68,7 +93,11 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
                 fontFamily="Avenir"
                 fontWeight="bold"
               >
-                <FontAwesomeIcon icon={icon as IconProp} /> {name}
+                <FontAwesomeIcon
+                  icon={icon as IconProp}
+                  style={{ marginRight: '20px' }}
+                />
+                {name}
               </NextLink>
             </Box>
           );

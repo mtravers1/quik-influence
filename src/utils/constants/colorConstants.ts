@@ -17,6 +17,8 @@ const quikColorConstants = {
 export const bgThemeColor: Q = { light: '#FAFAFB', dark: 'gray.800' };
 export const themeColor: Q = { light: 'black', dark: 'white' };
 
+export const dashboardColor: Q = { light: '#F5F8F9', dark: '#333' };
+
 export const sidebarBg: Q = {
   light: quikColorConstants.greyLight,
   dark: quikColorConstants.greyDarker,

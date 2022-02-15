@@ -2,7 +2,11 @@ import { Stack, Flex, Divider, Box, useColorMode } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import Header from 'components/Header';
 import SideBarMenu from 'components/SideBarMenu';
-import { bgThemeColor, themeColor } from 'utils/constants/colorConstants';
+import {
+  bgThemeColor,
+  themeColor,
+  dashboardColor,
+} from 'utils/constants/colorConstants';
 
 interface MainContentProps {
   children: React.ReactElement;
@@ -32,7 +36,7 @@ const MainContent = ({ children }: MainContentProps) => {
           width="100%"
           px={20}
           py={10}
-          bgColor={bgThemeColor[colorMode]}
+          bgColor={dashboardColor[colorMode]}
           color={themeColor[colorMode]}
         >
           {children}
