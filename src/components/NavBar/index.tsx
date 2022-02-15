@@ -1,6 +1,6 @@
-import NextLink from 'components/NextLink';
-import { Box, Flex, Image, Button } from '@chakra-ui/react';
-import NavWrapper from './NavWrapper';
+import NextLink from "components/NextLink";
+import { Box, Flex, Image, Button } from "@chakra-ui/react";
+import NavWrapper from "./NavWrapper";
 
 const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
   return (
@@ -9,32 +9,32 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
         <Flex
           h="73px"
           background="#fff"
-          alignItems={{ base: 'center', md: 'flex-end' }}
+          alignItems={{ base: "center", md: "flex-end" }}
           p="6"
           justifyContent="center"
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: "column", md: "row" }}
         >
           <Box marginRight="5">
             Get help for this site or any of our apps with -
           </Box>
-          <Flex marginTop={{ base: '5px', md: '0' }}>
+          <Flex marginTop={{ base: "5px", md: "0" }}>
             <Box marginRight="15">QUIK ASSISTANT</Box>
-            <NextLink href={'/video-help'} marginRight="6">
+            <NextLink href={"/video-help"} marginRight="6">
               <Button
                 color="white"
                 background="#000"
                 borderRadius="40px"
-                _hover={{ bg: '#000' }}
+                _hover={{ bg: "#000" }}
               >
                 Get Video Help
               </Button>
             </NextLink>
-            <NextLink href={'/text-help'}>
+            <NextLink href={"/text-help"}>
               <Button
                 color="white"
                 background="#000"
                 borderRadius="40px"
-                _hover={{ bg: '#000' }}
+                _hover={{ bg: "#000" }}
               >
                 Get Text Help
               </Button>
@@ -49,7 +49,7 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
                 alignItems="center"
                 maxW="1440px"
                 margin="auto"
-                h={{ base: '73px', md: '100px' }}
+                h={{ base: "73px", md: "100px" }}
                 padding="0 15px"
               >
                 <Image
@@ -64,20 +64,21 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
                 <Flex
                   justifyContent="space-between"
                   flexGrow={1}
-                  display={{ base: 'none', sm: 'flex' }}
+                  display={{ base: "none", sm: "flex" }}
                 >
                   <Box>
-                    {links.map((link, i) => (
-                      <NextLink
-                        href={link.link}
-                        key={`nav_links_${i}`}
-                        style={{
-                          color: 'red',
-                        }}
-                      >
-                        {link.name}
-                      </NextLink>
-                    ))}
+                    {links?.length &&
+                      links.map((link, i) => (
+                        <NextLink
+                          href={link.link}
+                          key={`nav_links_${i}`}
+                          style={{
+                            color: "red"
+                          }}
+                        >
+                          {link.name}
+                        </NextLink>
+                      ))}
                   </Box>
                 </Flex>
               </Flex>

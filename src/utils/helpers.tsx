@@ -1,17 +1,21 @@
-import axios from 'axios';
+import axios from "axios";
 
-const baseurl = 'https://quik-influence.herokuapp.com';
+const baseurl = "https://quik-influence-prod.herokuapp.com";
+// const baseurl =
+//   process.env.NODE_ENV === "production"
+//     ? "https://quik-influence-prod.herokuapp.com"
+//     : "https://quik-influence.herokuapp.com";
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
   headers: {
-    'Access-Control-Allow-Headers':
-      'Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type',
-    'Access-Control-Allow-Origin': '*',
-  },
+    "Access-Control-Allow-Headers":
+      "Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type",
+    "Access-Control-Allow-Origin": "*"
+  }
 });
 
-const freeText = /[^\n]{2,}/;
+export const freeText = /[^\n]{2,}/;
 
 export const patterns: any = {
   name: /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/,
@@ -23,7 +27,7 @@ export const patterns: any = {
   industry: freeText
 };
 
-export const validate = (field: any, Regex: any) => {
-  if (patterns[Regex].test(field)) return true;
+export const validate = (field: any, Regex: any, fieldPatterns: any) => {
+  if (fieldPatterns[Regex].test(field)) return true;
   return false;
 };

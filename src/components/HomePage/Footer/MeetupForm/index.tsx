@@ -1,11 +1,11 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
-import Input from '../../Input';
 import CustomButton from 'components/Button';
 import useInput from 'hooks/useForm';
 import formdata from 'utils/constants/formData/meetTeam';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import CustomInput from 'components/CustomInput';
 
 const MeetupForm = () => {
   const { handleChange, inputTypes, handleSubmit, errors } = useInput({
@@ -37,7 +37,7 @@ const MeetupForm = () => {
             margin="3px 0"
           >
             <Box position={'relative'}>
-              <Input
+              <CustomInput
                 name={data.name}
                 placeholder={data.label}
                 paddingLeft={50}

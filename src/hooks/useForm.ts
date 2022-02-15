@@ -7,6 +7,7 @@ type props = {
   inputs?: input[];
   cb: (args: any) => {};
   validateForm?: boolean;
+  patterns?: { [key: string]: RegExp };
   initials?: any;
 };
 
@@ -14,6 +15,7 @@ export default function Input({
   inputs,
   cb,
   validateForm = true,
+  patterns,
   initials = {},
 }: props) {
   const initialInputs = inputs?.reduce(
@@ -59,7 +61,7 @@ export default function Input({
       (acc, inputName) => ({
         ...acc,
         [inputName]: inputMap[inputName].validateSelf
-          ? !validate(requiredKeys[inputName], inputName)
+          ? !validate(requiredKeys[inputName], inputName, patterns)
           : false,
       }),
       {}
@@ -124,7 +126,7 @@ export default function Input({
     const { name, value, type, checked } = event.target as HTMLInputElement;
 
     if (inputMap[name].validateSelf) {
-      const newErrors = { ...errors, [name]: !validate(value, name) };
+      const newErrors = { ...errors, [name]: !validate(value, name, patterns) };
       newErrors.onSubmit = false;
       newErrors.reset = false;
 
