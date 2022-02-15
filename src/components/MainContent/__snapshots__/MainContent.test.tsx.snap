@@ -80,7 +80,7 @@ exports[`renders MainContent component 1`] = `
     document.documentElement.style.setProperty("--chakra-ui-color-mode", colorMode);
     document.documentElement.setAttribute("data-theme", colorMode);
   }
-})('light')
+})('dark')
         </script>
       </div>
       <div
@@ -147,7 +147,7 @@ exports[`renders MainContent component 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-grip-horizontal fa-w-14 "
+              class="svg-inline--fa fa-grip-horizontal "
               data-icon="grip-horizontal"
               data-prefix="fas"
               focusable="false"

@@ -14,7 +14,7 @@ exports[`renders SideBarMenu component 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-grip-horizontal fa-w-14 "
+          class="svg-inline--fa fa-grip-horizontal "
           data-icon="grip-horizontal"
           data-prefix="fas"
           focusable="false"
