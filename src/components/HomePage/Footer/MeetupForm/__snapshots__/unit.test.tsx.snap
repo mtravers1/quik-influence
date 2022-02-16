@@ -17,7 +17,7 @@ exports[`Should render form 1`] = `
         >
           <input
             aria-required="true"
-            class="chakra-input css-mxr0mj"
+            class="chakra-input css-161mvzu"
             datatest-id="test-phone"
             id="field-1"
             name="phone"
@@ -53,7 +53,7 @@ exports[`Should render form 1`] = `
           class="css-79elbk"
         >
           <input
-            class="chakra-input css-mxr0mj"
+            class="chakra-input css-161mvzu"
             datatest-id="test-isInfluencer"
             id="field-2"
             name="isInfluencer"
@@ -89,7 +89,7 @@ exports[`Should render form 1`] = `
         >
           <input
             aria-required="true"
-            class="chakra-input css-mxr0mj"
+            class="chakra-input css-161mvzu"
             datatest-id="test-name"
             id="field-3"
             name="name"
@@ -126,7 +126,7 @@ exports[`Should render form 1`] = `
         >
           <input
             aria-required="true"
-            class="chakra-input css-mxr0mj"
+            class="chakra-input css-161mvzu"
             datatest-id="test-company"
             id="field-4"
             name="company"
@@ -163,7 +163,7 @@ exports[`Should render form 1`] = `
         >
           <input
             aria-required="true"
-            class="chakra-input css-mxr0mj"
+            class="chakra-input css-161mvzu"
             datatest-id="test-email"
             id="field-5"
             name="email"
@@ -199,7 +199,7 @@ exports[`Should render form 1`] = `
           class="css-79elbk"
         >
           <input
-            class="chakra-input css-mxr0mj"
+            class="chakra-input css-161mvzu"
             datatest-id="test-industry"
             id="field-6"
             name="industry"

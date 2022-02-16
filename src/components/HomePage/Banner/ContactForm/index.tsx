@@ -1,11 +1,11 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
-import Input from '../../Input';
 import CustomButton from 'components/Button';
 import useForm from 'hooks/useForm';
 import formdata from 'utils/constants/formData/contactus';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import CustomInput from 'components/CustomInput';
 
 const ContactForm = () => {
   const { handleChange, inputTypes, handleSubmit, errors } = useForm({
@@ -39,7 +39,7 @@ const ContactForm = () => {
           >
             <Box position={'relative'}>
               {' '}
-              <Input
+              <CustomInput
                 name={data.name}
                 placeholder={data.label}
                 onChange={handleChange}

@@ -60,7 +60,11 @@ export default function Input({
       (acc, inputName) => ({
         ...acc,
         [inputName]: inputMap[inputName].validateSelf
-          ? !validate(requiredKeys[inputName], inputName)
+          ? !validate(
+              requiredKeys[inputName],
+              inputName,
+              inputMap[inputName].pattern
+            )
           : false,
       }),
       {}
@@ -133,8 +137,10 @@ export default function Input({
   const handleChange = (event: SyntheticEvent<EventTarget>) => {
     const { name, value, type, checked } = event.target as HTMLInputElement;
 
+    console.log(name);
+
     if (inputMap[name].validateSelf) {
-      const newErrors = { ...errors, [name]: !validate(value, name) };
+      const newErrors = { ...errors, [name]: !validate(value, name, inputMap[name].pattern) };
       newErrors.onSubmit = false;
       newErrors.reset = false;
 

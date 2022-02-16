@@ -149,7 +149,7 @@ const theme = extendTheme({
   letterSpacings,
   breakpoints,
   config: {
-    initialColorMode: 'light',
+    initialColorMode: 'dark',
     useSystemColorMode: false,
     cssVarPrefix: 'quik',
   },

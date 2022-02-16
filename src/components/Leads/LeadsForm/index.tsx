@@ -1,18 +1,52 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, createStandaloneToast } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import CustomButton from 'components/Button';
-import useForm from 'hooks/useForm';
-import formdata from 'utils/constants/formData/meetTeam';
+import useInput from 'hooks/useForm';
+import formdata from 'utils/constants/formData/closeFriends';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import CustomInput from 'components/CustomInput';
+import { axiosInstance } from 'utils/helpers';
 
-const MeetupForm = () => {
-  const { handleChange, inputTypes, handleSubmit, errors } = useForm({
+const LeadsForm = ({ campaignId }: { campaignId: string }) => {
+  const toast = createStandaloneToast();
+  // const toast = useToast();
+  const {
+    handleChange,
+    inputTypes,
+    handleSubmit,
+    errors,
+    loading,
+    resetInputs,
+  } = useInput({
     inputs: formdata,
     cb: async inputs => {
-      // do what you will with inputs
-      console.log('Submitted');
+      await axiosInstance
+        .post(`/users/campaign/`, {
+          ...inputs,
+          campaignId,
+        })
+        .then(res => {
+          if (res.status === 200) {
+            resetInputs();
+            toast({
+              title: 'Registered Successfully.',
+              description: 'You would be redirected to a payment screen',
+              duration: 9000,
+              position: 'top-right',
+              variant: 'subtle',
+            });
+          }
+          console.log('res >>> ', res);
+        })
+        .catch(err => {
+          toast({
+            title: err.response.data.message,
+            status: 'error',
+            duration: 9000,
+            position: 'top-right',
+          });
+        });
     },
   });
 
@@ -28,7 +62,7 @@ const MeetupForm = () => {
         {formdata.map((data, i) => (
           <FormControl
             key={`contact_form_${i}`}
-            width={{ base: '100%', md: '48%' }}
+            width="100%"
             isInvalid={errors[data.name]}
             isRequired={data.required}
             margin="3px 0"
@@ -73,10 +107,10 @@ const MeetupForm = () => {
         paddingBottom={23}
         onClick={handleSubmit}
       >
-        CONTACT US
+        {loading ? 'Loading...' : 'Submit'}
       </CustomButton>
     </Flex>
   );
 };
 
-export default MeetupForm;
+export default LeadsForm;
