@@ -116,6 +116,8 @@ export default function Input({
         ? error.message.join(', ')
         : error.message;
 
+      console.log(err);
+
       // add a toast or do soemthing with the error
       toast({
         title: err,

@@ -15,7 +15,7 @@ export default [
     pattern: FULL_NAME_REGEX,
   },
   {
-    name: 'phoneNumber',
+    name: 'phone',
     label: 'Phone Number',
     icon: faPhone,
     required: true,

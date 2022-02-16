@@ -179,9 +179,9 @@ exports[`renders MainContent component 1`] = `
               <input
                 aria-required="true"
                 class="chakra-input css-mooy3w"
-                datatest-id="test-phoneNumber"
+                datatest-id="test-phone"
                 id="field-2"
-                name="phoneNumber"
+                name="phone"
                 placeholder="Phone Number"
                 required=""
                 value=""

@@ -8,7 +8,7 @@ import {
 
 export default [
   {
-    name: 'phoneNumber',
+    name: 'phone',
     label: 'Phone Number',
     icon: faPhone,
     required: true,
