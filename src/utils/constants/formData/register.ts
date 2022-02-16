@@ -1,3 +1,9 @@
+import {
+  EMAIL_REFEX,
+  FREE_TEXT_REGEX,
+  PHONE_NUMBER_REGEX,
+} from '../regexConstants';
+
 export default [
   {
     name: 'firstName',
@@ -5,6 +11,7 @@ export default [
     errorMessage: 'Enter your first name',
     required: true,
     type: 'text',
+    pattern: FREE_TEXT_REGEX,
   },
   {
     name: 'lastName',
@@ -12,6 +19,7 @@ export default [
     required: true,
     errorMessage: 'Enter your fisrt number',
     type: 'text',
+    pattern: FREE_TEXT_REGEX,
   },
   {
     name: 'email',
@@ -19,6 +27,7 @@ export default [
     errorMessage: 'Enter your address',
     required: true,
     type: 'email',
+    pattern: EMAIL_REFEX,
   },
   {
     name: 'phone',
@@ -26,5 +35,6 @@ export default [
     errorMessage: 'Enter your phone',
     required: true,
     type: 'tel',
+    pattern: PHONE_NUMBER_REGEX,
   },
 ];

@@ -29,7 +29,7 @@ const Register = () => {
         isClosable: true,
       });
 
-      if (typeof window !== undefined) {
+      if (typeof window !== 'undefined') {
         sessionStorage.setItem('email', inputs.email);
       }
 

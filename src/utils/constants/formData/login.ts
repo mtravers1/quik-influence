@@ -1,3 +1,5 @@
+import { EMAIL_REFEX, FREE_TEXT_REGEX } from '../regexConstants';
+
 export default [
   {
     name: 'email',
@@ -5,6 +7,7 @@ export default [
     errorMessage: 'Enter your address',
     required: true,
     type: 'text',
+    pattern: EMAIL_REFEX,
   },
   {
     name: 'loginPassword',
@@ -12,5 +15,6 @@ export default [
     errorMessage: 'Enter a password',
     required: true,
     type: 'password',
+    pattern: FREE_TEXT_REGEX,
   },
 ];

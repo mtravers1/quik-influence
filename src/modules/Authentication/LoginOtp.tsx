@@ -24,7 +24,7 @@ const Login = () => {
   let email;
 
   // due to nextjs being server side
-  if (typeof window !== undefined) {
+  if (typeof window !== 'undefined') {
     email = sessionStorage.getItem('email');
   }
 
