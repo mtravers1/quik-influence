@@ -3,16 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import Input from '../../Input';
 import CustomButton from 'components/Button';
-import useInput from 'hooks/useForm';
+import useForm from 'hooks/useForm';
 import formdata from 'utils/constants/formData/contactus';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const ContactForm = () => {
-  const { handleChange, inputTypes, handleSubmit, errors } = useInput({
-    inputs: formdata.map(data => ({
-      name: data.name,
-      required: data.required,
-    })),
+  const { handleChange, inputTypes, handleSubmit, errors } = useForm({
+    inputs: formdata,
     cb: async inputs => {
       // do what you will with inputs
       console.log('Submitted');

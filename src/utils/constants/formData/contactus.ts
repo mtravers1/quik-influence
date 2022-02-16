@@ -9,7 +9,7 @@ export default [
     required: true,
   },
   {
-    name: 'phoneNumber',
+    name: 'phone',
     label: 'Phone Number',
     icon: faPhone,
     required: true,

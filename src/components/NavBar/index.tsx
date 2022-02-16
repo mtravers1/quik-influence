@@ -7,24 +7,32 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
     <Box as="header" position="absolute" zIndex={2} w="100%">
       <Box as="nav" h="173px">
         <Flex
-          h="73px"
+          h={{ base: 'auto', md: '73px' }}
           background="#fff"
-          alignItems={{ base: 'center', md: 'flex-end' }}
-          p="6"
+          alignItems="center"
+          padding={{ base: '5px 15px', md: '0 15px' }}
           justifyContent="center"
           direction={{ base: 'column', md: 'row' }}
         >
-          <Box marginRight="5">
-            Get help for this site or any of our apps with -
+          <Box
+            marginRight="5"
+            height="auto"
+            width="fit-content"
+            fontSize="14px"
+            textAlign="center"
+          >
+            Get help for this site or any of our apps with - QUIK ASSISTANT
           </Box>
-          <Flex marginTop={{ base: '5px', md: '0' }}>
-            <Box marginRight="15">QUIK ASSISTANT</Box>
-            <NextLink href={'/video-help'} marginRight="6">
+          <Flex marginTop={{ base: '5px', md: '0' }} alignItems="center">
+            <NextLink href={'/video-help'} marginRight={{ base: 2, md: 6 }}>
               <Button
                 color="white"
                 background="#000"
                 borderRadius="40px"
                 _hover={{ bg: '#000' }}
+                fontSize={{ base: '10px', md: '14ps' }}
+                p={{ base: '10px 20px', md: '15px 30px' }}
+                height="auto"
               >
                 Get Video Help
               </Button>
@@ -35,6 +43,9 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
                 background="#000"
                 borderRadius="40px"
                 _hover={{ bg: '#000' }}
+                fontSize={{ base: '10px', md: '14ps' }}
+                p={{ base: '10px 20px', md: '15px 30px' }}
+                height="auto"
               >
                 Get Text Help
               </Button>

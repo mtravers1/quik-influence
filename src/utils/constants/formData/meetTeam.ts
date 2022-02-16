@@ -2,7 +2,7 @@ import { faPhone, faUser, faMailBulk } from '@fortawesome/free-solid-svg-icons';
 
 export default [
   {
-    name: 'phoneNumber',
+    name: 'phone',
     label: 'Phone Number',
     icon: faPhone,
     required: true,

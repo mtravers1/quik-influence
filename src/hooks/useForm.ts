@@ -1,10 +1,9 @@
 import { useState, SyntheticEvent } from 'react';
+import { useToast } from '@chakra-ui/react';
 import { validate } from 'utils/helpers';
 
-type input = { name: string; required?: boolean };
-
 type props = {
-  inputs?: input[];
+  inputs?: any[];
   cb: (args: any) => {};
   validateForm?: boolean;
   initials?: any;
@@ -16,6 +15,8 @@ export default function Input({
   validateForm = true,
   initials = {},
 }: props) {
+  const toast = useToast();
+
   const initialInputs = inputs?.reduce(
     (acc: any, input: any) => ({
       ...acc,
@@ -45,7 +46,7 @@ export default function Input({
   const [errors, setErrors] = useState(initialError);
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     const requiredKeys = inputs?.reduce((acc: any, input: any) => {
       if (input.required || inputTypes[input.name]) {
@@ -64,7 +65,7 @@ export default function Input({
       }),
       {}
     );
-    
+
     setErrors(errorMap);
 
     // check if at least one element fails validation
@@ -104,14 +105,23 @@ export default function Input({
       if (error.response) {
         if (error.response.status === 500) {
           error.message = 'Network error please try again';
-        } else error.message = error.response.data.error;
+        } else error.message = error.response.data.message;
       } else error.message = error.message || 'Error occured';
 
       const err = Array.isArray(error.message)
         ? error.message.join(', ')
         : error.message;
 
+      console.log(err);
+
       // add a toast or do soemthing with the error
+      toast({
+        title: err,
+        description: '',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
 
       setLoading(false);
       return;
