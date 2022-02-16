@@ -7,7 +7,7 @@ import { AuthenticationProps } from './types';
 
 const Authentication: React.FC<AuthenticationProps> = ({ type }) => {
   return (
-    <section>
+    <Box as="section">
       <Flex height="100vh">
         <Box
           width="55%"
@@ -45,7 +45,7 @@ const Authentication: React.FC<AuthenticationProps> = ({ type }) => {
           </Flex>
         </Box>
       </Flex>
-    </section>
+    </Box>
   );
 };
 
