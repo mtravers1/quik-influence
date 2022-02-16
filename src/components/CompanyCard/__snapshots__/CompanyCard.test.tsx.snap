@@ -29,7 +29,7 @@ exports[`renders CompanyCard component 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-user fa-sm "
+          class="svg-inline--fa fa-user fa-w-14 fa-sm "
           data-icon="user"
           data-prefix="fas"
           focusable="false"
@@ -55,7 +55,7 @@ exports[`renders CompanyCard component 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-user fa-sm "
+          class="svg-inline--fa fa-user fa-w-14 fa-sm "
           data-icon="user"
           data-prefix="fas"
           focusable="false"
@@ -81,7 +81,7 @@ exports[`renders CompanyCard component 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-money-bill-wave-alt fa-sm "
+          class="svg-inline--fa fa-money-bill-wave-alt fa-w-20 fa-sm "
           data-icon="money-bill-wave-alt"
           data-prefix="fas"
           focusable="false"

@@ -1,20 +1,12 @@
-import {
-  Box,
-  Flex,
-  position,
-  useToast,
-  createStandaloneToast
-} from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FormControl, FormErrorMessage } from "@chakra-ui/react";
-import CustomButton from "components/Button";
-import useInput from "hooks/useForm";
-import formdata, {
-  closeFriendsPatterns
-} from "utils/constants/formData/closeFriends";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import CustomInput from "components/CustomInput";
-import { axiosInstance } from "utils/helpers";
+import { Box, Flex, createStandaloneToast } from '@chakra-ui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FormControl, FormErrorMessage } from '@chakra-ui/react';
+import CustomButton from 'components/Button';
+import useInput from 'hooks/useForm';
+import formdata from 'utils/constants/formData/closeFriends';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import CustomInput from 'components/CustomInput';
+import { axiosInstance } from 'utils/helpers';
 
 const LeadsForm = ({ campaignId }: { campaignId: string }) => {
   const toast = createStandaloneToast();
@@ -25,41 +17,37 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
     handleSubmit,
     errors,
     loading,
-    resetInputs
+    resetInputs,
   } = useInput({
-    inputs: formdata.map((data) => ({
-      name: data.name,
-      required: data.required
-    })),
-    cb: async (inputs) => {
+    inputs: formdata,
+    cb: async inputs => {
       await axiosInstance
         .post(`/users/campaign/`, {
           ...inputs,
-          campaignId
+          campaignId,
         })
-        .then((res) => {
+        .then(res => {
           if (res.status === 200) {
             resetInputs();
             toast({
-              title: "Registered Successfully.",
-              description: "You would be redirected to a payment screen",
+              title: 'Registered Successfully.',
+              description: 'You would be redirected to a payment screen',
               duration: 9000,
-              position: "top-right",
-              variant: "subtle"
+              position: 'top-right',
+              variant: 'subtle',
             });
           }
-          console.log("res >>> ", res);
+          console.log('res >>> ', res);
         })
-        .catch((err) => {
+        .catch(err => {
           toast({
             title: err.response.data.message,
-            status: "error",
+            status: 'error',
             duration: 9000,
-            position: "top-right"
+            position: 'top-right',
           });
         });
     },
-    patterns: closeFriendsPatterns
   });
 
   return (
@@ -79,7 +67,7 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
             isRequired={data.required}
             margin="3px 0"
           >
-            <Box position={"relative"}>
+            <Box position={'relative'}>
               <CustomInput
                 name={data.name}
                 placeholder={data.label}
@@ -90,12 +78,12 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
               />
               <FontAwesomeIcon
                 style={{
-                  width: "10px",
-                  position: "absolute",
-                  top: "50%",
-                  left: "30px",
-                  transform: "translateY(-50%)",
-                  zIndex: 1
+                  width: '10px',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '30px',
+                  transform: 'translateY(-50%)',
+                  zIndex: 1,
                 }}
                 icon={data.icon as IconProp}
                 color="red"
@@ -119,7 +107,7 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
         paddingBottom={23}
         onClick={handleSubmit}
       >
-        {loading ? "Loading..." : "Submit"}
+        {loading ? 'Loading...' : 'Submit'}
       </CustomButton>
     </Flex>
   );

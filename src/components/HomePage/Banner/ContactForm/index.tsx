@@ -9,10 +9,7 @@ import CustomInput from 'components/CustomInput';
 
 const ContactForm = () => {
   const { handleChange, inputTypes, handleSubmit, errors } = useInput({
-    inputs: formdata.map(data => ({
-      name: data.name,
-      required: data.required,
-    })),
+    inputs: formdata,
     cb: async inputs => {
       // do what you will with inputs
       console.log('Submitted');

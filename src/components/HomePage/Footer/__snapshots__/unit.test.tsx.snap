@@ -22,7 +22,7 @@ exports[`renders MainContent component 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="svg-inline--fa fa-x-ray "
+                class="svg-inline--fa fa-x-ray fa-w-20 "
                 data-icon="x-ray"
                 data-prefix="fas"
                 focusable="false"
@@ -54,7 +54,7 @@ exports[`renders MainContent component 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="svg-inline--fa fa-x-ray "
+                class="svg-inline--fa fa-x-ray fa-w-20 "
                 data-icon="x-ray"
                 data-prefix="fas"
                 focusable="false"
@@ -86,7 +86,7 @@ exports[`renders MainContent component 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="svg-inline--fa fa-x-ray "
+                class="svg-inline--fa fa-x-ray fa-w-20 "
                 data-icon="x-ray"
                 data-prefix="fas"
                 focusable="false"
@@ -136,7 +136,7 @@ exports[`renders MainContent component 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-phone "
+                  class="svg-inline--fa fa-phone fa-w-16 "
                   color="red"
                   data-icon="phone"
                   data-prefix="fas"
@@ -171,7 +171,7 @@ exports[`renders MainContent component 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-phone "
+                  class="svg-inline--fa fa-phone fa-w-16 "
                   color="red"
                   data-icon="phone"
                   data-prefix="fas"
@@ -208,7 +208,7 @@ exports[`renders MainContent component 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-user "
+                  class="svg-inline--fa fa-user fa-w-14 "
                   color="red"
                   data-icon="user"
                   data-prefix="fas"
@@ -245,7 +245,7 @@ exports[`renders MainContent component 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-user "
+                  class="svg-inline--fa fa-user fa-w-14 "
                   color="red"
                   data-icon="user"
                   data-prefix="fas"
@@ -282,7 +282,7 @@ exports[`renders MainContent component 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-mail-bulk "
+                  class="svg-inline--fa fa-mail-bulk fa-w-18 "
                   color="red"
                   data-icon="mail-bulk"
                   data-prefix="fas"
@@ -317,7 +317,7 @@ exports[`renders MainContent component 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-mail-bulk "
+                  class="svg-inline--fa fa-mail-bulk fa-w-18 "
                   color="red"
                   data-icon="mail-bulk"
                   data-prefix="fas"

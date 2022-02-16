@@ -147,7 +147,7 @@ exports[`renders MainContent component 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-grip-horizontal "
+              class="svg-inline--fa fa-grip-horizontal fa-w-14 "
               data-icon="grip-horizontal"
               data-prefix="fas"
               focusable="false"

@@ -27,7 +27,7 @@ exports[`Should render form 1`] = `
           />
           <svg
             aria-hidden="true"
-            class="svg-inline--fa fa-phone "
+            class="svg-inline--fa fa-phone fa-w-16 "
             color="red"
             data-icon="phone"
             data-prefix="fas"
@@ -62,7 +62,7 @@ exports[`Should render form 1`] = `
           />
           <svg
             aria-hidden="true"
-            class="svg-inline--fa fa-phone "
+            class="svg-inline--fa fa-phone fa-w-16 "
             color="red"
             data-icon="phone"
             data-prefix="fas"
@@ -99,7 +99,7 @@ exports[`Should render form 1`] = `
           />
           <svg
             aria-hidden="true"
-            class="svg-inline--fa fa-user "
+            class="svg-inline--fa fa-user fa-w-14 "
             color="red"
             data-icon="user"
             data-prefix="fas"
@@ -136,7 +136,7 @@ exports[`Should render form 1`] = `
           />
           <svg
             aria-hidden="true"
-            class="svg-inline--fa fa-user "
+            class="svg-inline--fa fa-user fa-w-14 "
             color="red"
             data-icon="user"
             data-prefix="fas"
@@ -173,7 +173,7 @@ exports[`Should render form 1`] = `
           />
           <svg
             aria-hidden="true"
-            class="svg-inline--fa fa-mail-bulk "
+            class="svg-inline--fa fa-mail-bulk fa-w-18 "
             color="red"
             data-icon="mail-bulk"
             data-prefix="fas"
@@ -208,7 +208,7 @@ exports[`Should render form 1`] = `
           />
           <svg
             aria-hidden="true"
-            class="svg-inline--fa fa-mail-bulk "
+            class="svg-inline--fa fa-mail-bulk fa-w-18 "
             color="red"
             data-icon="mail-bulk"
             data-prefix="fas"
