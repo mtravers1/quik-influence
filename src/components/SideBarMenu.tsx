@@ -58,19 +58,9 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
               py={5}
               px={10}
               minW="100%"
-              position="relative"
-              css={navcss((activeMenu || pathname) === path)}
-              _before={{
-                content: '""',
-                position: 'absolute',
-                left: 0,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                height: 0,
-                width: '5px',
-                background: quikColorConstants.influenceRed,
-                borderRadius: '0 10px 10px 0',
-                transition: '0.3s ease',
+              fontSize="xl"
+              _hover={{
+                backgroundColor: sidebarBg[colorMode],
               }}
               bg={
                 (activeMenu || pathname) === path

@@ -1,40 +1,51 @@
-import NextLink from 'components/NextLink';
-import { Box, Flex, Image, Button } from '@chakra-ui/react';
-import NavWrapper from './NavWrapper';
+import NextLink from "components/NextLink";
+import { Box, Flex, Image, Button } from "@chakra-ui/react";
+import NavWrapper from "./NavWrapper";
 
 const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
   return (
     <Box as="header" position="absolute" zIndex={2} w="100%">
       <Box as="nav" h="173px">
         <Flex
-          h="73px"
+          h={{ base: 'auto', md: '73px' }}
           background="#fff"
-          alignItems={{ base: 'center', md: 'flex-end' }}
-          p="6"
+          alignItems="center"
+          padding={{ base: '5px 15px', md: '0 15px' }}
           justifyContent="center"
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: "column", md: "row" }}
         >
-          <Box marginRight="5">
-            Get help for this site or any of our apps with -
+          <Box
+            marginRight="5"
+            height="auto"
+            width="fit-content"
+            fontSize="14px"
+            textAlign="center"
+          >
+            Get help for this site or any of our apps with - QUIK ASSISTANT
           </Box>
-          <Flex marginTop={{ base: '5px', md: '0' }}>
-            <Box marginRight="15">QUIK ASSISTANT</Box>
-            <NextLink href={'/video-help'} marginRight="6">
+          <Flex marginTop={{ base: '5px', md: '0' }} alignItems="center">
+            <NextLink href={'/video-help'} marginRight={{ base: 2, md: 6 }}>
               <Button
                 color="white"
                 background="#000"
                 borderRadius="40px"
                 _hover={{ bg: '#000' }}
+                fontSize={{ base: '10px', md: '14ps' }}
+                p={{ base: '10px 20px', md: '15px 30px' }}
+                height="auto"
               >
                 Get Video Help
               </Button>
             </NextLink>
-            <NextLink href={'/text-help'}>
+            <NextLink href={"/text-help"}>
               <Button
                 color="white"
                 background="#000"
                 borderRadius="40px"
                 _hover={{ bg: '#000' }}
+                fontSize={{ base: '10px', md: '14ps' }}
+                p={{ base: '10px 20px', md: '15px 30px' }}
+                height="auto"
               >
                 Get Text Help
               </Button>
@@ -49,7 +60,7 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
                 alignItems="center"
                 maxW="1440px"
                 margin="auto"
-                h={{ base: '73px', md: '100px' }}
+                h={{ base: "73px", md: "100px" }}
                 padding="0 15px"
               >
                 <Image
@@ -64,20 +75,21 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
                 <Flex
                   justifyContent="space-between"
                   flexGrow={1}
-                  display={{ base: 'none', sm: 'flex' }}
+                  display={{ base: "none", sm: "flex" }}
                 >
                   <Box>
-                    {links.map((link, i) => (
-                      <NextLink
-                        href={link.link}
-                        key={`nav_links_${i}`}
-                        style={{
-                          color: 'red',
-                        }}
-                      >
-                        {link.name}
-                      </NextLink>
-                    ))}
+                    {links?.length &&
+                      links.map((link, i) => (
+                        <NextLink
+                          href={link.link}
+                          key={`nav_links_${i}`}
+                          style={{
+                            color: "red"
+                          }}
+                        >
+                          {link.name}
+                        </NextLink>
+                      ))}
                   </Box>
                 </Flex>
               </Flex>

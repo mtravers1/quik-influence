@@ -77,7 +77,7 @@ exports[`renders Header component 1`] = `
     document.documentElement.style.setProperty("--chakra-ui-color-mode", colorMode);
     document.documentElement.setAttribute("data-theme", colorMode);
   }
-})('light')
+})('dark')
       </script>
     </div>
     <div
