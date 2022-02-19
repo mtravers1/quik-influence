@@ -17,6 +17,7 @@ import EmailConversions from "./charts/EmailConversions";
 import Revenue from "./charts/Revenue";
 import Activity from "./charts/Activity";
 import Deals from "./Deals";
+import Summary from "./Summary";
 
 const DashboardOverview = () => {
   const { colorMode } = useColorMode();
@@ -59,7 +60,7 @@ const DashboardOverview = () => {
             <GridItem rowSpan={1} colSpan={1}
               background={cardThemeColor[colorMode]}
               borderRadius="8px">
-              {/* <Revenue /> */}
+              <Summary />
             </GridItem>
           </Grid>
         </Flex>
