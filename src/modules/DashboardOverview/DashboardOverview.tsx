@@ -16,6 +16,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import EmailConversions from "./charts/EmailConversions";
 import Revenue from "./charts/Revenue";
 import Activity from "./charts/Activity";
+import Deals from "./Deals";
 
 const DashboardOverview = () => {
   const { colorMode } = useColorMode();
@@ -40,10 +41,9 @@ const DashboardOverview = () => {
               borderRadius="8px">
               <Revenue />
             </GridItem>
-            <GridItem rowSpan={1} colSpan={1}
-              background={cardThemeColor[colorMode]}
+            <GridItem rowSpan={1} colSpan={1} 
               borderRadius="8px">
-              <EmailConversions />
+                <Deals />
             </GridItem>
           </Grid>
           <Grid
