@@ -1,10 +1,5 @@
-import {
-  Flex,
-  Grid,
-  GridItem,
-  Skeleton,
-} from "@chakra-ui/react";
-import React from "react";
+import { Flex, Grid, GridItem, Skeleton } from '@chakra-ui/react';
+import React from 'react';
 
 const OverviewSkeletonLoaders = () => {
   return (

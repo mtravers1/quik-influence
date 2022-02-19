@@ -21,7 +21,7 @@ const DashboardOverview = () => {
   const { colorMode } = useColorMode();
   return (
     <Box>
-      <Box  >
+      <Box>
         {/* <OverviewSkeletonLoaders />
         <OverviewSkeletonLoaders /> */}
         <Flex mb={4} flexWrap="wrap">

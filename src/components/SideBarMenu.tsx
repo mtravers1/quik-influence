@@ -16,9 +16,9 @@ interface SideBarMenuProps {
 }
 
 const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
-  const [activeMenu, setActiveMenu] = useState("");
+  const [activeMenu, setActiveMenu] = useState('');
   const route = useRouter();
-  const { pathname } = route || { pathname: "/" };
+  const { pathname } = route || { pathname: '/' };
   const _sideBarOptions = Object.values(SideBarMenuOptions);
 
   useEffect(() => {
@@ -28,12 +28,7 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
   }, [_sideBarOptions, activeMenu]);
 
   return (
-    <Flex
-      flexDirection="column"
-      width="250px"
-      py={10}
-      bgColor={bgColor}
-    >
+    <Flex flexDirection="column" width="250px" py={10} bgColor={bgColor}>
       {_sideBarOptions.map(
         ({ name, icon, path, isShown }: SideBarOptionMenu) => {
           if (!isShown) return;
@@ -45,12 +40,12 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
               px={10}
               minW="100%"
               _hover={{
-                backgroundColor: sidebarBg[colorMode]
+                backgroundColor: sidebarBg[colorMode],
               }}
               bg={
                 (activeMenu || pathname) === path
                   ? sidebarBg[colorMode]
-                  : "transparent"
+                  : 'transparent'
               }
               borderLeft={`3px solid ${
                 (activeMenu || pathname) === path
@@ -63,12 +58,12 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
                 href={path}
                 display="block"
                 _hover={{
-                  textDecoration: "none",
-                  color: "inherit"
+                  textDecoration: 'none',
+                  color: 'inherit',
                 }}
                 _focus={{
-                  border: "none",
-                  textDecoration: "none"
+                  border: 'none',
+                  textDecoration: 'none',
                 }}
                 fontFamily="Avenir"
                 fontWeight="bold"
