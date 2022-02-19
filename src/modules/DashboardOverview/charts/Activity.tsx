@@ -10,67 +10,44 @@ import ChartsHeader from './ChartsHeader';
 
 const data = [
     {
-        name: "Spam",
-        value: 160,
-        fill: "#FF974A"
+        name: 'JAN 1',
+        SMS: 4000,
+        Email: 2400,
+        amt: 2400,
     },
     {
-        name: "Open",
-        value: 560,
-        fill: "#82C43C"
+        name: 'JAN 2',
+        SMS: 3000,
+        Email: 1398,
+        amt: 2210,
     },
     {
-        name: "Send",
-        value: 860,
-        fill: "#A461D8"
+        name: 'JAN 3',
+        SMS: 2000,
+        Email: 9800,
+        amt: 2290,
     },
+    {
+        name: 'JAN 4',
+        SMS: 2780,
+        Email: 3908,
+        amt: 2000,
+    },
+    {
+        name: 'JAN 5',
+        SMS: 1890,
+        Email: 4800,
+        amt: 2181,
+    }
 ];
 
 const style = {
-    top: 10,
+    top: -20,
     left: 0,
     lineHeight: "4px"
 };
+
  
-
-type CustomizedLabelProp = {
-    x?: string,
-    y?: string,
-    stroke?: string,
-    value?: string,
-}
-
-
-type CustomizedAxisTickProp = {
-    x?: string,
-    y?: string,
-    stroke?: string,
-    payload?: any,
-}
-
-const CustomizedLabel: React.FC<CustomizedLabelProp> = (props) => {
-
-    const { x, y, stroke, value } = props;
-
-    return (
-        <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">
-          {value}
-        </text>
-      );
-}
- 
-
-const CustomizedAxisTick: React.FC<CustomizedAxisTickProp> = (props) => { 
-    const { x, y, stroke, payload } = props;
-
-    return (
-      <g transform={`translate(${x},${y})`}>
-        <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
-          {payload.value}
-        </text>
-      </g>
-    );
-}
 
 const Activity: React.FC = ({ }) => {
     const { colorMode } = useColorMode();
@@ -81,26 +58,34 @@ const Activity: React.FC = ({ }) => {
             flexDirection="column"
         >
             <ChartsHeader title="Activity" />
-            <Flex justifyContent="center" width="100%" >
-                <ResponsiveContainer width={300} height={315}>
+            <Flex justifyContent="center" width="100%" mt="30px" >
+                <ResponsiveContainer height={315}>
                     <LineChart
                         width={500}
                         height={300}
                         data={data}
                         margin={{
-                            top: 20,
+                            top: 5,
                             right: 30,
                             left: 20,
-                            bottom: 10,
+                            bottom: 5,
                         }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
+                        <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="pv" stroke="#8884d8" label={<CustomizedLabel />} />
-                        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                        <Legend
+                            iconSize={10}
+                            width={220} 
+                            layout="horizontal"
+                            wrapperStyle={style}
+                            verticalAlign="top"
+                            align="center"
+                            iconType='square'
+                        />
+                        <Line type="monotone" dataKey="Email" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line type="monotone" dataKey="SMS" stroke="#82ca9d" />
                     </LineChart>
                 </ResponsiveContainer>
             </Flex>
