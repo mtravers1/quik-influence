@@ -1,9 +1,10 @@
 import MainContent from 'components/MainContent';
+import Filters from 'components/LeadsPageFilters';
 import Leads from 'modules/Leads';
 
 const Dashboard = () => {
   return (
-    <MainContent>
+    <MainContent filter={<Filters />}>
       <Leads />
     </MainContent>
   );

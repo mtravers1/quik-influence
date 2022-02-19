@@ -4,7 +4,7 @@ import { SideBarOptionMenu } from 'types';
 export const leadMenu: SideBarOptionMenu = {
   name: 'Leads',
   icon: faUserPlus,
-  path: '/leads',
+  path: '/dashboard/leads',
   order: 2,
   permission: [],
   isShown: true,

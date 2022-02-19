@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Stack, Flex, Divider, Box, useColorMode } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import Header from 'components/Header';
@@ -10,13 +11,42 @@ import {
 
 interface MainContentProps {
   children: React.ReactElement;
+  filter?: React.ReactElement;
 }
 
-const MainContent = ({ children }: MainContentProps) => {
+const MainContent = ({ children, filter }: MainContentProps) => {
   const { colorMode } = useColorMode();
+  const [open, setOpen] = useState(true);
+
+  const openBar = () => {
+    setOpen(!open);
+  };
+
+  const close = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const closeSlider = () => {
+      const smallerScreen = window.matchMedia('(max-width: 50em)');
+
+      if (smallerScreen.matches) {
+        close();
+      } else {
+        openBar();
+      }
+    };
+
+    window.addEventListener('resize', closeSlider);
+    // window.addEventListener("scroll", close);
+    return () => {
+      window.removeEventListener('resize', closeSlider);
+      window.removeEventListener('scroll', close);
+    };
+  }, []);
 
   return (
-    <Stack>
+    <Stack paddingTop="60px">
       <Header bgColor={bgThemeColor[colorMode]} color={themeColor[colorMode]} />
       <Flex
         flexDirection="row"
@@ -26,21 +56,32 @@ const MainContent = ({ children }: MainContentProps) => {
           }
         `}
       >
-        <SideBarMenu bgColor={bgThemeColor[colorMode]} colorMode={colorMode} />
+        <SideBarMenu
+          bgColor={bgThemeColor[colorMode]}
+          colorMode={colorMode}
+          open={open}
+        />
         <Divider
           bgColor={bgThemeColor[colorMode]}
           orientation="vertical"
           height="100vh"
         />
-        <Box
+        <Flex
           width="100%"
-          px={20}
-          py={10}
           bgColor={dashboardColor[colorMode]}
           color={themeColor[colorMode]}
+          px={20}
+          py={10}
         >
-          {children}
-        </Box>
+          <Box flexGrow={1} maxWidth="2500px" mx="auto">
+            {children}
+          </Box>
+          {filter && (
+            <Box flexShrink={0} marginLeft="30px">
+              {filter}
+            </Box>
+          )}
+        </Flex>
       </Flex>
     </Stack>
   );

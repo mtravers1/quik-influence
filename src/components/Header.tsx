@@ -39,6 +39,10 @@ const Header = ({ ...rest }: HeaderProps) => {
       color="black"
       boxShadow="base"
       {...rest}
+      zIndex={10}
+      position="fixed"
+      width="100vw"
+      top={0}
     >
       <Flex align="center" mr={5}>
         <Image
