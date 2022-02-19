@@ -33,6 +33,10 @@ module.exports = {
     '^modules$': '<rootDir>/src/modules',
     '^utils/(.*)$': '<rootDir>/src/utils/$1',
     '^types/(.*)$': '<rootDir>/src/types/$1',
+    '^hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^__mocks__/(.*)$': '<rootDir>/src/__mocks__/$1',
+    '^__mockData__/(.*)$': '<rootDir>/src/__mockData__/$1',
+    '^redux/(.*)$': '<rootDir>/src/redux/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
@@ -46,4 +50,7 @@ module.exports = {
     '/node_modules/',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
+  restoreMocks: true,
+  clearMocks: true,
+  resetMocks: true,
 };

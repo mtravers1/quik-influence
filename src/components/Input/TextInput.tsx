@@ -24,9 +24,11 @@ type TextInputProps = {
   handleChange: (event: any) => void;
   error?: string;
   formControlProps?: FormControlProps;
+  name?: string;
 };
 
 const TextInput: React.FC<TextInputProps> = ({
+  name,
   type,
   labelProps,
   TextInputProps,
@@ -53,6 +55,7 @@ const TextInput: React.FC<TextInputProps> = ({
         </FormLabel>
       )}
       <Input
+        name={name}
         type={type}
         value={value}
         onChange={handleChange}
