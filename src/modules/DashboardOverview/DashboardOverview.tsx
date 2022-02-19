@@ -15,6 +15,7 @@ import { cardThemeColor } from "utils/constants/colorConstants";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import EmailConversions from "./charts/EmailConversions";
 import Revenue from "./charts/Revenue";
+import Activity from "./charts/Activity";
 
 const DashboardOverview = () => {
   const { colorMode } = useColorMode();
@@ -23,27 +24,42 @@ const DashboardOverview = () => {
       <Box  >
         {/* <OverviewSkeletonLoaders />
         <OverviewSkeletonLoaders /> */}
-        <Flex mb={4}>
+        <Flex mb={4} flexWrap="wrap">
           <Grid
             w="100%"
-            templateRows="repeat(3, 1fr)"
             templateColumns="repeat(3, minmax(0,1fr))"
             gap={4}
           >
-            <GridItem rowSpan={1} colSpan={1} 
-            background={cardThemeColor[colorMode]}
-            borderRadius="8px">
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
               <EmailConversions />
             </GridItem>
-            <GridItem  rowSpan={1} colSpan={1} 
-            background={cardThemeColor[colorMode]}
-            borderRadius="8px">
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
               <Revenue />
-            </GridItem>  
-            <GridItem rowSpan={1} colSpan={1} 
-            background={cardThemeColor[colorMode]}
-            borderRadius="8px">
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
               <EmailConversions />
+            </GridItem>
+          </Grid>
+          <Grid
+            w="100%"
+            py={5}
+            gap={5}
+            templateColumns="repeat(2, minmax(0,1fr))">
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
+              <Activity />
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
+              {/* <Revenue /> */}
             </GridItem>
           </Grid>
         </Flex>

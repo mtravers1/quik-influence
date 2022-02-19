@@ -47,6 +47,8 @@ const style = {
     lineHeight: "4px"
 };
 
+ 
+
 const Revenue: React.FC = ({ }) => {
     const { colorMode } = useColorMode();
 
