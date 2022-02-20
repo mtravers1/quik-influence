@@ -7,10 +7,17 @@ import formdata from 'utils/constants/formData/closeFriends';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import CustomInput from 'components/CustomInput';
 import { axiosInstance } from 'utils/helpers';
+import { useEffect } from 'react';
 
-const LeadsForm = ({ campaignId }: { campaignId: string }) => {
+const LeadsForm = ({
+  campaignId,
+  handleStripe,
+}: {
+  campaignId: string;
+  handleStripe: (email: string) => {};
+}) => {
   const toast = createStandaloneToast();
-  // const toast = useToast();
+
   const {
     handleChange,
     inputTypes,
@@ -26,7 +33,7 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
           ...inputs,
           campaignId,
         })
-        .then(res => {
+        .then(async res => {
           if (res.status === 200) {
             resetInputs();
             toast({
@@ -37,6 +44,8 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
               variant: 'subtle',
             });
           }
+
+          await handleStripe(inputs.email);
           console.log('res >>> ', res);
         })
         .catch(err => {
