@@ -5,11 +5,12 @@ import {
   FormLabelProps,
   Select,
   SelectProps,
+  Box,useColorMode
 } from '@chakra-ui/react';
 import React from 'react';
 import quikColorConstants from 'utils/constants/colorConstants';
 
-type DropdownSelectOption = {
+export type DropdownSelectOption = {
   label: string;
   value: string;
 };
@@ -23,6 +24,7 @@ interface DropdownSelectProp {
   labelProps?: FormLabelProps;
   selectProps?: SelectProps;
   error?: string;
+  extraLabel?: string
 }
 
 const DropdownSelect = ({
@@ -34,17 +36,23 @@ const DropdownSelect = ({
   labelProps,
   selectProps,
   error,
+  extraLabel
 }: DropdownSelectProp) => {
+  const { colorMode } = useColorMode();
+
   return (
     <FormControl isInvalid={!!error}>
       {!!label && (
         <FormLabel
           fontSize="1.6rem"
-          color={quikColorConstants.black}
+          color={colorMode === 'light' ? quikColorConstants.black : '#FFFFFF'}
           htmlFor={inputId}
           {...labelProps}
         >
           {label}
+          {
+           extraLabel && <Box as="span" fontSize="md" mx="4" >{extraLabel}</Box>
+          }
         </FormLabel>
       )}
       <Select
@@ -62,7 +70,7 @@ const DropdownSelect = ({
             <option
               data-testid="select-option"
               key={option.value}
-              value={option.value}
+              value={option.value} 
             >
               {option.label}
             </option>

@@ -11,3 +11,15 @@ export const campaignsMenu: SideBarOptionMenu = {
   isActive: false,
   child: [],
 };
+
+export const createCampaignsMenu: SideBarOptionMenu = {
+  name: 'Create Campaign',
+  icon: faCalendarMinus,
+  path: '/campaigns/create',
+  order: 2,
+  permission: [],
+  isShown: true,
+  isActive: false,
+  child: [],
+};
+

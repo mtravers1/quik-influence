@@ -1,5 +1,5 @@
 import CampaignsOverview from "./CampaignsOverview";
-import {campaignsMenu} from './sideBarOption'
+import {campaignsMenu, createCampaignsMenu} from './sideBarOption'
 export default CampaignsOverview
 
-export {campaignsMenu}
+export {campaignsMenu, createCampaignsMenu}

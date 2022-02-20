@@ -1,7 +1,8 @@
 import { dashboardMenu } from './DashboardOverview';
-import { campaignsMenu } from './Campaigns';
+import { campaignsMenu, createCampaignsMenu } from './Campaigns';
 
 export const SideBarMenuOptions = {
   dashboardMenu,
-  campaignsMenu
+  campaignsMenu,
+  // createCampaignsMenu
 };
