@@ -1,4 +1,5 @@
 import { ASDMedia } from "@alliance-software-development/asd-media-react";
+import { Box, Image } from "@chakra-ui/react";
 import React from "react";
 
 const ImageUploadButton = () => {
@@ -17,9 +18,11 @@ const ImageUploadButton = () => {
 
   return (
     <>
-      <div className="image" onClick={() => asdMediaRef.current?.openDialog()}>
-        <img src={image} alt="uploaded" />
-      </div>
+      {image && (
+        <Box maxW={150}>
+          <Image src={image} alt="image to upload" />
+        </Box>
+      )}
       <ASDMedia
         // @ts-ignore
         ref={asdMediaRef}
@@ -34,7 +37,9 @@ const ImageUploadButton = () => {
             return;
           }
           file.done((fileInfo: any) => {
-            fileInfo['smartURL'] = `${fileInfo.cdnUrl}-/preview/-/quality/smart/`;
+            fileInfo[
+              "smartURL"
+            ] = `${fileInfo.cdnUrl}-/preview/-/quality/smart/`;
             setImage(fileInfo.smartURL);
           });
         }}
