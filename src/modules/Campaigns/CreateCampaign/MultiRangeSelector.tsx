@@ -12,22 +12,23 @@ import {
     Tooltip,
     Text,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import quikColorConstants, {
     borderThemeColor,
 } from 'utils/constants/colorConstants';
 
-type Range = {
+export type Range = {
     title: string,
     min: number,
-    max: number
+    max: number,
+    isMoney?: boolean
 }
 
-type MultiRangeSelectorProps = {
+export type MultiRangeSelectorProps = {
     label: string;
     error?: string;
     extraLabel?: string;
-    ranges: Range[]
+    ranges: Range[],
 };
 
 const MultiRangeSelector: React.FC<MultiRangeSelectorProps> = ({
@@ -37,9 +38,20 @@ const MultiRangeSelector: React.FC<MultiRangeSelectorProps> = ({
     ranges
 }) => {
     const { colorMode } = useColorMode();
-    const [sliderValue, setSliderValue] = React.useState(5)
-    const [showTooltip, setShowTooltip] = React.useState(false)
-    console.log(ranges)
+    const [sliderValue, setSliderValue] = useState([10, 5])
+
+    const handleSliderState = (value: number, index: number) => {
+        setSliderValue(
+            sliderValue.map((val, i) => {
+                if (i === index) {
+                    return value
+                } else {
+                    return val
+                }
+            })
+        )
+    }
+
     return (
         <Box maxW="60rem" pt={8}>
 
@@ -59,9 +71,9 @@ const MultiRangeSelector: React.FC<MultiRangeSelectorProps> = ({
                 )}
 
                 {
-                    ranges.map(range =>
+                    ranges.map((range, i) =>
                         <Box my={4}>
-                            <Text>
+                            <Text size="md" color={quikColorConstants.greyDarker}>
                                 {range.title}
                             </Text>
                             <Slider
@@ -70,22 +82,20 @@ const MultiRangeSelector: React.FC<MultiRangeSelectorProps> = ({
                                 id={range.title}
                                 min={range.min}
                                 max={range.max}
+                                mt={10}
                                 defaultValue={30}
-                                onChange={(v) => setSliderValue(v)}
-                                onMouseEnter={() => setShowTooltip(true)}
-                                onMouseLeave={() => setShowTooltip(false)}
+                                onChange={value => handleSliderState(value, i)}
                             >
-                                <SliderTrack>
-                                    <SliderFilledTrack />
+                                <SliderTrack bg={quikColorConstants.influenceRed} >
+                                    <SliderFilledTrack bg={colorMode === 'light' ? quikColorConstants.black : '#FFFFFF'} />
                                 </SliderTrack>
 
                                 <Tooltip
-                                    hasArrow
-                                    bg='teal.500'
-                                    color='white'
+                                    color={colorMode === 'dark' ? quikColorConstants.black : '#FFFFFF'}
+                                    fontSize="lg"
                                     placement='top'
-                                    isOpen={showTooltip}
-                                    label={`${sliderValue}%`}
+                                    isOpen={true}
+                                    label={range.isMoney ? `$${sliderValue[i]}` : sliderValue[i]}
                                 >
                                     <SliderThumb />
                                 </Tooltip>

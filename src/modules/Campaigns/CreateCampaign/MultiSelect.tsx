@@ -35,6 +35,7 @@ const MultiSelect : React.FC<MultiSelectProps> = ({
                  options={selectOptions || []} 
                  selectProps={{
                     height: '4.5rem',
+                    fontSize: '1.4rem', 
                  }}
                  label={label}
                  extraLabel={extraLabel}

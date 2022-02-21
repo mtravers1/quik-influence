@@ -61,10 +61,12 @@ const DropdownSelect = ({
         border="1px solid #D5D5DC"
         borderRadius="xl"
         id={inputId}
-        placeholder={`Select ${label || '---'}`}
         data-test-id="select-component"
         {...selectProps}
       >
+        <option value="" disabled selected>
+        {`Select ${label || '---'}`}
+        </option>
         {options.map(option => {
           return (
             <option
