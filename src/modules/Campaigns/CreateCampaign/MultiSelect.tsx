@@ -1,37 +1,52 @@
 import { Box, Flex, Tag, TagCloseButton } from '@chakra-ui/react';
 import DropdownSelect, {DropdownSelectOption} from 'components/DropdownSelect';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 type MultiSelectProps = {
     selectOptions: DropdownSelectOption[],
     label: string,
-    extraLabel?: string
+    extraLabel?: string,
+    handleChange: (event: any) => void;
+    name: string
 }
 
 const MultiSelect : React.FC<MultiSelectProps> = ({
     selectOptions,
     label,
-    extraLabel
+    extraLabel,
+    handleChange,
+    name
 }) => {
 
-    const [selectedOpt, setSelectedAge] = useState<Array<string>>([]);
+    const [selectedOpt, setSelectedOpts] = useState<Array<string>>([]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleMultiSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         if (!selectedOpt.includes(e.target.value)) {
-            setSelectedAge([...selectedOpt, e.target.value]);
+            setSelectedOpts([...selectedOpt, e.target.value]);
         }
     };
 
+    useEffect(() => {
+        const event: any = {}
+        event.target = {
+            name: name,
+            value: selectedOpt,
+            type: 'multi-select',
+            checked: undefined
+        } as unknown as HTMLInputElement
+        handleChange(event)
+    }, [selectedOpt])
+
     const handleRemoveOpt = (removeOpt: string) => {
-        setSelectedAge(selectedOpt.filter(opt => opt !== removeOpt));
+        setSelectedOpts(selectedOpt.filter(opt => opt !== removeOpt));
     };
 
 
     return (
         <Box maxW="60rem" pt={8}>
             <DropdownSelect 
-                 onChange={handleChange} 
+                 onChange={handleMultiSelectChange} 
                  options={selectOptions || []} 
                  selectProps={{
                     height: '4.5rem',

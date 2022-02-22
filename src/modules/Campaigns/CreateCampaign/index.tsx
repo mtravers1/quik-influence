@@ -1,4 +1,4 @@
-import { Heading, Flex, Text, List, OrderedList, ListItem, FormControl, FormLabel, useColorMode } from "@chakra-ui/react"
+import { Heading, Flex, Text, List, OrderedList, ListItem, FormControl, FormLabel, useColorMode, FormErrorMessage } from "@chakra-ui/react"
 import CustomButton from "components/Button";
 import DropdownSelect, { DropdownSelectOption } from "components/DropdownSelect";
 import { TextInput } from "components/Input"
@@ -9,17 +9,19 @@ import formdata from 'utils/constants/formData/campaign';
 import MultiRangeSelector, { Range } from "./MultiRangeSelector";
 import MultiSelect from "./MultiSelect";
 import loader from 'assets/loader.gif';
+import UploadImage from "./UploadImage";
 
 
 
 const CreateCampaign = () => {
 
-  const {colorMode} = useColorMode()
+  const { colorMode } = useColorMode()
 
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
     cb: async inputs => {
-
+      console.log('inputs')
+      console.log(inputs)
     }
   })
   return (
@@ -40,12 +42,14 @@ const CreateCampaign = () => {
                   return (
                     <ListItem maxW="60rem" pt={8}>
                       <DropdownSelect
+                        error={errors[data.name] ? data.errorMessage : undefined}
                         onChange={handleChange}
                         options={data.options || []}
                         label={data.label}
+                        name={data.name}
                         selectProps={{
                           height: '4.5rem',
-                          fontSize: '1.4rem', 
+                          fontSize: '1.4rem',
                         }}
                       />
                     </ListItem>
@@ -57,6 +61,8 @@ const CreateCampaign = () => {
                         selectOptions={data.options as DropdownSelectOption[]}
                         label={data.label}
                         extraLabel={data.extraLabel ?? data.extraLabel}
+                        handleChange={handleChange}
+                        name={data.name}
                       />
                     </ListItem>
                   )
@@ -70,10 +76,17 @@ const CreateCampaign = () => {
                       />
                     </ListItem>
                   )
+                case 'image-upload':
+                  return (
+                    <ListItem maxW="60rem" pt={8}>
+                      <UploadImage />
+                    </ListItem>
+                  )
                 default:
                   return (
                     <ListItem>
                       <TextInput
+                        error={errors[data.name] ? data.errorMessage : undefined}
                         name={data.name}
                         label={data.label}
                         value={inputTypes[data.name]}
@@ -102,8 +115,8 @@ const CreateCampaign = () => {
               Submit Campaign
             </FormLabel>
             <Text>We will review your campaign and correspond any changes or approval decision to you</Text>
-            <CustomButton maxW="204px"  mt={12} onClick={handleSubmit}>
-              Login {loading && <Image src={loader} alt="" width={50} height={50} />}
+            <CustomButton maxW="204px" mt={12} onClick={handleSubmit}>
+              Create Campaign {loading && <Image src={loader} alt="" width={50} height={50} />}
             </CustomButton>
           </ListItem>
         </OrderedList>

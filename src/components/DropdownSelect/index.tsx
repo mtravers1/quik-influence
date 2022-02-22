@@ -24,7 +24,8 @@ interface DropdownSelectProp {
   labelProps?: FormLabelProps;
   selectProps?: SelectProps;
   error?: string;
-  extraLabel?: string
+  extraLabel?: string;
+  name?: string;
 }
 
 const DropdownSelect = ({
@@ -36,7 +37,8 @@ const DropdownSelect = ({
   labelProps,
   selectProps,
   error,
-  extraLabel
+  extraLabel,
+  name
 }: DropdownSelectProp) => {
   const { colorMode } = useColorMode();
 
@@ -57,6 +59,7 @@ const DropdownSelect = ({
       )}
       <Select
         onChange={onChange}
+        name={name}
         size={size}
         border="1px solid #D5D5DC"
         borderRadius="xl"
