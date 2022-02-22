@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   FormControlProps,
   FormErrorMessage,
@@ -25,6 +26,7 @@ type TextInputProps = {
   error?: string;
   formControlProps?: FormControlProps;
   name?: string;
+  extraLabel?: string
 };
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -39,6 +41,7 @@ const TextInput: React.FC<TextInputProps> = ({
   inputId = '',
   error,
   formControlProps,
+  extraLabel
 }) => {
   const { colorMode } = useColorMode();
   return (
@@ -52,6 +55,9 @@ const TextInput: React.FC<TextInputProps> = ({
           {...labelProps}
         >
           {label}
+          {
+           extraLabel && <Box as="span" fontSize="md" mx="4" >{extraLabel}</Box>
+          }
         </FormLabel>
       )}
       <Input
