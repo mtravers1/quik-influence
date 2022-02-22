@@ -11,10 +11,12 @@ const PaymentSuccessful = () => {
     setTimeout(() => {
       let redirectUrl;
 
-      if (typeof window !== 'undefined')
+      if (typeof window !== 'undefined') {
         redirectUrl = localStorage.getItem('redirectUrl');
 
-      window.location.href = redirectUrl || '';
+        window.location.href = redirectUrl || '';
+        localStorage.removeItem('redirectUrl');
+      }
     }, 5000);
   }, []);
 
