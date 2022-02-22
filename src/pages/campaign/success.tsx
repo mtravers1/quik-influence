@@ -6,7 +6,6 @@ import quikColorConstants from 'utils/constants/colorConstants';
 
 const PaymentSuccessful = () => {
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
-  const router = useRouter();
   const { colorMode } = useColorMode();
 
   useLayoutEffect(() => {
@@ -18,7 +17,12 @@ const PaymentSuccessful = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      return router.push('/login');
+      let redirectUrl;
+
+      if (typeof window !== 'undefined')
+        redirectUrl = localStorage.getItem('redirectUrl');
+
+      window.location.href = redirectUrl || '';
     }, 5000);
   }, []);
 

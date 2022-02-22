@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Flex, createStandaloneToast } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
@@ -12,11 +13,14 @@ import { useEffect } from 'react';
 const LeadsForm = ({
   campaignId,
   handleStripe,
+  redirectUrl,
 }: {
   campaignId: string;
   handleStripe: (email: string) => {};
+  redirectUrl: string;
 }) => {
   const toast = createStandaloneToast();
+  const [submitForm, setSubmitForm] = useState(false);
 
   const {
     handleChange,
@@ -28,6 +32,8 @@ const LeadsForm = ({
   } = useInput({
     inputs: formdata,
     cb: async inputs => {
+      if (!submitForm) return;
+
       await axiosInstance
         .post(`/users/campaign/`, {
           ...inputs,
@@ -46,6 +52,9 @@ const LeadsForm = ({
           }
 
           await handleStripe(inputs.email);
+          if (typeof window !== 'undefined')
+            localStorage.setItem('redirectUrl', redirectUrl);
+
           console.log('res >>> ', res);
         })
         .catch(err => {
@@ -106,6 +115,23 @@ const LeadsForm = ({
             )}
           </FormControl>
         ))}
+        <Box p="10px">
+          <input
+            type="checkbox"
+            checked={submitForm}
+            onChange={() => setSubmitForm(!submitForm)}
+          />
+
+          <Box as="small" marginLeft="20px">
+            By submitting yes, I consent to having a representative from
+            QuikInfluence or their partners contact me at this number (insert
+            submitted number) and/or this email (insert submitted email
+            address). I understand these calls or texts may be generated using
+            an automated dialer or software and that my consent is not required
+            as a precondition for purchasing or receiving any property, goods or
+            service.
+          </Box>
+        </Box>
       </Flex>
 
       <CustomButton

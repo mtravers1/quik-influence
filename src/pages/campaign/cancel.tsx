@@ -9,7 +9,12 @@ const PaymentSuccessful = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      return router.push('/login');
+      let redirectUrl;
+
+      if (typeof window !== 'undefined')
+        redirectUrl = localStorage.getItem('redirectUrl');
+
+      window.location.href = redirectUrl || '';
     }, 5000);
   }, []);
 

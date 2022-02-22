@@ -137,8 +137,6 @@ export default function Input({
   const handleChange = (event: SyntheticEvent<EventTarget>) => {
     const { name, value, type, checked } = event.target as HTMLInputElement;
 
-    console.log(name);
-
     if (inputMap[name].validateSelf) {
       const newErrors = { ...errors, [name]: !validate(value, name, inputMap[name].pattern) };
       newErrors.onSubmit = false;

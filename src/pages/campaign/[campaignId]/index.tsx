@@ -11,14 +11,11 @@ const stripePromise = loadStripe(
 );
 
 const pageInfo = {
-  image:
-    'https://res.cloudinary.com/alliance-software-development/image/upload/v1644875376/quik-and-dasha_ruzxcn.jpg',
-  title: 'Get exclusive content of Baby Dream',
   campaingeAmount: 30,
   fee: (30 * (12 + 2.9 + 0.33)) / 100,
 };
 
-const CloseFriendsCampaign = () => {
+const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const { query } = useRouter();
   const { colorMode } = useColorMode();
 
@@ -29,8 +26,8 @@ const CloseFriendsCampaign = () => {
       '/stripe/create-payment-session',
       {
         email,
-        image: pageInfo.image,
-        title: pageInfo.title,
+        image: data.banner,
+        title: data.name,
         amount: Math.round(pageInfo.campaingeAmount + pageInfo.fee) * 100,
       }
     );
@@ -51,7 +48,7 @@ const CloseFriendsCampaign = () => {
             as="div"
           >
             <Image
-              src={pageInfo.image}
+              src={data.banner}
               alt="Get exclusive content of Baby Dream"
               layout="fill"
               objectFit="cover"
@@ -68,11 +65,12 @@ const CloseFriendsCampaign = () => {
             >
               <Box maxW="440px">
                 <Heading py={8} fontFamily="montserrat">
-                  {pageInfo.title}
+                  {data.name}
                 </Heading>
                 <LeadsForm
                   campaignId={query.campaignId as string}
                   handleStripe={handleStripe}
+                  redirectUrl={data.redirectUrl}
                 />
               </Box>
             </Flex>
@@ -82,5 +80,36 @@ const CloseFriendsCampaign = () => {
     </Box>
   );
 };
+
+export async function getStaticPaths() {
+  const response = await axiosInstance.get(`/users/campaigns`);
+
+  const urls = response.data.data.map((campaign: any) => ({
+    params: { campaignId: campaign.id },
+  }));
+
+  return {
+    paths: urls,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }: { params: any }) {
+  const response = await axiosInstance.get(`/users/campaigns`);
+
+  const pageData = response.data.data.reduce(
+    (acc: any, campaign: any) => ({ ...acc, [campaign.id]: campaign }),
+    {}
+  );
+
+  const data = pageData[params.campaignId];
+
+  return {
+    props: {
+      data: data || {},
+    }, // will be passed to the page component as props
+    revalidate: 10,
+  };
+}
 
 export default CloseFriendsCampaign;

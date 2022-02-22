@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useToast } from '@chakra-ui/react';
+import { login } from 'redux/actions/auth';
 import Image from 'next/image';
 import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
@@ -13,13 +14,17 @@ import loader from 'assets/loader.gif';
 const Register = () => {
   const router = useRouter();
   const toast = useToast();
+  const dispatch = useDispatch();
 
   const { redirect } = router.query;
 
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
     cb: async inputs => {
-      await axiosInstance.post('/auth/admin/otpRegister', inputs);
+      const response = await axiosInstance.post(
+        '/auth/admin/otpRegister',
+        inputs
+      );
 
       toast({
         title: 'Account created.',
@@ -32,6 +37,10 @@ const Register = () => {
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('email', inputs.email);
       }
+
+      dispatch(login(response.data.data));
+
+      window.open(response.data.data.url, '_blank');
 
       router.push(`/loginOtp${redirect ? `?redirect=${redirect}` : ''}`);
     },

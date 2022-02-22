@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseurl = 'https://quik-influence.herokuapp.com';
+const baseurl = 'http://localhost:2022';
+// const baseurl = 'https://quik-influence.herokuapp.com';
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
