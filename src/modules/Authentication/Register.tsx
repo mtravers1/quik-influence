@@ -42,7 +42,7 @@ const Register = () => {
 
       window.open(response.data.data.url, '_blank');
 
-      router.push(`/loginOtp${redirect ? `?redirect=${redirect}` : ''}`);
+      router.push(`/login-otp${redirect ? `?redirect=${redirect}` : ''}`);
     },
   });
 
