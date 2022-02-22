@@ -3,6 +3,7 @@ import CustomButton from 'components/Button';
 import CompanyCard from 'components/CompanyCard';
 import DropdownSelect from 'components/DropdownSelect';
 import Filter from 'components/Filter';
+import ImageUploadButton from 'components/ImageUploadButton';
 import { TextInput } from 'components/Input';
 import { useState } from 'react';
 
@@ -107,7 +108,9 @@ const DashboardOverview = () => {
           error="select one to proceed"
           options={selectOptions || []}
         />
+
       </Box>
+      <ImageUploadButton />
     </Box>
   );
 };

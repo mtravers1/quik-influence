@@ -17,9 +17,9 @@ export const validate = (field: any, Regex: any, pattern: any) => {
   return false;
 };
 
-export const setToken = (token: string) => {
+export const setToken = (token: string) => { 
   axiosInstance.interceptors.request.use((config: any) => {
-    config.headers.Authorization = token ? `Bearer ${token}` : '';
+    config.headers.token = token ? token: '';
     return config;
   });
 };

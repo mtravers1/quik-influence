@@ -20,20 +20,26 @@ const DataTable = () => {
   const data = React.useMemo(
     () => [
       {
-        fromUnit: 'inches',
-        toUnit: 'millimetres (mm)',
-        factor: 25.4,
-      },
+        cam: 'inches',
+        aff: 'millimetres (mm)',
+        mod: 25.4,
+        ent: 4343,
+        cro: 223232
+      }, 
       {
-        fromUnit: 'feet',
-        toUnit: 'centimetres (cm)',
-        factor: 30.48,
-      },
+        cam: 'inches',
+        aff: 'millimetres (mm)',
+        mod: 25.4,
+        ent: 4343,
+        cro: 223232
+      }, 
       {
-        fromUnit: 'yards',
-        toUnit: 'metres (m)',
-        factor: 0.91444,
-      },
+        cam: 'inches',
+        aff: 'millimetres (mm)',
+        mod: 25.4,
+        ent: 4343,
+        cro: 223232
+      }, 
     ],
     []
   );
@@ -41,16 +47,26 @@ const DataTable = () => {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'To convert',
-        accessor: 'fromUnit',
+        Header: 'Campaigns',
+        accessor: 'cam',
       },
       {
-        Header: 'Into',
-        accessor: 'toUnit',
+        Header: 'Affiliate',
+        accessor: 'aff',
       },
       {
-        Header: 'Multiply by',
-        accessor: 'factor',
+        Header: 'Model',
+        accessor: 'mod',
+        isNumeric: true,
+      },
+      {
+        Header: 'Engagement Type',
+        accessor: 'ent',
+        isNumeric: true,
+      },
+      {
+        Header: 'Created on',
+        accessor: 'cro',
         isNumeric: true,
       },
     ],
@@ -124,6 +140,7 @@ const DataTable = () => {
                     key={clIndex}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     isNumeric={column.isNumeric}
+                    fontSize="lg"
                   >
                     {column.render('Header')}
                     <chakra.span pl="4">

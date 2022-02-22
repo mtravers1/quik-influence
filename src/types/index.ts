@@ -9,7 +9,7 @@ export type SelectProps = { label: string; value: string };
 export interface SideBarOptionMenu {
   name: string;
   icon: IconDefinition;
-  path: string;
+  path: string | string[];
   child?: SideBarOptionMenu[];
   order?: number;
   permission?: string[];
