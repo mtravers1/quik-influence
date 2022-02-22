@@ -7,8 +7,9 @@ type MultiSelectProps = {
     selectOptions: DropdownSelectOption[],
     label: string,
     extraLabel?: string,
-    handleChange: (event: any) => void;
-    name: string
+    handleChange: (event: any) => void,
+    name: string,
+    error?: string,
 }
 
 const MultiSelect : React.FC<MultiSelectProps> = ({
@@ -16,7 +17,8 @@ const MultiSelect : React.FC<MultiSelectProps> = ({
     label,
     extraLabel,
     handleChange,
-    name
+    name,
+    error
 }) => {
 
     const [selectedOpt, setSelectedOpts] = useState<Array<string>>([]);
@@ -54,6 +56,8 @@ const MultiSelect : React.FC<MultiSelectProps> = ({
                  }}
                  label={label}
                  extraLabel={extraLabel}
+                //  error={error}
+
                  />
             {/* @ts-ignore */}
             <Flex flexWrap="wrap" spacing={4} mt={5}>

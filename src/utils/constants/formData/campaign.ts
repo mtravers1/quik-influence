@@ -32,8 +32,8 @@ export default [
         required: true,
         type: 'select',
         options: [
-            { label: 'Paid', value: 'paid' },
-            { label: 'Unpaid', value: 'unpaid' },
+            { label: 'Paid', value: 'PAID' },
+            { label: 'Unpaid', value: 'UNPAID' },
         ],
         pattern: FREE_TEXT_REGEX,
     },
