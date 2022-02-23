@@ -5,6 +5,7 @@ import {
   FormLabelProps,
   Select,
   SelectProps,
+  useColorMode,
 } from '@chakra-ui/react';
 import React from 'react';
 import quikColorConstants from 'utils/constants/colorConstants';
@@ -35,12 +36,17 @@ const DropdownSelect = ({
   selectProps,
   error,
 }: DropdownSelectProp) => {
+  const { colorMode } = useColorMode();
   return (
     <FormControl isInvalid={!!error}>
       {!!label && (
         <FormLabel
           fontSize="1.6rem"
-          color={quikColorConstants.black}
+          color={
+            colorMode === 'light'
+              ? quikColorConstants.black
+              : quikColorConstants.white
+          }
           htmlFor={inputId}
           {...labelProps}
         >

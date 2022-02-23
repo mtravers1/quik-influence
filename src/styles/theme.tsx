@@ -1,5 +1,9 @@
 import { extendTheme } from '@chakra-ui/react';
-import { createBreakpoints } from '@chakra-ui/theme-tools';
+import { createBreakpoints, mode } from '@chakra-ui/theme-tools';
+
+const creditsTransactionalTableBorder = {
+  border: '1px solid #707070',
+};
 
 const fonts = {
   mono: `'Menlo', monospace`,
@@ -152,6 +156,24 @@ const theme = extendTheme({
     initialColorMode: 'dark',
     useSystemColorMode: false,
     cssVarPrefix: 'quik',
+  },
+  components: {
+    Table: {
+      variants: {
+        creditsTransactionalTable: (props: any) => ({
+          table: { bgColor: mode('white', 'black.500')(props) },
+          tr: {
+            ...creditsTransactionalTableBorder,
+          },
+          th: {
+            ...creditsTransactionalTableBorder,
+          },
+          td: {
+            ...creditsTransactionalTableBorder,
+          },
+        }),
+      },
+    },
   },
 });
 
