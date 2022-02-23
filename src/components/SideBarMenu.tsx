@@ -20,7 +20,7 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
   const { pathname } = route || { pathname: '/' };
   const _sideBarOptions = Object.values(SideBarMenuOptions);
 
-  const [activeMenu, setActiveMenu] = useState(pathname);
+  const [activeMenu, setActiveMenu] = useState<string>(pathname);
 
   useEffect(() => {
     if (!activeMenu) {
