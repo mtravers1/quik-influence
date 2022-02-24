@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseurl = 'http://localhost:2022';
-// const baseurl = 'https://quik-influence.herokuapp.com';
+// const baseurl = 'http://localhost:2022';
+const baseurl = 'https://quik-influence.herokuapp.com';
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
@@ -17,9 +17,9 @@ export const validate = (field: any, Regex: any, pattern: any) => {
   return false;
 };
 
-export const setToken = (token: string) => { 
+export const setToken = (token: string) => {
   axiosInstance.interceptors.request.use((config: any) => {
-    config.headers.token = token ? token: '';
+    config.headers.token = token ? token : '';
     return config;
   });
 };
