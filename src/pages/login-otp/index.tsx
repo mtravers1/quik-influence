@@ -5,7 +5,7 @@ const Login = () => {
   const { colorMode } = useColorMode();
   return (
     <Box as="section" bgColor={bgThemeColor[colorMode]}>
-      <Authentication type="loginOtp" />
+      <Authentication type="login-otp" />
     </Box>
   );
 };
