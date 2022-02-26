@@ -26,8 +26,8 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
       '/stripe/create-payment-session',
       {
         email,
-        image: data.banner,
-        title: data.name,
+        image: data?.banner,
+        title: data?.name,
         amount: Math.round(pageInfo.campaingeAmount + pageInfo.fee) * 100,
       }
     );
@@ -48,7 +48,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
             as="div"
           >
             <Image
-              src={data.banner}
+              src={data?.banner}
               alt="Get exclusive content of Baby Dream"
               layout="fill"
               objectFit="cover"
@@ -65,12 +65,12 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
             >
               <Box maxW="440px">
                 <Heading py={8} fontFamily="montserrat">
-                  {data.name}
+                  {data?.name}
                 </Heading>
                 <LeadsForm
                   campaignId={query.campaignId as string}
                   handleStripe={handleStripe}
-                  redirectUrl={data.redirectUrl}
+                  redirectUrl={data?.redirectUrl}
                 />
               </Box>
             </Flex>
@@ -107,12 +107,16 @@ export async function getStaticProps({ params }: { params: any }) {
     },
   });
 
+  // console.log(response?.data.data);
+
   const pageData = response.data.data.reduce(
     (acc: any, campaign: any) => ({ ...acc, [campaign.id]: campaign }),
     {}
   );
 
   const data = pageData[params.campaignId];
+
+  // console.log(data);
 
   return {
     props: {
