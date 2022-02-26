@@ -95,12 +95,12 @@ const Login = () => {
       ))}
 
       {showOtpInput ? (
-        <CustomButton maxW="204px" height="64px" mt={4} onClick={handleSubmit}>
+        <CustomButton maxW="204px" mt={14} onClick={handleSubmit}>
           Login{' '}
           {loading && <Image src={loader} alt="" width={50} height={50} />}
         </CustomButton>
       ) : (
-        <CustomButton maxW="204px" height="64px" mt={4} onClick={getOpt}>
+        <CustomButton maxW="204px" mt={14} onClick={getOpt}>
           Get Otp{' '}
           {loadingOtp && <Image src={loader} alt="" width={50} height={50} />}
         </CustomButton>

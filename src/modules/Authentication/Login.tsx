@@ -68,7 +68,7 @@ const Login = () => {
         </FormControl>
       ))}
 
-      <CustomButton maxW="204px" height="64px" mt={4} onClick={handleSubmit}>
+      <CustomButton maxW="204px" mt={14} onClick={handleSubmit}>
         Login {loading && <Image src={loader} alt="" width={50} height={50} />}
       </CustomButton>
     </form>

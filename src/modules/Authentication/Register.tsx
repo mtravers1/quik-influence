@@ -74,8 +74,7 @@ const Register = () => {
 
       <CustomButton
         maxW="204px"
-        height="64px"
-        mt={4}
+        mt={14}
         type="submit"
         onClick={handleSubmit}
       >
