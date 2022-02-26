@@ -162,6 +162,7 @@ const DashboardCredits = () => {
                 if (data.type === 'select') {
                   return (
                     <GridItem
+                      key={`gridItem_${i}`}
                       colSpan={data.colSpan === 1 ? colSpan : data.colSpan}
                     >
                       <DropdownSelect
@@ -178,6 +179,7 @@ const DashboardCredits = () => {
 
                 return (
                   <GridItem
+                    key={`gridItem_${i}`}
                     colSpan={data.colSpan === 1 ? colSpan : data.colSpan}
                   >
                     <FormControl
