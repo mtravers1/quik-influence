@@ -2,7 +2,11 @@ import { Stack, Flex, Divider, Box, useColorMode } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import Header from 'components/Header';
 import SideBarMenu from 'components/SideBarMenu';
-import { bgThemeColor, themeColor } from 'utils/constants/colorConstants';
+import {
+  bgThemeColor,
+  sideBarThemeColor,
+  themeColor,
+} from 'utils/constants/colorConstants';
 
 interface MainContentProps {
   children: React.ReactElement;
@@ -22,7 +26,10 @@ const MainContent = ({ children }: MainContentProps) => {
           }
         `}
       >
-        <SideBarMenu bgColor={bgThemeColor[colorMode]} colorMode={colorMode} />
+        <SideBarMenu
+          bgColor={sideBarThemeColor[colorMode]}
+          colorMode={colorMode}
+        />
         <Divider
           bgColor={bgThemeColor[colorMode]}
           orientation="vertical"

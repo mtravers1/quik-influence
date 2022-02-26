@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
-export interface User {}
+export interface User { }
 
 export type T = { [key: string]: string[] };
 export type Q = { [key: string]: string };
@@ -9,7 +9,7 @@ export type SelectProps = { label: string; value: string };
 export interface SideBarOptionMenu {
   name: string;
   icon: IconDefinition;
-  path: string | string[];
+  path: string;
   child?: SideBarOptionMenu[];
   order?: number;
   permission?: string[];
