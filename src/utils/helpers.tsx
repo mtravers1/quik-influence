@@ -1,3 +1,4 @@
+import { cookieStorageManager } from '@chakra-ui/react';
 import axios from 'axios';
 
 const baseurl = 'https://quik-influence.herokuapp.com';
