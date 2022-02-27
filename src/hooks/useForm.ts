@@ -79,7 +79,13 @@ export default function Input({
 
     if (shouldNotSubmit && validateForm) {
       // you can add a toast here
-
+      toast({
+        title: "An error occurred. Please check your form for uncompleted fields",
+        description: '',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
       errorMap.reset = false;
       errorMap.onSubmit = true;
 
@@ -137,8 +143,6 @@ export default function Input({
   const handleChange = (event: SyntheticEvent<EventTarget>) => {
     const { name, value, type, checked } = event.target as HTMLInputElement;
 
-    console.log(name);
-
     if (inputMap[name].validateSelf) {
       const newErrors = { ...errors, [name]: !validate(value, name, inputMap[name].pattern) };
       newErrors.onSubmit = false;
@@ -147,9 +151,19 @@ export default function Input({
       setErrors(newErrors);
     }
 
+    let inputValue:any = ''
+
+    switch (type) {
+      case 'checkbox':
+        inputValue = !!checked
+        break;
+      default:
+        inputValue = value
+    }
+
     setInputTypes({
       ...inputTypes,
-      [name]: type === 'checkbox' ? !!checked : value,
+      [name]: inputValue,
     });
   };
 

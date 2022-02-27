@@ -1,5 +1,5 @@
 import MainContent from 'components/MainContent';
-import DashboardOverview from 'modules/DashboardOverview';
+import { DashboardOverview } from 'modules/Dashboard';
 
 const Dashboard = () => {
   return (

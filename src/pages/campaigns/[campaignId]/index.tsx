@@ -1,6 +1,5 @@
 import { Box, Flex, Heading, useColorMode } from "@chakra-ui/react";
 import Image from "next/image";
-import landingImage from "./quik-and-dasha.jpg";
 import { bgThemeColor } from "utils/constants/colorConstants";
 import LeadsForm from "components/Leads/LeadsForm";
 import { useRouter } from "next/router";

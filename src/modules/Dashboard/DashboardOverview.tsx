@@ -64,7 +64,7 @@ const DashboardOverview = () => {
             </GridItem>
           </Grid>
         </Flex>
-      </Box>
+      </Box> 
     </Box>
   );
 };
