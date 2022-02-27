@@ -7,14 +7,15 @@ const quikColorConstants = {
   greyLight: '#ededed',
   white: '#FFFFFF',
   black: '#171725',
-  greyDarker: '#696974',
+  greyDarker: '#4A5568',
   greyDark: '#92929D',
   greyLighter: '#A1A2AB',
   influenceRed: '#FF0000',
   influenceRedWithOpacity: '#FC5A5A',
 };
 
-export const bgThemeColor: Q = { light: '#FAFAFB', dark: 'gray.800' };
+export const bgThemeColor: Q = { light: '#F5F8F9', dark: 'gray.800' };
+export const sideBarThemeColor: Q = { light: quikColorConstants.white, dark: 'gray.800' };
 export const themeColor: Q = { light: 'black', dark: 'white' };
 
 export const sidebarBg: Q = {

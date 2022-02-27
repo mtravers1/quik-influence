@@ -6,7 +6,7 @@ import { createWrapper, Context } from 'next-redux-wrapper';
 
 const middleware = [thunk];
 
-const makeStore = (context: Context) =>
+export const makeStore = (context: Context) =>
   createStore(
     reducers,
     process.env.NODE_ENV === 'development'

@@ -1,6 +1,5 @@
-import MainContent from "components/MainContent";
-import DashboardOverview from "modules/DashboardOverview";
-import React from "react";
+import MainContent from 'components/MainContent';
+import { DashboardOverview } from 'modules/Dashboard';
 
 const Dashboard = () => {
   return (

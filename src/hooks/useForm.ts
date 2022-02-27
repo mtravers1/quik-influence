@@ -80,7 +80,7 @@ export default function Input({
     if (shouldNotSubmit && validateForm) {
       // you can add a toast here
       toast({
-        title: "An error occurred. Please check your form for possible errors.",
+        title: "An error occurred. Please check your form for uncompleted fields",
         description: '',
         status: 'error',
         duration: 4000,
