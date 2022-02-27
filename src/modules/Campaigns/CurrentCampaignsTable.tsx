@@ -35,7 +35,7 @@ const CurrentCampaignsTable = () => {
   }, [])
 
   useEffect(() => {
-    if (campaigns.error) {
+    if (campaigns?.error) {
       toast({
         title: campaigns.error,
         description: 'Please refresh the page.',
@@ -49,7 +49,7 @@ const CurrentCampaignsTable = () => {
 
   return (
     <>{
-      !campaigns.campaigns ? <Image width='50px' objectFit="contain" src={LoaderGif} />
+      !campaigns?.campaigns ? <Image width='50px' objectFit="contain" src={LoaderGif} />
         :
         <Table size="lg" bg={colorMode === 'light' ? 'white' : ''}>
           <Thead >

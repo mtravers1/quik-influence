@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const baseurl = 'https://quik-influence.herokuapp.com';
 
-export const axiosInstance = axios.create({
+ const _axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
   headers: {
     'Access-Control-Allow-Headers':
@@ -12,14 +12,27 @@ export const axiosInstance = axios.create({
   },
 });
 
+_axiosInstance.interceptors.request.use((config: any) => {
+  let token:any = ''
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token')
+  } 
+  config.headers.token = token;
+  return config;
+});
+
+ 
+
+
+export const axiosInstance = _axiosInstance
+
+
 export const validate = (field: any, Regex: any, pattern: any) => {
   if (pattern.test(field)) return true;
   return false;
 };
 
 export const setToken = (token: string) => { 
-  axiosInstance.interceptors.request.use((config: any) => {
-    config.headers.token = token ? token: '';
-    return config;
-  });
+  localStorage.setItem('token', token)
+
 };

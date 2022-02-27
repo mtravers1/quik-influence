@@ -23,4 +23,3 @@ export interface FilterItemProps {
   title?: string;
   selectOptions?: SelectProps[];
 }
-

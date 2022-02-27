@@ -1,116 +1,70 @@
-import { Box } from '@chakra-ui/layout';
-import CustomButton from 'components/Button';
-import CompanyCard from 'components/CompanyCard';
-import DropdownSelect from 'components/DropdownSelect';
-import Filter from 'components/Filter';
-import ImageUploadButton from 'components/ImageUploadButton';
-import { TextInput } from 'components/Input';
-import { useState } from 'react';
+import { Box, Divider, Heading, Text } from "@chakra-ui/layout";
+import {
+  Flex,
+  Grid,
+  GridItem,
+  IconButton,
+  Image,
+  useColorMode
+} from "@chakra-ui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import OverviewSkeletonLoaders from "components/SkeletonLoaders";
+import React from "react";
+import { cardThemeColor } from "utils/constants/colorConstants";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import EmailConversions from "./charts/EmailConversions";
+import Revenue from "./charts/Revenue";
+import Activity from "./charts/Activity";
+import Deals from "./Deals";
+import Summary from "./Summary";
 
 const DashboardOverview = () => {
-  const [value, setValue] = useState('');
-  const handleChange = (event: any) => setValue(event.target.value);
-  const handleDropdownChange = (event: any) => {
-    console.log(event.target.value);
-  };
-  const selectOptions = [
-    {
-      label: 'test',
-      value: 'test',
-    },
-    {
-      label: 'atest',
-      value: 'atest',
-    },
-    {
-      label: 'btest',
-      value: 'btest',
-    },
-  ];
+  const { colorMode } = useColorMode();
   return (
     <Box>
-      <Box width="275px" m={10}>
-        <CompanyCard
-          companyName="Microphone Company"
-          users={29}
-          leads={223}
-          revenue={90}
-        />
-
-        <br />
-        <CustomButton>Send Contact </CustomButton>
-        <br />
-        <br />
-        <CustomButton variant="outline">Send Contact </CustomButton>
-        <br />
-        <br />
-        <CustomButton variant="gray">Send Contact </CustomButton>
-        <br />
-        <br />
-        <Filter />
-        <br />
-        <br />
-        <br />
-        <TextInput
-          value={value}
-          handleChange={handleChange}
-          type="email"
-          placeholder="Email"
-          TextInputProps={{}}
-        />
-        <br />
-
-        <TextInput
-          value={value}
-          handleChange={handleChange}
-          type="email"
-          placeholder="Email"
-          TextInputProps={{}}
-          label="POC"
-        />
-        <br />
-
-        <TextInput
-          value={value}
-          handleChange={handleChange}
-          type="email"
-          placeholder="Email"
-          TextInputProps={{}}
-          label="POC"
-          error="Invalid email"
-        />
-        <br />
-        <DropdownSelect
-          onChange={handleDropdownChange}
-          label="Payout Model"
-          labelProps={{
-            fontSize: '1.2rem',
-          }}
-          options={selectOptions || []}
-        />
-
-        <br />
-        <DropdownSelect
-          onChange={handleDropdownChange}
-          selectProps={{
-            height: '4rem',
-            fontSize: '1.4rem',
-          }}
-          options={selectOptions || []}
-        />
-        <br />
-        <DropdownSelect
-          onChange={handleDropdownChange}
-          selectProps={{
-            height: '4rem',
-            fontSize: '1.4rem',
-          }}
-          error="select one to proceed"
-          options={selectOptions || []}
-        />
-
-      </Box>
-      <ImageUploadButton />
+      <Box>
+        {/* <OverviewSkeletonLoaders />
+        <OverviewSkeletonLoaders /> */}
+        <Flex mb={4} flexWrap="wrap">
+          <Grid
+            w="100%"
+            templateColumns="repeat(3, minmax(0,1fr))"
+            gap={4}
+          >
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
+              <EmailConversions />
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
+              <Revenue />
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1} 
+              borderRadius="8px">
+                <Deals />
+            </GridItem>
+          </Grid>
+          <Grid
+            w="100%"
+            py={5}
+            gap={5}
+            templateColumns="repeat(2, minmax(0,1fr))">
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
+              <Activity />
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={1}
+              background={cardThemeColor[colorMode]}
+              borderRadius="8px">
+              <Summary />
+            </GridItem>
+          </Grid>
+        </Flex>
+      </Box> 
     </Box>
   );
 };
