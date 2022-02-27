@@ -55,7 +55,7 @@ const CreateCampaign = () => {
         });
         setTimeout(() => {
           router.push('/campaigns');
-        }, 4000);
+        }, 2000);
       }
     }
   })

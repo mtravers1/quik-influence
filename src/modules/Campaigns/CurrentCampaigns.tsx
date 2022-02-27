@@ -1,12 +1,16 @@
-import { Flex, Heading, Box, useColorMode, Text } from "@chakra-ui/react"
+import { Flex, Heading, Box, useColorMode, Text, Table, Thead, Tr, Th } from "@chakra-ui/react"
 import DataTable from "components/DataTable"
 import DropdownSelect from "components/DropdownSelect"
+import { useSelector } from "react-redux"
 import quikColorConstants from "utils/constants/colorConstants"
+import CurrentCampaignsTable from "./CurrentCampaignsTable"
 
 
 const CurrentCampaigns = () => {
     const {colorMode} = useColorMode()
+    const campaigns = useSelector((state: any) => state.campaigns)
 
+    console.log(campaigns.campaigns.length)
     const sortOptions = [
         {
             label: 'Alphabet',
@@ -34,11 +38,10 @@ const CurrentCampaigns = () => {
                 </Flex>
                 <Flex>
                     <Text mr={4} my="auto" color={quikColorConstants.greyLighter}>Total:</Text>
-                    <Text   my="auto"  >3 Campaings</Text>
+                    {campaigns.campaigns.length && <Text   my="auto"  > {`${campaigns.campaigns.length} Campaings`}</Text>}
                 </Flex>
             </Flex>
-
-            <DataTable />
+            <CurrentCampaignsTable />
         </Flex>
     )
 }
