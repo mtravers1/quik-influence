@@ -16,10 +16,11 @@ const MainContent = ({ children }: MainContentProps) => {
   const { colorMode } = useColorMode();
 
   return (
-    <Stack>
+    <Stack position="relative">
       <Header bgColor={bgThemeColor[colorMode]} color={themeColor[colorMode]} />
       <Flex
         flexDirection="row"
+        position="relative"
         css={css`
           & {
             margin-top: 1px !important;

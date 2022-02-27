@@ -7,7 +7,7 @@ const quikColorConstants = {
   greyLight: '#ededed',
   white: '#FFFFFF',
   black: '#171725',
-  greyDarker: '#696974',
+  greyDarker: '#4A5568',
   greyDark: '#92929D',
   greyLighter: '#A1A2AB',
   influenceRed: '#FF0000',

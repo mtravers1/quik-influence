@@ -1,3 +1,4 @@
+import { PAID, UNPAID } from '../formConstants';
 import { EMAIL_REFEX, FREE_TEXT_REGEX } from '../regexConstants';
 
 export default [
@@ -32,8 +33,8 @@ export default [
         required: true,
         type: 'select',
         options: [
-            { label: 'Paid', value: 'PAID' },
-            { label: 'Unpaid', value: 'UNPAID' },
+            { label: 'Paid', value: PAID },
+            { label: 'Unpaid', value: UNPAID},
         ],
         pattern: FREE_TEXT_REGEX,
     },
