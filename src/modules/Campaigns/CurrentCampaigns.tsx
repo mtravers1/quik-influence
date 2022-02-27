@@ -8,9 +8,7 @@ import CurrentCampaignsTable from "./CurrentCampaignsTable"
 
 const CurrentCampaigns = () => {
     const {colorMode} = useColorMode()
-    const campaigns = useSelector((state: any) => state.campaigns)
-
-    console.log(campaigns.campaigns.length)
+    const campaigns = useSelector((state: any) => state.campaigns) 
     const sortOptions = [
         {
             label: 'Alphabet',
@@ -38,7 +36,7 @@ const CurrentCampaigns = () => {
                 </Flex>
                 <Flex>
                     <Text mr={4} my="auto" color={quikColorConstants.greyLighter}>Total:</Text>
-                    {campaigns.campaigns.length && <Text   my="auto"  > {`${campaigns.campaigns.length} Campaings`}</Text>}
+                    {campaigns?.campaigns?.length && <Text   my="auto"  > {`${campaigns.campaigns.length} Campaings`}</Text>}
                 </Flex>
             </Flex>
             <CurrentCampaignsTable />
