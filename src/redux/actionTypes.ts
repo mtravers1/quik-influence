@@ -6,7 +6,6 @@ export const LOGOUT = 'LOGOUT';
 
 export const RESET = 'RESET';
 
-
-export const CAMPAIGNS_LOADING = 'CAMPAIGNS_LOADING'
-export const CAMPAIGNS = 'CAMPAIGNS'
-export const CAMPAIGNS_ERROR = 'CAMPAIGNS_ERROR'
+export const CAMPAIGNS_LOADING = 'CAMPAIGNS_LOADING';
+export const CAMPAIGNS = 'CAMPAIGNS';
+export const CAMPAIGNS_ERROR = 'CAMPAIGNS_ERROR';

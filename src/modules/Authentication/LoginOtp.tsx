@@ -1,4 +1,4 @@
-import { useEffect, useState, SyntheticEvent } from 'react';
+import { useState, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useToast } from '@chakra-ui/react';
@@ -7,9 +7,10 @@ import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
 import formdata from 'utils/constants/formData/loginOtp';
-import { FormControl, FormErrorMessage } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, Box } from '@chakra-ui/react';
 import { axiosInstance } from 'utils/helpers';
 import { login } from 'redux/actions/auth';
+import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
 
 const Login = () => {
@@ -70,37 +71,58 @@ const Login = () => {
 
   return (
     <form action="post">
-      {formdata.slice(0, showOtpInput ? 2 : 1).map((data, i) => (
-        <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
-          <TextInput
-            name={data.name}
-            label={data.label}
-            labelProps={{
-              fontSize: '1.2rem',
-            }}
-            value={inputTypes[data.name]}
-            formControlProps={{
-              pt: 8,
-            }}
-            handleChange={handleChange}
-            type={data.type}
-            placeholder={data.label}
-            TextInputProps={{}}
-          />
+      <Box marginBottom="15px">
+        {formdata.slice(0, showOtpInput ? 2 : 1).map((data, i) => (
+          <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
+            <TextInput
+              name={data.name}
+              label={data.label}
+              labelProps={{
+                fontSize: '1.2rem',
+              }}
+              value={inputTypes[data.name]}
+              formControlProps={{
+                pt: 8,
+              }}
+              handleChange={handleChange}
+              type={data.type}
+              placeholder={data.label}
+              TextInputProps={{
+                border:
+                  data.name === 'otp'
+                    ? `2px solid ${quikColorConstants.influenceRed} !important`
+                    : undefined,
+              }}
+            />
 
-          {errors[data.name] && (
-            <FormErrorMessage>{data.errorMessage}</FormErrorMessage>
-          )}
-        </FormControl>
-      ))}
+            {errors[data.name] && (
+              <FormErrorMessage fontSize="14px">
+                {data.errorMessage}
+              </FormErrorMessage>
+            )}
+          </FormControl>
+        ))}
+      </Box>
 
       {showOtpInput ? (
-        <CustomButton maxW="204px" height="64px" mt={4} onClick={handleSubmit}>
+        <CustomButton
+          maxW="204px"
+          height="50px"
+          padding={0}
+          mt={4}
+          onClick={handleSubmit}
+        >
           Login{' '}
           {loading && <Image src={loader} alt="" width={50} height={50} />}
         </CustomButton>
       ) : (
-        <CustomButton maxW="204px" height="64px" mt={4} onClick={getOpt}>
+        <CustomButton
+          maxW="204px"
+          height="50px"
+          padding={0}
+          mt={4}
+          onClick={getOpt}
+        >
           Get Otp{' '}
           {loadingOtp && <Image src={loader} alt="" width={50} height={50} />}
         </CustomButton>

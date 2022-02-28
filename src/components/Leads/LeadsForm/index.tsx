@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Flex, createStandaloneToast } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
@@ -7,10 +8,20 @@ import formdata from 'utils/constants/formData/closeFriends';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import CustomInput from 'components/CustomInput';
 import { axiosInstance } from 'utils/helpers';
+import { useEffect } from 'react';
 
-const LeadsForm = ({ campaignId }: { campaignId: string }) => {
+const LeadsForm = ({
+  campaignId,
+  handleStripe,
+  redirectUrl,
+}: {
+  campaignId: string;
+  handleStripe: (email: string) => {};
+  redirectUrl: string;
+}) => {
   const toast = createStandaloneToast();
-  // const toast = useToast();
+  const [submitForm, setSubmitForm] = useState(false);
+
   const {
     handleChange,
     inputTypes,
@@ -21,12 +32,14 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
   } = useInput({
     inputs: formdata,
     cb: async inputs => {
+      if (!submitForm) return;
+
       await axiosInstance
         .post(`/users/campaign/`, {
           ...inputs,
           campaignId,
         })
-        .then(res => {
+        .then(async res => {
           if (res.status === 200) {
             resetInputs();
             toast({
@@ -37,6 +50,11 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
               variant: 'subtle',
             });
           }
+
+          await handleStripe(inputs.email);
+          if (typeof window !== 'undefined')
+            localStorage.setItem('redirectUrl', redirectUrl);
+
           console.log('res >>> ', res);
         })
         .catch(err => {
@@ -97,6 +115,23 @@ const LeadsForm = ({ campaignId }: { campaignId: string }) => {
             )}
           </FormControl>
         ))}
+        <Box p="10px">
+          <input
+            type="checkbox"
+            checked={submitForm}
+            onChange={() => setSubmitForm(!submitForm)}
+          />
+
+          <Box as="small" marginLeft="20px">
+            By submitting yes, I consent to having a representative from
+            QuikInfluence or their partners contact me at this number (insert
+            submitted number) and/or this email (insert submitted email
+            address). I understand these calls or texts may be generated using
+            an automated dialer or software and that my consent is not required
+            as a precondition for purchasing or receiving any property, goods or
+            service.
+          </Box>
+        </Box>
       </Flex>
 
       <CustomButton

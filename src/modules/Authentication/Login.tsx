@@ -6,7 +6,7 @@ import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
 import formdata from 'utils/constants/formData/login';
-import { FormControl, FormErrorMessage } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, Box } from '@chakra-ui/react';
 import { axiosInstance } from 'utils/helpers';
 import { login } from 'redux/actions/auth';
 import loader from 'assets/loader.gif';
@@ -44,31 +44,41 @@ const Login = () => {
 
   return (
     <form action="post">
-      {formdata.map((data, i) => (
-        <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
-          <TextInput
-            name={data.name}
-            label={data.label}
-            labelProps={{
-              fontSize: '1.2rem',
-            }}
-            value={inputTypes[data.name]}
-            formControlProps={{
-              pt: 8,
-            }}
-            handleChange={handleChange}
-            type={data.type}
-            placeholder={data.label}
-            TextInputProps={{}}
-          />
+      <Box marginBottom="15px">
+        {formdata.map((data, i) => (
+          <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
+            <TextInput
+              name={data.name}
+              label={data.label}
+              labelProps={{
+                fontSize: '1.2rem',
+              }}
+              value={inputTypes[data.name]}
+              formControlProps={{
+                pt: 8,
+              }}
+              handleChange={handleChange}
+              type={data.type}
+              placeholder={data.label}
+              TextInputProps={{}}
+            />
 
-          {errors[data.name] && (
-            <FormErrorMessage>{data.errorMessage}</FormErrorMessage>
-          )}
-        </FormControl>
-      ))}
+            {errors[data.name] && (
+              <FormErrorMessage fontSize="14px">
+                {data.errorMessage}
+              </FormErrorMessage>
+            )}
+          </FormControl>
+        ))}
+      </Box>
 
-      <CustomButton maxW="204px" height="64px" mt={4} onClick={handleSubmit}>
+      <CustomButton
+        maxW="204px"
+        height="50px"
+        padding={0}
+        mt={4}
+        onClick={handleSubmit}
+      >
         Login {loading && <Image src={loader} alt="" width={50} height={50} />}
       </CustomButton>
     </form>
