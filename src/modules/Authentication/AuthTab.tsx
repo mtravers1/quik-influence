@@ -14,7 +14,7 @@ const CustomTab: React.FC<{ title: string }> = ({ title }) => (
       color: quikColorConstants.influenceRed,
       borderColor: quikColorConstants.influenceRed,
     }}
-    fontSize="xl"
+    fontSize="15px"
   >
     {title}
   </Tab>

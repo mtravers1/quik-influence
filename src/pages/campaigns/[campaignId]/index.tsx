@@ -82,7 +82,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
 };
 
 export async function getStaticPaths() {
-  const response = await axiosInstance.get(`/users/campaigns`, {
+  const response = await axiosInstance.get(`/users/all-campaigns`, {
     headers: {
       token:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEwZWNlNWRiLWNkMTQtNGYyMS04MTJmLTk2NjYzM2U3YmU4NiIsImZpcnN0TmFtZSI6IkFsbGlhbmNlIiwibGFzdE5hbWUiOiJTdXBlckFkbWluIiwicGhvbmUiOiIrMSAoOTE3KSA1ODUtMzE4MSIsImVtYWlsIjoic3VwZXJhZG1pbkBhbGxpYW5jZWRldmVsb3BtZW50LmNvbSIsInJvbGVJZCI6MSwiY3JlYXRlZEF0IjoiMjAyMi0wMS0zMFQxMjozODoxOC4zMjZaIiwidXBkYXRlZEF0IjoiMjAyMi0wMS0zMFQxMjozODoxOC4zMjZaIiwicGFzc3dvcmQiOiIkMmEkMTAkR1dkVGRjcnF5Z0RleURaR21SSnpwZTg1d2hrck5YMXdpL2tJYmhTeFpPeGpnMUhWZ0NnZlMiLCJyb2xlIjp7Im5hbWUiOiJzdXBlcmFkbWluIn0sImFkbWluQXBwcyI6W10sImlhdCI6MTY0NTczMTUwNSwiZXhwIjoxNjQ1ODE3OTA1fQ.z4lM0MNymK_4VvHIVdpm9kd0LMMa5QdrspzCO5XTrQw',
@@ -100,7 +100,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: { params: any }) {
-  const response = await axiosInstance.get(`/users/campaigns`, {
+  const response = await axiosInstance.get(`/users/all-campaigns`, {
     headers: {
       token:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEwZWNlNWRiLWNkMTQtNGYyMS04MTJmLTk2NjYzM2U3YmU4NiIsImZpcnN0TmFtZSI6IkFsbGlhbmNlIiwibGFzdE5hbWUiOiJTdXBlckFkbWluIiwicGhvbmUiOiIrMSAoOTE3KSA1ODUtMzE4MSIsImVtYWlsIjoic3VwZXJhZG1pbkBhbGxpYW5jZWRldmVsb3BtZW50LmNvbSIsInJvbGVJZCI6MSwiY3JlYXRlZEF0IjoiMjAyMi0wMS0zMFQxMjozODoxOC4zMjZaIiwidXBkYXRlZEF0IjoiMjAyMi0wMS0zMFQxMjozODoxOC4zMjZaIiwicGFzc3dvcmQiOiIkMmEkMTAkR1dkVGRjcnF5Z0RleURaR21SSnpwZTg1d2hrck5YMXdpL2tJYmhTeFpPeGpnMUhWZ0NnZlMiLCJyb2xlIjp7Im5hbWUiOiJzdXBlcmFkbWluIn0sImFkbWluQXBwcyI6W10sImlhdCI6MTY0NTczMTUwNSwiZXhwIjoxNjQ1ODE3OTA1fQ.z4lM0MNymK_4VvHIVdpm9kd0LMMa5QdrspzCO5XTrQw',

@@ -87,6 +87,7 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
                           style={{
                             color: 'red',
                           }}
+                          marginRight="20px"
                         >
                           {link.name}
                         </NextLink>
