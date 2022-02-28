@@ -14,7 +14,7 @@ const CustomTab: React.FC<{ title: string }> = ({ title }) => (
       color: quikColorConstants.influenceRed,
       borderColor: quikColorConstants.influenceRed,
     }}
-    fontSize="xl"
+    fontSize="15px"
   >
     {title}
   </Tab>
@@ -22,11 +22,11 @@ const CustomTab: React.FC<{ title: string }> = ({ title }) => (
 
 const pageMap = {
   login: 0,
-  loginOtp: 1,
-  signup: 1,
+  'login-otp': 1,
+  signup: 2,
 };
 
-const pageIndexArr = ['login', 'loginOtp', 'signup'];
+const pageIndexArr = ['login', 'login-otp', 'signup'];
 
 const AuthTab: React.FC<AuthenticationProps> = ({ type }) => {
   const router = useRouter();

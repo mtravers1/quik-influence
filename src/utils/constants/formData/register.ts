@@ -37,4 +37,11 @@ export default [
     type: 'tel',
     pattern: PHONE_NUMBER_REGEX,
   },
+  {
+    name: 'otp',
+    label: 'OTP',
+    errorMessage: 'Enter your otp',
+    type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },
 ];

@@ -15,7 +15,7 @@ exports[`Home page Tests renders Home Page 1`] = `
           class="css-1gpaoxy"
         >
           <div
-            class="css-s76l9o"
+            class="css-z2iays"
           >
             Get help for this site or any of our apps with - QUIK ASSISTANT
           </div>
@@ -65,7 +65,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   class="css-0"
                 >
                   <a
-                    class="chakra-link css-0"
+                    class="chakra-link css-8mg22s"
                     href="/"
                     style="color: red;"
                   >
@@ -101,7 +101,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -133,7 +133,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -165,7 +165,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -216,7 +216,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                  
                 <input
                   aria-required="true"
-                  class="chakra-input css-mooy3w"
+                  class="chakra-input css-ip3tq6"
                   datatest-id="test-name"
                   id="field-1"
                   name="name"
@@ -226,7 +226,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-user fa-w-14 "
+                  class="svg-inline--fa fa-user "
                   color="red"
                   data-icon="user"
                   data-prefix="fas"
@@ -254,7 +254,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                  
                 <input
                   aria-required="true"
-                  class="chakra-input css-mooy3w"
+                  class="chakra-input css-ip3tq6"
                   datatest-id="test-phone"
                   id="field-2"
                   name="phone"
@@ -264,7 +264,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-phone fa-w-16 "
+                  class="svg-inline--fa fa-phone "
                   color="red"
                   data-icon="phone"
                   data-prefix="fas"
@@ -292,7 +292,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                  
                 <input
                   aria-required="true"
-                  class="chakra-input css-mooy3w"
+                  class="chakra-input css-ip3tq6"
                   datatest-id="test-email"
                   id="field-3"
                   name="email"
@@ -302,7 +302,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 />
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-mail-bulk fa-w-18 "
+                  class="svg-inline--fa fa-mail-bulk "
                   color="red"
                   data-icon="mail-bulk"
                   data-prefix="fas"
@@ -344,7 +344,7 @@ exports[`Home page Tests renders Home Page 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-x-ray fa-w-20 "
+              class="svg-inline--fa fa-x-ray "
               data-icon="x-ray"
               data-prefix="fas"
               focusable="false"
@@ -376,7 +376,7 @@ exports[`Home page Tests renders Home Page 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-x-ray fa-w-20 "
+              class="svg-inline--fa fa-x-ray "
               data-icon="x-ray"
               data-prefix="fas"
               focusable="false"
@@ -414,7 +414,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -450,7 +450,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -486,7 +486,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -522,7 +522,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -558,7 +558,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -594,7 +594,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -628,7 +628,7 @@ exports[`Home page Tests renders Home Page 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-x-ray fa-w-20 "
+              class="svg-inline--fa fa-x-ray "
               data-icon="x-ray"
               data-prefix="fas"
               focusable="false"
@@ -674,7 +674,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -706,7 +706,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -738,7 +738,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  class="svg-inline--fa fa-x-ray fa-w-20 "
+                  class="svg-inline--fa fa-x-ray "
                   data-icon="x-ray"
                   data-prefix="fas"
                   focusable="false"
@@ -778,7 +778,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 >
                   <input
                     aria-required="true"
-                    class="chakra-input css-161mvzu"
+                    class="chakra-input css-1h61lp8"
                     datatest-id="test-phone"
                     id="field-4"
                     name="phone"
@@ -788,7 +788,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   />
                   <svg
                     aria-hidden="true"
-                    class="svg-inline--fa fa-phone fa-w-16 "
+                    class="svg-inline--fa fa-phone "
                     color="red"
                     data-icon="phone"
                     data-prefix="fas"
@@ -814,7 +814,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   class="css-79elbk"
                 >
                   <input
-                    class="chakra-input css-161mvzu"
+                    class="chakra-input css-1h61lp8"
                     datatest-id="test-isInfluencer"
                     id="field-5"
                     name="isInfluencer"
@@ -823,7 +823,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   />
                   <svg
                     aria-hidden="true"
-                    class="svg-inline--fa fa-phone fa-w-16 "
+                    class="svg-inline--fa fa-phone "
                     color="red"
                     data-icon="phone"
                     data-prefix="fas"
@@ -850,7 +850,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 >
                   <input
                     aria-required="true"
-                    class="chakra-input css-161mvzu"
+                    class="chakra-input css-1h61lp8"
                     datatest-id="test-name"
                     id="field-6"
                     name="name"
@@ -860,7 +860,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   />
                   <svg
                     aria-hidden="true"
-                    class="svg-inline--fa fa-user fa-w-14 "
+                    class="svg-inline--fa fa-user "
                     color="red"
                     data-icon="user"
                     data-prefix="fas"
@@ -887,7 +887,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 >
                   <input
                     aria-required="true"
-                    class="chakra-input css-161mvzu"
+                    class="chakra-input css-1h61lp8"
                     datatest-id="test-company"
                     id="field-7"
                     name="company"
@@ -897,7 +897,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   />
                   <svg
                     aria-hidden="true"
-                    class="svg-inline--fa fa-user fa-w-14 "
+                    class="svg-inline--fa fa-user "
                     color="red"
                     data-icon="user"
                     data-prefix="fas"
@@ -924,7 +924,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 >
                   <input
                     aria-required="true"
-                    class="chakra-input css-161mvzu"
+                    class="chakra-input css-1h61lp8"
                     datatest-id="test-email"
                     id="field-8"
                     name="email"
@@ -934,7 +934,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   />
                   <svg
                     aria-hidden="true"
-                    class="svg-inline--fa fa-mail-bulk fa-w-18 "
+                    class="svg-inline--fa fa-mail-bulk "
                     color="red"
                     data-icon="mail-bulk"
                     data-prefix="fas"
@@ -960,7 +960,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   class="css-79elbk"
                 >
                   <input
-                    class="chakra-input css-161mvzu"
+                    class="chakra-input css-1h61lp8"
                     datatest-id="test-industry"
                     id="field-9"
                     name="industry"
@@ -969,7 +969,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   />
                   <svg
                     aria-hidden="true"
-                    class="svg-inline--fa fa-mail-bulk fa-w-18 "
+                    class="svg-inline--fa fa-mail-bulk "
                     color="red"
                     data-icon="mail-bulk"
                     data-prefix="fas"

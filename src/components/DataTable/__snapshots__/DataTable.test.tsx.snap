@@ -14,38 +14,64 @@ exports[`renders DataTable component 1`] = `
         role="row"
       >
         <th
-          class="css-0"
+          class="css-1ezsviu"
           colspan="1"
           role="columnheader"
           style="cursor: pointer;"
           title="Toggle SortBy"
         >
-          To convert
+          Campaigns
           <span
             class="css-131wcsq"
           />
         </th>
         <th
-          class="css-0"
+          class="css-1ezsviu"
           colspan="1"
           role="columnheader"
           style="cursor: pointer;"
           title="Toggle SortBy"
         >
-          Into
+          Affiliate
           <span
             class="css-131wcsq"
           />
         </th>
         <th
-          class="css-0"
+          class="css-1ezsviu"
           colspan="1"
           data-is-numeric="true"
           role="columnheader"
           style="cursor: pointer;"
           title="Toggle SortBy"
         >
-          Multiply by
+          Model
+          <span
+            class="css-131wcsq"
+          />
+        </th>
+        <th
+          class="css-1ezsviu"
+          colspan="1"
+          data-is-numeric="true"
+          role="columnheader"
+          style="cursor: pointer;"
+          title="Toggle SortBy"
+        >
+          Engagement Type
+          <span
+            class="css-131wcsq"
+          />
+        </th>
+        <th
+          class="css-1ezsviu"
+          colspan="1"
+          data-is-numeric="true"
+          role="columnheader"
+          style="cursor: pointer;"
+          title="Toggle SortBy"
+        >
+          Created on
           <span
             class="css-131wcsq"
           />
@@ -79,29 +105,19 @@ exports[`renders DataTable component 1`] = `
         >
           25.4
         </td>
-      </tr>
-      <tr
-        class="css-0"
-        role="row"
-      >
         <td
           class="css-0"
+          data-is-numeric="true"
           role="cell"
         >
-          feet
-        </td>
-        <td
-          class="css-0"
-          role="cell"
-        >
-          centimetres (cm)
+          4343
         </td>
         <td
           class="css-0"
           data-is-numeric="true"
           role="cell"
         >
-          30.48
+          223232
         </td>
       </tr>
       <tr
@@ -112,20 +128,72 @@ exports[`renders DataTable component 1`] = `
           class="css-0"
           role="cell"
         >
-          yards
+          inches
         </td>
         <td
           class="css-0"
           role="cell"
         >
-          metres (m)
+          millimetres (mm)
         </td>
         <td
           class="css-0"
           data-is-numeric="true"
           role="cell"
         >
-          0.91444
+          25.4
+        </td>
+        <td
+          class="css-0"
+          data-is-numeric="true"
+          role="cell"
+        >
+          4343
+        </td>
+        <td
+          class="css-0"
+          data-is-numeric="true"
+          role="cell"
+        >
+          223232
+        </td>
+      </tr>
+      <tr
+        class="css-0"
+        role="row"
+      >
+        <td
+          class="css-0"
+          role="cell"
+        >
+          inches
+        </td>
+        <td
+          class="css-0"
+          role="cell"
+        >
+          millimetres (mm)
+        </td>
+        <td
+          class="css-0"
+          data-is-numeric="true"
+          role="cell"
+        >
+          25.4
+        </td>
+        <td
+          class="css-0"
+          data-is-numeric="true"
+          role="cell"
+        >
+          4343
+        </td>
+        <td
+          class="css-0"
+          data-is-numeric="true"
+          role="cell"
+        >
+          223232
         </td>
       </tr>
     </tbody>

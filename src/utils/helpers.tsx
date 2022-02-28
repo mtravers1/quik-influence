@@ -1,8 +1,11 @@
-import { cookieStorageManager } from '@chakra-ui/react';
 import axios from 'axios';
 import { DropdownSelectOption } from 'components/DropdownSelect';
 
-const baseurl = 'https://quik-influence.herokuapp.com';
+// const baseurl = 'http://localhost:2022';
+const baseurl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://quik-influence-prod.herokuapp.com'
+    : 'https://quik-influence.herokuapp.com';
 
 const _axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
@@ -30,7 +33,10 @@ export const validate = (field: any, Regex: any, pattern: any) => {
 };
 
 export const setToken = (token: string) => {
-  localStorage.setItem('token', token);
+  axiosInstance.interceptors.request.use((config: any) => {
+    config.headers.token = token ? token : '';
+    return config;
+  });
 };
 
 export const getNumberRange = (
