@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
-export interface User {}
+export interface User { }
 
 export type T = { [key: string]: string[] };
 export type Q = { [key: string]: string };
@@ -23,4 +23,3 @@ export interface FilterItemProps {
   title?: string;
   selectOptions?: SelectProps[];
 }
-

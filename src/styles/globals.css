@@ -16,3 +16,15 @@ a {
 * {
   box-sizing: border-box;
 }
+.uploadcare--widget__button, .uploadcare--button, .uploadcare--button_primary, .uploadcare--widget__button_type_open, .uploadcare--button_primary{
+  background-color: #ff0000;
+  cursor: pointer;
+  border: #ff0000;
+}
+.uploadcare--widget__button:hover, .uploadcare--widget__button:active{
+  background-color: #FC5A5A;
+}
+
+.uploadcare--widget__button_type_open:focus, .uploadcare--button_primary:focus, .uploadcare--button_primary:hover, .uploadcare--widget__button_type_open:hover{
+  background-color: #FC5A5A;
+}

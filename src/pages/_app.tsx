@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import '../styles/404.css';
 import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Fonts from 'utils/Fonts';
 import { axiosInstance } from 'utils/helpers';
 import theme from '../styles/theme';
@@ -13,10 +13,8 @@ import { APP_NAME, NAV_NAME } from 'utils/constants/pageDataConstants';
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
     defaultOptions: {
-      queries: {
-
-      }
-    }
+      queries: {},
+    },
   });
   return (
     <ChakraProvider theme={theme}>

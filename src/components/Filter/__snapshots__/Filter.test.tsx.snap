@@ -126,6 +126,7 @@ exports[`renders Filter component 1`] = `
                   id=""
                 >
                   <option
+                    disabled=""
                     value=""
                   >
                     Select ---
@@ -233,6 +234,7 @@ exports[`renders Filter component 1`] = `
                   id=""
                 >
                   <option
+                    disabled=""
                     value=""
                   >
                     Select ---
@@ -340,6 +342,7 @@ exports[`renders Filter component 1`] = `
                   id=""
                 >
                   <option
+                    disabled=""
                     value=""
                   >
                     Select ---
@@ -441,6 +444,7 @@ exports[`renders Filter component 1`] = `
                   id=""
                 >
                   <option
+                    disabled=""
                     value=""
                   >
                     Select ---

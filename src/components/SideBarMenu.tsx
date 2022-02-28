@@ -16,14 +16,15 @@ interface SideBarMenuProps {
 }
 
 const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
-  const [activeMenu, setActiveMenu] = useState('');
   const route = useRouter();
   const { pathname } = route || { pathname: '/' };
   const _sideBarOptions = Object.values(SideBarMenuOptions);
 
+  const [activeMenu, setActiveMenu] = useState<string>(pathname);
+
   useEffect(() => {
     if (!activeMenu) {
-      setActiveMenu(_sideBarOptions[0].path);
+      setActiveMenu(_sideBarOptions[0].path as string);
     }
   }, [_sideBarOptions, activeMenu]);
 
@@ -53,10 +54,10 @@ const SideBarMenu = ({ bgColor, color, colorMode }: SideBarMenuProps) => {
                   ? quikColorConstants.influenceRed
                   : sidebarBg[colorMode]
               }`}
-              onClick={() => setActiveMenu(path)}
+              onClick={() => setActiveMenu(path as string)}
             >
               <NextLink
-                href={path}
+                href={path as string}
                 display="block"
                 _hover={{
                   textDecoration: 'none',

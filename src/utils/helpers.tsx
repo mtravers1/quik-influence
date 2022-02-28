@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-const baseurl = 'https://quik-influence.herokuapp.com';
+// const baseurl = 'http://localhost:2022';
+const baseurl =
+  process.env.NEXT_PUBLIC_BACKEND_URL || 'https://quik-influence.herokuapp.com';
 
-export const axiosInstance = axios.create({
+const _axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
   headers: {
     'Access-Control-Allow-Headers':
@@ -11,19 +13,25 @@ export const axiosInstance = axios.create({
   },
 });
 
-const freeText = /[^\n]{2,}/;
+_axiosInstance.interceptors.request.use((config: any) => {
+  let token: any = '';
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
+  }
+  config.headers.token = token;
+  return config;
+});
 
-export const patterns: any = {
-  name: /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/,
-  email:
-    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:]|])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:)+)\])/,
-  phoneNumber: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/,
-  isInfluencer: freeText,
-  company: freeText,
-  industry: freeText
+export const axiosInstance = _axiosInstance;
+
+export const validate = (field: any, Regex: any, pattern: any) => {
+  if (pattern.test(field)) return true;
+  return false;
 };
 
-export const validate = (field: any, Regex: any) => {
-  if (patterns[Regex].test(field)) return true;
-  return false;
+export const setToken = (token: string) => {
+  axiosInstance.interceptors.request.use((config: any) => {
+    config.headers.token = token ? token : '';
+    return config;
+  });
 };

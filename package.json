@@ -15,6 +15,7 @@
     "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
+    "@alliance-software-development/asd-media-react": "^1.0.1",
     "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.8.1",
     "@emotion/react": "^11.7.1",
@@ -22,17 +23,20 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.17",
+    "@stripe/stripe-js": "^1.23.0",
     "axios": "^0.25.0",
     "framer-motion": "^5",
     "next": "12.0.9",
     "next-redux-wrapper": "^7.0.5",
     "query-string": "^7.1.0",
     "react": "17.0.2",
+    "react-confetti": "^6.0.1",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.25.1",
     "react-query": "^3.34.14",
     "react-redux": "^7.2.6",
     "react-table": "^7.7.0",
+    "recharts": "^2.1.9",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1"

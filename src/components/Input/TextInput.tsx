@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   FormControlProps,
   FormErrorMessage,
@@ -9,7 +10,9 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import React from 'react';
-import quikColorConstants, { borderThemeColor } from 'utils/constants/colorConstants';
+import quikColorConstants, {
+  borderThemeColor,
+} from 'utils/constants/colorConstants';
 
 type TextInputProps = {
   type: string;
@@ -22,9 +25,12 @@ type TextInputProps = {
   handleChange: (event: any) => void;
   error?: string;
   formControlProps?: FormControlProps;
+  name?: string;
+  extraLabel?: string
 };
 
 const TextInput: React.FC<TextInputProps> = ({
+  name,
   type,
   labelProps,
   TextInputProps,
@@ -35,8 +41,9 @@ const TextInput: React.FC<TextInputProps> = ({
   inputId = '',
   error,
   formControlProps,
+  extraLabel
 }) => {
-  const {colorMode} = useColorMode()
+  const { colorMode } = useColorMode();
   return (
     <FormControl isInvalid={!!error} {...formControlProps}>
       {!!label && (
@@ -48,9 +55,13 @@ const TextInput: React.FC<TextInputProps> = ({
           {...labelProps}
         >
           {label}
+          {
+           extraLabel && <Box as="span" fontSize="md" mx="4" >{extraLabel}</Box>
+          }
         </FormLabel>
       )}
       <Input
+        name={name}
         type={type}
         value={value}
         onChange={handleChange}

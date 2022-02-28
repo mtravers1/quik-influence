@@ -1,10 +1,9 @@
 import { useState, SyntheticEvent } from 'react';
+import { useToast } from '@chakra-ui/react';
 import { validate } from 'utils/helpers';
 
-type input = { name: string; required?: boolean };
-
 type props = {
-  inputs?: input[];
+  inputs?: any[];
   cb: (args: any) => {};
   validateForm?: boolean;
   initials?: any;
@@ -16,6 +15,8 @@ export default function Input({
   validateForm = true,
   initials = {},
 }: props) {
+  const toast = useToast();
+
   const initialInputs = inputs?.reduce(
     (acc: any, input: any) => ({
       ...acc,
@@ -45,7 +46,7 @@ export default function Input({
   const [errors, setErrors] = useState(initialError);
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     const requiredKeys = inputs?.reduce((acc: any, input: any) => {
       if (input.required || inputTypes[input.name]) {
@@ -59,12 +60,16 @@ export default function Input({
       (acc, inputName) => ({
         ...acc,
         [inputName]: inputMap[inputName].validateSelf
-          ? !validate(requiredKeys[inputName], inputName)
+          ? !validate(
+              requiredKeys[inputName],
+              inputName,
+              inputMap[inputName].pattern
+            )
           : false,
       }),
       {}
     );
-    
+
     setErrors(errorMap);
 
     // check if at least one element fails validation
@@ -74,7 +79,13 @@ export default function Input({
 
     if (shouldNotSubmit && validateForm) {
       // you can add a toast here
-
+      toast({
+        title: "An error occurred. Please check your form for uncompleted fields",
+        description: '',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
       errorMap.reset = false;
       errorMap.onSubmit = true;
 
@@ -104,14 +115,23 @@ export default function Input({
       if (error.response) {
         if (error.response.status === 500) {
           error.message = 'Network error please try again';
-        } else error.message = error.response.data.error;
+        } else error.message = error.response.data.message;
       } else error.message = error.message || 'Error occured';
 
       const err = Array.isArray(error.message)
         ? error.message.join(', ')
         : error.message;
 
+      console.log(err);
+
       // add a toast or do soemthing with the error
+      toast({
+        title: err,
+        description: '',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
 
       setLoading(false);
       return;
@@ -124,16 +144,26 @@ export default function Input({
     const { name, value, type, checked } = event.target as HTMLInputElement;
 
     if (inputMap[name].validateSelf) {
-      const newErrors = { ...errors, [name]: !validate(value, name) };
+      const newErrors = { ...errors, [name]: !validate(value, name, inputMap[name].pattern) };
       newErrors.onSubmit = false;
       newErrors.reset = false;
 
       setErrors(newErrors);
     }
 
+    let inputValue:any = ''
+
+    switch (type) {
+      case 'checkbox':
+        inputValue = !!checked
+        break;
+      default:
+        inputValue = value
+    }
+
     setInputTypes({
       ...inputTypes,
-      [name]: type === 'checkbox' ? !!checked : value,
+      [name]: inputValue,
     });
   };
 
