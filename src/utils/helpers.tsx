@@ -3,7 +3,7 @@ import axios from "axios";
 // const baseurl = 'http://localhost:2022';
 const baseurl =
   process.env.NODE_ENV === "production"
-    ? process.env.NEXT_PUBLIC_BACKEND_URL
+    ? 'https://quik-influence-prod.herokuapp.com'
     : "https://quik-influence.herokuapp.com";
 
 const _axiosInstance = axios.create({
