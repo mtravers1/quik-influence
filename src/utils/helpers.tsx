@@ -1,24 +1,25 @@
-import axios from "axios";
+import axios from 'axios';
+import { DropdownSelectOption } from 'components/DropdownSelect';
 
 // const baseurl = 'http://localhost:2022';
 const baseurl =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === 'production'
     ? 'https://quik-influence-prod.herokuapp.com'
-    : "https://quik-influence.herokuapp.com";
+    : 'https://quik-influence.herokuapp.com';
 
 const _axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
   headers: {
-    "Access-Control-Allow-Headers":
-      "Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type",
-    "Access-Control-Allow-Origin": "*"
-  }
+    'Access-Control-Allow-Headers':
+      'Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type',
+    'Access-Control-Allow-Origin': '*',
+  },
 });
 
 _axiosInstance.interceptors.request.use((config: any) => {
-  let token: any = "";
-  if (typeof window !== "undefined") {
-    token = localStorage.getItem("token");
+  let token: any = '';
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
   }
   config.headers.token = token;
   return config;
@@ -33,7 +34,17 @@ export const validate = (field: any, Regex: any, pattern: any) => {
 
 export const setToken = (token: string) => {
   axiosInstance.interceptors.request.use((config: any) => {
-    config.headers.token = token ? token : "";
+    config.headers.token = token ? token : '';
     return config;
   });
 };
+
+export const getNumberRange = (
+  start: number,
+  stop: number,
+  step: number
+): DropdownSelectOption[] =>
+  Array.from({ length: (stop - start) / step + 1 }, (_, i) => ({
+    label: (start + i * step).toString(),
+    value: (start + i * step).toString(),
+  }));
