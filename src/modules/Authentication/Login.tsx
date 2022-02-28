@@ -64,7 +64,9 @@ const Login = () => {
             />
 
             {errors[data.name] && (
-              <FormErrorMessage fontSize="14px">{data.errorMessage}</FormErrorMessage>
+              <FormErrorMessage fontSize="14px">
+                {data.errorMessage}
+              </FormErrorMessage>
             )}
           </FormControl>
         ))}

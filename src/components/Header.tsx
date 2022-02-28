@@ -22,6 +22,7 @@ import quikColorConstants, {
 } from 'utils/constants/colorConstants';
 import DarkModeSwitch from './DarkModeSwitch';
 import theme from '../styles/theme';
+import { css } from '@emotion/react';
 
 interface HeaderProps extends FlexProps {}
 
@@ -38,6 +39,14 @@ const Header = ({ ...rest }: HeaderProps) => {
       padding={6}
       color="black"
       boxShadow="base"
+      zIndex="2"
+      css={css`
+        & {
+          position: -webkit-sticky;
+          position: sticky;
+          top: 0;
+        }
+      `}
       {...rest}
     >
       <Flex align="center" mr={5}>
