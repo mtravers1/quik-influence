@@ -37,6 +37,7 @@ module.exports = {
     '^__mocks__/(.*)$': '<rootDir>/src/__mocks__/$1',
     '^__mockData__/(.*)$': '<rootDir>/src/__mockData__/$1',
     '^redux/(.*)$': '<rootDir>/src/redux/$1',
+    '^styles/(.*)$': '<rootDir>/src/styles/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],

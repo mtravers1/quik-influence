@@ -15,6 +15,7 @@ exports[`renders DropdownSelect component 1`] = `
         id=""
       >
         <option
+          disabled=""
           value=""
         >
           Select ---
