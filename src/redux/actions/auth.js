@@ -1,4 +1,4 @@
-import { axiosInstance, setToken } from 'utils/helpers';
+import { get_user, setToken } from 'utils/helpers';
 import { LOGIN, LOGOUT, AUTH_LOADING } from '../actionTypes';
 
 export const loading = () => async dispatch => {
@@ -19,17 +19,18 @@ export const login = userData => async dispatch => {
   dispatch(loading());
   let user = userData;
 
+  console.log('called', user);
+
   if (!user) {
     try {
       // call for re-authentication
-      const response = await axiosInstance.get('/logged-in');
-      user = response.data.data;
+      user = get_user();
     } catch (err) {
       console.log(err);
     }
   }
 
-  setToken(user.token);
+  user && setToken(user.token);
 
   dispatch({
     type: LOGIN,
