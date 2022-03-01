@@ -3,6 +3,8 @@ import axios from 'axios';
 // const baseurl = 'http://localhost:2022';
 const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+import { DropdownSelectOption } from 'components/DropdownSelect';
+
 const _axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
   headers: {
@@ -34,3 +36,13 @@ export const setToken = (token: string) => {
     return config;
   });
 };
+
+export const getNumberRange = (
+  start: number,
+  stop: number,
+  step: number
+): DropdownSelectOption[] =>
+  Array.from({ length: (stop - start) / step + 1 }, (_, i) => ({
+    label: (start + i * step).toString(),
+    value: (start + i * step).toString(),
+  }));

@@ -6,7 +6,7 @@ import {
 
 export default [
     {
-        name: 'credit',
+        name: 'amount',
         label: 'How many credits would you like to add?',
         type: 'number',
         placeholder: '$',
@@ -16,7 +16,7 @@ export default [
         colSpan: 2
     },
     {
-        name: 'cardName',
+        name: 'name',
         label: 'Full Name on Card',
         errorMessage: 'Enter Full Name on Card',
         type: 'text',
@@ -27,7 +27,7 @@ export default [
 
     },
     {
-        name: 'cardNumber',
+        name: 'number',
         label: 'Card Number',
         errorMessage: 'Enter a valid card number',
         type: 'number',
@@ -38,9 +38,9 @@ export default [
 
     },
     {
-        name: 'cardIssuer',
-        label: 'Card Issuer',
-        errorMessage: 'Select Card Issuer',
+        name: 'exp_month',
+        label: 'Exp Month',
+        errorMessage: 'Select Card Exp Month',
         type: 'select',
         required: true,
         pattern: FREE_TEXT_REGEX,
@@ -48,7 +48,28 @@ export default [
 
     },
     {
-        name: 'address1',
+        name: 'exp_year',
+        label: 'Exp Year',
+        errorMessage: 'Select Card Exp Year',
+        type: 'select',
+        required: true,
+        pattern: FREE_TEXT_REGEX,
+        colSpan: 1
+
+    },
+    {
+        name: 'cvc',
+        label: 'CVC',
+        type: 'text',
+        placeholder: "000",
+        errorMessage: 'Enter card CVC',
+        required: true,
+        pattern: FREE_TEXT_REGEX,
+        colSpan: 2
+
+    },
+    {
+        name: 'address_line1',
         label: 'Address 1',
         type: 'text',
         placeholder: "000 place drive",
@@ -59,7 +80,7 @@ export default [
 
     },
     {
-        name: 'address2',
+        name: 'address_line2',
         label: 'Address 2',
         type: 'text',
         placeholder: "000 place drive",
@@ -70,7 +91,7 @@ export default [
 
     },
     {
-        name: 'zipCode',
+        name: 'address_zip',
         label: 'Zip Code',
         type: 'text',
         placeholder: "030303",
@@ -81,7 +102,7 @@ export default [
 
     },
     {
-        name: 'state',
+        name: 'address_state',
         label: 'State',
         type: 'select',
         errorMessage: 'Select a state',
