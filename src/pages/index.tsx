@@ -1,13 +1,13 @@
-import Head from "next/head";
-import { InferGetStaticPropsType, GetStaticProps } from "next";
-import { axiosInstance } from "utils/helpers";
-import styles from "../styles/Home.module.css";
-import { APP_NAME, HOME_PAGE_NAME } from "utils/constants/pageDataConstants";
-import { CONTENT_URL } from "utils/constants";
-import NavBar from "components/NavBar";
-import Banner from "components/HomePage/Banner";
-import Footer from "components/HomePage/Footer";
-import InfoSec from "components/HomePage/InfoSec";
+import Head from 'next/head';
+import { InferGetStaticPropsType, GetStaticProps } from 'next';
+import { axiosInstance } from 'utils/helpers';
+import styles from '../styles/Home.module.css';
+import { APP_NAME, HOME_PAGE_NAME } from 'utils/constants/pageDataConstants';
+import { CONTENT_URL } from 'utils/constants';
+import NavBar from 'components/NavBar';
+import Banner from 'components/HomePage/Banner';
+import Footer from 'components/HomePage/Footer';
+import InfoSec from 'components/HomePage/InfoSec';
 
 type IpageContent = {
   banner: any;
@@ -17,7 +17,7 @@ type IpageContent = {
 
 const Home = ({
   pageContent,
-  nav
+  nav,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
@@ -51,9 +51,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      pageContent
+      pageContent,
     },
-    revalidate: 10
+    revalidate: 10,
   };
 };
 
