@@ -45,7 +45,7 @@ const CurrentCampaignsTable = () => {
         description: 'Please refresh the page.',
         status: 'error',
         duration: null,
-        isClosable: false,
+        isClosable: true,
         position: 'top-right',
       });
     }

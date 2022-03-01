@@ -1,5 +1,5 @@
-import '../styles/globals.css';
-import '../styles/404.css';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -9,6 +9,9 @@ import theme from '../styles/theme';
 import { wrapper } from '../store';
 import { CONTENT_URL } from 'utils/constants';
 import { APP_NAME, NAV_NAME } from 'utils/constants/pageDataConstants';
+import { login } from 'redux/actions/auth';
+import '../styles/globals.css';
+import '../styles/404.css';
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -16,6 +19,13 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
       queries: {},
     },
   });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(login());
+  }, []);
+
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
