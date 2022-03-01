@@ -19,8 +19,6 @@ export const login = userData => async dispatch => {
   dispatch(loading());
   let user = userData;
 
-  console.log('called', user);
-
   if (!user) {
     try {
       // call for re-authentication
