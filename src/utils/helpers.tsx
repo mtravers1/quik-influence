@@ -5,7 +5,7 @@ const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 import { DropdownSelectOption } from 'components/DropdownSelect';
 
-const _axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
   headers: {
     'Access-Control-Allow-Headers':
@@ -14,19 +14,8 @@ const _axiosInstance = axios.create({
   },
 });
 
-_axiosInstance.interceptors.request.use((config: any) => {
-  let token: any = '';
-  if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token');
-  }
-  config.headers.token = token;
-  return config;
-});
-
-export const axiosInstance = _axiosInstance;
-
-export const validate = (field: any, Regex: any, pattern: any) => {
-  if (pattern.test(field)) return true;
+export const validate = (field: any, pattern: any) => {
+  if (new RegExp(pattern).test(field)) return true;
   return false;
 };
 
