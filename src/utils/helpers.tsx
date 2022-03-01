@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 // const baseurl = 'http://localhost:2022';
 const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -7,9 +8,10 @@ import { DropdownSelectOption } from 'components/DropdownSelect';
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
+  withCredentials: true,
   headers: {
     'Access-Control-Allow-Headers':
-      'Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type',
+      'Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type, token',
     'Access-Control-Allow-Origin': '*',
   },
 });
@@ -25,6 +27,41 @@ export const setToken = (token: string) => {
     return config;
   });
 };
+
+const tokens: any = {};
+
+export function parseJwt(token: any) {
+  if (tokens[token]) return tokens[token];
+
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      // Buffer.from(base64, 'base64')
+      .split('')
+      .map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+
+  const result = JSON.parse(jsonPayload);
+  tokens[token] = result;
+
+  return result;
+}
+
+export function get_user() {
+  let user;
+
+  const ctoken = Cookies.get('q_inf');
+
+  if (ctoken) {
+    user = parseJwt(ctoken);
+  }
+
+  return { admin: user, token: ctoken };
+}
 
 export const getNumberRange = (
   start: number,
