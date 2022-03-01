@@ -72,6 +72,7 @@ const DropdownSelect = ({
         id={inputId}
         data-test-id="select-component"
         {...selectProps}
+        value=""
       >
         <option value="" disabled selected>
           {`Select ${label || '---'}`}
