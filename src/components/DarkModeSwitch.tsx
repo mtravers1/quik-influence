@@ -10,6 +10,8 @@ const DarkModeSwitch = () => {
         borderOutline: 'none',
       }}
       color="green"
+      ml={3}
+      mb={0}
       isChecked={isDark}
       onChange={toggleColorMode}
     />
