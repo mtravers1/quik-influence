@@ -14,10 +14,12 @@ const LeadsForm = ({
   campaignId,
   handleStripe,
   redirectUrl,
+  form,
 }: {
   campaignId: string;
   handleStripe: (email: string) => {};
   redirectUrl: string;
+  form: any;
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
@@ -30,7 +32,7 @@ const LeadsForm = ({
     loading,
     resetInputs,
   } = useInput({
-    inputs: formdata,
+    inputs: form,
     cb: async inputs => {
       if (!submitForm) return;
 
@@ -77,22 +79,22 @@ const LeadsForm = ({
       alignItems="center"
     >
       <Flex flexWrap="wrap" marginBottom={30} justifyContent="space-between">
-        {formdata.map((data, i) => (
+        {form.map((data: any, i: number) => (
           <FormControl
             key={`contact_form_${i}`}
             width="100%"
-            isInvalid={errors[data.name]}
-            isRequired={data.required}
+            isInvalid={errors[data?.name]}
+            isRequired={data?.required}
             margin="3px 0"
           >
             <Box position={'relative'}>
               <CustomInput
-                name={data.name}
-                placeholder={data.label}
+                name={data?.name}
+                placeholder={data?.label}
                 paddingLeft={50}
                 onChange={handleChange}
-                value={inputTypes[data.name]}
-                datatest-id={`test-${data.name}`}
+                value={inputTypes[data?.name]}
+                datatest-id={`test-${data?.name}`}
               />
               <FontAwesomeIcon
                 style={{

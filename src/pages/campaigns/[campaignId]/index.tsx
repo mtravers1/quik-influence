@@ -48,7 +48,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
             as="div"
           >
             <Image
-              src={data?.banner}
+              src={data?.banner || ''}
               alt="Get exclusive content of Baby Dream"
               layout="fill"
               objectFit="cover"
@@ -71,6 +71,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                   campaignId={query.campaignId as string}
                   handleStripe={handleStripe}
                   redirectUrl={data?.redirectUrl}
+                  form={data?.formData?.form}
                 />
               </Box>
             </Flex>

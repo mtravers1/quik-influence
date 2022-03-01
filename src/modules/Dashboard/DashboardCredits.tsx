@@ -20,6 +20,7 @@ import {
   FormErrorMessage,
   useToast,
 } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 
 import useForm from 'hooks/useForm';
 import formdata from 'utils/constants/formData/addCredit';
@@ -30,8 +31,16 @@ import quikColorConstants, {
   cardThemeColor,
   borderThemeColor,
 } from 'utils/constants/colorConstants';
-import DropdownSelect from 'components/DropdownSelect';
+import DropdownSelect, {
+  DropdownSelectOption,
+} from 'components/DropdownSelect';
 import { TransactionDataTable } from 'components/Dashboard/Credits';
+import { getNumberRange } from 'utils/helpers';
+import { fetchPostJSON } from 'utils/apiHelpers';
+import { stateNames } from 'utils/constants/stateConstants';
+import { authSelectors } from 'redux/selectors';
+import { formatAmountForDisplay } from 'utils/stripeHelpers';
+import * as stripeConfig from 'utils/stripeConfig';
 
 const transactionData = [
   {
@@ -48,66 +57,99 @@ const transactionData = [
   },
 ];
 
-const cardIssuerSelectOptions = [
-  {
-    label: 'MasterCard',
-    value: 'mastercard',
-  },
-  {
-    label: 'Visa',
-    value: 'visacard',
-  },
-];
-
-const stateSelectOptions = [
-  {
-    label: 'GA',
-    value: 'ga',
-  },
-  {
-    label: 'FL',
-    value: 'fl',
-  },
-  {
-    label: 'CA',
-    value: 'ca',
-  },
-];
+const stateSelectOptions: DropdownSelectOption[] = stateNames.map(
+  stateName => ({
+    label: stateName,
+    value: stateName,
+  })
+);
 
 const textInputLabelProps = { fontWeight: 'bold', fontSize: 'lg' };
 const textInputProps = { p: '.50rem' };
+
+const currentYear = new Date().getFullYear();
 
 const DashboardCredits = () => {
   const { colorMode } = useColorMode();
   const toast = useToast();
   const colSpan = useBreakpointValue({ base: 2, md: 1 });
 
+  const user = useSelector(authSelectors.getUser);
+  const [transaction, setTransaction] = React.useState<any>();
+  const [transactions, setTransactions] = React.useState<any>([]);
+  const [currentBalance, setCurrentBalance] = React.useState(0); // Just for testing
+
   const getSelectionOptions = (selectionType: string) => {
     switch (selectionType) {
-      case 'state':
+      case 'address_state':
         return stateSelectOptions;
-      case 'cardIssuer':
-        return cardIssuerSelectOptions;
+      case 'exp_month':
+        return getNumberRange(1, 12, 1);
+      case 'exp_year':
+        return getNumberRange(currentYear, currentYear + 10, 1);
       default:
         return [];
     }
   };
 
-  const handleDropdownChange = (event: any) => {
-    console.log(event.target.value);
-  };
-  const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
+  const {
+    handleChange,
+    inputTypes,
+    handleSubmit,
+    errors,
+    loading,
+    resetInputs,
+  } = useForm({
     inputs: formdata,
     cb: async inputs => {
-      console.log(inputs);
+      // Reset prev state
+      setTransaction(null);
 
-      toast({
-        title: 'Credits Added Successfully.',
-        description: "We've added $100 credits your account for you.",
-        status: 'success',
-        duration: 4000,
-        isClosable: true,
+      // Create a Card Token.
+      const response = await fetchPostJSON('/api/create_card_token', inputs);
+
+      if (response.statusCode === 500) {
+        throw new Error(response.message);
+      }
+
+      // Create a Charge.
+      const chargeRes = await fetchPostJSON('/api/create_charge', {
+        token: response.id,
+        amount: inputs.amount,
+        receipt_email: user.admin.email,
       });
+
+      if (chargeRes.statusCode === 500) {
+        throw new Error(chargeRes.message);
+      }
+
+      // TODO:: Make a request to the server to persist the `charge Data`
+      if (chargeRes.status === 'succeeded') {
+        setTransaction(chargeRes);
+        setCurrentBalance(v => v + chargeRes.amount);
+        setTransactions((prevData: any[]) => [
+          ...prevData,
+          {
+            id: chargeRes.id,
+            amount: chargeRes.amount,
+            lastCardDigit: chargeRes.source.last4,
+            date: new Date(),
+          },
+        ]);
+
+        toast({
+          title: 'Credits Added Successfully.',
+          description: `We've added $${chargeRes.amount} credits your account for you.`,
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+          variant: 'top-accent',
+        });
+      }
+
+      console.log(chargeRes);
+
+      resetInputs();
     },
   });
 
@@ -151,7 +193,10 @@ const DashboardCredits = () => {
               alignItems="center"
               p="5"
             >
-              <Text>$4,567.00 Available Credits</Text>
+              <Text>
+                {formatAmountForDisplay(currentBalance, stripeConfig.CURRENCY)}{' '}
+                Available Credits
+              </Text>
             </Box>
           </VStack>
           {/* Form */}
@@ -166,7 +211,10 @@ const DashboardCredits = () => {
                       colSpan={data.colSpan === 1 ? colSpan : data.colSpan}
                     >
                       <DropdownSelect
-                        selectProps={{ name: data.name }}
+                        selectProps={{
+                          name: data.name,
+                          value: inputTypes[data.name],
+                        }}
                         onChange={handleChange}
                         label={data.label}
                         labelProps={{ ...textInputLabelProps }}
@@ -212,9 +260,18 @@ const DashboardCredits = () => {
                   padding="1.2rem"
                   borderRadius="md"
                   type="submit"
+                  disabled={loading}
+                  isLoading={loading}
                   onClick={handleSubmit}
                 >
-                  Process Card for $100
+                  Process Card
+                  {`${
+                    inputTypes['amount'] &&
+                    ` for ${formatAmountForDisplay(
+                      inputTypes['amount'],
+                      stripeConfig.CURRENCY
+                    )}`
+                  }`}
                 </CustomButton>
               </GridItem>
             </SimpleGrid>
@@ -228,36 +285,42 @@ const DashboardCredits = () => {
       <Flex py="3%" width={[null, null, '50%']} minH="100vh">
         <VStack spacing="20">
           {/*  Transaction History */}
-          <TransactionDataTable data={transactionData} />
+          <TransactionDataTable data={transactions} />
 
           {/* Alert */}
-          <Alert
-            status="error"
-            variant="subtle"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            textAlign="center"
-            height="sm"
-            bgColor={cardThemeColor[colorMode]}
-            border={`1px solid ${borderThemeColor[colorMode]}`}
-          >
-            <AlertIcon boxSize="40px" mr={0} mb={5} />
-            <AlertTitle mt={4} mb={5} fontSize="xlg">
-              Thank you for your order!
-            </AlertTitle>
-            <AlertDescription
-              fontSize="lg"
+          {transaction && (
+            <Alert
+              status="error"
+              variant="subtle"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
               textAlign="center"
-              fontWeight="bold"
-              color={quikColorConstants.influenceRed}
-              maxWidth="lg"
+              height="sm"
+              bgColor={cardThemeColor[colorMode]}
+              border={`1px solid ${borderThemeColor[colorMode]}`}
             >
-              Your transaction in the mount of $100 should be displayed on your
-              account momentarily. An email with your receipt has been sent to
-              email@yourname.com
-            </AlertDescription>
-          </Alert>
+              <AlertIcon boxSize="40px" mr={0} mb={5} />
+              <AlertTitle mt={4} mb={5} fontSize="xlg">
+                Thank you for your order!
+              </AlertTitle>
+              <AlertDescription
+                fontSize="lg"
+                textAlign="center"
+                fontWeight="bold"
+                color={quikColorConstants.influenceRed}
+                maxWidth="lg"
+              >
+                Your transaction in the mount of{' '}
+                {formatAmountForDisplay(
+                  transaction?.amount,
+                  stripeConfig.CURRENCY
+                )}{' '}
+                should be displayed on your account momentarily. An email with
+                your receipt has been sent to {transaction?.receipt_email}
+              </AlertDescription>
+            </Alert>
+          )}
         </VStack>
       </Flex>
     </Flex>

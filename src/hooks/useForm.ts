@@ -60,11 +60,7 @@ export default function Input({
       (acc, inputName) => ({
         ...acc,
         [inputName]: inputMap[inputName].validateSelf
-          ? !validate(
-              requiredKeys[inputName],
-              inputName,
-              inputMap[inputName].pattern
-            )
+          ? !validate(requiredKeys[inputName], inputMap[inputName].pattern)
           : false,
       }),
       {}
@@ -80,7 +76,8 @@ export default function Input({
     if (shouldNotSubmit && validateForm) {
       // you can add a toast here
       toast({
-        title: "An error occurred. Please check your form for uncompleted fields",
+        title:
+          'An error occurred. Please check your form for uncompleted fields',
         description: '',
         status: 'error',
         duration: 4000,
@@ -144,21 +141,24 @@ export default function Input({
     const { name, value, type, checked } = event.target as HTMLInputElement;
 
     if (inputMap[name].validateSelf) {
-      const newErrors = { ...errors, [name]: !validate(value, name, inputMap[name].pattern) };
+      const newErrors = {
+        ...errors,
+        [name]: !validate(value, inputMap[name].pattern),
+      };
       newErrors.onSubmit = false;
       newErrors.reset = false;
 
       setErrors(newErrors);
     }
 
-    let inputValue:any = ''
+    let inputValue: any = '';
 
     switch (type) {
       case 'checkbox':
-        inputValue = !!checked
+        inputValue = !!checked;
         break;
       default:
-        inputValue = value
+        inputValue = value;
     }
 
     setInputTypes({
