@@ -79,7 +79,7 @@ const LeadsForm = ({
       alignItems="center"
     >
       <Flex flexWrap="wrap" marginBottom={30} justifyContent="space-between">
-        {form.map((data: any, i: number) => (
+        {form?.map((data: any, i: number) => (
           <FormControl
             key={`contact_form_${i}`}
             width="100%"
