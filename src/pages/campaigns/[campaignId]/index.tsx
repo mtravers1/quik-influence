@@ -71,6 +71,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                   campaignId={query.campaignId as string}
                   handleStripe={handleStripe}
                   redirectUrl={data?.redirectUrl}
+                  form={data?.formData?.form}
                 />
               </Box>
             </Flex>
