@@ -1,10 +1,10 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-// const baseurl = 'http://localhost:2022';
 const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 import { DropdownSelectOption } from 'components/DropdownSelect';
+import { NextRouter } from 'next/router';
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
@@ -15,6 +15,12 @@ export const axiosInstance = axios.create({
     'Access-Control-Allow-Origin': '*',
   },
 });
+
+export const logout = (router: NextRouter) => {
+  Cookies.remove('token');
+  localStorage.removeItem('Q_TOKEN');
+  router.push('/login');
+}
 
 export const validate = (field: any, pattern: any) => {
   if (new RegExp(pattern).test(field)) return true;
