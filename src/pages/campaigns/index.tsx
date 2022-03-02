@@ -4,7 +4,7 @@ import CampaignsOverview from 'modules/Campaigns';
 const Campaigns = () => {
   return (
     <MainContent>
-        <CampaignsOverview />
+      <CampaignsOverview />
     </MainContent>
   );
 };

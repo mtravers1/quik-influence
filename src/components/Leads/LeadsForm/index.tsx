@@ -4,11 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import CustomButton from 'components/Button';
 import useInput from 'hooks/useForm';
-import formdata from 'utils/constants/formData/closeFriends';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import CustomInput from 'components/CustomInput';
 import { axiosInstance } from 'utils/helpers';
-import { useEffect } from 'react';
 
 const LeadsForm = ({
   campaignId,
@@ -56,8 +54,6 @@ const LeadsForm = ({
           await handleStripe(inputs.email);
           if (typeof window !== 'undefined')
             localStorage.setItem('redirectUrl', redirectUrl);
-
-          console.log('res >>> ', res);
         })
         .catch(err => {
           toast({
