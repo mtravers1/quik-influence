@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -21,18 +21,33 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   });
 
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  const runBeforeLoad = async () => {
+    setLoading(true);
+
+    await dispatch(login());
+
+    setLoading(false);
+  };
 
   useEffect(() => {
-    dispatch(login());
+    runBeforeLoad();
   }, []);
 
   return (
-    <ChakraProvider theme={theme}>
-      <Fonts />
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-      </QueryClientProvider>
-    </ChakraProvider>
+    <>
+      {loading ? (
+        <div></div>
+      ) : (
+        <ChakraProvider theme={theme}>
+          <Fonts />
+          <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+          </QueryClientProvider>
+        </ChakraProvider>
+      )}
+    </>
   );
 }
 

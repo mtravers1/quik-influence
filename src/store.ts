@@ -3,8 +3,13 @@ import { composeWithDevTools } from 'redux-devtools-extension/logOnly';
 import thunk from 'redux-thunk';
 import reducers from './redux/reducers';
 import { createWrapper, Context } from 'next-redux-wrapper';
+import logger from 'redux-logger';
 
-const middleware = [thunk];
+let middleware: any = [];
+
+if (process.env.NODE_ENV === 'development') {
+  middleware = [thunk, logger];
+} else middleware = [thunk];
 
 export const makeStore = (context: Context) =>
   createStore(
