@@ -1,28 +1,27 @@
-import { axiosInstance, setToken } from 'utils/helpers';
+import { errorParser } from 'utils/apiHelpers';
+import { axiosInstance } from 'utils/helpers';
 import {
-  LOGIN,
-  LOGOUT,
-  AUTH_LOADING,
   CAMPAIGNS_LOADING,
   CAMPAIGNS,
   CAMPAIGNS_ERROR,
+  DispatchWithPayload
 } from '../actionTypes';
 
-export const loading = () => async dispatch => {
+export const loading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: CAMPAIGNS_LOADING,
     payload: true,
   });
 };
 
-export const doneloading = () => async dispatch => {
+export const doneloading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: CAMPAIGNS_LOADING,
     payload: false,
   });
 };
 
-export const getCampaigns = () => async dispatch => {
+export const getCampaigns = () => async (dispatch: any) => {
   dispatch(loading());
 
   try {
@@ -34,10 +33,10 @@ export const getCampaigns = () => async dispatch => {
       payload: campaigns,
     });
   } catch (error) {
-    console.log(error.response.data.message);
+    const errorMessage = errorParser(error);
     dispatch({
       type: CAMPAIGNS_ERROR,
-      payload: error.response.data.message,
+      payload: errorMessage,
     });
   } finally {
     dispatch(doneloading());

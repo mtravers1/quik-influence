@@ -4,9 +4,10 @@ import { CAMPAIGNS, CAMPAIGNS_ERROR, CAMPAIGNS_LOADING } from "redux/actionTypes
 
 export const initialState = {
     campaigns: null,
+    loading: false,
 }
 
-const campaigns = (state = initialState, action) => {
+const campaigns = (state = initialState, action: { type: any; payload: any }) => {
     switch (action.type) {
         case CAMPAIGNS_LOADING:
             return {

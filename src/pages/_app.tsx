@@ -26,7 +26,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const runBeforeLoad = async () => {
     setLoading(true);
 
-    await dispatch(login());
+    dispatch(login());
 
     setLoading(false);
   };
