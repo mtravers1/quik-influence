@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import { Q_TOKEN } from './constants';
 
 const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -8,10 +8,10 @@ import { NextRouter } from 'next/router';
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
-  withCredentials: true,
+  // withCredentials: true,
   headers: {
     'Access-Control-Allow-Headers':
-      'Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type, token',
+      'Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type',
     'Access-Control-Allow-Origin': '*',
   },
 });
@@ -23,7 +23,9 @@ export const logout = (router: NextRouter) => {
 }
 
 export const validate = (field: any, pattern: any) => {
-  if (new RegExp(pattern).test(field)) return true;
+  const parts = /\/(.*)\/(.*)/.exec(pattern) || [];
+  var restoredRegex = new RegExp(parts[1], parts[2]);
+  if (restoredRegex.test(field)) return true;
   return false;
 };
 
@@ -32,6 +34,12 @@ export const setToken = (token: string) => {
     config.headers.token = token ? token : '';
     return config;
   });
+
+  // axiosInstance.defaults.headers.common['token'] = token;
+
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(Q_TOKEN, token);
+  }
 };
 
 const tokens: any = {};
@@ -60,7 +68,11 @@ export function parseJwt(token: any) {
 export function get_user() {
   let user;
 
-  const ctoken = Cookies.get('q_inf');
+  // let ctoken = Cookies.get('q_inf');
+  let ctoken;
+  if (typeof window !== 'undefined') {
+    ctoken = localStorage.getItem(Q_TOKEN);
+  }
 
   if (ctoken) {
     user = parseJwt(ctoken);
