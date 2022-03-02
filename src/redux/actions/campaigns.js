@@ -34,10 +34,10 @@ export const getCampaigns = () => async dispatch => {
       payload: campaigns,
     });
   } catch (error) {
-    console.log(error.response.data.message);
+    console.log(error?.message || error?.response?.data?.message);
     dispatch({
       type: CAMPAIGNS_ERROR,
-      payload: error.response.data.message,
+      payload: error?.message || error?.response?.data?.message,
     });
   } finally {
     dispatch(doneloading());
