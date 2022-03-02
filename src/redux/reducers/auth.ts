@@ -2,14 +2,15 @@ import { LOGIN, LOGOUT, AUTH_LOADING } from '../actionTypes';
 
 export const initialState = {
   user: null,
+  loading: false,
 };
 
-const user = (state = initialState, action) => {
+const user = (state = initialState, action: { type: any; payload: any; }) => {
   switch (action.type) {
     case LOGIN:
       return {
+        ...state,
         user: action.payload,
-        loading: state.loading,
       };
     case LOGOUT:
       return {
