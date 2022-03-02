@@ -15,7 +15,7 @@ export const doneloading = () => async (dispatch: DispatchWithPayload) => {
   });
 };
 
-export const login = (userData: any) => async (dispatch: any) => {
+export const login = (userData?: any) => async (dispatch: any) => {
   dispatch(loading());
   let user = userData;
 
