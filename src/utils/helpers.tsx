@@ -17,8 +17,7 @@ export const axiosInstance = axios.create({
 });
 
 export const logout = (router: NextRouter) => {
-  Cookies.remove('token');
-  localStorage.removeItem('Q_TOKEN');
+  localStorage.removeItem(Q_TOKEN);
   router.push('/login');
 }
 
