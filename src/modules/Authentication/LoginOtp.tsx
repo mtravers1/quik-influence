@@ -1,7 +1,7 @@
 import { useState, SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { useToast } from '@chakra-ui/react';
+import { position, useToast } from '@chakra-ui/react';
 import Image from 'next/image';
 import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
@@ -12,6 +12,8 @@ import { axiosInstance } from 'utils/helpers';
 import { login } from 'redux/actions/auth';
 import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
+import { AxiosError } from 'axios';
+import { errorParser } from 'utils/apiHelpers';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -38,7 +40,7 @@ const Login = () => {
       dispatch(login(response.data.data));
 
       toast({
-        title: `Welcome back ${response.data.data.firstName}`,
+        title: `Welcome back ${response.data.data.admin.firstName}`,
         description: '',
         status: 'success',
         duration: 4000,
@@ -64,7 +66,17 @@ const Login = () => {
         email: inputTypes.email,
       });
       setShowOtpInput(true);
-    } catch (err) {}
+    } catch (err) {
+      const errMessage = errorParser(err);
+      toast({
+        title: errMessage,
+        description: '',
+        status: 'error',
+        duration: 4000,
+        position: 'top-right',
+        isClosable: true,
+      });
+    }
 
     setLoadingOtp(false);
   };
