@@ -109,17 +109,17 @@ export default function Input({
 
       setLoading(false);
     } catch (error: any) {
+      console.log('errror >>>>> ', error);
       if (error.response) {
         if (error.response.status === 500) {
           error.message = 'Network error please try again';
-        } else error.message = error.response.data.message;
+        } else error.message = error?.response?.data?.message || error.message;
       } else error.message = error.message || 'Error occured';
 
       const err = Array.isArray(error.message)
         ? error.message.join(', ')
         : error.message;
 
-      console.log(err);
 
       // add a toast or do soemthing with the error
       toast({
