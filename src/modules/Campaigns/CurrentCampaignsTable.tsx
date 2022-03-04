@@ -9,21 +9,20 @@ import {
   Th,
   createStandaloneToast,
 } from '@chakra-ui/react';
-import quikColorConstants from 'utils/constants/colorConstants';
-import { faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
+import Image from 'next/image';
+import quikColorConstants from 'utils/constants/colorConstants';
 import LoaderGif from 'assets/loader.gif';
 import { getCampaigns } from 'redux/actions/campaigns';
+import DropdownSelect from 'components/DropdownSelect';
 import theme from 'styles/theme';
-import Image from 'next/image';
 
 const tableHeaders = [
   'Campaign',
   'Model',
   'Engagement Type',
+  'Status',
   'Created On',
   'Actions',
 ];
@@ -33,6 +32,8 @@ const CurrentCampaignsTable = () => {
   const dispatch = useDispatch();
   const campaigns = useSelector((state: any) => state.campaigns);
   const toast = createStandaloneToast(theme);
+
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(getCampaigns());
@@ -50,6 +51,15 @@ const CurrentCampaignsTable = () => {
       });
     }
   }, [campaigns]);
+
+  const onSelect = (e: any) => {
+    console.log(e);
+
+    const { value } = e.target;
+    if (value.includes('/')) router.push(value);
+  };
+
+  console.log(campaigns);
 
   return (
     <>
@@ -77,17 +87,43 @@ const CurrentCampaignsTable = () => {
                 <Td>{cam.name}</Td>
                 <Td>{cam.paidType}</Td>
                 <Td>NONE</Td>
+                <Td>{cam.status || 'Inactive'}</Td>
                 <Td>{new Date(cam.createdAt).toLocaleDateString('en-US')}</Td>
                 <Td cursor="pointer">
-                  <Link href={`/campaigns/${cam.id}`}>
-                    <span>
-                      View Campaign &nbsp;
-                      <FontAwesomeIcon
-                        size="lg"
-                        icon={faChevronCircleRight as IconProp}
-                      />
-                    </span>
-                  </Link>
+                  <DropdownSelect
+                    onChange={onSelect}
+                    placeholder="action"
+                    options={
+                      [
+                        {
+                          label: 'Edit',
+                          value: `/dashboard/campaigns/edit/${cam.id}`,
+                        },
+                        { label: 'Archive', value: 'archive' },
+                        {
+                          label: 'Launch',
+                          value: `/dashboard/campaigns/${cam.id}`,
+                        },
+                        { label: 'View', value: `/dashboard/leads/${cam.id}` },
+                        { label: 'Copy link', value: 'copy' },
+                        {
+                          label:
+                            cam.status === 'active'
+                              ? 'Set Inactive'
+                              : 'Set Active',
+                          value:
+                            cam.status === 'active'
+                              ? 'setInactive'
+                              : 'setActive',
+                        },
+                      ] || []
+                    }
+                    name="Actions"
+                    selectProps={{
+                      fontSize: '1.4rem',
+                      border: 'none',
+                    }}
+                  />
                 </Td>
               </Tr>
             ))}
@@ -99,3 +135,15 @@ const CurrentCampaignsTable = () => {
 };
 
 export default CurrentCampaignsTable;
+
+{
+  /* <Link href={`/campaigns/${cam.id}`}>
+<span>
+  View Campaign &nbsp;
+  <FontAwesomeIcon
+    size="lg"
+    icon={faChevronCircleRight as IconProp}
+  />
+</span>
+</Link> */
+}
