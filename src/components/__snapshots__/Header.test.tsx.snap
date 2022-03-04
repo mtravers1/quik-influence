@@ -84,49 +84,89 @@ exports[`renders Header component 1`] = `
       class="css-iqqio3"
     >
       <button
-        class="chakra-button css-158uetl"
-        type="button"
+        aria-controls="menu-list-4"
+        aria-expanded="false"
+        aria-haspopup="menu"
+        class="chakra-menu__menu-button css-1eqi7qs"
+        id="menu-button-4"
       >
-        Create account
-      </button>
-      <label
-        class="chakra-switch css-tm8ajn"
-      >
-        <input
-          class="chakra-switch__input"
-          style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
-          type="checkbox"
-          value=""
-        />
         <span
-          aria-hidden="true"
-          class="chakra-switch__track css-14qxnv8"
+          class="css-xl71ch"
         >
           <span
-            class="chakra-switch__thumb css-0"
-          />
-        </span>
-      </label>
-      <span
-        class="css-1ehzxp"
-      >
-        <span
-          class="chakra-avatar css-o11zrc"
-        >
-          <div
-            aria-label="Segun Adebayo"
-            class="chakra-avatar__initials css-0"
-            role="img"
+            class="css-1ehzxp"
           >
-            SA
-          </div>
+            <span
+              class="chakra-avatar css-o11zrc"
+            >
+              <div
+                aria-label="Segun Adebayo"
+                class="chakra-avatar__initials css-0"
+                role="img"
+              >
+                SA
+              </div>
+            </span>
+            <span
+              class="css-8uhtka"
+            >
+              Segun
+            </span>
+          </span>
         </span>
-        <span
-          class="css-8uhtka"
+      </button>
+      <div
+        class="css-0"
+        style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+      >
+        <div
+          aria-orientation="vertical"
+          class="chakra-menu__menu-list css-sjt5nk"
+          id="menu-list-4"
+          role="menu"
+          style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
+          tabindex="-1"
         >
-          Segun
-        </span>
-      </span>
+          <button
+            class="chakra-menu__menuitem css-1k756t9"
+            data-index="0"
+            id="menu-list-4-menuitem-1"
+            role="menuitem"
+            tabindex="-1"
+            type="button"
+          >
+            Theme: 
+            <label
+              class="chakra-switch css-qtgvng"
+            >
+              <input
+                class="chakra-switch__input"
+                style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                type="checkbox"
+                value=""
+              />
+              <span
+                aria-hidden="true"
+                class="chakra-switch__track css-14qxnv8"
+              >
+                <span
+                  class="chakra-switch__thumb css-0"
+                />
+              </span>
+            </label>
+          </button>
+          <button
+            class="chakra-menu__menuitem css-1k756t9"
+            data-index="1"
+            id="menu-list-4-menuitem-2"
+            role="menuitem"
+            tabindex="-1"
+            type="button"
+          >
+            Log out
+          </button>
+        </div>
+      </div>
     </div>
   </nav>
 </div>

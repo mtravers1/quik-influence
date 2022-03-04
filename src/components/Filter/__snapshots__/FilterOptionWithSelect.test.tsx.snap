@@ -12,13 +12,13 @@ exports[`renders FilterOptionWithSelect component 1`] = `
         <button
           aria-controls="accordion-panel-2"
           aria-expanded="false"
-          class="chakra-accordion__button css-12ttzao"
+          class="chakra-accordion__button css-96zelt"
           data-index="0"
           id="accordion-button-2"
           type="button"
         >
           <div
-            class="css-8tcdg7"
+            class="css-i953zm"
           >
             test
           </div>
@@ -114,7 +114,6 @@ exports[`renders FilterOptionWithSelect component 1`] = `
           </div>
           <div
             class="css-bkneeg"
-            spacing="4"
           />
         </div>
       </div>
