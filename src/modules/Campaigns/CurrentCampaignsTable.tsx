@@ -56,7 +56,18 @@ const CurrentCampaignsTable = () => {
     console.log(e);
 
     const { value } = e.target;
-    if (value.includes('/')) router.push(value);
+    if (value.includes('/')) return router.push(value);
+
+    switch (value) {
+      case 'archive':
+        // do something, this is like delete
+        break;
+      case 'copy':
+        // do somethimg here
+        break;
+      default:
+        break;
+    }
   };
 
   console.log(campaigns);
