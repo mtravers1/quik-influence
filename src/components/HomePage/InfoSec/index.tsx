@@ -65,13 +65,19 @@ const InfoSec = ({ info }: { info: any }) => {
                 w={{ base: '100%', xl: '32%' }}
                 margin={{ base: '20px', xl: 0 }}
                 maxW="450px"
+                bg={i % 2 === 1 ? 'red' : '#fff'}
               >
                 <EditableWrapper
                   sectionId={`cards__${i}__header`}
                   data={info}
                   sectionName="info"
                 >
-                  <Box as="h3" fontSize={25} color="#333" fontWeight="500">
+                  <Box
+                    as="h3"
+                    fontSize={25}
+                    color={i % 2 === 1 ? '#fff' : '#333'}
+                    fontWeight="500"
+                  >
                     {card.header}
                   </Box>
                 </EditableWrapper>
@@ -83,7 +89,7 @@ const InfoSec = ({ info }: { info: any }) => {
                   data={info}
                   sectionName="info"
                 >
-                  <Box as="p" color="#333">
+                  <Box as="p" color={i % 2 === 1 ? '#fff' : '#333'}>
                     {card.desc}
                   </Box>
                 </EditableWrapper>
