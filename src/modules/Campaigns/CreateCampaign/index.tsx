@@ -39,13 +39,14 @@ const getFormFields = (inputs: string[]) => {
   }, []);
 };
 
-const CreateCampaign = () => {
+const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
   const toast = createStandaloneToast(theme);
   const { colorMode } = useColorMode();
   const router = useRouter();
 
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
+    initials: initialdata,
     cb: async inputs => {
       const formFieldsInput = getFormFields(inputs.formData);
       const response = await axiosInstance.post('/users/create/campaign', {
@@ -112,6 +113,7 @@ const CreateCampaign = () => {
                       handleChange={handleChange}
                       name={data.name}
                       error={errors[data.name] ? data.errorMessage : undefined}
+                      initialvalue={inputTypes.formData || []}
                     />
                   </ListItem>
                 );

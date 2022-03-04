@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import OverviewSkeletonLoaders from 'components/SkeletonLoaders';
+import { OverviewSkeletonLoaders } from 'components/SkeletonLoaders';
 import React from 'react';
 import { cardThemeColor } from 'utils/constants/colorConstants';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
