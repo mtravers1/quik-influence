@@ -1,4 +1,4 @@
-import { CREATE_NAV } from '../actionTypes';
+import { CREATE_NAV } from "../actionTypes";
 
 export default createNav = nav => async dispatch => {
   dispatch({
