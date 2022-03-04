@@ -20,7 +20,7 @@ const CurrentCampaigns = () => {
       };
     return(
         <Flex flexDirection="column" mt="12">
-            <Heading size="lg">Currrent Campaigns</Heading>
+            <Heading size="lg">Current Campaigns</Heading>
             <Flex width="100%" justifyContent="right" mb={8} >
                 <Flex>
                     <Text width="10rem" my="auto" color={quikColorConstants.greyLighter}>Sort By:</Text>
@@ -36,7 +36,7 @@ const CurrentCampaigns = () => {
                 </Flex>
                 <Flex>
                     <Text mr={4} my="auto" color={quikColorConstants.greyLighter}>Total:</Text>
-                    {campaigns?.campaigns?.length && <Text   my="auto"  > {`${campaigns.campaigns.length} Campaings`}</Text>}
+                    {campaigns?.campaigns?.length && <Text   my="auto"  > {`${campaigns.campaigns.length} Campaigns`}</Text>}
                 </Flex>
             </Flex>
             <CurrentCampaignsTable />
