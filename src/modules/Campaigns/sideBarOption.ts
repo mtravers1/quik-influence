@@ -4,7 +4,7 @@ import { SideBarOptionMenu } from 'types';
 export const campaignsMenu: SideBarOptionMenu = {
   name: 'Campaigns',
   icon: faCalendarMinus,
-  path: '/campaigns',
+  path: '/dashboard/campaigns',
   order: 2,
   permission: [],
   isShown: true,
@@ -15,7 +15,7 @@ export const campaignsMenu: SideBarOptionMenu = {
 export const createCampaignsMenu: SideBarOptionMenu = {
   name: 'Create Campaign',
   icon: faCalendarMinus,
-  path: '/campaigns/create',
+  path: '/dashboard/campaigns/create',
   order: 2,
   permission: [],
   isShown: true,
