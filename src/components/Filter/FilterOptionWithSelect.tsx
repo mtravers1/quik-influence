@@ -36,7 +36,7 @@ const FilterOptionWithSelect = ({
         <DropdownSelect onChange={handleChange} options={selectOptions || []} />
         {/* @ts-ignore */}
         {useTags && (
-          <Flex flexWrap="wrap" spacing={4} mt={5}>
+          <Flex flexWrap="wrap" mt={5}>
             {selectedOpt &&
               selectedOpt.map((opt, index) => (
                 <Tag

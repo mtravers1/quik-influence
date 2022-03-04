@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Heading,
@@ -16,25 +16,25 @@ import {
   Menu,
   MenuButton,
   MenuItem,
-  MenuList
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import AppIcon from "../assets/icon.png";
+  MenuList,
+} from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import AppIcon from '../assets/icon.png';
 import quikColorConstants, {
   bgThemeColor,
-  themeColor
-} from "utils/constants/colorConstants";
-import DarkModeSwitch from "./DarkModeSwitch";
-import theme from "../styles/theme";
-import { css } from "@emotion/react";
-import { logout as removeLocalstorageToken } from "utils/helpers";
-import { logout } from "redux/actions/auth";
-import { useRouter } from "next/router";
+  themeColor,
+} from 'utils/constants/colorConstants';
+import DarkModeSwitch from './DarkModeSwitch';
+import theme from '../styles/theme';
+import { css } from '@emotion/react';
+import { logout as removeLocalstorageToken } from 'utils/helpers';
+import { logout } from 'redux/actions/auth';
+import { useRouter } from 'next/router';
 
 interface HeaderProps extends FlexProps {}
 
 const Header = ({ ...rest }: HeaderProps) => {
-  const router =  useRouter();
+  const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
 
@@ -56,10 +56,6 @@ const Header = ({ ...rest }: HeaderProps) => {
         }
       `}
       {...rest}
-      zIndex={10}
-      position="fixed"
-      width="100vw"
-      top={0}
     >
       <Flex align="center" mr={5}>
         <Image
@@ -68,7 +64,7 @@ const Header = ({ ...rest }: HeaderProps) => {
           src={AppIcon.src}
           alt="quik-influence logo"
         />
-        <Heading as="h1" size="lg" ml={3} letterSpacing={"tighter"}>
+        <Heading as="h1" size="lg" ml={3} letterSpacing={'tighter'}>
           <Flex>
             <Text color={quikColorConstants.influenceRed} mr={1}>
               Quik
@@ -78,7 +74,7 @@ const Header = ({ ...rest }: HeaderProps) => {
         </Heading>
       </Flex>
 
-      <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
+      <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
         <HamburgerIcon />
       </Box>
 
@@ -87,7 +83,7 @@ const Header = ({ ...rest }: HeaderProps) => {
       </Box>
 
       <Box
-        display={{ base: isOpen ? "block" : "none", md: "block" }}
+        display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
         mt={{ base: 4, md: 0 }}
       >
         <Menu>
