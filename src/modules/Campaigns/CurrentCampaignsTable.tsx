@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   useColorMode,
   Tbody,
@@ -33,6 +33,8 @@ const CurrentCampaignsTable = () => {
   const campaigns = useSelector((state: any) => state.campaigns);
   const toast = createStandaloneToast(theme);
 
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -52,11 +54,13 @@ const CurrentCampaignsTable = () => {
     }
   }, [campaigns]);
 
-  const onSelect = (e: any) => {
+  const onSelect = async (e: any) => {
     console.log(e);
 
     const { value } = e.target;
     if (value.includes('/')) return router.push(value);
+
+    setLoading(true);
 
     switch (value) {
       case 'archive':
@@ -68,6 +72,8 @@ const CurrentCampaignsTable = () => {
       default:
         break;
     }
+
+    setLoading(false);
   };
 
   console.log(campaigns);
