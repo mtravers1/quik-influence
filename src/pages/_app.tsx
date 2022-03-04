@@ -63,7 +63,7 @@ QuikInfluenceApp.getInitialProps = async () => {
 
     return {
       pageProps: {
-        nav: nav.data.data,
+        nav: nav?.data?.data,
       },
     };
   }

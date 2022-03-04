@@ -11,7 +11,7 @@ export default [
   },
   {
     name: 'otp',
-    label: 'Enter Otp',
+    label: 'Please check your email to retrieve your One Time Password (OTP).',
     errorMessage: 'Enter an Otp',
     required: true,
     type: 'text',
