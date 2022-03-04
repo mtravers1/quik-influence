@@ -29,8 +29,11 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
         image: data?.banner,
         title: data?.name,
         amount: Math.round(pageInfo.campaingeAmount + pageInfo.fee) * 100,
+        campaignId: query.campaignId as string,
       }
     );
+
+    console.log('response >>> ', response);
 
     const result = await stripe?.redirectToCheckout({
       sessionId: response.data.data.id,
