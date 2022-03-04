@@ -57,7 +57,7 @@ const LeadsForm = ({
         })
         .catch(err => {
           toast({
-            title: err.response.data.message,
+            title: err?.response?.data?.message || err.message,
             status: 'error',
             duration: 9000,
             position: 'top-right',
