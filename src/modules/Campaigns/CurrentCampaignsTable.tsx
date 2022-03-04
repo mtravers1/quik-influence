@@ -8,15 +8,24 @@ import {
   Tr,
   Th,
   createStandaloneToast,
+  Flex,
+  Box,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'next/image';
 import quikColorConstants from 'utils/constants/colorConstants';
 import LoaderGif from 'assets/loader.gif';
-import { getCampaigns } from 'redux/actions/campaigns';
+import {
+  archiveCampaign,
+  getCampaigns,
+  getSingleCampaign,
+  updateCampaign,
+} from 'redux/actions/campaigns';
 import DropdownSelect from 'components/DropdownSelect';
 import theme from 'styles/theme';
+import { dataBody } from 'utils/constants/leadsPageTableData';
+import loader from 'assets/loader.gif';
 
 const tableHeaders = [
   'Campaign',
@@ -33,7 +42,7 @@ const CurrentCampaignsTable = () => {
   const campaigns = useSelector((state: any) => state.campaigns);
   const toast = createStandaloneToast(theme);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({});
 
   const router = useRouter();
 
@@ -55,28 +64,58 @@ const CurrentCampaignsTable = () => {
   }, [campaigns]);
 
   const onSelect = async (e: any) => {
-    console.log(e);
-
     const { value } = e.target;
-    if (value.includes('/')) return router.push(value);
 
-    setLoading(true);
+    if (value.includes('/')) {
+      if (value.includes('edit')) {
+        dispatch(
+          getSingleCampaign(
+            undefined,
+            campaigns?.campaigns.find(
+              (data: any) => data.id === value.split('edit/')[1]
+            )
+          )
+        );
+      }
 
-    switch (value) {
+      return router.push(value);
+    }
+
+    const [verb, id] = value.split(':');
+
+    setLoading(prevloadState => ({ ...prevloadState, [id]: true }));
+
+    switch (verb) {
       case 'archive':
-        // do something, this is like delete
+        await dispatch(archiveCampaign(id));
         break;
       case 'copy':
-        // do somethimg here
+        if (typeof window !== 'undefined') {
+          navigator.clipboard
+            .writeText(`${window.location.host}/campaigns/${id}`)
+            .then(success =>
+              toast({
+                title: 'Copied to clipboard',
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+                position: 'top-right',
+              })
+            );
+        }
+        break;
+      case 'setInactive':
+        await dispatch(updateCampaign(id, { status: 'inactive' }));
+        break;
+      case 'setActive':
+        await dispatch(updateCampaign(id, { status: 'active' }));
         break;
       default:
         break;
     }
 
-    setLoading(false);
+    setLoading(prevloadState => ({ ...prevloadState, [id]: false }));
   };
-
-  console.log(campaigns);
 
   return (
     <>
@@ -107,40 +146,51 @@ const CurrentCampaignsTable = () => {
                 <Td>{cam.status || 'Inactive'}</Td>
                 <Td>{new Date(cam.createdAt).toLocaleDateString('en-US')}</Td>
                 <Td cursor="pointer">
-                  <DropdownSelect
-                    onChange={onSelect}
-                    placeholder="action"
-                    options={
-                      [
-                        {
-                          label: 'Edit',
-                          value: `/dashboard/campaigns/edit/${cam.id}`,
-                        },
-                        { label: 'Archive', value: 'archive' },
-                        {
-                          label: 'Launch',
-                          value: `/dashboard/campaigns/${cam.id}`,
-                        },
-                        { label: 'View', value: `/dashboard/leads/${cam.id}` },
-                        { label: 'Copy link', value: 'copy' },
-                        {
-                          label:
-                            cam.status === 'active'
-                              ? 'Set Inactive'
-                              : 'Set Active',
-                          value:
-                            cam.status === 'active'
-                              ? 'setInactive'
-                              : 'setActive',
-                        },
-                      ] || []
-                    }
-                    name="Actions"
-                    selectProps={{
-                      fontSize: '1.4rem',
-                      border: 'none',
-                    }}
-                  />
+                  <Flex>
+                    <DropdownSelect
+                      onChange={onSelect}
+                      placeholder="action"
+                      options={
+                        [
+                          {
+                            label:
+                              cam.status === 'active'
+                                ? 'Set Inactive'
+                                : 'Set Active',
+                            value:
+                              cam.status === 'active'
+                                ? `setInactive:${cam.id}`
+                                : `setActive:${cam.id}`,
+                          },
+                          {
+                            label: 'Edit',
+                            value: `/dashboard/campaigns/edit/${cam.id}`,
+                          },
+                          { label: 'Archive', value: `archive:${cam.id}` },
+                          {
+                            label: 'Launch',
+                            value: `/campaigns/${cam.id}`,
+                          },
+                          {
+                            label: 'View',
+                            value: `/dashboard/leads/${cam.id}`,
+                          },
+                          { label: 'Copy link', value: `copy:${cam.id}` },
+                        ] || []
+                      }
+                      name="Actions"
+                      selectProps={{
+                        fontSize: '1.4rem',
+                        border: 'none',
+                      }}
+                    />
+                    {/* @ts-expect-error */}
+                    {loading[cam.id] && (
+                      <Box marginRight="10px">
+                        <Image src={loader} alt="" width={50} height={50} />
+                      </Box>
+                    )}
+                  </Flex>
                 </Td>
               </Tr>
             ))}
