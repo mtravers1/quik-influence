@@ -1,18 +1,26 @@
-import { Box, Flex, Heading, useColorMode } from '@chakra-ui/react';
-import Image from 'next/image';
-import { bgThemeColor } from 'utils/constants/colorConstants';
-import LeadsForm from 'components/Leads/LeadsForm';
-import { useRouter } from 'next/router';
-import { loadStripe } from '@stripe/stripe-js';
-import { axiosInstance } from 'utils/helpers';
+import { Box, Flex, Heading, useColorMode } from "@chakra-ui/react";
+import Image from "next/image";
+import { bgThemeColor } from "utils/constants/colorConstants";
+import LeadsForm from "components/Leads/LeadsForm";
+import { useRouter } from "next/router";
+import { loadStripe } from "@stripe/stripe-js";
+import { axiosInstance } from "utils/helpers";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ''
+  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ""
 );
 
-const pageInfo = {
-  campaingeAmount: 30,
-  fee: (30 * (12 + 2.9 + 0.33)) / 100,
+const getPaymentInfo = (amount: string) => {
+  if (typeof amount !== "string")
+    throw new Error("Can't find process payment info as price is not a string");
+
+  const _amount = parseInt(amount, 10);
+  const fee = (_amount * (12 + 2.9 + 0.33)) / 100;
+  return {
+    campaignAmount: _amount,
+    fee,
+    actualAmount: Math.round(_amount + fee) * 100
+  };
 };
 
 const CloseFriendsCampaign = ({ data }: { data: any }) => {
@@ -22,18 +30,22 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const handleStripe = async (email: string) => {
     const stripe = await stripePromise;
 
+    const paymentInfo = getPaymentInfo(data.prices);
+
+
     const response = await axiosInstance.post(
-      '/stripe/create-payment-session',
+      "/stripe/create-payment-session",
       {
         email,
         image: data?.banner,
         title: data?.name,
-        amount: Math.round(pageInfo.campaingeAmount + pageInfo.fee) * 100,
+        amount: paymentInfo.actualAmount,
+        campaignId: query.campaignId as string
       }
     );
 
     const result = await stripe?.redirectToCheckout({
-      sessionId: response.data.data.id,
+      sessionId: response.data.data.id
     });
   };
 
@@ -44,24 +56,24 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
           <Box
             width="55%"
             position="relative"
-            display={['none', 'block']}
+            display={["none", "block"]}
             as="div"
           >
             <Image
-              src={data?.banner || ''}
+              src={data?.banner || ""}
               alt="Get exclusive content of Baby Dream"
               layout="fill"
               objectFit="cover"
             />
           </Box>
-          <Box width={['100%', '45%']}>
+          <Box width={["100%", "45%"]}>
             <Flex
               width="full"
               height="full"
               justifyContent="center"
-              alignItems={['unset', 'center']}
+              alignItems={["unset", "center"]}
               p={6}
-              pt={['10rem', '0']}
+              pt={["10rem", "0"]}
             >
               <Box maxW="440px">
                 <Heading py={8} fontFamily="montserrat">
@@ -86,19 +98,17 @@ export async function getStaticPaths() {
   const response = await axiosInstance.get(`/users/all-campaigns`);
 
   const urls = response.data.data.map((campaign: any) => ({
-    params: { campaignId: campaign.id },
+    params: { campaignId: campaign.id }
   }));
 
   return {
     paths: urls,
-    fallback: true,
+    fallback: true
   };
 }
 
 export async function getStaticProps({ params }: { params: any }) {
   const response = await axiosInstance.get(`/users/all-campaigns`);
-
-  // console.log(response?.data.data);
 
   const pageData = response.data.data.reduce(
     (acc: any, campaign: any) => ({ ...acc, [campaign.id]: campaign }),
@@ -107,13 +117,11 @@ export async function getStaticProps({ params }: { params: any }) {
 
   const data = pageData[params.campaignId];
 
-  // console.log(data);
-
   return {
     props: {
-      data: data || {},
+      data: data || {}
     }, // will be passed to the page component as props
-    revalidate: 10,
+    revalidate: 10
   };
 }
 

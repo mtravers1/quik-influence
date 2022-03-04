@@ -14,7 +14,7 @@ import {
   recordsTableHead,
   leadsTableHead,
   dataBody,
-} from 'data/leadsPageTableData';
+} from 'utils/constants/leadsPageTableData';
 import {
   basicTheme,
   basicTextTheme,
