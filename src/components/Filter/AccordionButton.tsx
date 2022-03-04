@@ -1,5 +1,6 @@
 import { MinusIcon, AddIcon } from '@chakra-ui/icons';
-import { AccordionButton, Box } from '@chakra-ui/react';
+import { AccordionButton, Box, useColorMode } from '@chakra-ui/react';
+import { FilterTextTheme } from 'utils/constants/colorConstants';
 
 const CustomAccordionButton = ({
   label,
@@ -8,21 +9,25 @@ const CustomAccordionButton = ({
   label: string;
   isExpanded: boolean;
 }) => {
+  const { colorMode } = useColorMode();
+
   return (
     <h2>
-      <AccordionButton pl="unset" py={6}>
+      <AccordionButton pl={1.5} py={6}>
         <Box
-          fontSize="12px"
+          fontSize="16px"
+          fontWeight={500}
           flex="1"
           textAlign="left"
           textTransform="capitalize"
+          color={FilterTextTheme[colorMode]}
         >
           {label}
         </Box>
         {isExpanded ? (
-          <MinusIcon fontSize="12px" />
+          <MinusIcon fontSize="12px" color={FilterTextTheme[colorMode]} />
         ) : (
-          <AddIcon fontSize="12px" />
+          <AddIcon fontSize="12px" color={FilterTextTheme[colorMode]} />
         )}
       </AccordionButton>
     </h2>
