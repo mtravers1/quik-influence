@@ -20,13 +20,13 @@ exports[`renders Filter component 1`] = `
           <button
             aria-controls="accordion-panel-1"
             aria-expanded="false"
-            class="chakra-accordion__button css-12ttzao"
+            class="chakra-accordion__button css-96zelt"
             data-index="0"
             id="accordion-button-1"
             type="button"
           >
             <div
-              class="css-8tcdg7"
+              class="css-i953zm"
             >
               Recent Activity
             </div>
@@ -48,27 +48,32 @@ exports[`renders Filter component 1`] = `
         >
           <div
             aria-labelledby="accordion-button-1"
-            class="chakra-accordion__panel css-4rbilf"
+            class="chakra-accordion__panel css-ta13d2"
             id="accordion-panel-1"
             role="region"
           >
+            <h3
+              class="css-1uby3a1"
+            >
+              Activity
+            </h3>
             <div
               class="chakra-stack css-1qwdsol"
             >
               <span
-                class="css-1ehzxp"
+                class="css-he4q9w"
               >
                 Email Open
               </span>
               <span
-                class="css-1ehzxp"
+                class="css-he4q9w"
               >
-                Sms Open
+                SMS Open
               </span>
               <span
-                class="css-1ehzxp"
+                class="css-he4q9w"
               >
-                Non tag
+                Message
               </span>
             </div>
           </div>
@@ -81,13 +86,13 @@ exports[`renders Filter component 1`] = `
           <button
             aria-controls="accordion-panel-3"
             aria-expanded="false"
-            class="chakra-accordion__button css-12ttzao"
+            class="chakra-accordion__button css-96zelt"
             data-index="1"
             id="accordion-button-3"
             type="button"
           >
             <div
-              class="css-8tcdg7"
+              class="css-i953zm"
             >
               status
             </div>
@@ -177,7 +182,6 @@ exports[`renders Filter component 1`] = `
             </div>
             <div
               class="css-bkneeg"
-              spacing="4"
             />
           </div>
         </div>
@@ -189,13 +193,13 @@ exports[`renders Filter component 1`] = `
           <button
             aria-controls="accordion-panel-5"
             aria-expanded="false"
-            class="chakra-accordion__button css-12ttzao"
+            class="chakra-accordion__button css-96zelt"
             data-index="2"
             id="accordion-button-5"
             type="button"
           >
             <div
-              class="css-8tcdg7"
+              class="css-i953zm"
             >
               age
             </div>
@@ -285,7 +289,6 @@ exports[`renders Filter component 1`] = `
             </div>
             <div
               class="css-bkneeg"
-              spacing="4"
             />
           </div>
         </div>
@@ -297,13 +300,13 @@ exports[`renders Filter component 1`] = `
           <button
             aria-controls="accordion-panel-7"
             aria-expanded="false"
-            class="chakra-accordion__button css-12ttzao"
+            class="chakra-accordion__button css-96zelt"
             data-index="3"
             id="accordion-button-7"
             type="button"
           >
             <div
-              class="css-8tcdg7"
+              class="css-i953zm"
             >
               gender
             </div>
@@ -387,7 +390,6 @@ exports[`renders Filter component 1`] = `
             </div>
             <div
               class="css-bkneeg"
-              spacing="4"
             />
           </div>
         </div>
@@ -399,13 +401,13 @@ exports[`renders Filter component 1`] = `
           <button
             aria-controls="accordion-panel-9"
             aria-expanded="false"
-            class="chakra-accordion__button css-12ttzao"
+            class="chakra-accordion__button css-96zelt"
             data-index="4"
             id="accordion-button-9"
             type="button"
           >
             <div
-              class="css-8tcdg7"
+              class="css-i953zm"
             >
               application
             </div>
@@ -489,7 +491,6 @@ exports[`renders Filter component 1`] = `
             </div>
             <div
               class="css-bkneeg"
-              spacing="4"
             />
           </div>
         </div>
