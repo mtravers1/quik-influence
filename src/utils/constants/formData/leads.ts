@@ -59,7 +59,7 @@ import {
       pattern: FREE_TEXT_REGEX,
     },
     {
-      name: 'address1',
+      name: 'address',
       label: 'Adress 1',
       icon: faAddressBook,
       errorMessage: 'Enter your address',
@@ -71,7 +71,7 @@ import {
       label: 'Adress 2',
       icon: faAddressBook,
       errorMessage: 'Enter your address',
-      required: true,
+      required: false,
       pattern: FREE_TEXT_REGEX,
     },
     {
@@ -79,7 +79,7 @@ import {
       label: 'Adress 3',
       icon: faAddressBook,
       errorMessage: 'Enter your address',
-      required: true,
+      required: false,
       pattern: FREE_TEXT_REGEX,
     },
     {
@@ -112,7 +112,7 @@ import {
       icon: faUser,
       errorMessage: 'Please select a gender',
       required: true,
-      pattern: NUMBER_REGEX,
+      pattern: FREE_TEXT_REGEX,
     },
   ];
   
