@@ -49,26 +49,34 @@ const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
     initials: initialdata || {},
     cb: async inputs => {
       const formFieldsInput = getFormFields(inputs.formData);
-      const response = await axiosInstance.post('/users/create/campaign', {
+      const formDataObject = {
         name: inputs.name,
         description: inputs.description,
+        status: inputs.status,
         redirectUrl: inputs.redirectUrl,
         paidType: inputs.paidType,
         banner: inputs.banner,
         formData: { form: formFieldsInput },
         campaignDate: inputs.campaignDate,
-      });
+        prices: inputs.price,
+        facebookHandle: inputs.facebookHandle,
+        tiktokHandle: inputs.tiktokHandle,
+        twitterHandle: inputs.twitterHandle
+      }
+      const response = initialdata ?
+        await axiosInstance.put(`/users/campaign/${initialdata.id}`, formDataObject)
+        : await axiosInstance.post("/users/create/campaign", formDataObject);
 
       if (response) {
         toast({
-          title: 'Your campaign has been created successfully!',
+          title: initialdata ? 'Campaign updated successfully!' :'Your campaign has been created successfully!',
           description: '',
           status: 'success',
           duration: 4000,
           isClosable: true,
         });
         setTimeout(() => {
-          router.push('/campaigns');
+          router.push('/dashboard/campaigns');
         }, 2000);
       }
     },
@@ -76,10 +84,10 @@ const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
 
   return (
     <Flex flexDirection="column">
-      <Heading size="xl"> New Campaign</Heading>
+      <Heading size="xl"> {initialdata ? 'Edit' : 'New'} Campaign</Heading>
       <Text my="10" color={quikColorConstants.greyLighter}>
-        Here is where your new campaign will come to life. Select your
-        preferences and design your campaign below.
+        {initialdata ? "Make changes to your existing campaign here."
+          : "Here is where your new campaign will come to life. Select your preferences and design your campaign below."}
       </Text>
 
       <form action="post">
@@ -96,10 +104,12 @@ const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
                       options={data.options || []}
                       label={data.label}
                       name={data.name}
+                      selected={inputTypes[data.name]}
                       selectProps={{
                         height: '4.5rem',
                         fontSize: '1.4rem',
                       }}
+
                     />
                   </ListItem>
                 );
@@ -134,6 +144,8 @@ const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
                       name={data.name}
                       handleChange={handleChange}
                       label={data.label}
+                      initialImage={inputTypes[data.name]}
+
                     />
                   </ListItem>
                 );
@@ -176,7 +188,7 @@ const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
               approval decision to you
             </Text>
             <CustomButton maxW="204px" mt={12} onClick={handleSubmit}>
-              Create Campaign{' '}
+              {initialdata ? "Update" : "Create"} Campaign{' '}
               {loading && <Image src={loader} alt="" width={50} height={50} />}
             </CustomButton>
           </ListItem>

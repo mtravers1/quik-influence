@@ -16,7 +16,7 @@ const CurrentCampaigns = () => {
         },
     ]
     const handleSortChange = (event: any) => {
-        console.log(event.target.value);
+         
       };
     return(
         <Flex flexDirection="column" mt="12">

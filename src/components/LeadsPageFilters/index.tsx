@@ -22,8 +22,7 @@ const LeadsPageFilters = () => {
     search: '',
     status: [],
   });
-
-  console.log(filters);
+ 
 
   return (
     <Box width="350px">

@@ -11,9 +11,6 @@ const stripePromise = loadStripe(
 );
 
 const getPaymentInfo = (amount: string) => {
-  if (typeof amount !== "string")
-    throw new Error("Can't find process payment info as price is not a string");
-
   const _amount = parseInt(amount, 10);
   const fee = (_amount * (12 + 2.9 + 0.33)) / 100;
   return {
