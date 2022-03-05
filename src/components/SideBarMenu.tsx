@@ -47,6 +47,13 @@ const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
     }
   `;
 
+  let currentRoute: string;
+  const paths = pathname.split('/');
+
+  if (paths.length === 2) {
+    currentRoute = '/dashboard';
+  } else currentRoute = paths[2];
+
   return (
     <Flex
       flexDirection="column"
@@ -67,12 +74,14 @@ const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
         ({ name, icon, path, isShown }: SideBarOptionMenu) => {
           if (!isShown) return;
 
+          const currentPath = path.split('/dashboard/')[1] || '/dashboard';
+
           return (
             <Box
               key={name}
               minW="100%"
               position="relative"
-              css={navcss(pathname === path)}
+              css={navcss(currentRoute === currentPath)}
               _before={{
                 content: '""',
                 position: 'absolute',
@@ -85,7 +94,11 @@ const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
                 borderRadius: '0 10px 10px 0',
                 transition: '0.3s ease',
               }}
-              bg={pathname === path ? sidebarBg[colorMode] : 'transparent'}
+              bg={
+                currentRoute === currentPath
+                  ? sidebarBg[colorMode]
+                  : 'transparent'
+              }
             >
               <NextLink
                 href={path as string}
