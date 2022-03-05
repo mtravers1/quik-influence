@@ -1,10 +1,11 @@
-import { dashboardMenu, creditsMenu } from './Dashboard';
+import { dashboardMenu, creditsMenu, leadsMenu } from './Dashboard';
 import { campaignsMenu, createCampaignsMenu } from './Campaigns';
 
 export const SideBarMenuOptions = {
   dashboardMenu,
   campaignsMenu,
-  creditsMenu
+  creditsMenu,
+  leadsMenu,
   // createCampaignsMenu
 };
 

@@ -174,6 +174,25 @@ const theme = extendTheme({
         }),
       },
     },
+    Switch: {
+      variants: {
+        brand: {
+          thumb: {
+            bgColor: 'red',
+            _checked: {
+              transform: 'translateX(20px)',
+            },
+          },
+          track: {
+            bgColor: 'black',
+            width: '3.5rem',
+            _focus: {
+              boxShadow: 'none',
+            },
+          },
+        },
+      },
+    },
   },
 });
 
