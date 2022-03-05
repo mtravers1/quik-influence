@@ -5,6 +5,7 @@ import LeadsForm from "components/Leads/LeadsForm";
 import { useRouter } from "next/router";
 import { loadStripe } from "@stripe/stripe-js";
 import { axiosInstance } from "utils/helpers";
+import compulsoryFields from "utils/constants/formData/leads";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ""
@@ -47,6 +48,13 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
     }
   };
 
+  const getFormFields = (optionalFields:any) => {
+    return [
+      ...compulsoryFields,
+      ...optionalFields
+    ]
+  }
+
   return (
     <Box as="section" bgColor={bgThemeColor[colorMode]}>
       <Box as="section">
@@ -81,7 +89,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                   campaignId={query.campaignId as string}
                   handleStripe={handleStripe}
                   redirectUrl={data?.redirectUrl}
-                  form={data?.formData?.form}
+                  form={getFormFields(data?.formData?.form)}
                 />
               </Box>
             </Flex>

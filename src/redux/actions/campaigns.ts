@@ -53,7 +53,7 @@ export const getSingleCampaign =
     }
   };
 
-export const getCampaigns = (pageNumber = 1, pageSize = 2) => async (dispatch: any) => {
+export const getCampaigns = (pageNumber = 1, pageSize = 10) => async (dispatch: any) => {
   dispatch(loading());
 
   try {
