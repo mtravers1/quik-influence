@@ -40,7 +40,6 @@ const getFormFields = (inputs: string[]) => {
 };
 
 const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
-  console.log(initialdata)
   const toast = createStandaloneToast(theme);
   const { colorMode } = useColorMode();
   const router = useRouter();
