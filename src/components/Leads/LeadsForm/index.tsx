@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { Box, Flex, createStandaloneToast } from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormControl, FormErrorMessage } from '@chakra-ui/react';
-import CustomButton from 'components/Button';
-import useInput from 'hooks/useForm';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import CustomInput from 'components/CustomInput';
-import { axiosInstance } from 'utils/helpers';
+import { useState } from "react";
+import { Box, Flex, createStandaloneToast } from "@chakra-ui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FormControl, FormErrorMessage } from "@chakra-ui/react";
+import CustomButton from "components/Button";
+import useInput from "hooks/useForm";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import CustomInput from "components/CustomInput";
+import { axiosInstance } from "utils/helpers";
 
 const LeadsForm = ({
   campaignId,
   handleStripe,
   redirectUrl,
-  form,
+  form
 }: {
   campaignId: string;
   handleStripe: (email: string) => {};
@@ -28,45 +28,61 @@ const LeadsForm = ({
     handleSubmit,
     errors,
     loading,
-    resetInputs,
+    resetInputs
   } = useInput({
     inputs: form,
-    cb: async inputs => {
+    cb: async (inputs) => {
       if (!submitForm) return;
 
       await axiosInstance
         .post(`/users/campaign/`, {
+          firstName: "Kelvin",
+          lastName: "Esegbona",
+          phone: "081041275",
+          email: "kevoesegbona+43423@gmail.com",
+          dateOfBirth: "09-09-1999",
+          gender: "male",
+          address: "address1",
+          address2: "address2",
+          address3: "address3",
+          state: "state",
+          zipCode: "1234565",
+          city: "city1",
+          twitterHandle: "kelvin",
+          facebookHandle: "kelvin",
+          tiktokHandle: "kelvin",
+          instagramId: "kelvin",
           ...inputs,
-          campaignId,
+          campaignId
         })
-        .then(async res => {
+        .then(async (res) => {
           if (res.status === 200) {
             resetInputs();
             toast({
-              title: 'Registered Successfully.',
-              description: 'You would be redirected to a payment screen',
+              title: "Registered Successfully.",
+              description: "You would be redirected to a payment screen",
               duration: 9000,
-              position: 'top-right',
-              variant: 'subtle',
-              isClosable: false,
+              position: "top-right",
+              variant: "subtle",
+              isClosable: false
             });
           }
 
           // redirect to stripe checkout
           handleStripe(inputs.email);
 
-          if (typeof window !== 'undefined')
-            localStorage.setItem('redirectUrl', redirectUrl);
+          if (typeof window !== "undefined")
+            localStorage.setItem("redirectUrl", redirectUrl);
         })
-        .catch(err => {
+        .catch((err) => {
           toast({
             title: err?.response?.data?.message || err.message,
-            status: 'error',
+            status: "error",
             duration: 9000,
-            position: 'top-right',
+            position: "top-right"
           });
         });
-    },
+    }
   });
 
   return (
@@ -86,7 +102,7 @@ const LeadsForm = ({
             isRequired={data?.required}
             margin="3px 0"
           >
-            <Box position={'relative'}>
+            <Box position={"relative"}>
               <CustomInput
                 name={data?.name}
                 placeholder={data?.label}
@@ -97,12 +113,12 @@ const LeadsForm = ({
               />
               <FontAwesomeIcon
                 style={{
-                  width: '10px',
-                  position: 'absolute',
-                  top: '50%',
-                  left: '30px',
-                  transform: 'translateY(-50%)',
-                  zIndex: 1,
+                  width: "10px",
+                  position: "absolute",
+                  top: "50%",
+                  left: "30px",
+                  transform: "translateY(-50%)",
+                  zIndex: 1
                 }}
                 icon={data.icon as IconProp}
                 color="red"
@@ -143,7 +159,7 @@ const LeadsForm = ({
         paddingBottom={23}
         onClick={handleSubmit}
       >
-        {loading ? 'Loading...' : 'Submit'}
+        {loading ? "Loading..." : "Submit"}
       </CustomButton>
     </Flex>
   );
