@@ -1,49 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import {
-  useColorMode,
-  Tbody,
-  Td,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  createStandaloneToast,
-  Flex,
-  Box,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
-import Image from 'next/image';
-import quikColorConstants from 'utils/constants/colorConstants';
-import LoaderGif from 'assets/loader.gif';
+import React, { useEffect, useState } from "react";
+import { useColorMode, createStandaloneToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
 import {
   archiveCampaign,
   getCampaigns,
   getSingleCampaign,
-  updateCampaign,
-} from 'redux/actions/campaigns';
-import DropdownSelect from 'components/DropdownSelect';
-import theme from 'styles/theme';
-import { dataBody } from 'utils/constants/leadsPageTableData';
-import loader from 'assets/loader.gif';
-import { CLOSED, OPEN } from 'utils/constants/formConstants';
+  updateCampaign
+} from "redux/actions/campaigns";
+import theme from "styles/theme";
+import { CLOSED, OPEN } from "utils/constants/formConstants";
+import RenderTable from "./components/RenderTable";
 
 const tableHeaders = [
-  'Campaign',
-  'Model',
-  'Engagement Type',
-  'Status',
-  'Created On',
-  'Actions',
+  "Campaign",
+  "Model",
+  "Engagement Type",
+  "Status",
+  "Created On",
+  "Actions"
 ];
 
 const CurrentCampaignsTable = () => {
   const { colorMode } = useColorMode();
   const dispatch = useDispatch();
-  const campaigns = useSelector((state: any) => state.campaigns);
+  const { campaigns } = useSelector((state: any) => state);
   const toast = createStandaloneToast(theme);
 
-  const [loading, setLoading] = useState({});
+  const [rowLoading, setRowLoading] = useState({});
 
   const router = useRouter();
 
@@ -55,11 +39,11 @@ const CurrentCampaignsTable = () => {
     if (campaigns?.error) {
       toast({
         title: campaigns.error,
-        description: 'Please refresh the page.',
-        status: 'error',
+        description: "Please refresh the page.",
+        status: "error",
         duration: null,
         isClosable: true,
-        position: 'top-right',
+        position: "top-right"
       });
     }
   }, [campaigns]);
@@ -67,13 +51,13 @@ const CurrentCampaignsTable = () => {
   const onSelect = async (e: any) => {
     const { value } = e.target;
 
-    if (value.includes('/')) {
-      if (value.includes('edit')) {
+    if (value.includes("/")) {
+      if (value.includes("edit")) {
         dispatch(
           getSingleCampaign(
             undefined,
             campaigns?.campaigns.find(
-              (data: any) => data.id === value.split('edit/')[1]
+              (data: any) => data.id === value.split("edit/")[1]
             )
           )
         );
@@ -82,137 +66,52 @@ const CurrentCampaignsTable = () => {
       return router.push(value);
     }
 
-    const [verb, id] = value.split(':');
+    const [verb, id] = value.split(":");
 
-    setLoading(prevloadState => ({ ...prevloadState, [id]: true }));
+    setRowLoading((prevloadState) => ({ ...prevloadState, [id]: true }));
 
     switch (verb) {
-      case 'archive':
+      case "archive":
         await dispatch(archiveCampaign(id));
         break;
-      case 'copy':
-        if (typeof window !== 'undefined') {
+      case "copy":
+        if (typeof window !== "undefined") {
           navigator.clipboard
             .writeText(`${window.location.host}/campaign/${id}`)
-            .then(success =>
+            .then((success) =>
               toast({
-                title: 'Copied to clipboard',
-                status: 'success',
+                title: "Copied to clipboard",
+                status: "success",
                 duration: 4000,
                 isClosable: true,
-                position: 'top-right',
+                position: "top-right"
               })
             );
         }
         break;
-      case 'closeCampaign':
+      case "closeCampaign":
         await dispatch(updateCampaign(id, { status: CLOSED }));
         break;
-      case 'openCampaign':
+      case "openCampaign":
         await dispatch(updateCampaign(id, { status: OPEN }));
         break;
       default:
         break;
     }
 
-    setLoading(prevloadState => ({ ...prevloadState, [id]: false }));
+    setRowLoading((prevloadState) => ({ ...prevloadState, [id]: false }));
   };
 
   return (
-    <>
-      {!campaigns?.campaigns ? (
-        <Image width="50px" objectFit="contain" src={LoaderGif} />
-      ) : (
-        <Table size="lg" bg={colorMode === 'light' ? 'white' : ''}>
-          <Thead>
-            <Tr border={`2px solid ${quikColorConstants.black}`}>
-              {tableHeaders.map(th => (
-                <Th
-                  fontSize="14px"
-                  color={
-                    colorMode === 'light' ? quikColorConstants.black : 'white'
-                  }
-                >
-                  {th}
-                </Th>
-              ))}
-            </Tr>
-          </Thead>
-          <Tbody>
-            {campaigns.campaigns.map((cam: any) => (
-              <Tr border={`2px solid ${quikColorConstants.black}`}>
-                <Td>{cam.name}</Td>
-                <Td>{cam.paidType}</Td>
-                <Td>NONE</Td>
-                <Td>{cam.status}</Td>
-                <Td>{new Date(cam.createdAt).toLocaleDateString('en-US')}</Td>
-                <Td cursor="pointer">
-                  <Flex>
-                    <DropdownSelect
-                      onChange={onSelect}
-                      placeholder="action"
-                      noValue={false}
-                      options={
-                        [
-                          {
-                            label:
-                              cam.status === OPEN
-                                ? 'Close campaign'
-                                : 'Open campaign',
-                            value:
-                              cam.status === OPEN
-                                ? `closeCampaign:${cam.id}`
-                                : `openCampaign:${cam.id}`,
-                          },
-                          {
-                            label: 'Edit',
-                            value: `/dashboard/campaigns/edit/${cam.id}`,
-                          },
-                          { label: 'Archive', value: `archive:${cam.id}` },
-                          {
-                            label: 'Launch',
-                            value: `/campaign/${cam.id}`,
-                          },
-                          {
-                            label: 'View',
-                            value: `/dashboard/leads/${cam.id}`,
-                          },
-                          { label: 'Copy link', value: `copy:${cam.id}` },
-                        ] || []
-                      }
-                      name="Actions"
-                      selectProps={{
-                        fontSize: '1.4rem',
-                        border: 'none',
-                      }}
-                    />
-                    {/* @ts-expect-error */}
-                    {loading[cam.id] && (
-                      <Box marginRight="10px">
-                        <Image src={loader} alt="" width={50} height={50} />
-                      </Box>
-                    )}
-                  </Flex>
-                </Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      )}
-    </>
+    <RenderTable
+      tableHeaders={tableHeaders}
+      colorMode={colorMode}
+      campaigns={campaigns?.campaigns}
+      rowLoading={rowLoading}
+      loading={campaigns?.loading}
+      onSelect={onSelect}
+    />
   );
 };
 
 export default CurrentCampaignsTable;
-
-{
-  /* <Link href={`/campaigns/${cam.id}`}>
-<span>
-  View Campaign &nbsp;
-  <FontAwesomeIcon
-    size="lg"
-    icon={faChevronCircleRight as IconProp}
-  />
-</span>
-</Link> */
-}
