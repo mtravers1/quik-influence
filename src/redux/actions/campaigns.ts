@@ -62,7 +62,7 @@ export const getCampaigns = () => async (dispatch: any) => {
 
     dispatch({
       type: CAMPAIGNS,
-      payload: campaigns,
+      payload: campaigns.rows,
     });
   } catch (error) {
     const errorMessage = errorParser(error);
