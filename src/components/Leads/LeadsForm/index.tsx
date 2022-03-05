@@ -7,20 +7,24 @@ import useInput from 'hooks/useForm';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import CustomInput from 'components/CustomInput';
 import { axiosInstance } from 'utils/helpers';
+import { PAID } from 'utils/constants/formConstants';
 
 const LeadsForm = ({
   campaignId,
   handleStripe,
   redirectUrl,
   form,
+  paidType,
 }: {
   campaignId: string;
   handleStripe: (email: string) => {};
   redirectUrl: string;
   form: any;
+  paidType: any
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
+
 
   const {
     handleChange,
@@ -33,6 +37,10 @@ const LeadsForm = ({
     inputs: form,
     cb: async inputs => {
       if (!submitForm) return;
+      const description: any = {
+        'PAID': 'You would be redirected to a payment screen',
+        'UNPAID': 'You would be redirected to the campaigns site'
+      }
 
       await axiosInstance
         .post(`/users/campaign/`, {
@@ -44,16 +52,23 @@ const LeadsForm = ({
             resetInputs();
             toast({
               title: 'Registered Successfully.',
-              description: 'You would be redirected to a payment screen',
+              description: description[paidType],
               duration: 9000,
               position: 'top-right',
               variant: 'subtle',
             });
           }
 
-          await handleStripe(inputs.email);
-          if (typeof window !== 'undefined')
-            localStorage.setItem('redirectUrl', redirectUrl);
+          if (paidType === PAID) {
+            await handleStripe(inputs.email);
+            if (typeof window !== 'undefined')
+              localStorage.setItem('redirectUrl', redirectUrl);
+          } else {
+            if (typeof window !== 'undefined') {
+              window.location.href = redirectUrl || '';
+            } 
+          }
+
         })
         .catch(err => {
           toast({

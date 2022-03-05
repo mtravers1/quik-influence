@@ -81,6 +81,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                   handleStripe={handleStripe}
                   redirectUrl={data?.redirectUrl}
                   form={data?.formData?.form}
+                  paidType={data?.paidType}
                 />
               </Box>
             </Flex>
