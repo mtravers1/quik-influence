@@ -10,11 +10,10 @@ export const leadsTableHead = [
   { name: 'Lead ID' },
   { name: 'Lead Name' },
   { name: 'Phone' },
-  { name: 'Afflicate' },
-  { name: 'Status' },
+  { name: 'Age' },
   { name: 'Created on' },
-  { name: '$ Cost' },
-  { name: '$ Revenue' },
+  // { name: '$ Cost' },
+  // { name: '$ Revenue' },
 ];
 
 export const dataBody = [

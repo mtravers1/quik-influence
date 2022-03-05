@@ -9,11 +9,12 @@ import {
   Flex,
   useColorMode,
 } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { css } from '@emotion/react';
 import {
   recordsTableHead,
   leadsTableHead,
-  dataBody,
 } from 'utils/constants/leadsPageTableData';
 import {
   basicTheme,
@@ -21,9 +22,12 @@ import {
   basicDarkTextTheme,
   tableBorderTheme,
 } from 'utils/constants/colorConstants';
+import { getAllLeads } from 'redux/actions/campaigns';
 
 const LeadsPage = () => {
   const { colorMode } = useColorMode();
+  const dispatch = useDispatch();
+  const { leads } = useSelector((state: any) => state);
 
   const style = css`
   & {
@@ -45,6 +49,10 @@ const LeadsPage = () => {
   }
 }
 `;
+
+useEffect(() => {
+  dispatch(getAllLeads());
+}, []);
 
   return (
     <Box>
@@ -74,7 +82,6 @@ const LeadsPage = () => {
             </Thead>
           </Table>
 
-          <Box></Box>
           <Table marginTop="50px" css={style} bg={basicTheme[colorMode]}>
             <Thead>
               <Tr>
@@ -93,16 +100,15 @@ const LeadsPage = () => {
             </Thead>
 
             <Tbody>
-              {dataBody.map((data, i) => (
+              {leads?.allLeads?.map((data: { [key: string]: string }, i: number) => (
                 <Tr key={`lead_data_${i}`}>
-                  <Td>{data.leadId}</Td>
-                  <Td>{data.name}</Td>
-                  <Td>{data.phoneNumber}</Td>
-                  <Td>{data.afflicate}</Td>
-                  <Td>{data.status}</Td>
+                  <Td>{data.id}</Td>
+                  <Td>{`${data.firstName} ${data.lastName}`}</Td>
+                  <Td>{data.phone}</Td>
+                  <Td>{data.age}</Td>
                   <Td>{data.createdAt}</Td>
-                  <Td>{data.cost}</Td>
-                  <Td>{data.revenue}</Td>
+                  {/* <Td>{data.cost}</Td>
+                  <Td>{data.revenue}</Td> */}
                 </Tr>
               ))}
             </Tbody>

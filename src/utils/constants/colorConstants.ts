@@ -36,7 +36,7 @@ export const cardThemeColor: Q = {
 };
 
 export const basicTheme: Q = { light: '#fff', dark: 'gray.800' };
-export const basicTextTheme: Q = { light: '#333', dark: 'gray.800' };
+export const basicTextTheme: Q = { light: '#333', dark: '#FFF' };
 export const basicDarkTextTheme: Q = { light: '#000', dark: '#fff' };
 
 export const FilterTextTheme: Q = {

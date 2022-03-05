@@ -22,7 +22,7 @@ interface RenderTableProps {
   colorMode: string;
   campaigns: any;
   rowLoading: {};
-	loading?: boolean;
+  loading?: boolean;
   onSelect: (e: any) => void;
   tableHeaders: string[];
 }
@@ -30,7 +30,7 @@ interface RenderTableProps {
 const RenderTable = ({
   colorMode,
   campaigns,
-	loading,
+  loading,
   rowLoading,
   onSelect,
   tableHeaders
@@ -45,6 +45,7 @@ const RenderTable = ({
             <Tr border={`2px solid ${quikColorConstants.black}`}>
               {tableHeaders.map((th) => (
                 <Th
+                  key={th}
                   fontSize="14px"
                   color={
                     colorMode === "light" ? quikColorConstants.black : "white"
@@ -57,7 +58,7 @@ const RenderTable = ({
           </Thead>
           <Tbody>
             {campaigns.map((cam: any) => (
-              <Tr border={`2px solid ${quikColorConstants.black}`}>
+              <Tr key={cam.id} border={`2px solid ${quikColorConstants.black}`}>
                 <Td>{cam.name}</Td>
                 <Td>{cam.paidType}</Td>
                 <Td>NONE</Td>

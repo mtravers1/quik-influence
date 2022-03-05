@@ -1,5 +1,6 @@
+import { FilterDataProps } from 'types';
 import { errorParser } from 'utils/apiHelpers';
-import { axiosInstance } from 'utils/helpers';
+import { axiosInstance, getQueryString } from 'utils/helpers';
 import {
   CAMPAIGNS_LOADING,
   CAMPAIGNS,
@@ -8,6 +9,9 @@ import {
   GET_SINGLE_CAMPAIGN,
   UPDATE_CAMPAIGN,
   ARCHIVE_CAMPAIGN,
+  LEADS_LOADING,
+  LEADS_ERROR,
+  LEADS,
 } from '../actionTypes';
 
 export const loading = () => async (dispatch: DispatchWithPayload) => {
@@ -20,6 +24,20 @@ export const loading = () => async (dispatch: DispatchWithPayload) => {
 export const doneloading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: CAMPAIGNS_LOADING,
+    payload: false,
+  });
+};
+
+export const leadsLoading = () => async (dispatch: DispatchWithPayload) => {
+  dispatch({
+    type: LEADS_LOADING,
+    payload: true,
+  });
+};
+
+export const leadsDoneLoading = () => async (dispatch: DispatchWithPayload) => {
+  dispatch({
+    type: LEADS_LOADING,
     payload: false,
   });
 };
@@ -72,6 +90,31 @@ export const getCampaigns = (pageNumber = 1, pageSize = 10) => async (dispatch: 
     });
   } finally {
     dispatch(doneloading());
+  }
+};
+
+
+export const getAllLeads = (params?: FilterDataProps) => async (dispatch: any) => {
+  dispatch(leadsLoading());
+
+  try {
+    const query = getQueryString(params);
+
+    const response = await axiosInstance.get(`/users/leads?${query}`);
+    const leads = response.data.data;
+
+    dispatch({
+      type: LEADS,
+      payload: leads.rows,
+    });
+  } catch (error) {
+    const errorMessage = errorParser(error);
+    dispatch({
+      type: LEADS_ERROR,
+      payload: errorMessage,
+    });
+  } finally {
+    dispatch(leadsDoneLoading());
   }
 };
 

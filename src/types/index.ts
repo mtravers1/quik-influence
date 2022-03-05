@@ -26,3 +26,9 @@ export interface FilterItemProps {
   useTags?: boolean;
   value?: any;
 }
+
+export interface FilterDataProps {
+  page?: number;
+  pageSize?: number;
+  sort?: string;
+}
