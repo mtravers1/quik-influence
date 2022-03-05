@@ -1,7 +1,7 @@
-import { Flex, Grid, GridItem, Skeleton } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Skeleton } from '@chakra-ui/react';
 import React from 'react';
 
-const OverviewSkeletonLoaders = () => {
+export const OverviewSkeletonLoaders = () => {
   return (
     <Flex mb={4}>
       <Grid
@@ -31,4 +31,18 @@ const OverviewSkeletonLoaders = () => {
   );
 };
 
-export default OverviewSkeletonLoaders;
+export const CampaignsPage = () => {
+  return (
+    <Flex mb={4} flexDir="column">
+      <Box marginBottom="100px">
+        <Skeleton w="200px" h="30px" />
+      </Box>
+
+      <Skeleton w="100%" h="50px" marginBottom="10px" />
+      <Skeleton w="100%" h="50px" marginBottom="10px" />
+      <Skeleton w="100%" h="50px" marginBottom="10px" />
+      <Skeleton w="100%" h="50px" marginBottom="10px" />
+      <Skeleton w="100%" h="50px" marginBottom="10px" />
+    </Flex>
+  );
+};
