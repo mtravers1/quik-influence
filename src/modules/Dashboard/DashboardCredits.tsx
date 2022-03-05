@@ -146,9 +146,7 @@ const DashboardCredits = () => {
           variant: 'top-accent',
         });
       }
-
-      console.log(chargeRes);
-
+ 
       resetInputs();
     },
   });

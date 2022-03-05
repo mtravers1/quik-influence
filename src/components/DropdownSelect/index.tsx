@@ -28,6 +28,8 @@ interface DropdownSelectProp {
   extraLabel?: string;
   name?: string;
   placeholder?: string;
+  selected?: string;
+  noValue?: boolean
 }
 
 const DropdownSelect = ({
@@ -42,6 +44,8 @@ const DropdownSelect = ({
   extraLabel,
   name,
   placeholder,
+  selected,
+  noValue=true
 }: DropdownSelectProp) => {
   const { colorMode } = useColorMode();
   return (
@@ -73,8 +77,8 @@ const DropdownSelect = ({
         borderRadius="xl"
         id={inputId}
         data-test-id="select-component"
+        {... !noValue && {value: ""}}
         {...selectProps}
-        value=""
       >
         <option value="" disabled selected>
           {`Select ${label || placeholder || '---'}`}
@@ -85,6 +89,7 @@ const DropdownSelect = ({
               data-testid="select-option"
               key={option.value}
               value={option.value}
+              selected={option.value === selected}
             >
               {option.label}
             </option>

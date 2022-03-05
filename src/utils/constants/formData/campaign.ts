@@ -39,12 +39,16 @@ export default [
     pattern: FREE_TEXT_REGEX,
   },
   {
-    name: 'price',
+    name: 'prices',
     label: 'Price',
+    // required: true,
     errorMessage: 'Enter your campaign price',
-    required: true,
     type: 'number',
     pattern: NUMBER_REGEX,
+    dependent: {
+        name: 'paidType',
+        value: 'PAID'
+    }
   },
   // {
   //     name: 'type',
@@ -123,6 +127,25 @@ export default [
     label: 'Redirect Url',
     errorMessage: 'enter the redirect URL',
     required: true,
+    type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'facebookHandle',
+    label: 'Facebook Handle',
+    errorMessage: 'enter your facebook handle', 
+    type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },  {
+    name: 'tiktokHandle',
+    label: 'TikTok Handle',
+    errorMessage: 'enter your tiktok handle', 
+    type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },  {
+    name: 'twitterHandle',
+    label: 'Twitter Handle',
+    errorMessage: 'enter your twitter handle', 
     type: 'text',
     pattern: FREE_TEXT_REGEX,
   },

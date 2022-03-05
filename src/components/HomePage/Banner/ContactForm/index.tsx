@@ -12,7 +12,7 @@ const ContactForm = () => {
     inputs: formdata,
     cb: async inputs => {
       // do what you will with inputs
-      console.log('Submitted');
+      
     },
   });
 

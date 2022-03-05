@@ -3,9 +3,9 @@ import {
     Box, Image,
     FormControl,
     FormErrorMessage,
-    FormLabel,useColorMode
+    FormLabel, useColorMode
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import quikColorConstants from "utils/constants/colorConstants";
 
 type UploadImageProps = {
@@ -13,11 +13,25 @@ type UploadImageProps = {
     name: string,
     label: string;
     error?: string;
+    initialImage?: string;
 }
-const UploadImage: React.FC<UploadImageProps> = ({ handleChange, name, label, error }) => {
+const UploadImage: React.FC<UploadImageProps> = ({ handleChange, name, label, error, initialImage }) => {
+    console.log(initialImage)
     const [image, setImage] = React.useState("");
     const asdMediaRef: any = React.useRef();
     const { colorMode } = useColorMode();
+
+    useEffect(() => {
+        if (!initialImage) return
+        setImage(initialImage);
+        const event: any = {}
+        event.target = {
+            name: name,
+            value: initialImage,
+            type: 'image-upload',
+            checked: undefined
+        } as unknown as HTMLInputElement
+    }, [initialImage])
 
     const handleFileDone = (fileInfo: any) => {
         fileInfo[
@@ -38,7 +52,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ handleChange, name, label, er
         buttons: {
             choose: {
                 images: {
-                    one: '<div className="image">Upload photo</div>'
+                    one:` <div className="image">${initialImage ? "Edit Image" :"Upload Image"}</div>`
                 }
             }
         }
@@ -54,19 +68,20 @@ const UploadImage: React.FC<UploadImageProps> = ({ handleChange, name, label, er
                         htmlFor='multiRangeSelector'
                         data-testid="textInput-label"
                     >
-                        {label} 
+                        {label}
                     </FormLabel>
                 )}
                 {image && (
-                    <Box maxW={150}>
+                    <Box maxW={150} pb={10}>
                         <Image src={image} alt="image to upload" />
                     </Box>
                 )}
                 <ASDMedia
                     // @ts-ignore
                     ref={asdMediaRef}
+                    
                     publicKey={process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY as string}
-                    onChange={console.log}
+                    onChange={() => { }}
                     localeTranslations={translation}
                     imagesOnly
                     previewStep

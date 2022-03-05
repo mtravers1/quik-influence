@@ -23,7 +23,6 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   error,
   initialvalue,
 }) => {
-  console.log(initialvalue);
   const [selectedOpt, setSelectedOpts] = useState<Array<string>>(
     initialvalue || []
   );
@@ -60,6 +59,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         }}
         label={label}
         extraLabel={extraLabel}
+        noValue={false}
         //  error={error}
       />
       {/* @ts-ignore */}
