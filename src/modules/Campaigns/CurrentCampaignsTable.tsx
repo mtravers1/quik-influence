@@ -151,6 +151,7 @@ const CurrentCampaignsTable = () => {
                     <DropdownSelect
                       onChange={onSelect}
                       placeholder="action"
+                      noValue={false}
                       options={
                         [
                           {
