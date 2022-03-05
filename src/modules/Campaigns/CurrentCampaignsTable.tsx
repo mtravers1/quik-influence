@@ -92,7 +92,7 @@ const CurrentCampaignsTable = () => {
       case 'copy':
         if (typeof window !== 'undefined') {
           navigator.clipboard
-            .writeText(`${window.location.host}/campaigns/${id}`)
+            .writeText(`${window.location.host}/campaign/${id}`)
             .then(success =>
               toast({
                 title: 'Copied to clipboard',
@@ -169,7 +169,7 @@ const CurrentCampaignsTable = () => {
                           { label: 'Archive', value: `archive:${cam.id}` },
                           {
                             label: 'Launch',
-                            value: `/campaigns/${cam.id}`,
+                            value: `/campaign/${cam.id}`,
                           },
                           {
                             label: 'View',

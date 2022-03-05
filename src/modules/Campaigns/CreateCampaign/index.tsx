@@ -46,7 +46,7 @@ const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
 
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
-    initials: initialdata,
+    initials: initialdata || {},
     cb: async inputs => {
       const formFieldsInput = getFormFields(inputs.formData);
       const response = await axiosInstance.post('/users/create/campaign', {
