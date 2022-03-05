@@ -1,4 +1,4 @@
-import { PAID, UNPAID } from '../formConstants';
+import { DIRECT, DRIP, PAID, SCHEDULED, UNPAID } from '../formConstants';
 import { FREE_TEXT_REGEX, NUMBER_REGEX } from '../regexConstants';
 
 export default [
@@ -16,6 +16,19 @@ export default [
     errorMessage: 'Describe your campaign',
     required: true,
     type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'campaignType',
+    label: 'Campaign Type',
+    required: true,
+    errorMessage: 'Select a campaign type',
+    type: 'select',
+    options: [
+      { label: 'DIRECT', value: DIRECT },
+      { label: 'DRIP', value: DRIP },
+      { label: 'SCHEDULED', value: SCHEDULED },
+    ],
     pattern: FREE_TEXT_REGEX,
   },
   {
