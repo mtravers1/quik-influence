@@ -58,7 +58,7 @@ const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
         banner: inputs.banner,
         formData: { form: formFieldsInput },
         campaignDate: inputs.campaignDate,
-        prices: inputs.price,
+        prices: inputs.prices,
         facebookHandle: inputs.facebookHandle,
         tiktokHandle: inputs.tiktokHandle,
         twitterHandle: inputs.twitterHandle

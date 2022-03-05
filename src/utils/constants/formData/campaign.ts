@@ -55,10 +55,8 @@ export default [
   {
     name: 'prices',
     label: 'Price',
-    // required: true,
     errorMessage: 'Enter your campaign price',
-    type: 'number',
-    pattern: NUMBER_REGEX,
+    type: 'amount',
     dependent: {
         name: 'paidType',
         value: 'PAID'
