@@ -52,7 +52,7 @@ const CreateCampaign = ({ initialdata }: { initialdata: any }) => {
       const formDataObject = {
         name: inputs.name,
         description: inputs.description,
-        campaignType: inputs.campaignType,
+        status: inputs.status,
         redirectUrl: inputs.redirectUrl,
         paidType: inputs.paidType,
         banner: inputs.banner,

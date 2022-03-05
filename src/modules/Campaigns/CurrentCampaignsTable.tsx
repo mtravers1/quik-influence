@@ -26,6 +26,7 @@ import DropdownSelect from 'components/DropdownSelect';
 import theme from 'styles/theme';
 import { dataBody } from 'utils/constants/leadsPageTableData';
 import loader from 'assets/loader.gif';
+import { CLOSED, OPEN } from 'utils/constants/formConstants';
 
 const tableHeaders = [
   'Campaign',
@@ -104,11 +105,11 @@ const CurrentCampaignsTable = () => {
             );
         }
         break;
-      case 'setInactive':
-        await dispatch(updateCampaign(id, { status: 'inactive' }));
+      case 'closeCampaign':
+        await dispatch(updateCampaign(id, { status: CLOSED }));
         break;
-      case 'setActive':
-        await dispatch(updateCampaign(id, { status: 'active' }));
+      case 'openCampaign':
+        await dispatch(updateCampaign(id, { status: OPEN }));
         break;
       default:
         break;
@@ -143,7 +144,7 @@ const CurrentCampaignsTable = () => {
                 <Td>{cam.name}</Td>
                 <Td>{cam.paidType}</Td>
                 <Td>NONE</Td>
-                <Td>{cam.status || 'Inactive'}</Td>
+                <Td>{cam.status}</Td>
                 <Td>{new Date(cam.createdAt).toLocaleDateString('en-US')}</Td>
                 <Td cursor="pointer">
                   <Flex>
@@ -154,13 +155,13 @@ const CurrentCampaignsTable = () => {
                         [
                           {
                             label:
-                              cam.status === 'active'
-                                ? 'Set Inactive'
-                                : 'Set Active',
+                              cam.status === OPEN
+                                ? 'Close campaign'
+                                : 'Open campaign',
                             value:
-                              cam.status === 'active'
-                                ? `setInactive:${cam.id}`
-                                : `setActive:${cam.id}`,
+                              cam.status === OPEN
+                                ? `closeCampaign:${cam.id}`
+                                : `openCampaign:${cam.id}`,
                           },
                           {
                             label: 'Edit',
