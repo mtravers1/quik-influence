@@ -25,25 +25,26 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const { colorMode } = useColorMode();
 
   const handleStripe = async (email: string) => {
-    const stripe = await stripePromise;
+    if (data.paidType === "PAID") {
+      const stripe = await stripePromise;
 
-    const paymentInfo = getPaymentInfo(data.prices);
+      const paymentInfo = getPaymentInfo(data.prices);
 
+      const response = await axiosInstance.post(
+        "/stripe/create-payment-session",
+        {
+          email,
+          image: data?.banner,
+          title: data?.name,
+          amount: paymentInfo.actualAmount,
+          campaignId: query.campaignId as string
+        }
+      );
 
-    const response = await axiosInstance.post(
-      "/stripe/create-payment-session",
-      {
-        email,
-        image: data?.banner,
-        title: data?.name,
-        amount: paymentInfo.actualAmount,
-        campaignId: query.campaignId as string
-      }
-    );
-
-    const result = await stripe?.redirectToCheckout({
-      sessionId: response.data.data.id
-    });
+      const result = await stripe?.redirectToCheckout({
+        sessionId: response.data.data.id
+      });
+    }
   };
 
   return (

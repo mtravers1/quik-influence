@@ -48,10 +48,13 @@ const LeadsForm = ({
               duration: 9000,
               position: 'top-right',
               variant: 'subtle',
+              isClosable: false,
             });
           }
 
-          await handleStripe(inputs.email);
+          // redirect to stripe checkout
+          handleStripe(inputs.email);
+
           if (typeof window !== 'undefined')
             localStorage.setItem('redirectUrl', redirectUrl);
         })
