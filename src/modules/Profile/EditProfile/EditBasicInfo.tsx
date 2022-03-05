@@ -69,7 +69,7 @@ const EditBasicInfo = () => {
     inputs: formdata,
     initials: {
       address_line1: admin['address'],
-      address_line2: admin[' address2'],
+      address_line2: admin['address2'],
       address_state: admin['state'],
       address_zip: admin['zipCode'],
       city: admin['city'],
