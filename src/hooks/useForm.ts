@@ -41,6 +41,24 @@ export default function Input({
     {}
   );
 
+  const dependentsMap = inputs?.reduce(
+    (acc: any, input: any) => {
+      if (input.dependent?.name) {
+        return {
+          ...acc,
+          [input.name]: { [input.dependent.name]: input.dependent.value }
+        }
+      }
+      return acc
+    }, {}
+  )
+
+
+  // check if at least one element fails validation
+  const shouldNotSubmit =  (errorMap: any) => Object.keys(errorMap).some(
+    inputName => errorMap[inputName]
+  );
+
   const [loading, setLoading] = useState(false);
   const [inputTypes, setInputTypes] = useState(initialInputs);
   const [errors, setErrors] = useState(initialError);
@@ -56,7 +74,8 @@ export default function Input({
     }, {});
 
     // validate forms
-    const errorMap: any = Object.keys(requiredKeys).reduce(
+    let errorMap: any = {}
+    errorMap = Object.keys(requiredKeys).reduce(
       (acc, inputName) => ({
         ...acc,
         [inputName]: inputMap[inputName].validateSelf
@@ -66,14 +85,26 @@ export default function Input({
       {}
     );
 
+    if (!shouldNotSubmit(errorMap) && dependentsMap) {
+      errorMap = Object.keys(dependentsMap).reduce(
+        (acc: any, dependent: any) => {
+          const key = Object.keys(dependentsMap[dependent])[0]
+          const val = dependentsMap[dependent][key]
+          if (requiredKeys[key] == val && !requiredKeys[dependent]) {
+            return {
+              ...acc,
+              [dependent]: true
+            }
+          }
+          return acc;
+        }, {})
+    }
+
+
     setErrors(errorMap);
 
-    // check if at least one element fails validation
-    const shouldNotSubmit = Object.keys(errorMap).some(
-      inputName => errorMap[inputName]
-    );
 
-    if (shouldNotSubmit && validateForm) {
+    if (shouldNotSubmit(errorMap) && validateForm) {
       // you can add a toast here
       toast({
         title:
@@ -112,14 +143,13 @@ export default function Input({
       if (error.response) {
         if (error.response.status === 500) {
           error.message = 'Network error please try again';
-        } else error.message = error.response.data.message;
+        } else error.message = error?.response?.data?.message || error.message;
       } else error.message = error.message || 'Error occured';
 
       const err = Array.isArray(error.message)
         ? error.message.join(', ')
         : error.message;
 
-      console.log(err);
 
       // add a toast or do soemthing with the error
       toast({

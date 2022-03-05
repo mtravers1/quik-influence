@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   useColorMode,
   Tbody,
@@ -8,22 +8,31 @@ import {
   Tr,
   Th,
   createStandaloneToast,
+  Flex,
+  Box,
 } from '@chakra-ui/react';
-import quikColorConstants from 'utils/constants/colorConstants';
-import { faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import LoaderGif from 'assets/loader.gif';
-import { getCampaigns } from 'redux/actions/campaigns';
-import theme from 'styles/theme';
 import Image from 'next/image';
+import quikColorConstants from 'utils/constants/colorConstants';
+import LoaderGif from 'assets/loader.gif';
+import {
+  archiveCampaign,
+  getCampaigns,
+  getSingleCampaign,
+  updateCampaign,
+} from 'redux/actions/campaigns';
+import DropdownSelect from 'components/DropdownSelect';
+import theme from 'styles/theme';
+import { dataBody } from 'utils/constants/leadsPageTableData';
+import loader from 'assets/loader.gif';
+import { CLOSED, OPEN } from 'utils/constants/formConstants';
 
 const tableHeaders = [
   'Campaign',
   'Model',
   'Engagement Type',
+  'Status',
   'Created On',
   'Actions',
 ];
@@ -33,6 +42,10 @@ const CurrentCampaignsTable = () => {
   const dispatch = useDispatch();
   const campaigns = useSelector((state: any) => state.campaigns);
   const toast = createStandaloneToast(theme);
+
+  const [loading, setLoading] = useState({});
+
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(getCampaigns());
@@ -50,6 +63,60 @@ const CurrentCampaignsTable = () => {
       });
     }
   }, [campaigns]);
+
+  const onSelect = async (e: any) => {
+    const { value } = e.target;
+
+    if (value.includes('/')) {
+      if (value.includes('edit')) {
+        dispatch(
+          getSingleCampaign(
+            undefined,
+            campaigns?.campaigns.find(
+              (data: any) => data.id === value.split('edit/')[1]
+            )
+          )
+        );
+      }
+
+      return router.push(value);
+    }
+
+    const [verb, id] = value.split(':');
+
+    setLoading(prevloadState => ({ ...prevloadState, [id]: true }));
+
+    switch (verb) {
+      case 'archive':
+        await dispatch(archiveCampaign(id));
+        break;
+      case 'copy':
+        if (typeof window !== 'undefined') {
+          navigator.clipboard
+            .writeText(`${window.location.host}/campaign/${id}`)
+            .then(success =>
+              toast({
+                title: 'Copied to clipboard',
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+                position: 'top-right',
+              })
+            );
+        }
+        break;
+      case 'closeCampaign':
+        await dispatch(updateCampaign(id, { status: CLOSED }));
+        break;
+      case 'openCampaign':
+        await dispatch(updateCampaign(id, { status: OPEN }));
+        break;
+      default:
+        break;
+    }
+
+    setLoading(prevloadState => ({ ...prevloadState, [id]: false }));
+  };
 
   return (
     <>
@@ -77,17 +144,55 @@ const CurrentCampaignsTable = () => {
                 <Td>{cam.name}</Td>
                 <Td>{cam.paidType}</Td>
                 <Td>NONE</Td>
+                <Td>{cam.status}</Td>
                 <Td>{new Date(cam.createdAt).toLocaleDateString('en-US')}</Td>
                 <Td cursor="pointer">
-                  <Link href={`/campaigns/${cam.id}`}>
-                    <span>
-                      View Campaign &nbsp;
-                      <FontAwesomeIcon
-                        size="lg"
-                        icon={faChevronCircleRight as IconProp}
-                      />
-                    </span>
-                  </Link>
+                  <Flex>
+                    <DropdownSelect
+                      onChange={onSelect}
+                      placeholder="action"
+                      noValue={false}
+                      options={
+                        [
+                          {
+                            label:
+                              cam.status === OPEN
+                                ? 'Close campaign'
+                                : 'Open campaign',
+                            value:
+                              cam.status === OPEN
+                                ? `closeCampaign:${cam.id}`
+                                : `openCampaign:${cam.id}`,
+                          },
+                          {
+                            label: 'Edit',
+                            value: `/dashboard/campaigns/edit/${cam.id}`,
+                          },
+                          { label: 'Archive', value: `archive:${cam.id}` },
+                          {
+                            label: 'Launch',
+                            value: `/campaign/${cam.id}`,
+                          },
+                          {
+                            label: 'View',
+                            value: `/dashboard/leads/${cam.id}`,
+                          },
+                          { label: 'Copy link', value: `copy:${cam.id}` },
+                        ] || []
+                      }
+                      name="Actions"
+                      selectProps={{
+                        fontSize: '1.4rem',
+                        border: 'none',
+                      }}
+                    />
+                    {/* @ts-expect-error */}
+                    {loading[cam.id] && (
+                      <Box marginRight="10px">
+                        <Image src={loader} alt="" width={50} height={50} />
+                      </Box>
+                    )}
+                  </Flex>
                 </Td>
               </Tr>
             ))}
@@ -99,3 +204,15 @@ const CurrentCampaignsTable = () => {
 };
 
 export default CurrentCampaignsTable;
+
+{
+  /* <Link href={`/campaigns/${cam.id}`}>
+<span>
+  View Campaign &nbsp;
+  <FontAwesomeIcon
+    size="lg"
+    icon={faChevronCircleRight as IconProp}
+  />
+</span>
+</Link> */
+}

@@ -404,7 +404,7 @@ exports[`Home page Tests renders Home Page 1`] = `
           class="css-b69u32"
         >
           <div
-            class="css-9chr40"
+            class="css-rxw4r2"
           >
             <div
               class="css-79elbk"
@@ -476,7 +476,7 @@ exports[`Home page Tests renders Home Page 1`] = `
             </div>
           </div>
           <div
-            class="css-9chr40"
+            class="css-qvkken"
           >
             <div
               class="css-79elbk"
@@ -502,7 +502,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 </svg>
               </div>
               <h3
-                class="css-1mws978"
+                class="css-14oezjm"
                 contenteditable="false"
                 id="info_cards__1__header"
                 tabindex="-1"
@@ -538,7 +538,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                 </svg>
               </div>
               <p
-                class="css-1yxu09j"
+                class="css-16qv2i2"
                 contenteditable="false"
                 id="info_cards__1__desc"
                 tabindex="-1"
@@ -548,7 +548,7 @@ exports[`Home page Tests renders Home Page 1`] = `
             </div>
           </div>
           <div
-            class="css-9chr40"
+            class="css-rxw4r2"
           >
             <div
               class="css-79elbk"

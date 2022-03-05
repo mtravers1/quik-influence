@@ -9,7 +9,7 @@ import {
   InputProps,
   useColorMode,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import quikColorConstants, {
   borderThemeColor,
 } from 'utils/constants/colorConstants';
@@ -56,14 +56,14 @@ const TextInput: React.FC<TextInputProps> = ({
         >
           {label}
           {
-           extraLabel && <Box as="span" fontSize="md" mx="4" >{extraLabel}</Box>
+            extraLabel && <Box as="span" fontSize="md" mx="4" >{extraLabel}</Box>
           }
         </FormLabel>
       )}
       <Input
         name={name}
         type={type}
-        value={value}
+        value={(value && type === "date") ? (new Date(value)).toISOString().substring(0,10) :value}
         onChange={handleChange}
         border={`1px solid ${borderThemeColor[colorMode]}`}
         size="xl"

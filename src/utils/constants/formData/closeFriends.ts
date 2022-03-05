@@ -9,7 +9,7 @@ import {
   PHONE_NUMBER_REGEX,
   FREE_TEXT_REGEX,
   EMAIL_REFEX,
-  NUMBER_REGEX
+  NUMBER_REGEX,
 } from 'utils/constants/regexConstants';
 
 export default [
@@ -47,9 +47,33 @@ export default [
   },
   {
     name: 'instagramId',
-    label: 'Your Instagram Handle',
+    label: 'Your Instagram handle',
     icon: faAt,
     errorMessage: 'Enter your instagram handle',
+    required: true,
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'FaceBook profile',
+    label: 'Your Facebook profile',
+    icon: faAt,
+    errorMessage: 'Enter your facebook profile',
+    required: true,
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'TikTok handle',
+    label: 'Your Tiktok handle',
+    icon: faAt,
+    errorMessage: 'Enter your tiktok handle',
+    required: true,
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'Twitter handle',
+    label: 'Your twitter Handle',
+    icon: faAt,
+    errorMessage: 'Enter your twitter handle',
     required: true,
     pattern: FREE_TEXT_REGEX,
   },

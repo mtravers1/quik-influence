@@ -40,7 +40,6 @@ const Register = () => {
         sessionStorage.setItem('email', inputs.email);
       }
 
-      dispatch(login(response.data.data));
       setShowOtpInput(true);
       setStripeRedirectUrl(response.data.data.url);
     },
@@ -50,10 +49,12 @@ const Register = () => {
     setLoadingOtp(true);
 
     try {
-      await axiosInstance.post('/auth/admin/otpLogin', {
+      const response = await axiosInstance.post('/auth/admin/otpLogin', {
         email: inputTypes.email,
         otp: inputTypes.otp,
       });
+
+      dispatch(login(response.data.data));
 
       if (typeof window !== 'undefined') {
         window.location.href = stripeRedirectUrl || '';
