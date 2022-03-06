@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Box, Flex, createStandaloneToast } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormControl, FormErrorMessage } from "@chakra-ui/react";
 import CustomButton from "components/Button";
 import useInput from "hooks/useForm";
@@ -12,15 +11,18 @@ const LeadsForm = ({
   campaignId,
   handleStripe,
   redirectUrl,
-  form
+  form,
+  paidType,
 }: {
   campaignId: string;
-  handleStripe: (email: string) => {};
+  handleStripe: (email: string, success?: boolean) => {};
   redirectUrl: string;
   form: any;
+  paidType?: string;
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
+  const isPaidCampaign = paidType === "PAID";
 
   const {
     handleChange,
@@ -32,7 +34,6 @@ const LeadsForm = ({
   } = useInput({
     inputs: form,
     cb: async (inputs) => {
-      console.log('inputs >>> ', inputs);
       if (!submitForm) return;
 
       await axiosInstance
@@ -45,7 +46,7 @@ const LeadsForm = ({
             resetInputs();
             toast({
               title: "Registered Successfully.",
-              description: "You would be redirected to a payment screen",
+              description: isPaidCampaign ? "You would be redirected to a payment screen" : "",
               duration: 9000,
               position: "top-right",
               variant: "subtle",
@@ -54,7 +55,7 @@ const LeadsForm = ({
           }
 
           // redirect to stripe checkout
-          handleStripe(inputs.email);
+          handleStripe(inputs.email, res.status === 200);
 
           if (typeof window !== "undefined")
             localStorage.setItem("redirectUrl", redirectUrl);
