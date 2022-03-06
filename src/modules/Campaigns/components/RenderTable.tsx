@@ -13,10 +13,10 @@ import {
 import DropdownSelect from "components/DropdownSelect";
 import React from "react";
 import Image from "next/image";
-import loader from "assets/loader.gif";
 import quikColorConstants from "utils/constants/colorConstants";
 import { OPEN } from "utils/constants/formConstants";
 import LoaderGif from "assets/loader.gif";
+import NoRecordsMessage from "components/NoRecordsMessage";
 
 interface RenderTableProps {
   colorMode: string;
@@ -38,7 +38,7 @@ const RenderTable = ({
   return (
     <>
       {!campaigns ? (
-        <Image width="30px" objectFit="contain" src={LoaderGif} />
+        <Image  width={100} height={100} objectFit="contain" src={LoaderGif} />
       ) : (
         <Table size="lg" bg={colorMode === "light" ? "white" : ""}>
           <Thead>
@@ -107,7 +107,7 @@ const RenderTable = ({
                     {/* @ts-expect-error */}
                     {rowLoading[cam.id] && (
                       <Box marginRight="10px">
-                        <Image src={loader} alt="" width={50} height={50} />
+                        <Image src={LoaderGif} alt="" width={50} height={50} />
                       </Box>
                     )}
                   </Flex>
@@ -118,14 +118,7 @@ const RenderTable = ({
         </Table>
       )}
       {campaigns?.length === 0 && !loading && (
-        <Flex minW="100%" maxW="100%" my={10} mx={10} justify="center">
-          <Center>
-            <Text align="center" lineHeight={2}>
-              No Records has been made <br /> Please click the "Create a New
-              Campaign" button
-            </Text>
-          </Center>
-        </Flex>
+        <NoRecordsMessage message={'No Records has been made <br /> Please click the "Create a New Campaign" button'} />
       )}
     </>
   );

@@ -8,7 +8,8 @@ export const recordsTableHead = [
 
 export const leadsTableHead = [
   { name: 'Lead ID' },
-  { name: 'Lead Name' },
+  { name: 'First Name' },
+  { name: 'Last Name' },
   { name: 'Phone' },
   { name: 'Age' },
   { name: 'Created on' },
