@@ -54,7 +54,7 @@ export default [
     pattern: FREE_TEXT_REGEX,
   },
   {
-    name: 'faceBookprofile',
+    name: 'facebookHandle',
     label: 'Your Facebook profile',
     icon: faAt,
     errorMessage: 'Enter your facebook profile',
@@ -62,7 +62,7 @@ export default [
     pattern: FREE_TEXT_REGEX,
   },
   {
-    name: 'tikTokHandle',
+    name: 'tiktokHandle',
     label: 'Your Tiktok handle',
     icon: faAt,
     errorMessage: 'Enter your tiktok handle',

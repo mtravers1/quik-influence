@@ -124,8 +124,8 @@ export default [
     type: 'multi-select',
     options: [
         { label: 'Instagram Handle', value: 'instagramId' },
-        { label: 'Tiktok Handle', value: 'tikTokHandle' },
-        { label: 'Facebook Handle', value: 'faceBookprofile' },
+        { label: 'Tiktok Handle', value: 'tiktokHandle' },
+        { label: 'Facebook Handle', value: 'facebookHandle' },
         { label: 'Twitter Handle', value: 'twitterHandle' },
     ],
     pattern: FREE_TEXT_REGEX,
