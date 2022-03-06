@@ -135,7 +135,7 @@ export default [
   {
     name: 'redirectUrl',
     label: 'Redirect Url',
-    errorMessage: 'Enter a valid URL (http://test.com)',
+    errorMessage: 'Enter a valid URL e.g: http://test.com/something',
     required: true,
     type: 'text',
     pattern: URL_REGEX,
