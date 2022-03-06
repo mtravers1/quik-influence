@@ -31,7 +31,7 @@ export const OverviewSkeletonLoaders = () => {
   );
 };
 
-export const CampaignsPage = () => {
+export const TablePageLoader = () => {
   return (
     <Flex mb={4} flexDir="column">
       <Box marginBottom="100px">

@@ -6,8 +6,7 @@ import campaigns from './campaigns';
 const reducers = combineReducers({
   nav,
   auth,
-  campaigns
+  campaigns,
 });
-
 
 export default reducers;
