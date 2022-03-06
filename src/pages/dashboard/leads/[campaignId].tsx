@@ -27,10 +27,8 @@ const CampaignsLeads = () => {
   };
 
   useEffect(() => {
-    if (!campaignsLeads) {
-      fetchCampaignsLeads();
-    }
-  }, [loading, campaignsLeads]);
+    fetchCampaignsLeads();
+  }, [page]);
 
   return loading ? (
     <MainContent>
