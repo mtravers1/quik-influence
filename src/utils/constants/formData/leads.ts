@@ -23,6 +23,7 @@ import {
       icon: faUser,
       errorMessage: 'Enter your First name',
       required: true,
+      type: 'text',
       pattern: FREE_TEXT_REGEX,
     },
     {
@@ -31,6 +32,7 @@ import {
       icon: faUser,
       errorMessage: 'Enter your last name',
       required: true,
+      type: 'string',
       pattern: FREE_TEXT_REGEX,
     },
     {
@@ -38,6 +40,7 @@ import {
       label: 'Phone Number',
       icon: faPhone,
       required: true,
+      type: 'text',
       errorMessage: 'Enter your phone number',
       pattern: PHONE_NUMBER_REGEX,
     },
@@ -47,6 +50,7 @@ import {
       icon: faMailBulk,
       errorMessage: 'Enter your address',
       required: true,
+      type: 'text',
       pattern: EMAIL_REFEX,
     },
     {
@@ -64,6 +68,7 @@ import {
       icon: faAddressBook,
       errorMessage: 'Enter your address',
       required: true,
+      type: 'text',
       pattern: FREE_TEXT_REGEX,
     },
     {
@@ -72,6 +77,7 @@ import {
       icon: faAddressBook,
       errorMessage: 'Enter your address',
       required: false,
+      type: 'text',
       pattern: FREE_TEXT_REGEX,
     },
     {
@@ -88,6 +94,7 @@ import {
       icon: faCity,
       errorMessage: 'Enter your city',
       required: true,
+      type: 'text',
       pattern: FREE_TEXT_REGEX,
     },
     {
@@ -96,14 +103,16 @@ import {
       icon: faCity,
       errorMessage: 'Enter your state',
       required: true,
+      type: 'text',
       pattern: FREE_TEXT_REGEX,
     },
     {
-      name: 'zip',
+      name: 'zipCode',
       label: 'Zip code',
       icon: faCode,
       errorMessage: 'Enter your zip code',
       required: true,
+      type: 'number',
       pattern: FREE_TEXT_REGEX,
     },
     {
@@ -112,6 +121,8 @@ import {
       icon: faUser,
       errorMessage: 'Please select a gender',
       required: true,
+      type: 'select',
+      options: ['male', 'female', 'other'],
       pattern: FREE_TEXT_REGEX,
     },
   ];

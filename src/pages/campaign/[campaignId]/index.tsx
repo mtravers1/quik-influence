@@ -72,10 +72,8 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
               objectFit="cover"
             />
           </Box>
-          <Box width={["100%", "45%"]}>
+          <Box py={10} width={["100%", "45%"]} overflowY="scroll">
             <Flex
-              width="full"
-              height="full"
               justifyContent="center"
               alignItems={["unset", "center"]}
               p={6}
