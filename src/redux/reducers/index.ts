@@ -11,5 +11,4 @@ const reducers = combineReducers({
   leads,
 });
 
-
 export default reducers;

@@ -3,13 +3,13 @@ import {
   LEADS,
   LEADS_ERROR,
   LEADS_LOADING,
-//   GET_SINGLE_LEAD,
-//   UPDATE_LEADS,
-//   ARCHIVE_LEADS,
+  //   GET_SINGLE_LEAD,
+  //   UPDATE_LEADS,
+  //   ARCHIVE_LEADS,
 } from 'redux/actionTypes';
 
 export const initialState = {
-  allLeads: [],
+  allLeads: null,
   loading: true,
 };
 

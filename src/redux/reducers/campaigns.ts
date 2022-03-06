@@ -6,11 +6,13 @@ import {
   GET_SINGLE_CAMPAIGN,
   UPDATE_CAMPAIGN,
   ARCHIVE_CAMPAIGN,
+  GET_CAMPAIGN_LEADS,
 } from 'redux/actionTypes';
 
 export const initialState = {
   campaigns: null,
   loading: true,
+  leads: {},
 };
 
 const campaigns = (
@@ -30,6 +32,13 @@ const campaigns = (
         count: action.payload.count,
         totalPages: action.payload.totalPages,
         currentPage: action.payload.currentPage
+      };
+    case GET_CAMPAIGN_LEADS:
+      return {
+        ...state,
+        leads: {
+          [action.payload.campaignId]: action.payload.leads,
+        },
       };
     case GET_SINGLE_CAMPAIGN:
       return {

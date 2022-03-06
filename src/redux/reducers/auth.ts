@@ -5,7 +5,7 @@ export const initialState = {
   loading: false,
 };
 
-const user = (state = initialState, action: { type: any; payload: any; }) => {
+const user = (state = initialState, action: { type: any; payload: any }) => {
   switch (action.type) {
     case LOGIN:
       return {

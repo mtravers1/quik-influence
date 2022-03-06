@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import MainContent from 'components/MainContent';
-import { useRouter } from 'next/router';
-import CreateCampaign from 'modules/Campaigns/CreateCampaign';
-import { CampaignsPage } from 'components/SkeletonLoaders';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import MainContent from 'components/MainContent';
+import CreateCampaign from 'modules/Campaigns/CreateCampaign';
+import { TablePageLoader } from 'components/SkeletonLoaders';
 import { getSingleCampaign } from 'redux/actions/campaigns';
 
 const Create = () => {
@@ -23,7 +23,7 @@ const Create = () => {
 
   return loading && !currentCampaign ? (
     <MainContent>
-      <CampaignsPage />
+      <TablePageLoader />
     </MainContent>
   ) : (
     <MainContent>
