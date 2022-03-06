@@ -105,6 +105,20 @@ const Header = ({ ...rest }: HeaderProps) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                router.push('/profile');
+              }}
+            >
+              Profile
+            </MenuItem>{' '}
+            <MenuItem
+              onClick={() => {
+                router.push('/profile/edit');
+              }}
+            >
+              Edit profile
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
                 logout();
                 removeLocalstorageToken(router);
               }}
