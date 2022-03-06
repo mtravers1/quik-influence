@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
-export interface User { }
+export interface User {}
 
 export type T = { [key: string]: any };
 export type Q = { [key: string]: string };
@@ -25,4 +25,10 @@ export interface FilterItemProps {
   fontSize?: string;
   useTags?: boolean;
   value?: any;
+}
+
+export interface FilterDataProps {
+  page?: string;
+  pageSize?: number;
+  sort?: string;
 }

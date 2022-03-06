@@ -12,6 +12,11 @@ export const CAMPAIGNS_ERROR = 'CAMPAIGNS_ERROR';
 export const GET_SINGLE_CAMPAIGN = 'GET_SINGLE_CAMPAIGN';
 export const UPDATE_CAMPAIGN = 'UPDATE_CAMPAIGN';
 export const ARCHIVE_CAMPAIGN = 'ARCHIVE_CAMPAIGN';
+export const GET_CAMPAIGN_LEADS = 'GET_CAMPAIGN_LEADS';
+
+export const LEADS_LOADING = 'LEADS_LOADING';
+export const LEADS_ERROR = 'LEADS_ERROR';
+export const LEADS = 'LEADS';
 
 export type DispatchWithPayload = (arg0: {
   type: string;

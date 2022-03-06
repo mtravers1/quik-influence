@@ -77,10 +77,11 @@ const DropdownSelect = ({
         borderRadius="xl"
         id={inputId}
         data-test-id="select-component"
+        defaultValue={selected}
         {... !noValue && {value: ""}}
         {...selectProps}
       >
-        <option value="" disabled selected>
+        <option value="" disabled>
           {`Select ${label || placeholder || '---'}`}
         </option>
         {options.map(option => {
@@ -89,7 +90,6 @@ const DropdownSelect = ({
               data-testid="select-option"
               key={option.value}
               value={option.value}
-              selected={option.value === selected}
             >
               {option.label}
             </option>

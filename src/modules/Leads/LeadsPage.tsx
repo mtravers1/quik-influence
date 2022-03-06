@@ -7,44 +7,42 @@ import {
   Td,
   Box,
   Flex,
+  Center,
   useColorMode,
 } from '@chakra-ui/react';
-import { css } from '@emotion/react';
-import {
-  recordsTableHead,
-  leadsTableHead,
-  dataBody,
-} from 'utils/constants/leadsPageTableData';
-import {
-  basicTheme,
-  basicTextTheme,
-  basicDarkTextTheme,
-  tableBorderTheme,
-} from 'utils/constants/colorConstants';
+import { useRouter } from 'next/router';
+import { basicTheme } from 'utils/constants/colorConstants';
+import { format } from 'date-fns';
+import Pagination from 'components/Pagination';
+import { getStyles } from './css';
 
-const LeadsPage = () => {
+const LeadsPage = ({
+  leads,
+  pageType = 'singleCampaign',
+}: {
+  leads: any;
+  pageType?: string;
+}) => {
   const { colorMode } = useColorMode();
+  const router = useRouter();
 
-  const style = css`
-  & {
-    border: 1px solid ${tableBorderTheme[colorMode]};
+  const style = getStyles(colorMode);
 
-    td, th {
-      border-top: 1px solid ${tableBorderTheme[colorMode]};
-      border-bottom: 1px solid ${tableBorderTheme[colorMode]};
-      padding: 15px;
-    }
+  const handleChange = (page: any) => {
+    router.push(`?page=${page}`);
+  };
 
-    th {
-      color: ${basicDarkTextTheme[colorMode]}
-    }
+  const status = pageType === 'allLeads' ? [] : ['status'];
 
-    td {
-      color: ${basicTextTheme[colorMode]}
-    }
-  }
-}
-`;
+  const tableHeader = [
+    'First Name',
+    'Last Name',
+    'Phone',
+    'Email',
+    'Gender',
+    'DOB',
+    ...status,
+  ];
 
   return (
     <Box>
@@ -52,63 +50,72 @@ const LeadsPage = () => {
         Records / Leads
       </Box>
 
-      <Flex w="100%">
-        <Box flexGrow={1}>
-          <Table bg={basicTheme[colorMode]}>
-            <Thead>
-              <Tr>
-                {recordsTableHead.map((th, i) => (
-                  <Th
-                    fontSize="16px"
-                    fontFamily="Avenir"
-                    textTransform="capitalize"
-                    key={`table_h_1_${i}`}
-                    border="1px solid #707070"
-                    padding="15px"
-                    color={basicTextTheme[colorMode]}
-                  >
-                    {th.name}
-                  </Th>
-                ))}
-              </Tr>
-            </Thead>
-          </Table>
-
-          <Box></Box>
-          <Table marginTop="50px" css={style} bg={basicTheme[colorMode]}>
-            <Thead>
-              <Tr>
-                {leadsTableHead.map((th, i) => (
-                  <Th
-                    fontSize="16px"
-                    textTransform="capitalize"
-                    fontFamily="Avenir"
-                    key={`table_h_2_${i}`}
-                    color="#000"
-                  >
-                    {th.name}
-                  </Th>
-                ))}
-              </Tr>
-            </Thead>
-
-            <Tbody>
-              {dataBody.map((data, i) => (
-                <Tr key={`lead_data_${i}`}>
-                  <Td>{data.leadId}</Td>
-                  <Td>{data.name}</Td>
-                  <Td>{data.phoneNumber}</Td>
-                  <Td>{data.afflicate}</Td>
-                  <Td>{data.status}</Td>
-                  <Td>{data.createdAt}</Td>
-                  <Td>{data.cost}</Td>
-                  <Td>{data.revenue}</Td>
+      {!leads?.data?.length ? (
+        <Center flexDir="column" minH="80vh" height="100%">
+          <Box as="h2" fontSize="40px" marginBottom="10px" fontWeight="600">
+            You don't have any Leads yet
+          </Box>
+          <Box fontSize="18px">
+            Copy your link from the campaign lists amd share with your users
+          </Box>
+        </Center>
+      ) : (
+        <Flex w="100%">
+          <Box flexGrow={1}>
+            <Box></Box>
+            <Table marginTop="50px" css={style} bg={basicTheme[colorMode]}>
+              <Thead>
+                <Tr>
+                  {tableHeader.map((th, i) => (
+                    <Th
+                      fontSize="16px"
+                      textTransform="capitalize"
+                      fontFamily="Avenir"
+                      key={`table_h_2_${i}`}
+                      color="#000"
+                      whiteSpace="nowrap"
+                    >
+                      {th}
+                    </Th>
+                  ))}
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </Box>
-      </Flex>
+              </Thead>
+
+              <Tbody>
+                {leads.data.map((data: any, i: number) => (
+                  <Tr key={`lead_data_${i}`}>
+                    <Td fontSize="15px" whiteSpace="nowrap">
+                      {data.firstName}
+                    </Td>
+                    <Td fontSize="15px" whiteSpace="nowrap">
+                      {data.lastName}
+                    </Td>
+                    <Td fontSize="15px" whiteSpace="nowrap">
+                      {data.email}
+                    </Td>
+                    <Td fontSize="15px">{data.phone}</Td>
+                    <Td fontSize="15px">{data.gender}</Td>
+                    <Td fontSize="15px">
+                      {data.dateOfBirth &&
+                        format(new Date(data.dateOfBirth), 'yyyy-mm-dd')}
+                    </Td>
+                    <Td fontSize="15px">
+                      {data?.UserCampaigns?.at(0)?.paymentStatus}
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </Box>
+        </Flex>
+      )}
+
+      <Pagination
+        totalPages={leads.meta.totalPages}
+        currentPage={leads.meta.currentPage}
+        count={leads.meta.count}
+        onChange={handleChange}
+      />
     </Box>
   );
 };
