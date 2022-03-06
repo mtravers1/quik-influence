@@ -77,7 +77,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
           >
             <Image
               src={data?.banner || ""}
-              alt="Get exclusive content of Baby Dream"
+              alt={data?.name || ""}
               layout="fill"
               objectFit="cover"
             />
