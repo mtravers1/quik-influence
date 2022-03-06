@@ -11,3 +11,5 @@ export const FULL_NAME_REGEX =
   /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/;
 
 export const NUMBER_REGEX = /^[0-9]{1,}$/;
+
+export const URL_REGEX = /^https?:\/\//g;
