@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AuthenticationProps } from './types';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import quikColorConstants from 'utils/constants/colorConstants';
-import Login from './Login';
 import LoginOtp from './LoginOtp';
 import Register from './Register';
 import Router, { useRouter } from 'next/router';
@@ -22,11 +21,10 @@ const CustomTab: React.FC<{ title: string }> = ({ title }) => (
 
 const pageMap = {
   login: 0,
-  'login-otp': 1,
-  signup: 2,
+  signup: 1,
 };
 
-const pageIndexArr = ['login', 'login-otp', 'signup'];
+const pageIndexArr = ['login', 'signup'];
 
 const AuthTab: React.FC<AuthenticationProps> = ({ type }) => {
   const router = useRouter();
@@ -41,14 +39,10 @@ const AuthTab: React.FC<AuthenticationProps> = ({ type }) => {
     <Tabs mt={6} index={tabIndex} onChange={handleTabsChange}>
       <TabList>
         <CustomTab title="Login" />
-        <CustomTab title="Login with otp" />
         <CustomTab title="Sign up" />
       </TabList>
 
       <TabPanels>
-        <TabPanel padding={0}>
-          <Login />
-        </TabPanel>
         <TabPanel padding={0}>
           <LoginOtp />
         </TabPanel>

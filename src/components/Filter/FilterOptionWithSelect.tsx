@@ -9,17 +9,20 @@ const FilterOptionWithSelect = ({
   onChange,
   title = '',
   selectOptions,
+  useTags = true,
 }: FilterItemProps) => {
-  const [selectedOpt, setSelectedAge] = useState<Array<string>>([]);
+  const [selectedOpt, setSelectedOpt] = useState<Array<string>>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (!selectedOpt.includes(e.target.value)) {
-      setSelectedAge([...selectedOpt, e.target.value]);
+      setSelectedOpt(
+        useTags ? [...selectedOpt, e.target.value] : [e.target.value]
+      );
     }
   };
 
   const handleRemoveOpt = (removeOpt: string) => {
-    setSelectedAge(selectedOpt.filter(opt => opt !== removeOpt));
+    setSelectedOpt(selectedOpt.filter(opt => opt !== removeOpt));
   };
 
   useEffect(() => {
@@ -32,24 +35,26 @@ const FilterOptionWithSelect = ({
       <AccordionPanel pl="unset" pb={4}>
         <DropdownSelect onChange={handleChange} options={selectOptions || []} />
         {/* @ts-ignore */}
-        <Flex flexWrap="wrap" spacing={4} mt={5}>
-          {selectedOpt &&
-            selectedOpt.map((opt, index) => (
-              <Tag
-                size="lg"
-                key={`${opt}_${index}`}
-                variant="solid"
-                borderRadius="full"
-                colorScheme="blackAlpha"
-              >
-                {opt}
-                <TagCloseButton
-                  data-test-id="remove-opt"
-                  onClick={() => handleRemoveOpt(opt)}
-                />
-              </Tag>
-            ))}
-        </Flex>
+        {useTags && (
+          <Flex flexWrap="wrap" mt={5}>
+            {selectedOpt &&
+              selectedOpt.map((opt, index) => (
+                <Tag
+                  size="lg"
+                  key={`${opt}_${index}`}
+                  variant="solid"
+                  borderRadius="full"
+                  colorScheme="blackAlpha"
+                >
+                  {opt}
+                  <TagCloseButton
+                    data-test-id="remove-opt"
+                    onClick={() => handleRemoveOpt(opt)}
+                  />
+                </Tag>
+              ))}
+          </Flex>
+        )}
       </AccordionPanel>
     </>
   );

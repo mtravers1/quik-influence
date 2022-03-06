@@ -1,14 +1,14 @@
 import axios from 'axios';
+import { Q_TOKEN } from './constants';
+
+const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 import { DropdownSelectOption } from 'components/DropdownSelect';
+import { NextRouter } from 'next/router';
 
-// const baseurl = 'http://localhost:2022';
-const baseurl =
-  process.env.NODE_ENV === 'production'
-    ? 'https://quik-influence-prod.herokuapp.com'
-    : 'https://quik-influence.herokuapp.com';
-
-const _axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
+  // withCredentials: true,
   headers: {
     'Access-Control-Allow-Headers':
       'Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type',
@@ -16,19 +16,15 @@ const _axiosInstance = axios.create({
   },
 });
 
-_axiosInstance.interceptors.request.use((config: any) => {
-  let token: any = '';
-  if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token');
-  }
-  config.headers.token = token;
-  return config;
-});
+export const logout = (router: NextRouter) => {
+  localStorage.removeItem(Q_TOKEN);
+  router.push('/login');
+}
 
-export const axiosInstance = _axiosInstance;
-
-export const validate = (field: any, Regex: any, pattern: any) => {
-  if (pattern.test(field)) return true;
+export const validate = (field: any, pattern: any) => {
+  const parts = /\/(.*)\/(.*)/.exec(pattern) || [];
+  var restoredRegex = new RegExp(parts[1], parts[2]);
+  if (restoredRegex.test(field)) return true;
   return false;
 };
 
@@ -37,7 +33,52 @@ export const setToken = (token: string) => {
     config.headers.token = token ? token : '';
     return config;
   });
+
+  // axiosInstance.defaults.headers.common['token'] = token;
+
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(Q_TOKEN, token);
+  }
 };
+
+const tokens: any = {};
+
+export function parseJwt(token: any) {
+  if (tokens[token]) return tokens[token];
+
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      // Buffer.from(base64, 'base64')
+      .split('')
+      .map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+
+  const result = JSON.parse(jsonPayload);
+  tokens[token] = result;
+
+  return result;
+}
+
+export function get_user() {
+  let user;
+
+  // let ctoken = Cookies.get('q_inf');
+  let ctoken;
+  if (typeof window !== 'undefined') {
+    ctoken = localStorage.getItem(Q_TOKEN);
+  }
+
+  if (ctoken) {
+    user = parseJwt(ctoken);
+  }
+
+  return { admin: user, token: ctoken };
+}
 
 export const getNumberRange = (
   start: number,

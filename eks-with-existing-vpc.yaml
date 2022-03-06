@@ -1,0 +1,38 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: quik-influence-prod
+  region: us-east-1
+  version: "1.21"
+
+vpc:
+  id: "vpc-025b701b49bd0b77f"
+  cidr: "10.81.0.0/16"
+  subnets:
+    public:
+      us-east-1a:
+        id: "subnet-0a667dde3aa1c35ec"
+        cidr: "10.81.1.0/24"
+
+      us-east-1b:
+        id: "subnet-0eed7e6d2a2a13285"
+        cidr: "10.81.2.0/24"
+
+      us-east-1c:
+        id: "subnet-09552e105a5b68066"
+        cidr: "10.81.5.0/24"
+
+managedNodeGroups:
+  - name: quik-influence-prod-ng
+    instanceType: t2.medium
+    minSize: 1
+    maxSize: 2
+    desiredCapacity: 2
+    ssh:
+      allow: true
+      publicKeyName: quik-influence-prod-eks-ssh-keypair
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["*"]

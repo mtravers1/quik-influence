@@ -39,7 +39,7 @@ export default [
   },
   {
     name: 'otp',
-    label: 'OTP',
+    label: 'Please check your email to retrieve your One Time Password (OTP).',
     errorMessage: 'Enter your otp',
     type: 'text',
     pattern: FREE_TEXT_REGEX,

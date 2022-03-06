@@ -27,7 +27,7 @@ const ImageUploadButton = () => {
         // @ts-ignore
         ref={asdMediaRef}
         publicKey={process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY as string}
-        onChange={console.log}
+        onChange={() => {}}
         localeTranslations={translation}
         imagesOnly
         previewStep
