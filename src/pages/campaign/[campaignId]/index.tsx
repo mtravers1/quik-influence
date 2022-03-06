@@ -1,10 +1,21 @@
-import { Box, Flex, Heading, useColorMode } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
+  Flex,
+  Heading,
+  useColorMode
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { bgThemeColor } from "utils/constants/colorConstants";
 import LeadsForm from "components/Leads/LeadsForm";
 import { useRouter } from "next/router";
 import { loadStripe } from "@stripe/stripe-js";
 import { axiosInstance } from "utils/helpers";
+import compulsoryFields from "utils/constants/formData/leads";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ""
@@ -23,8 +34,9 @@ const getPaymentInfo = (amount: string) => {
 const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const { query } = useRouter();
   const { colorMode } = useColorMode();
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
 
-  const handleStripe = async (email: string) => {
+  const handleStripe = async (email: string, success?: boolean) => {
     if (data.paidType === "PAID") {
       const stripe = await stripePromise;
 
@@ -44,7 +56,13 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
       const result = await stripe?.redirectToCheckout({
         sessionId: response.data.data.id
       });
+    } else if (success) {
+      setShowSuccessMessage(true);
     }
+  };
+
+  const getFormFields = (optionalFields: any) => {
+    return [...compulsoryFields, ...optionalFields];
   };
 
   return (
@@ -64,26 +82,47 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
               objectFit="cover"
             />
           </Box>
-          <Box width={["100%", "45%"]}>
+          <Box py={10} width={["100%", "45%"]} overflowY="scroll">
             <Flex
-              width="full"
-              height="full"
               justifyContent="center"
               alignItems={["unset", "center"]}
               p={6}
               pt={["10rem", "0"]}
+              height={showSuccessMessage ? '-webkit-fill-available' : 'unset'}
             >
-              <Box maxW="440px">
-                <Heading py={8} fontFamily="montserrat">
-                  {data?.name}
-                </Heading>
-                <LeadsForm
-                  campaignId={query.campaignId as string}
-                  handleStripe={handleStripe}
-                  redirectUrl={data?.redirectUrl}
-                  form={data?.formData?.form}
-                />
-              </Box>
+              {showSuccessMessage ? (
+                <Alert
+                  status="success"
+                  variant="subtle"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  textAlign="center"
+                  height="250px"
+                  lineHeight="2"
+                >
+                  <AlertIcon boxSize="40px" mr={0} />
+                  <AlertTitle mt={5} mb={5} fontSize="3xl" color="green.400">
+                    Registration submitted!
+                  </AlertTitle>
+                  <AlertDescription maxWidth="sm">
+                    Thanks for submitting your registration.
+                  </AlertDescription>
+                </Alert>
+              ) : (
+                <Box maxW="440px">
+                  <Heading py={8} fontFamily="montserrat">
+                    {data?.name}
+                  </Heading>
+                  <LeadsForm
+                    campaignId={query.campaignId as string}
+                    handleStripe={handleStripe}
+                    redirectUrl={data?.redirectUrl}
+                    form={getFormFields(data?.formData?.form)}
+                    paidType={data?.paidType}
+                  />
+                </Box>
+              )}
             </Flex>
           </Box>
         </Flex>

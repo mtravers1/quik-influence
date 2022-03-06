@@ -11,6 +11,7 @@ import {
 import theme from "styles/theme";
 import { CLOSED, OPEN } from "utils/constants/formConstants";
 import RenderTable from "./components/RenderTable";
+import Pagination from "components/Pagination/Index";
 
 const tableHeaders = [
   "Campaign",
@@ -28,12 +29,13 @@ const CurrentCampaignsTable = () => {
   const toast = createStandaloneToast(theme);
 
   const [rowLoading, setRowLoading] = useState({});
+  const [pageNumber, setPageNumber] = useState(campaigns?.currentPage ?? 1)
 
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(getCampaigns());
-  }, []);
+    dispatch(getCampaigns(pageNumber));
+  }, [pageNumber]);
 
   useEffect(() => {
     if (campaigns?.error) {
@@ -47,6 +49,12 @@ const CurrentCampaignsTable = () => {
       });
     }
   }, [campaigns]);
+
+
+  const handlePaginate = (page: number) => {
+    setPageNumber(page)
+  }
+
 
   const onSelect = async (e: any) => {
     const { value } = e.target;
@@ -103,14 +111,22 @@ const CurrentCampaignsTable = () => {
   };
 
   return (
-    <RenderTable
-      tableHeaders={tableHeaders}
-      colorMode={colorMode}
-      campaigns={campaigns?.campaigns}
-      rowLoading={rowLoading}
-      loading={campaigns?.loading}
-      onSelect={onSelect}
-    />
+    <>
+      <RenderTable
+        tableHeaders={tableHeaders}
+        colorMode={colorMode}
+        campaigns={campaigns?.campaigns}
+        rowLoading={rowLoading}
+        loading={campaigns?.loading}
+        onSelect={onSelect}
+      />
+      <Pagination
+        currentPage={campaigns.currentPage}
+        count={campaigns.count}
+        totalPages={campaigns.totalPages}
+        onChange={handlePaginate}
+      />
+    </>
   );
 };
 

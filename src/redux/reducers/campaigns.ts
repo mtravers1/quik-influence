@@ -26,7 +26,10 @@ const campaigns = (
     case CAMPAIGNS:
       return {
         ...state,
-        campaigns: action.payload,
+        campaigns: action.payload.rows,
+        count: action.payload.count,
+        totalPages: action.payload.totalPages,
+        currentPage: action.payload.currentPage
       };
     case GET_SINGLE_CAMPAIGN:
       return {
@@ -38,7 +41,7 @@ const campaigns = (
         ...state,
         campaigns: (state.campaigns || [])?.map((campaign: any) => {
           if (campaign.id === action.payload.campaignId) {
-            return { ...campaign, ...action.payload.data };
+            return { ...campaign, ...action.payload.rows };
           }
 
           return campaign;
