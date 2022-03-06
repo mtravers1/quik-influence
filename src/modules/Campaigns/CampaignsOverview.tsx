@@ -1,6 +1,6 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faCross, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CustomButton from 'components/Button';
 import { useRouter } from 'next/router';

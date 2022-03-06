@@ -53,16 +53,16 @@ export const getSingleCampaign =
     }
   };
 
-export const getCampaigns = () => async (dispatch: any) => {
+export const getCampaigns = (pageNumber = 1, pageSize = 10) => async (dispatch: any) => {
   dispatch(loading());
 
   try {
-    const response = await axiosInstance.get('/users/campaigns');
+    const response = await axiosInstance.get(`/users/campaigns?page=${pageNumber}&pageSize=${pageSize}`);
     const campaigns = response.data.data;
 
     dispatch({
       type: CAMPAIGNS,
-      payload: campaigns.rows,
+      payload: campaigns,
     });
   } catch (error) {
     const errorMessage = errorParser(error);
