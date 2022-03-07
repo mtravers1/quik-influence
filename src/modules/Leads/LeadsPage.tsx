@@ -8,17 +8,17 @@ import {
   Box,
   Flex,
   Center,
-  useColorMode,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { basicTheme } from 'utils/constants/colorConstants';
-import { format } from 'date-fns';
-import Pagination from 'components/Pagination';
-import { getStyles } from './css';
+  useColorMode
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { basicTheme } from "utils/constants/colorConstants";
+import { format } from "date-fns";
+import Pagination from "components/Pagination";
+import { getStyles } from "./css";
 
 const LeadsPage = ({
   leads,
-  pageType = 'singleCampaign',
+  pageType = "singleCampaign"
 }: {
   leads: any;
   pageType?: string;
@@ -32,16 +32,16 @@ const LeadsPage = ({
     router.push(`?page=${page}`);
   };
 
-  const status = pageType === 'allLeads' ? [] : ['status'];
+  const status = pageType === "allLeads" ? [] : ["status"];
 
   const tableHeader = [
-    'First Name',
-    'Last Name',
-    'Phone',
-    'Email',
-    'Gender',
-    'DOB',
-    ...status,
+    "First Name",
+    "Last Name",
+    "Phone",
+    "Email",
+    "Gender",
+    "DOB",
+    ...status
   ];
 
   return (
@@ -97,7 +97,7 @@ const LeadsPage = ({
                     <Td fontSize="15px">{data.gender}</Td>
                     <Td fontSize="15px">
                       {data.dateOfBirth &&
-                        format(new Date(data.dateOfBirth), 'yyyy-mm-dd')}
+                        format(new Date(data.dateOfBirth), "yyyy-mm-dd")}
                     </Td>
                     <Td fontSize="15px">
                       {data?.UserCampaigns?.at(0)?.paymentStatus}
