@@ -101,3 +101,26 @@ export const getQueryString = (params?: FilterDataProps) => {
     .join("&");
   return query;
 };
+
+export const getSocialHandleHeader = (socialColumns: string[]): string[] => {
+  let socialHeader: string[] = [];
+  socialColumns.forEach((socialColumn: any) => {
+    switch (socialColumn) {
+      case "facebookHandle":
+        socialHeader.push("Facebook");
+        break;
+      case "twitterHandle":
+        socialHeader.push("Twitter");
+        break;
+      case "instagramId":
+        socialHeader.push("Instagram");
+        break;
+      case "tiktokHandle":
+        socialHeader.push("Tik Tok");
+        break;
+      default:
+        break;
+    }
+  });
+  return socialHeader;
+};

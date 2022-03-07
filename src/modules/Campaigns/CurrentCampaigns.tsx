@@ -42,7 +42,7 @@ const CurrentCampaigns = () => {
             Total:
           </Text>
           {campaigns?.campaigns?.length && (
-            <Text my="auto"> {`${campaigns.campaigns.length} Campaings`}</Text>
+            <Text my="auto"> {`${campaigns.campaigns.length} Campaign(s)`}</Text>
           )}
         </Flex>
       </Flex>
