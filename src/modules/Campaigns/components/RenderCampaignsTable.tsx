@@ -88,7 +88,7 @@ const RenderCampaignsTable = ({
                             value: `/campaign/${cam.id}`
                           },
                           {
-                            label: "View",
+                            label: "View Registered Leads",
                             value: `/dashboard/leads/${cam.id}`
                           },
                           { label: "Copy link", value: `copy:${cam.id}` }
