@@ -19,7 +19,7 @@ import { getSocialHandleHeader } from "utils/helpers";
 const LeadsPage = ({
   leads,
   pageType = "singleCampaign",
-  socialColumns = [],
+  socialColumns = []
 }: {
   leads: any;
   pageType?: string;
@@ -27,7 +27,6 @@ const LeadsPage = ({
 }) => {
   const { colorMode } = useColorMode();
   const router = useRouter();
-
   const style = getStyles(colorMode);
 
   const handleChange = (page: any) => {
@@ -35,7 +34,6 @@ const LeadsPage = ({
   };
 
   const status = pageType === "allLeads" ? [] : ["status"];
-
   const sc: string[] = getSocialHandleHeader(socialColumns);
 
   const tableHeader = [
@@ -111,9 +109,11 @@ const LeadsPage = ({
                         data.zipCode || ""
                       }`}
                     </Td>
-                    {socialColumns?.map((s: string, j: number) => (
-                      <Td key={`social_${j}`}>{data[s] || "N/A"}</Td>
-                    ))}
+                    {socialColumns.length >= 1 &&
+                      !!socialColumns[0] &&
+                      socialColumns?.map((s: string, j: number) => (
+                        <Td key={`social_${j}`}>{data[s] || "N/A"}</Td>
+                      ))}
                     {status.length > 0 && (
                       <Td>{data?.UserCampaigns?.at(0)?.paymentStatus}</Td>
                     )}

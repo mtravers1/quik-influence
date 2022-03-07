@@ -119,11 +119,6 @@ export const getSocialHandleHeader = (socialColumns: string[]): string[] => {
         socialHeader.push("Tik Tok");
         break;
       default:
-        socialHeader = [
-          "Instagram",
-          "Twitter",
-          "Tik Tok",
-          "Facebook"];
         break;
     }
   });
