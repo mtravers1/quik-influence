@@ -11,17 +11,19 @@ import {
   useColorMode
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { basicTheme, tableTextTheme } from "utils/constants/colorConstants";
-import { format } from "date-fns";
+import { basicTheme } from "utils/constants/colorConstants";
 import Pagination from "components/Pagination";
 import { getStyles } from "./css";
+import { getSocialHandleHeader } from "utils/helpers";
 
 const LeadsPage = ({
   leads,
-  pageType = "singleCampaign"
+  pageType = "singleCampaign",
+  socialColumns = [],
 }: {
   leads: any;
   pageType?: string;
+  socialColumns?: string[];
 }) => {
   const { colorMode } = useColorMode();
   const router = useRouter();
@@ -34,18 +36,16 @@ const LeadsPage = ({
 
   const status = pageType === "allLeads" ? [] : ["status"];
 
+  const sc: string[] = getSocialHandleHeader(socialColumns);
+
   const tableHeader = [
     "First Name",
     "Last Name",
     "Email",
     "Phone",
     "Gender",
-    // "DOB",
     "City|State|Zip Code",
-    "Instagram",
-    "Twitter",
-    "Tik Tok",
-    "Facebook",
+    ...sc,
     ...status
   ];
 
@@ -111,18 +111,9 @@ const LeadsPage = ({
                         data.zipCode || ""
                       }`}
                     </Td>
-                    <Td textTransform="capitalize">
-                      {data.instagramId || "N/A"}
-                    </Td>
-                    <Td textTransform="capitalize">
-                      {data.twitterHandle || "N/A"}
-                    </Td>
-                    <Td textTransform="capitalize">
-                      {data.tiktokHandle || "N/A"}
-                    </Td>
-                    <Td textTransform="capitalize">
-                      {data.facebookHandle || "N/A"}
-                    </Td>
+                    {socialColumns?.map((s: string, j: number) => (
+                      <Td key={`social_${j}`}>{data[s] || "N/A"}</Td>
+                    ))}
                     {status.length > 0 && (
                       <Td>{data?.UserCampaigns?.at(0)?.paymentStatus}</Td>
                     )}

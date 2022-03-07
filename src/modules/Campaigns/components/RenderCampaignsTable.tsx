@@ -19,7 +19,7 @@ import LoaderGif from "assets/loader.gif";
 import NoRecordsMessage from "components/NoRecordsMessage";
 import { getStyles } from "modules/Leads/css";
 
-interface RenderTableProps {
+interface RenderCampaignsTableProps {
   colorMode: string;
   campaigns: any;
   rowLoading: {};
@@ -28,14 +28,14 @@ interface RenderTableProps {
   tableHeaders: string[];
 }
 
-const RenderTable = ({
+const RenderCampaignsTable = ({
   colorMode,
   campaigns,
   loading,
   rowLoading,
   onSelect,
   tableHeaders
-}: RenderTableProps) => {
+}: RenderCampaignsTableProps) => {
   const style = getStyles(colorMode);
   return (
     <>
@@ -124,4 +124,4 @@ const RenderTable = ({
   );
 };
 
-export default RenderTable;
+export default RenderCampaignsTable;

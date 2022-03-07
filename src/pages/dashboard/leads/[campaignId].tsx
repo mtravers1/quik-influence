@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import MainContent from 'components/MainContent';
-import Filters from 'components/LeadsPageFilters';
-import { TablePageLoader } from 'components/SkeletonLoaders';
-import { getCampaignLeads } from 'redux/actions/campaigns';
-import Leads from 'modules/Leads';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import MainContent from "components/MainContent";
+import Filters from "components/LeadsPageFilters";
+import { TablePageLoader } from "components/SkeletonLoaders";
+import { getCampaignLeads } from "redux/actions/campaigns";
+import Leads from "modules/Leads";
 
 const CampaignsLeads = () => {
   const { leads } = useSelector((state: any) => state.campaigns);
@@ -14,6 +14,7 @@ const CampaignsLeads = () => {
 
   const campaignId = router.query.campaignId as string;
   const page = router.query.page as string;
+  const socialColumns = router.query.sc as string;
 
   const campaignsLeads = leads[campaignId];
   const [loading, setLoading] = useState(!campaignsLeads);
@@ -36,7 +37,7 @@ const CampaignsLeads = () => {
     </MainContent>
   ) : (
     <MainContent filter={<Filters />}>
-      <Leads leads={campaignsLeads} />
+      <Leads leads={campaignsLeads} socialColumns={socialColumns?.split(",")} />
     </MainContent>
   );
 };

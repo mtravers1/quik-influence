@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { useColorMode, createStandaloneToast } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useColorMode, createStandaloneToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
 import {
   archiveCampaign,
   getCampaigns,
   getSingleCampaign,
-  updateCampaign,
-} from 'redux/actions/campaigns';
-import theme from 'styles/theme';
-import { CLOSED, OPEN } from 'utils/constants/formConstants';
-import RenderTable from './components/RenderTable';
-import Pagination from 'components/Pagination';
+  updateCampaign
+} from "redux/actions/campaigns";
+import theme from "styles/theme";
+import { CLOSED, OPEN } from "utils/constants/formConstants";
+import RenderCampaignsTable from "./components/RenderCampaignsTable";
+import Pagination from "components/Pagination";
 
 const tableHeaders = [
-  'Campaign',
-  'Model',
-  'Engagement Type',
-  'Status',
-  'Created On',
-  'Actions',
+  "Campaign",
+  "Model",
+  "Engagement Type",
+  "Status",
+  "Created On",
+  "Actions"
 ];
 
 const CurrentCampaignsTable = () => {
@@ -41,11 +41,11 @@ const CurrentCampaignsTable = () => {
     if (campaigns?.error) {
       toast({
         title: campaigns.error,
-        description: 'Please refresh the page.',
-        status: 'error',
+        description: "Please refresh the page.",
+        status: "error",
         duration: null,
         isClosable: true,
-        position: 'top-right',
+        position: "top-right"
       });
     }
   }, [campaigns]);
@@ -54,67 +54,81 @@ const CurrentCampaignsTable = () => {
     setPageNumber(page);
   };
 
+  const getNameProp = (fields: []): string[] => {
+    const names: string[] = [];
+    fields.forEach((field: any) => {
+      names.push(field.name);
+    });
+    return names;
+  }
+
   const onSelect = async (e: any) => {
     const { value } = e.target;
 
-    if (value.includes('/')) {
-      if (value.includes('edit')) {
+    if (value.includes("/")) {
+      if (value.includes("edit")) {
         dispatch(
           getSingleCampaign(
             undefined,
             campaigns?.campaigns.find(
-              (data: any) => data.id === value.split('edit/')[1]
+              (data: any) => data.id === value.split("edit/")[1]
             )
           )
         );
       }
 
-      if (value.includes('campaign')) {
-        return window.open(`${window.location.origin}${value}`, '_blank');
+      if (value.includes("campaign")) {
+        return window.open(`${window.location.origin}${value}`, "_blank");
       }
 
+      if (value.includes("leads/")) {
+        const socialFields = campaigns?.campaigns.find(
+          (data: any) => data.id === value.split("leads/")[1]
+        );
+        return router.push(`${value}?sc=${getNameProp(socialFields.formData.form).join(',')}`);
+      }
       return router.push(value);
     }
 
-    const [verb, id] = value.split(':');
+    const [verb, id] = value.split(":");
 
-    setRowLoading(prevloadState => ({ ...prevloadState, [id]: true }));
+    setRowLoading((prevloadState) => ({ ...prevloadState, [id]: true }));
 
     switch (verb) {
-      case 'archive':
+      case "archive":
         await dispatch(archiveCampaign(id));
         break;
-      case 'copy':
-        if (typeof window !== 'undefined') {
+      case "copy":
+        if (typeof window !== "undefined") {
           navigator.clipboard
             .writeText(`${window.location.origin}/campaign/${id}`)
-            .then(success =>
+            .then((success) =>
               toast({
-                title: 'Copied to clipboard',
-                status: 'success',
+                title: "Copied to clipboard",
+                status: "success",
                 duration: 4000,
                 isClosable: true,
-                position: 'top-right',
+                position: "top-right"
               })
             );
         }
         break;
-      case 'closeCampaign':
+      case "closeCampaign":
         await dispatch(updateCampaign(id, { status: CLOSED }));
         break;
-      case 'openCampaign':
+      case "openCampaign":
         await dispatch(updateCampaign(id, { status: OPEN }));
         break;
       default:
         break;
     }
 
-    setRowLoading(prevloadState => ({ ...prevloadState, [id]: false }));
+    setRowLoading((prevloadState) => ({ ...prevloadState, [id]: false }));
   };
 
   return (
     <>
-      <RenderTable
+      <RenderCampaignsTable
         tableHeaders={tableHeaders}
         colorMode={colorMode}
         campaigns={campaigns?.campaigns}
