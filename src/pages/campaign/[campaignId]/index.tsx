@@ -68,13 +68,26 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
   return (
     <Box as="section" bgColor={bgThemeColor[colorMode]}>
       <Box as="section">
-        <Flex height="100vh">
+        <Flex height={["unset", "100vh"]} direction={["column", "row"]}>
           <Box
-            width="55%"
+            width={["100%", "55%"]}
+            height={["150px", "100%"]}
             position="relative"
-            display={["none", "block"]}
+            display={["block"]}
             as="div"
           >
+            <Box
+              as="div"
+              position="absolute"
+              top="0"
+              left="0"
+              bottom="0"
+              right="0"
+              width="100%"
+              zIndex="1"
+              opacity="0.9"
+              bgGradient={`linear(#ffffff00 0%, #ffffff00 25%, #ffffff00 45%, ${bgThemeColor[colorMode]} 90%, ${bgThemeColor[colorMode]} 100%)`}
+            ></Box>
             <Image
               src={data?.banner || ""}
               alt={data?.name || ""}
@@ -82,13 +95,13 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
               objectFit="cover"
             />
           </Box>
-          <Box py={10} width={["100%", "45%"]} overflowY="scroll">
+          <Box py={[0, 10]} width={["100%", "45%"]} overflowY="scroll">
             <Flex
               justifyContent="center"
-              alignItems={["unset", "center"]}
-              p={6}
-              pt={["10rem", "0"]}
-              height={showSuccessMessage ? '-webkit-fill-available' : 'unset'}
+              alignItems="center"
+              p={[6]}
+              pt={["1rem", "0"]}
+              height={showSuccessMessage ? "-webkit-fill-available" : "unset"}
             >
               {showSuccessMessage ? (
                 <Alert
@@ -111,7 +124,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                 </Alert>
               ) : (
                 <Box maxW="440px">
-                  <Heading py={8} fontFamily="montserrat">
+                  <Heading textAlign="center" py={8} fontFamily="montserrat">
                     {data?.name}
                   </Heading>
                   <LeadsForm

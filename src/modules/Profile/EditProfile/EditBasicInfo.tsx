@@ -68,7 +68,7 @@ const EditBasicInfo = () => {
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
     initials: {
-      address_line1: admin['address'],
+      address_line1: admin['address1'],
       address_line2: admin['address2'],
       address_state: admin['state'],
       address_zip: admin['zipCode'],

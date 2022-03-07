@@ -13,12 +13,13 @@ import {
 import DropdownSelect from "components/DropdownSelect";
 import React from "react";
 import Image from "next/image";
-import quikColorConstants from "utils/constants/colorConstants";
+import quikColorConstants, { basicTheme } from "utils/constants/colorConstants";
 import { OPEN } from "utils/constants/formConstants";
 import LoaderGif from "assets/loader.gif";
 import NoRecordsMessage from "components/NoRecordsMessage";
+import { getStyles } from "modules/Leads/css";
 
-interface RenderTableProps {
+interface RenderCampaignsTableProps {
   colorMode: string;
   campaigns: any;
   rowLoading: {};
@@ -27,30 +28,25 @@ interface RenderTableProps {
   tableHeaders: string[];
 }
 
-const RenderTable = ({
+const RenderCampaignsTable = ({
   colorMode,
   campaigns,
   loading,
   rowLoading,
   onSelect,
   tableHeaders
-}: RenderTableProps) => {
+}: RenderCampaignsTableProps) => {
+  const style = getStyles(colorMode);
   return (
     <>
       {!campaigns ? (
-        <Image  width={100} height={100} objectFit="contain" src={LoaderGif} />
+        <Image width={100} height={100} objectFit="contain" src={LoaderGif} />
       ) : (
-        <Table size="lg" bg={colorMode === "light" ? "white" : ""}>
+        <Table size="lg" css={style} bg={basicTheme[colorMode]}>
           <Thead>
-            <Tr border={`2px solid ${quikColorConstants.black}`}>
+            <Tr>
               {tableHeaders.map((th) => (
-                <Th
-                  key={th}
-                  fontSize="14px"
-                  color={
-                    colorMode === "light" ? quikColorConstants.black : "white"
-                  }
-                >
+                <Th key={th} fontSize="14px">
                   {th}
                 </Th>
               ))}
@@ -58,7 +54,7 @@ const RenderTable = ({
           </Thead>
           <Tbody>
             {campaigns.map((cam: any) => (
-              <Tr key={cam.id} border={`2px solid ${quikColorConstants.black}`}>
+              <Tr key={cam.id}>
                 <Td>{cam.name}</Td>
                 <Td>{cam.paidType}</Td>
                 <Td>NONE</Td>
@@ -92,7 +88,7 @@ const RenderTable = ({
                             value: `/campaign/${cam.id}`
                           },
                           {
-                            label: "View",
+                            label: "View Registered Leads",
                             value: `/dashboard/leads/${cam.id}`
                           },
                           { label: "Copy link", value: `copy:${cam.id}` }
@@ -118,10 +114,14 @@ const RenderTable = ({
         </Table>
       )}
       {campaigns?.length === 0 && !loading && (
-        <NoRecordsMessage message={'No Records has been made <br /> Please click the "Create a New Campaign" button'} />
+        <NoRecordsMessage
+          message={
+            'No Records has been made <br /> Please click the "Create a New Campaign" button'
+          }
+        />
       )}
     </>
   );
 };
 
-export default RenderTable;
+export default RenderCampaignsTable;

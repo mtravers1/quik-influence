@@ -1,4 +1,4 @@
-import { Box, Heading, Image, useColorMode } from '@chakra-ui/react';
+import { Box, Heading, Image, useColorMode, Avatar } from '@chakra-ui/react';
 import { sidebarBg } from 'utils/constants/colorConstants';
 import { useRouter } from 'next/router';
 
@@ -33,15 +33,17 @@ const UserImage = ({ name, handleChange, label, avatar }: any) => {
         })`}
       ></Box>
       <Box borderWidth="4px" bg="white" mt="-100px" borderRadius="full">
-        <Image
+        <Avatar
           borderRadius="full"
+          fontSize="7rem"
+          bg={`${cardThemeColor[colorMode]}`}
+          name={admin?.firstName + ' ' + admin?.lastName}
           boxSize={{ base: '100', md: '150px', lg: '200px' }}
-          borderWidth="4px"
           src={avatar}
         />
       </Box>
       {pathname === '/profile/edit' && (
-        <Box>
+        <Box mt="5">
           <UploadImage
             name={name}
             previewImage={false}
