@@ -11,7 +11,7 @@ import {
   useColorMode
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { basicTheme } from "utils/constants/colorConstants";
+import { basicTheme, tableTextTheme } from "utils/constants/colorConstants";
 import { format } from "date-fns";
 import Pagination from "components/Pagination";
 import { getStyles } from "./css";
@@ -40,7 +40,12 @@ const LeadsPage = ({
     "Email",
     "Phone",
     "Gender",
-    "DOB",
+    // "DOB",
+    "City|State|Zip Code",
+    "Instagram",
+    "Twitter",
+    "Tik Tok",
+    "Facebook",
     ...status
   ];
 
@@ -62,8 +67,12 @@ const LeadsPage = ({
       ) : (
         <Flex w="100%">
           <Box flexGrow={1}>
-            <Box></Box>
-            <Table marginTop="50px" css={style} bg={basicTheme[colorMode]}>
+            <Table
+              size="lg"
+              marginTop={10}
+              css={style}
+              bg={basicTheme[colorMode]}
+            >
               <Thead>
                 <Tr>
                   {tableHeader.map((th, i) => (
@@ -72,7 +81,6 @@ const LeadsPage = ({
                       textTransform="capitalize"
                       fontFamily="Avenir"
                       key={`table_h_2_${i}`}
-                      color="#000"
                       whiteSpace="nowrap"
                     >
                       {th}
@@ -84,34 +92,40 @@ const LeadsPage = ({
               <Tbody>
                 {leads.data.map((data: any, i: number) => (
                   <Tr key={`lead_data_${i}`}>
-                    <Td
-                      fontSize="15px"
-                      whiteSpace="nowrap"
-                      textTransform="capitalize"
-                    >
-                      {data.firstName}
+                    <Td whiteSpace="nowrap" textTransform="capitalize">
+                      {data.firstName || "N/A"}
                     </Td>
-                    <Td
-                      fontSize="15px"
-                      whiteSpace="nowrap"
-                      textTransform="capitalize"
-                    >
-                      {data.lastName}
+                    <Td whiteSpace="nowrap" textTransform="capitalize">
+                      {data.lastName || "N/A"}
                     </Td>
-                    <Td fontSize="15px" whiteSpace="nowrap">
-                      {data.email}
+                    <Td whiteSpace="nowrap">{data.email || "N/A"}</Td>
+                    <Td>{data.phone}</Td>
+                    <Td textTransform="capitalize">{data.gender || "N/A"}</Td>
+                    {/* <Td>
+                      {(data.dateOfBirth &&
+                        format(new Date(data.dateOfBirth), "yyyy-mm-dd")) ||
+                        "N/A"}
+                    </Td> */}
+                    <Td textTransform="capitalize">
+                      {`${data.city || ""} ${data.state || ""} ${
+                        data.zipCode || ""
+                      }`}
                     </Td>
-                    <Td fontSize="15px">{data.phone}</Td>
-                    <Td fontSize="15px" textTransform="capitalize">
-                      {data.gender}
+                    <Td textTransform="capitalize">
+                      {data.instagramId || "N/A"}
                     </Td>
-                    <Td fontSize="15px">
-                      {data.dateOfBirth &&
-                        format(new Date(data.dateOfBirth), "yyyy-mm-dd")}
+                    <Td textTransform="capitalize">
+                      {data.twitterHandle || "N/A"}
                     </Td>
-                    <Td fontSize="15px">
-                      {data?.UserCampaigns?.at(0)?.paymentStatus}
+                    <Td textTransform="capitalize">
+                      {data.tiktokHandle || "N/A"}
                     </Td>
+                    <Td textTransform="capitalize">
+                      {data.facebookHandle || "N/A"}
+                    </Td>
+                    {status.length > 0 && (
+                      <Td>{data?.UserCampaigns?.at(0)?.paymentStatus}</Td>
+                    )}
                   </Tr>
                 ))}
               </Tbody>
