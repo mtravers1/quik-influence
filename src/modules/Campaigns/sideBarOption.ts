@@ -1,4 +1,7 @@
-import { faCalendarMinus, faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendarMinus,
+  faGripHorizontal,
+} from '@fortawesome/free-solid-svg-icons';
 import { SideBarOptionMenu } from 'types';
 
 export const campaignsMenu: SideBarOptionMenu = {
@@ -9,7 +12,12 @@ export const campaignsMenu: SideBarOptionMenu = {
   permission: [],
   isShown: true,
   isActive: false,
-  child: [],
+  child: [
+    {
+      name: 'Jude',
+      path: '/dashboard/campaigns/leads/ead941c0-2afe-4299-952e-e7f3911fabba',
+    },
+  ],
 };
 
 export const createCampaignsMenu: SideBarOptionMenu = {
@@ -22,4 +30,3 @@ export const createCampaignsMenu: SideBarOptionMenu = {
   isActive: false,
   child: [],
 };
-
