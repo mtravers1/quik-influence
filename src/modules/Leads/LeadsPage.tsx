@@ -37,8 +37,8 @@ const LeadsPage = ({
   const tableHeader = [
     "First Name",
     "Last Name",
-    "Phone",
     "Email",
+    "Phone",
     "Gender",
     "DOB",
     ...status
@@ -84,17 +84,27 @@ const LeadsPage = ({
               <Tbody>
                 {leads.data.map((data: any, i: number) => (
                   <Tr key={`lead_data_${i}`}>
-                    <Td fontSize="15px" whiteSpace="nowrap">
+                    <Td
+                      fontSize="15px"
+                      whiteSpace="nowrap"
+                      textTransform="capitalize"
+                    >
                       {data.firstName}
                     </Td>
-                    <Td fontSize="15px" whiteSpace="nowrap">
+                    <Td
+                      fontSize="15px"
+                      whiteSpace="nowrap"
+                      textTransform="capitalize"
+                    >
                       {data.lastName}
                     </Td>
                     <Td fontSize="15px" whiteSpace="nowrap">
                       {data.email}
                     </Td>
                     <Td fontSize="15px">{data.phone}</Td>
-                    <Td fontSize="15px">{data.gender}</Td>
+                    <Td fontSize="15px" textTransform="capitalize">
+                      {data.gender}
+                    </Td>
                     <Td fontSize="15px">
                       {data.dateOfBirth &&
                         format(new Date(data.dateOfBirth), "yyyy-mm-dd")}
