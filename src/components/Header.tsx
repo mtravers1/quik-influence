@@ -4,7 +4,6 @@ import {
   Heading,
   Flex,
   Text,
-  Button,
   useDisclosure,
   ColorModeScript,
   Image,
@@ -12,7 +11,6 @@ import {
   Tag,
   TagLabel,
   FlexProps,
-  useColorMode,
   Menu,
   MenuButton,
   MenuItem,
@@ -20,10 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import AppIcon from '../assets/icon.png';
-import quikColorConstants, {
-  bgThemeColor,
-  themeColor,
-} from 'utils/constants/colorConstants';
+import quikColorConstants from 'utils/constants/colorConstants';
 import DarkModeSwitch from './DarkModeSwitch';
 import theme from '../styles/theme';
 import { css } from '@emotion/react';
@@ -31,13 +26,15 @@ import { logout as removeLocalstorageToken } from 'utils/helpers';
 import { logout } from 'redux/actions/auth';
 import { useRouter } from 'next/router';
 
+import { authSelectors } from 'redux/selectors';
+import { useSelector } from 'react-redux';
 interface HeaderProps extends FlexProps {}
 
 const Header = ({ ...rest }: HeaderProps) => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
-
+  const { admin } = useSelector(authSelectors.getUser);
   return (
     <Flex
       as="nav"
@@ -90,13 +87,13 @@ const Header = ({ ...rest }: HeaderProps) => {
           <MenuButton>
             <Tag size="lg" colorScheme="grey.500" borderRadius="full">
               <Avatar
-                src="https://bit.ly/sage-adebayo"
+                src={admin?.avatar}
                 size="md"
-                name="Segun Adebayo"
+                name={admin?.firstName + ' ' + admin?.lastName}
                 ml={1}
                 mr={2}
               />
-              <TagLabel>Segun</TagLabel>
+              <TagLabel> {admin?.firstName}</TagLabel>
             </Tag>
           </MenuButton>
           <MenuList>
