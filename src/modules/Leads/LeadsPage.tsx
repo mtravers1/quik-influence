@@ -8,40 +8,43 @@ import {
   Box,
   Flex,
   Center,
-  useColorMode,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { basicTheme } from 'utils/constants/colorConstants';
-import { format } from 'date-fns';
-import Pagination from 'components/Pagination';
-import { getStyles } from './css';
+  useColorMode
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { basicTheme } from "utils/constants/colorConstants";
+import Pagination from "components/Pagination";
+import { getStyles } from "./css";
+import { getSocialHandleHeader } from "utils/helpers";
 
 const LeadsPage = ({
   leads,
-  pageType = 'singleCampaign',
+  pageType = "singleCampaign",
+  socialColumns = []
 }: {
   leads: any;
   pageType?: string;
+  socialColumns?: string[];
 }) => {
   const { colorMode } = useColorMode();
   const router = useRouter();
-
   const style = getStyles(colorMode);
 
   const handleChange = (page: any) => {
     router.push(`?page=${page}`);
   };
 
-  const status = pageType === 'allLeads' ? [] : ['status'];
+  const status = pageType === "allLeads" ? [] : ["status"];
+  const sc: string[] = getSocialHandleHeader(socialColumns);
 
   const tableHeader = [
-    'First Name',
-    'Last Name',
-    'Phone',
-    'Email',
-    'Gender',
-    'DOB',
-    ...status,
+    "First Name",
+    "Last Name",
+    "Email",
+    "Phone",
+    "Gender",
+    "City|State|Zip Code",
+    ...sc,
+    ...status
   ];
 
   return (
@@ -62,8 +65,12 @@ const LeadsPage = ({
       ) : (
         <Flex w="100%">
           <Box flexGrow={1}>
-            <Box></Box>
-            <Table marginTop="50px" css={style} bg={basicTheme[colorMode]}>
+            <Table
+              size="lg"
+              marginTop={10}
+              css={style}
+              bg={basicTheme[colorMode]}
+            >
               <Thead>
                 <Tr>
                   {tableHeader.map((th, i) => (
@@ -72,7 +79,6 @@ const LeadsPage = ({
                       textTransform="capitalize"
                       fontFamily="Avenir"
                       key={`table_h_2_${i}`}
-                      color="#000"
                       whiteSpace="nowrap"
                     >
                       {th}
@@ -84,24 +90,33 @@ const LeadsPage = ({
               <Tbody>
                 {leads.data.map((data: any, i: number) => (
                   <Tr key={`lead_data_${i}`}>
-                    <Td fontSize="15px" whiteSpace="nowrap">
-                      {data.firstName}
+                    <Td whiteSpace="nowrap" textTransform="capitalize">
+                      {data.firstName || "N/A"}
                     </Td>
-                    <Td fontSize="15px" whiteSpace="nowrap">
-                      {data.lastName}
+                    <Td whiteSpace="nowrap" textTransform="capitalize">
+                      {data.lastName || "N/A"}
                     </Td>
-                    <Td fontSize="15px" whiteSpace="nowrap">
-                      {data.email}
+                    <Td whiteSpace="nowrap">{data.email || "N/A"}</Td>
+                    <Td>{data.phone}</Td>
+                    <Td textTransform="capitalize">{data.gender || "N/A"}</Td>
+                    {/* <Td>
+                      {(data.dateOfBirth &&
+                        format(new Date(data.dateOfBirth), "yyyy-mm-dd")) ||
+                        "N/A"}
+                    </Td> */}
+                    <Td textTransform="capitalize">
+                      {`${data.city || ""} ${data.state || ""} ${
+                        data.postalCode || ""
+                      }`}
                     </Td>
-                    <Td fontSize="15px">{data.phone}</Td>
-                    <Td fontSize="15px">{data.gender}</Td>
-                    <Td fontSize="15px">
-                      {data.dateOfBirth &&
-                        format(new Date(data.dateOfBirth), 'yyyy-mm-dd')}
-                    </Td>
-                    <Td fontSize="15px">
-                      {data?.UserCampaigns?.at(0)?.paymentStatus}
-                    </Td>
+                    {socialColumns.length >= 1 &&
+                      !!socialColumns[0] &&
+                      socialColumns?.map((s: string, j: number) => (
+                        <Td key={`social_${j}`}>{data[s] || "N/A"}</Td>
+                      ))}
+                    {status.length > 0 && (
+                      <Td>{data?.UserCampaigns?.at(0)?.paymentStatus}</Td>
+                    )}
                   </Tr>
                 ))}
               </Tbody>

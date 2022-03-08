@@ -49,6 +49,7 @@ export const FilterHeaderTheme: Q = {
   dark: '#fff',
 };
 
-export const tableBorderTheme: Q = { light: '#707070', dark: '#fff' };
+export const tableBorderTheme: Q = { light: 'gray.700', dark: 'gray.300' };
+export const tableTextTheme: Q = { light: 'gray.700', dark: '#gray.300' };
 
 export default quikColorConstants;

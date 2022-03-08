@@ -13,7 +13,7 @@ const ProfileOverview = () => {
       <Divider />
       <BasicInfo />
       <Divider />
-      <RolePermission />
+      {/* <RolePermission /> */}
     </Box>
   );
 };

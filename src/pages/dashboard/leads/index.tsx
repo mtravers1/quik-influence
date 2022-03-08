@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import MainContent from 'components/MainContent';
-import Filters from 'components/LeadsPageFilters';
-import Leads from 'modules/Leads';
-import { getAllLeads } from 'redux/actions/leads';
-import { TablePageLoader } from 'components/SkeletonLoaders';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import MainContent from "components/MainContent";
+import Filters from "components/LeadsPageFilters";
+import Leads from "modules/Leads";
+import { getAllLeads } from "redux/actions/leads";
+import { TablePageLoader } from "components/SkeletonLoaders";
 
 const Dashboard = () => {
   const { allLeads, loading } = useSelector((state: any) => state.leads);
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const socialColumns = router.query.sc as string;
   const page = router.query.page as string;
 
   useEffect(() => {
@@ -24,7 +24,11 @@ const Dashboard = () => {
     </MainContent>
   ) : (
     <MainContent filter={<Filters />}>
-      <Leads leads={allLeads} pageType="allLeads" />
+      <Leads
+        leads={allLeads}
+        pageType="allLeads"
+        socialColumns={socialColumns?.split(",")}
+      />
     </MainContent>
   );
 };

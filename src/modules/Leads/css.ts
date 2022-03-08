@@ -1,13 +1,13 @@
 import {
-  basicTheme,
   basicTextTheme,
   basicDarkTextTheme,
-  tableBorderTheme,
-} from 'utils/constants/colorConstants';
+  tableTextTheme,
+  tableBorderTheme
+} from "utils/constants/colorConstants";
 
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
-export const getStyles = colorMode => css`
+export const getStyles = (colorMode: string) => css`
 & {
   border: 1px solid ${tableBorderTheme[colorMode]};
 
@@ -18,11 +18,11 @@ export const getStyles = colorMode => css`
   }
 
   th {
-    color: ${basicDarkTextTheme[colorMode]}
+    color: ${tableTextTheme[colorMode]}
   }
 
   td {
-    color: ${basicTextTheme[colorMode]}
+    color: ${tableTextTheme[colorMode]}
   }
 }
 }

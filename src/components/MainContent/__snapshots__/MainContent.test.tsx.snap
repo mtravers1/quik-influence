@@ -87,62 +87,122 @@ exports[`renders MainContent component 1`] = `
         class="css-iqqio3"
       >
         <button
-          class="chakra-button css-158uetl"
-          type="button"
+          aria-controls="menu-list-6"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="chakra-menu__menu-button css-1eqi7qs"
+          id="menu-button-6"
         >
-          Create account
-        </button>
-        <label
-          class="chakra-switch css-tm8ajn"
-        >
-          <input
-            class="chakra-switch__input"
-            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
-            type="checkbox"
-            value=""
-          />
           <span
-            aria-hidden="true"
-            class="chakra-switch__track css-14qxnv8"
+            class="css-xl71ch"
           >
             <span
-              class="chakra-switch__thumb css-0"
-            />
-          </span>
-        </label>
-        <span
-          class="css-1ehzxp"
-        >
-          <span
-            class="chakra-avatar css-o11zrc"
-          >
-            <div
-              aria-label="Segun Adebayo"
-              class="chakra-avatar__initials css-0"
-              role="img"
+              class="css-1ehzxp"
             >
-              SA
-            </div>
+              <span
+                class="chakra-avatar css-o11zrc"
+              >
+                <div
+                  aria-label=" "
+                  class="chakra-avatar__initials css-0"
+                  role="img"
+                />
+              </span>
+              <span
+                class="css-8uhtka"
+              >
+                 
+                
+              </span>
+            </span>
           </span>
-          <span
-            class="css-8uhtka"
+        </button>
+        <div
+          class="css-0"
+          style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+        >
+          <div
+            aria-orientation="vertical"
+            class="chakra-menu__menu-list css-sjt5nk"
+            id="menu-list-6"
+            role="menu"
+            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
+            tabindex="-1"
           >
-            Segun
-          </span>
-        </span>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="0"
+              id="menu-list-6-menuitem-1"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              Theme: 
+              <label
+                class="chakra-switch css-qtgvng"
+              >
+                <input
+                  class="chakra-switch__input"
+                  style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                  type="checkbox"
+                  value=""
+                />
+                <span
+                  aria-hidden="true"
+                  class="chakra-switch__track css-14qxnv8"
+                >
+                  <span
+                    class="chakra-switch__thumb css-0"
+                  />
+                </span>
+              </label>
+            </button>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="1"
+              id="menu-list-6-menuitem-2"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              Profile
+            </button>
+             
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="2"
+              id="menu-list-6-menuitem-3"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              Edit profile
+            </button>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="3"
+              id="menu-list-6-menuitem-4"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              Log out
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
     <div
       class="css-113h9jy"
     >
       <div
-        class="css-1rzqydi"
+        class="css-vr7qz"
       >
         <div
-          class="css-1h7o23w"
+          class="css-po1e1r"
         >
           <a
-            class="chakra-link css-1e6bsnr"
+            class="chakra-link css-qffdt"
             href="/dashboard"
           >
             <svg
@@ -152,6 +212,7 @@ exports[`renders MainContent component 1`] = `
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="margin-right: 20px;"
               viewBox="0 0 448 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -160,16 +221,15 @@ exports[`renders MainContent component 1`] = `
                 fill="currentColor"
               />
             </svg>
-             
             Overview
           </a>
         </div>
         <div
-          class="css-1h7o23w"
+          class="css-1xgeaco"
         >
           <a
-            class="chakra-link css-1e6bsnr"
-            href="/campaigns"
+            class="chakra-link css-qffdt"
+            href="/dashboard/campaigns"
           >
             <svg
               aria-hidden="true"
@@ -178,6 +238,7 @@ exports[`renders MainContent component 1`] = `
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="margin-right: 20px;"
               viewBox="0 0 448 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -186,15 +247,14 @@ exports[`renders MainContent component 1`] = `
                 fill="currentColor"
               />
             </svg>
-             
             Campaigns
           </a>
         </div>
         <div
-          class="css-1h7o23w"
+          class="css-1xgeaco"
         >
           <a
-            class="chakra-link css-1e6bsnr"
+            class="chakra-link css-qffdt"
             href="/dashboard/credits"
           >
             <svg
@@ -204,6 +264,7 @@ exports[`renders MainContent component 1`] = `
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="margin-right: 20px;"
               viewBox="0 0 576 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -212,8 +273,33 @@ exports[`renders MainContent component 1`] = `
                 fill="currentColor"
               />
             </svg>
-             
             Credits
+          </a>
+        </div>
+        <div
+          class="css-1xgeaco"
+        >
+          <a
+            class="chakra-link css-qffdt"
+            href="/dashboard/leads"
+          >
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-user-plus "
+              data-icon="user-plus"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style="margin-right: 20px;"
+              viewBox="0 0 640 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M624 208h-64v-64c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v64h-64c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h64v64c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-64h64c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm-400 48c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+                fill="currentColor"
+              />
+            </svg>
+            Leads
           </a>
         </div>
       </div>
@@ -222,9 +308,13 @@ exports[`renders MainContent component 1`] = `
         class="chakra-divider css-78xnth"
       />
       <div
-        class="css-1cwxi0e"
+        class="css-1j96les"
       >
-        hello world
+        <div
+          class="css-dgroo"
+        >
+          hello world
+        </div>
       </div>
     </div>
   </div>
