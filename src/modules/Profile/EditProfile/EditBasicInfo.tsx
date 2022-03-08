@@ -29,8 +29,9 @@ import { authSelectors } from 'redux/selectors';
 
 import { cardThemeColor } from 'utils/constants/colorConstants';
 import { axiosInstance } from 'utils/helpers';
-import { login } from 'redux/actions/auth';
 import UserImage from '../ViewProfile/UserImage';
+import { Q_TOKEN } from 'utils/constants';
+import { login } from 'redux/actions/auth';
 
 const stateSelectOptions: DropdownSelectOption[] = stateNames.map(
   stateName => ({
@@ -97,7 +98,12 @@ const EditBasicInfo = () => {
         avatar: inputs.avatar,
       });
       if (response) {
-        dispatch(login());
+        dispatch(
+          login({
+            admin: response.data.data,
+            token: localStorage.getItem(Q_TOKEN),
+          })
+        );
         toast({
           title: 'Your profile has been updated succesfully',
           description: '',
