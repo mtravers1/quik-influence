@@ -6,10 +6,10 @@ import {
   Box,
   Flex,
   Heading,
-  useColorMode
+  useColorMode,
+  Image
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Image from "next/image";
 import { bgThemeColor } from "utils/constants/colorConstants";
 import LeadsForm from "components/Leads/LeadsForm";
 import { useRouter } from "next/router";
@@ -71,31 +71,26 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
         <Flex height={["unset", "100vh"]} direction={["column", "row"]}>
           <Box
             width={["100%", "55%"]}
-            height={["150px", "100%"]}
+            maxHeight={["50%", "100%"]}
             position="relative"
             display={["block"]}
             as="div"
           >
-            <Box
-              as="div"
-              position="absolute"
-              top="0"
-              left="0"
-              bottom="0"
-              right="0"
-              width="100%"
-              zIndex="1"
-              opacity="0.9"
-              bgGradient={`linear(#ffffff00 0%, #ffffff00 25%, #ffffff00 45%, ${bgThemeColor[colorMode]} 90%, ${bgThemeColor[colorMode]} 100%)`}
-            ></Box>
             <Image
               src={data?.banner || ""}
               alt={data?.name || ""}
-              layout="fill"
+              width={["100%"]}
+              height={["100%"]}
               objectFit="cover"
             />
           </Box>
-          <Box py={[0, 10]} width={["100%", "45%"]} overflowY="scroll">
+          <Box
+            zIndex={2}
+            bgColor={bgThemeColor[colorMode]}
+            py={[0, 10]}
+            width={["100%", "45%"]}
+            overflowY="scroll"
+          >
             <Flex
               justifyContent="center"
               alignItems="center"
