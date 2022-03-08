@@ -106,7 +106,7 @@ const LeadsPage = ({
                     </Td> */}
                     <Td textTransform="capitalize">
                       {`${data.city || ""} ${data.state || ""} ${
-                        data.zipCode || ""
+                        data.postalCode || ""
                       }`}
                     </Td>
                     {socialColumns.length >= 1 &&
