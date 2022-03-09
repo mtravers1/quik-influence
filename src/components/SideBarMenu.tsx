@@ -1,11 +1,10 @@
 import { Flex, Box } from '@chakra-ui/layout';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import quikColorConstants, { sidebarBg } from 'utils/constants/colorConstants';
 import NextLink from './NextLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { css } from '@emotion/react';
-import { SideBarMenuOptions } from 'modules';
-import { SideBarOptionMenu } from 'types';
+import { useSideBarMenuOptions } from 'modules';
 import { useRouter } from 'next/router';
 import {
   Accordion,
@@ -15,6 +14,7 @@ import {
   ColorMode,
 } from '@chakra-ui/react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import TruncatedText from './TruncatedText';
 
 interface SideBarMenuProps {
   bgColor?: string;
@@ -26,7 +26,12 @@ interface SideBarMenuProps {
 const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
   const route = useRouter();
   const { pathname, asPath } = route || { pathname: '/' };
+
+  const SideBarMenuOptions = useSideBarMenuOptions();
+
   const _sideBarOptions = Object.values(SideBarMenuOptions);
+
+  const [activeIndex, setActiveIndex] = useState<number | undefined>();
 
   const navcss = (isActive: boolean) => css`
     & {
@@ -53,8 +58,6 @@ const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
     }
   `;
 
-  console.log(asPath);
-
   let currentRoute: string;
   const paths = pathname.split('/');
 
@@ -75,12 +78,17 @@ const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
       css={maincss}
       height="95vh"
     >
-      {_sideBarOptions.map(
-        ({ name, icon, path, isShown, child }: SideBarOptionMenu) => {
+      <Accordion
+        allowMultiple
+        defaultIndex={activeIndex ? [activeIndex] : undefined}
+      >
+        {_sideBarOptions.map(({ name, icon, path, isShown, child }, i) => {
           if (!isShown) return;
 
           const currentPath = path.split('/dashboard/')[1] || '/dashboard';
           const isActive = currentRoute === currentPath;
+
+          if (isActive && child?.length && activeIndex !== i) setActiveIndex(i);
 
           return (
             <NavComponent
@@ -95,10 +103,25 @@ const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
               name={name}
             />
           );
-        }
-      )}
+        })}
+      </Accordion>
     </Flex>
   );
+};
+
+const styles = {
+  display: 'block',
+  _hover: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+  _focus: {
+    border: 'none',
+    textDecoration: 'none',
+  },
+  fontFamily: 'Avenir',
+  fontWeight: 'bold',
+  fontSize: '16px',
 };
 
 const NavComponent = ({
@@ -122,82 +145,70 @@ const NavComponent = ({
 }) => {
   return (
     <>
-      <Box
-        minW="100%"
-        position="relative"
-        css={navcss(isActive)}
-        _before={{
-          content: '""',
-          position: 'absolute',
-          left: 0,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          height: 0,
-          width: '5px',
-          background: quikColorConstants.influenceRed,
-          borderRadius: '0 10px 10px 0',
-          transition: '0.3s ease',
-        }}
-        bg={isActive ? sidebarBg[colorMode] : 'transparent'}
-      >
-        {!child.length && (
-          <NextLink
-            href={path as string}
-            display="block"
-            _hover={{
-              textDecoration: 'none',
-              color: 'inherit',
+      <Box minW="100%">
+        <AccordionItem border="none">
+          <Box
+            position="relative"
+            css={navcss(isActive)}
+            _before={{
+              content: '""',
+              position: 'absolute',
+              left: 0,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              height: 0,
+              width: '5px',
+              background: quikColorConstants.influenceRed,
+              borderRadius: '0 10px 10px 0',
+              transition: '0.3s ease',
             }}
-            _focus={{
-              border: 'none',
-              textDecoration: 'none',
-            }}
-            fontFamily="Avenir"
-            fontWeight="bold"
-            fontSize="16px"
-            py={5}
-            px={10}
+            bg={isActive ? sidebarBg[colorMode] : 'transparent'}
           >
-            <FontAwesomeIcon
-              icon={icon as IconProp}
-              style={{ marginRight: '20px' }}
-            />
-            {name}
-          </NextLink>
-        )}
+            <AccordionButton fontSize="16px" py={5} px={10}>
+              {path ? (
+                <NextLink href={path as string} {...styles}>
+                  <FontAwesomeIcon
+                    icon={icon as IconProp}
+                    style={{ marginRight: '20px' }}
+                  />
+                  {name}
+                </NextLink>
+              ) : (
+                <Box {...styles}>
+                  <FontAwesomeIcon
+                    icon={icon as IconProp}
+                    style={{ marginRight: '20px' }}
+                  />
+                  {name}
+                </Box>
+              )}
+            </AccordionButton>
+          </Box>
+
+          <AccordionPanel paddingLeft="35px">
+            {child.map((childEl: any) => (
+              <NextLink
+                href={childEl.path as string}
+                color={asPath === childEl.path ? 'red' : undefined}
+                {...styles}
+                _hover={{
+                  textDecoration: 'none',
+                  color: asPath === childEl.path ? 'red' : 'inherit',
+                }}
+                py={3}
+                px={10}
+                fontSize="14px"
+              >
+                <TruncatedText>{childEl.name}</TruncatedText>
+              </NextLink>
+            ))}
+          </AccordionPanel>
+        </AccordionItem>
       </Box>
 
-      {!!child?.length && (
-        <Accordion allowMultiple paddingLeft="35px">
-          <AccordionItem>
-            <AccordionButton>{name}</AccordionButton>
-            <AccordionPanel pb={4}>
-              {child.map((childEl: any) => (
-                <NextLink
-                  href={childEl.path as string}
-                  color={asPath === childEl.path ? 'red' : undefined}
-                  display="block"
-                  _hover={{
-                    textDecoration: 'none',
-                    color: 'inherit',
-                  }}
-                  _focus={{
-                    border: 'none',
-                    textDecoration: 'none',
-                  }}
-                  fontFamily="Avenir"
-                  fontWeight="bold"
-                  py={3}
-                  px={10}
-                  fontSize="14px"
-                >
-                  {childEl.name}
-                </NextLink>
-              ))}
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-      )}
+      {/* {!!child?.length && (
+        
+      )} */}
     </>
   );
 };

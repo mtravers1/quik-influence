@@ -7,12 +7,14 @@ import {
   UPDATE_CAMPAIGN,
   ARCHIVE_CAMPAIGN,
   GET_CAMPAIGN_LEADS,
+  FIRST_TEN_CAMPAIGNS,
 } from 'redux/actionTypes';
 
 export const initialState = {
   campaigns: null,
   loading: true,
   leads: {},
+  firstCampaigns: null,
 };
 
 const campaigns = (
@@ -25,13 +27,20 @@ const campaigns = (
         ...state,
         loading: action.payload,
       };
+
+    case FIRST_TEN_CAMPAIGNS:
+      return {
+        ...state,
+        firstCampaigns: action.payload,
+      };
+
     case CAMPAIGNS:
       return {
         ...state,
         campaigns: action.payload.rows,
         count: action.payload.count,
         totalPages: action.payload.totalPages,
-        currentPage: action.payload.currentPage
+        currentPage: action.payload.currentPage,
       };
     case GET_CAMPAIGN_LEADS:
       return {

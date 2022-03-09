@@ -12,12 +12,7 @@ export const campaignsMenu: SideBarOptionMenu = {
   permission: [],
   isShown: true,
   isActive: false,
-  child: [
-    {
-      name: 'Jude',
-      path: '/dashboard/campaigns/leads/ead941c0-2afe-4299-952e-e7f3911fabba',
-    },
-  ],
+  child: [],
 };
 
 export const createCampaignsMenu: SideBarOptionMenu = {
