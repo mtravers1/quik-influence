@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import MainContent from "components/MainContent";
-import Filters from "components/LeadsPageFilters";
-import { TablePageLoader } from "components/SkeletonLoaders";
-import { getCampaignLeads } from "redux/actions/campaigns";
-import Leads from "modules/Leads";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import MainContent from 'components/MainContent';
+import Filters from 'components/LeadsPageFilters';
+import { TablePageLoader } from 'components/SkeletonLoaders';
+import { getCampaignLeads } from 'redux/actions/campaigns';
+import Leads from 'modules/Leads';
 
 const CampaignsLeads = () => {
   const { leads } = useSelector((state: any) => state.campaigns);
@@ -28,6 +28,7 @@ const CampaignsLeads = () => {
   };
 
   useEffect(() => {
+    if (page == leads?.meta?.currentPage) return;
     fetchCampaignsLeads();
   }, [page]);
 
@@ -37,7 +38,7 @@ const CampaignsLeads = () => {
     </MainContent>
   ) : (
     <MainContent filter={<Filters />}>
-      <Leads leads={campaignsLeads} socialColumns={socialColumns?.split(",")} />
+      <Leads leads={campaignsLeads} socialColumns={socialColumns?.split(',')} />
     </MainContent>
   );
 };

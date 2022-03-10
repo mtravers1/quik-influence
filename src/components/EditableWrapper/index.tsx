@@ -7,11 +7,13 @@ import loader from 'assets/loader.gif';
 import { css } from '@emotion/react';
 import Image from 'next/image';
 import { axiosInstance } from 'utils/helpers';
+import { useSelector } from 'react-redux';
 
 const styles = css`
   & {
     position: absolute;
     right: 0;
+    align-items: center;
   }
 `;
 
@@ -22,6 +24,8 @@ const EditableWrapper: FC<{
   sectionName: string;
   isImage?: boolean;
 }> = ({ children, sectionId, data, sectionName, isImage = false }) => {
+  const { user } = useSelector((state: any) => state.auth);
+
   const [editing, setEditing] = useState({ edit: false, close: false });
   const [loading, setLoading] = useState(false);
   const startEditing = () => {
@@ -55,23 +59,16 @@ const EditableWrapper: FC<{
     object[lastObj || 0] = element?.innerHTML;
 
     try {
-      await axiosInstance.patch(
-        `/content/${data.id}`,
-        {
-          content: { ...data.content },
-        },
-        {
-          headers: {
-            token:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEwZWNlNWRiLWNkMTQtNGYyMS04MTJmLTk2NjYzM2U3YmU4NiIsImZpcnN0TmFtZSI6IkFsbGlhbmNlIiwibGFzdE5hbWUiOiJTdXBlckFkbWluIiwicGhvbmUiOiIrMSAoOTE3KSA1ODUtMzE4MSIsImVtYWlsIjoic3VwZXJhZG1pbkBhbGxpYW5jZWRldmVsb3BtZW50LmNvbSIsInJvbGVJZCI6MSwiY3JlYXRlZEF0IjoiMjAyMi0wMS0zMFQxMjozODoxOC4zMjZaIiwidXBkYXRlZEF0IjoiMjAyMi0wMS0zMFQxMjozODoxOC4zMjZaIiwicGFzc3dvcmQiOiIkMmEkMTAkR1dkVGRjcnF5Z0RleURaR21SSnpwZTg1d2hrck5YMXdpL2tJYmhTeFpPeGpnMUhWZ0NnZlMiLCJyb2xlIjp7Im5hbWUiOiJzdXBlcmFkbWluIn0sImFkbWluQXBwcyI6W10sImlhdCI6MTY0NDY3NzU3NywiZXhwIjoxNjQ0NzYzOTc3fQ.YVyQOC89trFsSYQ3I1HNIp9ztl-70mgXTbRn-a1Yjts',
-          },
-        }
-      );
+      await axiosInstance.patch(`/content/${data.id}`, {
+        content: { ...data.content },
+      });
     } catch (err) {}
 
     setEditing({ edit: false, close: false });
     setLoading(false);
   };
+
+  if (!user) return children;
 
   return (
     <Box position="relative">
@@ -92,15 +89,17 @@ const EditableWrapper: FC<{
               width: '20px',
               fontWeight: 300,
             }}
+            color="#000"
             icon={faCheck as IconProp}
           />
         )}
-        <FontAwesomeIcon
-          style={{
-            width: '20px',
-          }}
-          icon={faXRay as IconProp}
+
+        <img
+          src="/close.png"
+          alt="Close"
+          style={{ width: '10px', height: '10px' }}
         />
+
         {loading && <Image src={loader} alt="loader" width={30} height={30} />}
       </Flex>
 
