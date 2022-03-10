@@ -1,10 +1,12 @@
-import { render } from '@testing-library/react';
+import { renderWithStore } from 'utils/testUtils';
 import { staticContentData } from '__mockData__/content';
+import initialState from '__mockData__/storeData';
 import InfoSec from '.';
 
 it('renders MainContent component', () => {
-  const { container } = render(
-    <InfoSec info={staticContentData.props.pageContent.info} />
+  const { container } = renderWithStore(
+    <InfoSec info={staticContentData.props.pageContent.info} />,
+    { initialState }
   );
   expect(container).toMatchSnapshot();
 });
