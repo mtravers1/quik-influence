@@ -9,6 +9,7 @@ import {
   UPDATE_CAMPAIGN,
   ARCHIVE_CAMPAIGN,
   GET_CAMPAIGN_LEADS,
+  FIRST_TEN_CAMPAIGNS,
 } from '../actionTypes';
 
 export const loading = () => async (dispatch: DispatchWithPayload) => {
@@ -79,6 +80,24 @@ export const getCampaigns =
       dispatch(doneloading());
     }
   };
+
+export const getFirst10Campaigns = () => async (dispatch: any) => {
+  const response = await axiosInstance.get(
+    `/users/campaigns?page=${1}&pageSize=${10}`
+  );
+
+  console.log(response.data.data.rows);
+
+  const campaigns = response.data.data.rows?.map((data: any) => ({
+    name: data.name,
+    path: `/campaign/${data.id}`,
+  }));
+
+  dispatch({
+    type: FIRST_TEN_CAMPAIGNS,
+    payload: campaigns,
+  });
+};
 
 export const getCampaignLeads =
   (campaignId: any, page: string) => async (dispatch: any) => {

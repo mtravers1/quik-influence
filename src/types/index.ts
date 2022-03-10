@@ -28,7 +28,7 @@ export interface FilterItemProps {
 }
 
 export interface FilterDataProps {
-  page?: string;
+  page?: any;
   pageSize?: number;
   sort?: string;
 }
