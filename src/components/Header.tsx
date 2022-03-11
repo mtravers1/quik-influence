@@ -22,19 +22,20 @@ import quikColorConstants from 'utils/constants/colorConstants';
 import DarkModeSwitch from './DarkModeSwitch';
 import theme from '../styles/theme';
 import { css } from '@emotion/react';
-import { logout as removeLocalstorageToken } from 'utils/helpers';
+import { getUser, logout as removeLocalstorageToken } from 'utils/helpers';
 import { logout } from 'redux/actions/auth';
 import { useRouter } from 'next/router';
 
-import { authSelectors } from 'redux/selectors';
-import { useSelector } from 'react-redux';
 interface HeaderProps extends FlexProps {}
 
 const Header = ({ ...rest }: HeaderProps) => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
-  const { admin } = useSelector(authSelectors.getUser);
+  const { admin } = getUser();
+
+  if (!admin) window.location.href = '/login';
+
   return (
     <Flex
       as="nav"
@@ -117,7 +118,7 @@ const Header = ({ ...rest }: HeaderProps) => {
             <MenuItem
               onClick={() => {
                 logout();
-                removeLocalstorageToken(router);
+                removeLocalstorageToken();
               }}
             >
               Log out
