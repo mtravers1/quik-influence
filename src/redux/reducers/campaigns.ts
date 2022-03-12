@@ -6,10 +6,12 @@ import {
   GET_SINGLE_CAMPAIGN,
   UPDATE_CAMPAIGN,
   ARCHIVE_CAMPAIGN,
+  SET_SMS_CAMPAIGN
 } from 'redux/actionTypes';
 
 export const initialState = {
   campaigns: null,
+  SMSCampaign: null,
   loading: true,
 };
 
@@ -35,6 +37,11 @@ const campaigns = (
       return {
         ...state,
         currentCampaign: action.payload,
+      };
+    case SET_SMS_CAMPAIGN:
+      return {
+        ...state,
+        SMSCampaign: action.payload,
       };
     case UPDATE_CAMPAIGN:
       return {

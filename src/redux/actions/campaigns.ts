@@ -8,6 +8,7 @@ import {
   GET_SINGLE_CAMPAIGN,
   UPDATE_CAMPAIGN,
   ARCHIVE_CAMPAIGN,
+  SET_SMS_CAMPAIGN,
 } from '../actionTypes';
 
 export const loading = () => async (dispatch: DispatchWithPayload) => {
@@ -93,5 +94,13 @@ export const archiveCampaign = (campaignId: any) => async (dispatch: any) => {
   dispatch({
     type: ARCHIVE_CAMPAIGN,
     payload: campaignId,
+  });
+};
+
+export const setSMSCampaign = (campaign: any) => async (dispatch: any) => {
+
+  dispatch({
+    type: SET_SMS_CAMPAIGN,
+    payload: campaign,
   });
 };
