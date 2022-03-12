@@ -4,6 +4,7 @@ const client = require('twilio')(
     process.env.TWILIO_ACCOUNT_SID,
     process.env.TWILIO_AUTH_TOKEN
 );
+const service = client.notify.services(process.env.TWILIO_NOTIFY_SERVICE_SID);
 
 export default async function handler(
     req: NextApiRequest,
@@ -11,7 +12,7 @@ export default async function handler(
 ) {
     if (req.method === 'POST') {
 
-        const to: string = req.body.to
+        const to: string[] = req.body.to
         const body: string = req.body.body
 
         try {
@@ -26,11 +27,28 @@ export default async function handler(
                 throw new Error('SMS body was not passed.')
             }
 
-            await client.messages
+            // New Approach: To send SMS to almost 10,000 numbers, the binding approach below work well.
+            // See here: https://www.twilio.com/blog/2017/12/send-bulk-sms-twilio-node-js.html
+
+            const bindings = to.map(number => {
+                return JSON.stringify({ binding_type: 'sms', address: number });
+            });
+
+            // Prev Approach: The below approach works for pretty small number - 100 or so
+            // await Promise.all(
+            //     to.map(number => {
+            //         return client.messages.create({
+            //             to: number,
+            //             from: process.env.TWILIO_MESSAGING_SERVICE_SID,
+            //             body: body
+            //         });
+            //     })
+            // )
+
+            await service.notifications
                 .create({
-                    from: process.env.TWILIO_PHONE_NUMBER,
-                    to: req.body.to,
-                    body: req.body.body
+                    toBinding: bindings,
+                    body: body
                 })
 
             res.status(200).json({ status: 'success', sent: true })
