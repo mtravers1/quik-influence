@@ -11,7 +11,7 @@ export default async function handler(
     if (req.method === 'POST') {
 
         const subject: string = req.body.subject
-        const to: string = req.body.to
+        const to: string[] = req.body.to
         const body: string = req.body.body
 
         try {
@@ -37,7 +37,7 @@ export default async function handler(
             }
 
             await sgMail
-                .send(msg)
+                .sendMultiple(msg)
 
             res.status(200).json({ status: 'success', sent: true })
         } catch (err) {
