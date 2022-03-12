@@ -71,7 +71,7 @@ const CampaignsOverview = () => {
                   _hover={{
                     bg: quikColorConstants.grey,
                   }}
-                  onClick={() => handleCreateCampaign(campaignCreation.name)}
+                  onClick={() => handleCreateCampaign(campaignCreation.label)}
                 >
                   <FontAwesomeIcon
                     icon={campaignCreation.icon as IconProp}

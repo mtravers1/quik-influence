@@ -6,10 +6,10 @@ import {
   Box,
   Flex,
   Heading,
-  useColorMode
+  useColorMode,
+  Image
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Image from "next/image";
 import { bgThemeColor } from "utils/constants/colorConstants";
 import LeadsForm from "components/Leads/LeadsForm";
 import { useRouter } from "next/router";
@@ -68,27 +68,35 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
   return (
     <Box as="section" bgColor={bgThemeColor[colorMode]}>
       <Box as="section">
-        <Flex height="100vh">
+        <Flex height={["unset", "100vh"]} direction={["column", "row"]}>
           <Box
-            width="55%"
+            width={["100%", "55%"]}
+            maxHeight={["50%", "100%"]}
             position="relative"
-            display={["none", "block"]}
+            display={["block"]}
             as="div"
           >
             <Image
               src={data?.banner || ""}
-              alt="Get exclusive content of Baby Dream"
-              layout="fill"
+              alt={data?.name || ""}
+              width={["100%"]}
+              height={["100%"]}
               objectFit="cover"
             />
           </Box>
-          <Box py={10} width={["100%", "45%"]} overflowY="scroll">
+          <Box
+            zIndex={2}
+            bgColor={bgThemeColor[colorMode]}
+            py={[0, 10]}
+            width={["100%", "45%"]}
+            overflowY="scroll"
+          >
             <Flex
               justifyContent="center"
-              alignItems={["unset", "center"]}
-              p={6}
-              pt={["10rem", "0"]}
-              height={showSuccessMessage ? '-webkit-fill-available' : 'unset'}
+              alignItems="center"
+              p={[6]}
+              pt={["1rem", "0"]}
+              height={showSuccessMessage ? "-webkit-fill-available" : "unset"}
             >
               {showSuccessMessage ? (
                 <Alert
@@ -111,7 +119,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                 </Alert>
               ) : (
                 <Box maxW="440px">
-                  <Heading py={8} fontFamily="montserrat">
+                  <Heading textAlign="center" py={8} fontFamily="montserrat">
                     {data?.name}
                   </Heading>
                   <LeadsForm

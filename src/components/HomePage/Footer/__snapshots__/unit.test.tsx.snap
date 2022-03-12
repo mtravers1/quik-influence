@@ -18,24 +18,13 @@ exports[`renders MainContent component 1`] = `
             class="css-79elbk"
           >
             <div
-              class="css-1lx80g1"
+              class="css-g90ssd"
             >
-              <svg
-                aria-hidden="true"
-                class="svg-inline--fa fa-x-ray "
-                data-icon="x-ray"
-                data-prefix="fas"
-                focusable="false"
-                role="img"
-                style="width: 20px;"
-                viewBox="0 0 640 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
-                  fill="currentColor"
-                />
-              </svg>
+              <img
+                alt="Close"
+                src="/close.png"
+                style="width: 10px; height: 10px;"
+              />
             </div>
             <h3
               class="css-1a96edy"
@@ -50,24 +39,13 @@ exports[`renders MainContent component 1`] = `
             class="css-79elbk"
           >
             <div
-              class="css-1lx80g1"
+              class="css-g90ssd"
             >
-              <svg
-                aria-hidden="true"
-                class="svg-inline--fa fa-x-ray "
-                data-icon="x-ray"
-                data-prefix="fas"
-                focusable="false"
-                role="img"
-                style="width: 20px;"
-                viewBox="0 0 640 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
-                  fill="currentColor"
-                />
-              </svg>
+              <img
+                alt="Close"
+                src="/close.png"
+                style="width: 10px; height: 10px;"
+              />
             </div>
             <h1
               class="css-1lx5veh"
@@ -82,24 +60,13 @@ exports[`renders MainContent component 1`] = `
             class="css-79elbk"
           >
             <div
-              class="css-1lx80g1"
+              class="css-g90ssd"
             >
-              <svg
-                aria-hidden="true"
-                class="svg-inline--fa fa-x-ray "
-                data-icon="x-ray"
-                data-prefix="fas"
-                focusable="false"
-                role="img"
-                style="width: 20px;"
-                viewBox="0 0 640 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M240 384c-8.8 0-16 7.2-16 16s7.2 16 16 16 16-7.2 16-16-7.2-16-16-16zm160 32c8.8 0 16-7.2 16-16s-7.2-16-16-16-16 7.2-16 16 7.2 16 16 16zM624 0H16C7.2 0 0 7.2 0 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16V16c0-8.8-7.2-16-16-16zm0 448h-48V96H64v352H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h608c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM480 248c0 4.4-3.6 8-8 8H336v32h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h64c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48v-16h-64v16c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48h64v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-32H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h136v-32H200c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h104v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h104c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H336v32h136c4.4 0 8 3.6 8 8v16z"
-                  fill="currentColor"
-                />
-              </svg>
+              <img
+                alt="Close"
+                src="/close.png"
+                style="width: 10px; height: 10px;"
+              />
             </div>
             <p
               class="css-1dombsd"
@@ -124,16 +91,20 @@ exports[`renders MainContent component 1`] = `
               <div
                 class="css-79elbk"
               >
-                <input
-                  aria-required="true"
-                  class="chakra-input css-1h61lp8"
-                  datatest-id="test-phone"
-                  id="field-1"
-                  name="phone"
-                  placeholder="Phone Number"
-                  required=""
-                  value=""
-                />
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    aria-required="true"
+                    class="chakra-input css-1h61lp8"
+                    datatest-id="test-phone"
+                    id="field-1"
+                    name="phone"
+                    placeholder="Phone Number"
+                    required=""
+                    value=""
+                  />
+                </div>
                 <svg
                   aria-hidden="true"
                   class="svg-inline--fa fa-phone "
@@ -161,14 +132,18 @@ exports[`renders MainContent component 1`] = `
               <div
                 class="css-79elbk"
               >
-                <input
-                  class="chakra-input css-1h61lp8"
-                  datatest-id="test-isInfluencer"
-                  id="field-2"
-                  name="isInfluencer"
-                  placeholder="Are You an Influencer"
-                  value=""
-                />
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    class="chakra-input css-1h61lp8"
+                    datatest-id="test-isInfluencer"
+                    id="field-2"
+                    name="isInfluencer"
+                    placeholder="Are You an Influencer"
+                    value=""
+                  />
+                </div>
                 <svg
                   aria-hidden="true"
                   class="svg-inline--fa fa-phone "
@@ -196,16 +171,20 @@ exports[`renders MainContent component 1`] = `
               <div
                 class="css-79elbk"
               >
-                <input
-                  aria-required="true"
-                  class="chakra-input css-1h61lp8"
-                  datatest-id="test-name"
-                  id="field-3"
-                  name="name"
-                  placeholder="Your Name"
-                  required=""
-                  value=""
-                />
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    aria-required="true"
+                    class="chakra-input css-1h61lp8"
+                    datatest-id="test-name"
+                    id="field-3"
+                    name="name"
+                    placeholder="Your Name"
+                    required=""
+                    value=""
+                  />
+                </div>
                 <svg
                   aria-hidden="true"
                   class="svg-inline--fa fa-user "
@@ -233,16 +212,20 @@ exports[`renders MainContent component 1`] = `
               <div
                 class="css-79elbk"
               >
-                <input
-                  aria-required="true"
-                  class="chakra-input css-1h61lp8"
-                  datatest-id="test-company"
-                  id="field-4"
-                  name="company"
-                  placeholder="Company Name"
-                  required=""
-                  value=""
-                />
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    aria-required="true"
+                    class="chakra-input css-1h61lp8"
+                    datatest-id="test-company"
+                    id="field-4"
+                    name="company"
+                    placeholder="Company Name"
+                    required=""
+                    value=""
+                  />
+                </div>
                 <svg
                   aria-hidden="true"
                   class="svg-inline--fa fa-user "
@@ -270,16 +253,20 @@ exports[`renders MainContent component 1`] = `
               <div
                 class="css-79elbk"
               >
-                <input
-                  aria-required="true"
-                  class="chakra-input css-1h61lp8"
-                  datatest-id="test-email"
-                  id="field-5"
-                  name="email"
-                  placeholder="Your Email Address"
-                  required=""
-                  value=""
-                />
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    aria-required="true"
+                    class="chakra-input css-1h61lp8"
+                    datatest-id="test-email"
+                    id="field-5"
+                    name="email"
+                    placeholder="Your Email Address"
+                    required=""
+                    value=""
+                  />
+                </div>
                 <svg
                   aria-hidden="true"
                   class="svg-inline--fa fa-mail-bulk "
@@ -307,14 +294,18 @@ exports[`renders MainContent component 1`] = `
               <div
                 class="css-79elbk"
               >
-                <input
-                  class="chakra-input css-1h61lp8"
-                  datatest-id="test-industry"
-                  id="field-6"
-                  name="industry"
-                  placeholder="Industry"
-                  value=""
-                />
+                <div
+                  class="css-79elbk"
+                >
+                  <input
+                    class="chakra-input css-1h61lp8"
+                    datatest-id="test-industry"
+                    id="field-6"
+                    name="industry"
+                    placeholder="Industry"
+                    value=""
+                  />
+                </div>
                 <svg
                   aria-hidden="true"
                   class="svg-inline--fa fa-mail-bulk "

@@ -99,7 +99,7 @@ const InfoSec = ({ info }: { info: any }) => {
         </Flex>
 
         <EditableWrapper sectionId="footer" data={info} sectionName="info">
-          <Box as="p" fontSize={14} fontWeight="500">
+          <Box as="p" fontSize={14} fontWeight="500" color="#333">
             {info.content.footer}
           </Box>
         </EditableWrapper>

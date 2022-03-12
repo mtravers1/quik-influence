@@ -1,7 +1,11 @@
-import { render } from '@testing-library/react';
+import { renderWithStore } from 'utils/testUtils';
+import initialState from '__mockData__/storeData';
 import SideBarMenu from './SideBarMenu';
 
 it('renders SideBarMenu component', () => {
-  const { container } = render(<SideBarMenu colorMode="dark" open={true} />);
+  const { container } = renderWithStore(
+    <SideBarMenu colorMode="dark" open={true} />,
+    { initialState }
+  );
   expect(container).toMatchSnapshot();
 });

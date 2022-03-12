@@ -36,7 +36,7 @@ export const cardThemeColor: Q = {
 };
 
 export const basicTheme: Q = { light: '#fff', dark: 'gray.800' };
-export const basicTextTheme: Q = { light: '#333', dark: 'gray.800' };
+export const basicTextTheme: Q = { light: '#333', dark: '#FFF' };
 export const basicDarkTextTheme: Q = { light: '#000', dark: '#fff' };
 
 export const FilterTextTheme: Q = {
@@ -49,6 +49,7 @@ export const FilterHeaderTheme: Q = {
   dark: '#fff',
 };
 
-export const tableBorderTheme: Q = { light: '#707070', dark: '#fff' };
+export const tableBorderTheme: Q = { light: 'gray.700', dark: 'gray.300' };
+export const tableTextTheme: Q = { light: 'gray.700', dark: '#gray.300' };
 
 export default quikColorConstants;

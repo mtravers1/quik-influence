@@ -1,5 +1,5 @@
 import { CLOSED, DIRECT, DRIP, OPEN, PAID, SCHEDULED, UNPAID } from '../formConstants';
-import { FREE_TEXT_REGEX, NUMBER_REGEX } from '../regexConstants';
+import { FREE_TEXT_REGEX, NUMBER_REGEX, URL_REGEX } from '../regexConstants';
 
 export default [
   {
@@ -124,8 +124,8 @@ export default [
     type: 'multi-select',
     options: [
         { label: 'Instagram Handle', value: 'instagramId' },
-        { label: 'Tiktok Handle', value: 'tikTokHandle' },
-        { label: 'Facebook Handle', value: 'faceBookprofile' },
+        { label: 'Tiktok Handle', value: 'tiktokHandle' },
+        { label: 'Facebook Handle', value: 'facebookHandle' },
         { label: 'Twitter Handle', value: 'twitterHandle' },
     ],
     pattern: FREE_TEXT_REGEX,
@@ -135,10 +135,10 @@ export default [
   {
     name: 'redirectUrl',
     label: 'Redirect Url',
-    errorMessage: 'enter the redirect URL',
+    errorMessage: 'Enter a valid URL e.g: http://test.com/something',
     required: true,
     type: 'text',
-    pattern: FREE_TEXT_REGEX,
+    pattern: URL_REGEX,
   }, 
   {
     name: 'banner',

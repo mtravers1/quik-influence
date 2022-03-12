@@ -1,11 +1,13 @@
-import { render } from '@testing-library/react';
+import { renderWithStore } from 'utils/testUtils';
+import initialState from '__mockData__/storeData';
 import MainContent from '.';
 
 it('renders MainContent component', () => {
-  const { container } = render(
+  const { container } = renderWithStore(
     <MainContent>
       <>hello world</>
-    </MainContent>
+    </MainContent>,
+    { initialState }
   );
   expect(container).toMatchSnapshot();
 });

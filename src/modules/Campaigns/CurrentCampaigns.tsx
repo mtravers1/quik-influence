@@ -1,7 +1,6 @@
 import {
   Flex,
   Heading,
-  useColorMode,
   Text,
 } from "@chakra-ui/react";
 import DropdownSelect from "components/DropdownSelect";
@@ -27,8 +26,10 @@ const CurrentCampaigns = () => {
             Sort By:
           </Text>
           <DropdownSelect
+            size="lg"
             options={sortOptions}
             onChange={handleSortChange}
+            selected=""
             selectProps={{
               border: 0,
               width: "10rem",
@@ -41,7 +42,7 @@ const CurrentCampaigns = () => {
             Total:
           </Text>
           {campaigns?.campaigns?.length && (
-            <Text my="auto"> {`${campaigns.campaigns.length} Campaings`}</Text>
+            <Text my="auto"> {`${campaigns.campaigns.length} Campaign(s)`}</Text>
           )}
         </Flex>
       </Flex>
