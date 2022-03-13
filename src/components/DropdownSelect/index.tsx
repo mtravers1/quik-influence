@@ -90,6 +90,7 @@ const DropdownSelect = ({
               data-testid="select-option"
               key={option.value}
               value={option.value}
+              
             >
               {option.label}
             </option>

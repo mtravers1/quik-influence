@@ -4,6 +4,7 @@ import {
   Accordion,
   useColorMode,
   AccordionItem,
+  Text
 } from '@chakra-ui/react';
 import quikColorConstants, {
   basicTheme,
@@ -15,14 +16,90 @@ import filterOptionsWithSelectConstants from 'components/Filter/filterOptionsWit
 import FilterOptionWithSelect from 'components/Filter/FilterOptionWithSelect';
 import CustomButton from 'components/Button';
 import Input from 'components/Input/TextInput';
+import { TextInput } from "components/Input";
+import { faCross, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { ChangeEvent, useEffect, useState } from 'react';
+import DropdownSelect from 'components/DropdownSelect';
+import { allFilters } from './filters';
+import { FILTER_SEARCH_TYPE } from './constants';
+import { FilterValueType, SelectedFilterType } from './types';
+
+
+const FilterValue = ({ selectedFilter, handleFilterValueChange, filterIndex } : FilterValueType) => {
+
+  if (selectedFilter.type === FILTER_SEARCH_TYPE.OPTIONS_SEARCH) {
+    return (
+      <DropdownSelect
+        onChange={(e) => handleFilterValueChange(e, selectedFilter, filterIndex)}
+        options={selectedFilter.options}
+        placeholder="Filter"
+        selected=""
+      />
+
+    )
+  }
+  return (
+    <TextInput
+      name={selectedFilter.name}
+      handleChange={(e) => handleFilterValueChange(e, selectedFilter, filterIndex)}
+      type={selectedFilter.type === FILTER_SEARCH_TYPE.FULL_TEXT_SEARCH || selectedFilter.type === FILTER_SEARCH_TYPE.FUZZY_TEXT_SEARCH ? 'text' : 'number'}
+      placeholder={selectedFilter.name}
+      value={selectedFilter.value}
+      TextInputProps={{
+        padding: "0.4rem",
+        fontSize: ""
+      }}
+    />
+  )
+}
+
 
 const LeadsPageFilters = () => {
   const { colorMode } = useColorMode();
-  const { handleChange, handleClick, filters } = usePanelFilters({
-    search: '',
-    status: [],
-  });
- 
+
+  const emptyFilter: SelectedFilterType = {
+    type: '',
+    options: [],
+    name: '',
+    value: '',
+    key: '',
+    id: ''
+  }
+
+
+  const [showAddFilter, setShowAddFilter] = useState(true)
+  const [selectedFilters, setSelectedFilters] = useState([emptyFilter])
+
+  const getFilterOptions = () => {
+    return allFilters.map(filter => ({
+      label: filter.name,
+      value: filter.id,
+    }))
+  }
+  const addFilter = () => {
+    setSelectedFilters(filters => [...filters, emptyFilter])
+  }
+
+  const handleFilterKeyChange = (e: any, id: number) => {
+    const selectedFilterObject: any = allFilters.find(val => val.id === e.target.value)
+    if (!selectedFilterObject) return
+    selectedFilterObject.value = ''
+    setSelectedFilters(selectedFilters => selectedFilters.map((filters, index) => index === id ? selectedFilterObject : filters))
+  }
+
+  const handleFilterValueChange = (e: ChangeEvent, selectedFilter: SelectedFilterType, filterIndex: number) => {
+    const target =  e.target as HTMLInputElement
+    const value = target.value
+    setSelectedFilters(_selectedFilter => _selectedFilter.map((filters, index) => index === filterIndex ? {...filters,value: value} : filters))
+  }
+
+
+  const removeFilter = (filterIndex: number) => {
+    setSelectedFilters(_selectedFilter => _selectedFilter.filter((filters, index) => index !== filterIndex))
+  }
 
   return (
     <Box width="350px">
@@ -43,66 +120,74 @@ const LeadsPageFilters = () => {
         >
           Filter
         </Box>
-        <Box as="span" color={quikColorConstants.influenceRed} fontWeight={500}>
+        <Box as="span" color={quikColorConstants.influenceRed} fontWeight={500} cursor="pointer" onClick={() => setSelectedFilters([emptyFilter])}>
           Clear
         </Box>
       </Flex>
 
       <Box bg={basicTheme[colorMode]} p="12px">
-        <Accordion allowMultiple defaultIndex={[0, 1]}>
-          <AccordionItem border="none">
-            {({ isExpanded }) => (
-              <RecentActivity
-                onChange={handleChange}
-                isExpanded={isExpanded}
-              />
-            )}
-          </AccordionItem>
 
-          <AccordionItem border="none" mt="30px">
-            {({ isExpanded }) => (
-              <>
-                <FilterOptionWithSelect
-                  onChange={handleChange}
-                  isExpanded={isExpanded}
-                  title={filterOptionsWithSelectConstants[0].name}
-                  // @ts-ignore
-                  selectOptions={filterOptionsWithSelectConstants[0].options}
-                  useTags={false}
+        {
+          selectedFilters.map((selectedFilter, index) =>
+            <Flex key={index} justifyContent="flex-start" width="full" my={6}>
+              <Box width="45%" pr={4}>
+                <DropdownSelect
+                  onChange={(e) => handleFilterKeyChange(e, index)}
+                  options={getFilterOptions()}
+                  placeholder="Filter"
+                  selected=""
                 />
-              </>
-            )}
-          </AccordionItem>
+              </Box>
 
-          <Input
-            name="lead"
-            placeholder="Lead"
-            type="text"
-            label="Search for"
-            labelProps={{
-              marginTop: '30px',
-              color: quikColorConstants.greyDark,
-              fontSize: '14px',
-            }}
-            value={filters.search}
-            handleChange={handleChange}
-          />
+              {
+                selectedFilter?.type &&
+                <>
+                  <Box width="45%" pr={2}>
+                    <FilterValue
+                      selectedFilter={selectedFilter}
+                      handleFilterValueChange={handleFilterValueChange}
+                      filterIndex={index}
+                    />
+                  </Box>
+                  <Box as="span" cursor="pointer" margin="auto" onClick={() => removeFilter(index)}>
+                    <FontAwesomeIcon icon={faTimes as IconProp}
+                      style={{ margin: "auto 5px" }} />
+                  </Box>
+                </>
+              }
 
-          <CustomButton
-            bgColor={
-              colorMode === 'light'
-                ? quikColorConstants.greyDarker
-                : quikColorConstants.influenceRed
-            }
-            marginTop="20px"
-            marginBottom="25px"
-          >
-            Search
-          </CustomButton>
-        </Accordion>
+            </Flex>)
+        }
+
+        <Box as="div" p={3} borderTop="1px solid #ededed" mt={8}>
+          <Box
+            onClick={addFilter}
+            as={showAddFilter ? "a" : 'p'}
+            cursor={showAddFilter ? "pointer" : "default"}
+            color={showAddFilter ? "rgb(44 110 203)" : "rgb(140 145 150)"} >
+            <FontAwesomeIcon icon={faPlus as IconProp}
+              style={{ margin: "auto 5px" }} />
+            Add Filter
+          </Box>
+        </Box>
+
+        <CustomButton
+          bgColor={
+            colorMode === 'light'
+              ? quikColorConstants.greyDarker
+              : quikColorConstants.influenceRed
+          }
+          marginTop="20px"
+          marginBottom="25px"
+        >
+          Apply Filter
+        </CustomButton>
       </Box>
     </Box>
   );
 };
+
+
+
 
 export default LeadsPageFilters;
