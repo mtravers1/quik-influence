@@ -8,6 +8,7 @@ import {
   GET_SINGLE_CAMPAIGN,
   UPDATE_CAMPAIGN,
   ARCHIVE_CAMPAIGN,
+  SET_SMS_CAMPAIGN,
   GET_CAMPAIGN_LEADS,
   FIRST_TEN_CAMPAIGNS,
 } from '../actionTypes';
@@ -57,29 +58,29 @@ export const getSingleCampaign =
 
 export const getCampaigns =
   (pageNumber = 1, pageSize = 10) =>
-  async (dispatch: any) => {
-    dispatch(loading());
+    async (dispatch: any) => {
+      dispatch(loading());
 
-    try {
-      const response = await axiosInstance.get(
-        `/users/campaigns?page=${pageNumber}&pageSize=${pageSize}`
-      );
-      const campaigns = response.data.data;
+      try {
+        const response = await axiosInstance.get(
+          `/users/campaigns?page=${pageNumber}&pageSize=${pageSize}`
+        );
+        const campaigns = response.data.data;
 
-      dispatch({
-        type: CAMPAIGNS,
-        payload: campaigns,
-      });
-    } catch (error) {
-      const errorMessage = errorParser(error);
-      dispatch({
-        type: CAMPAIGNS_ERROR,
-        payload: errorMessage,
-      });
-    } finally {
-      dispatch(doneloading());
-    }
-  };
+        dispatch({
+          type: CAMPAIGNS,
+          payload: campaigns,
+        });
+      } catch (error) {
+        const errorMessage = errorParser(error);
+        dispatch({
+          type: CAMPAIGNS_ERROR,
+          payload: errorMessage,
+        });
+      } finally {
+        dispatch(doneloading());
+      }
+    };
 
 export const getFirst10Campaigns = () => async (dispatch: any) => {
   const response = await axiosInstance.get(
@@ -145,5 +146,13 @@ export const archiveCampaign = (campaignId: any) => async (dispatch: any) => {
   dispatch({
     type: ARCHIVE_CAMPAIGN,
     payload: campaignId,
+  });
+};
+
+export const setSMSCampaign = (campaign: any) => async (dispatch: any) => {
+
+  dispatch({
+    type: SET_SMS_CAMPAIGN,
+    payload: campaign,
   });
 };
