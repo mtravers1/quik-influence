@@ -163,6 +163,7 @@ export default function Input({
   };
 
   const handleChange = (event: SyntheticEvent<EventTarget>) => {
+    event.preventDefault();
     const { name, value, type, checked } = event.target as HTMLInputElement;
     if (inputMap[name].validateSelf) {
       const newErrors = {

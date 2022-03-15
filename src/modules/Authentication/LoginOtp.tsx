@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent } from 'react';
+import { useState, SyntheticEvent, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { position, useToast } from '@chakra-ui/react';
@@ -82,7 +82,7 @@ const Login = () => {
   };
 
   return (
-    <form action="post">
+    <>
       <Box marginBottom="15px">
         {formdata.slice(0, showOtpInput ? 2 : 1).map((data, i) => (
           <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
@@ -139,7 +139,7 @@ const Login = () => {
           {loadingOtp && <Image src={loader} alt="" width={50} height={50} />}
         </CustomButton>
       )}
-    </form>
+    </>
   );
 };
 
