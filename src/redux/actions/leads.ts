@@ -27,7 +27,7 @@ export const getAllLeads =
     dispatch(leadsLoading());
 
     try {
-      const query = getQueryString({ ...params, pageSize: 20 });
+      const query = getQueryString({ ...params });
 
       const response = await axiosInstance.get(`/users/leads?${query}`);
       const {} = response.data.data;
