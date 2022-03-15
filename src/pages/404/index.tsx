@@ -1,10 +1,10 @@
 import { Center } from "@chakra-ui/react";
 import NextLink from "components/NextLink";
 import React from "react";
-import { get_user, parseJwt } from "utils/helpers";
+import { getUser } from "utils/helpers";
 
 const NotFoundPage = () => {
-  const user = get_user();
+  const user = getUser();
 
   return (
     <Center>
@@ -23,7 +23,7 @@ const NotFoundPage = () => {
                   <p>the page you are looking for not avaible!</p>
 
                   <NextLink
-                    href={user.token ? "/dashboard" : "/login"}
+                    href={user.token !== 'null' ? "/dashboard" : "/login"}
                     className="link_404"
                   >
                     Go to Home

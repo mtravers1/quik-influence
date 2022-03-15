@@ -10,27 +10,33 @@ import {
   Center,
   useColorMode
 } from "@chakra-ui/react";
+import queryString from "query-string";
 import { useRouter } from "next/router";
 import { basicTheme } from "utils/constants/colorConstants";
 import Pagination from "components/Pagination";
 import { getStyles } from "./css";
 import { getSocialHandleHeader } from "utils/helpers";
+import { DEFAULT_PAGE_SIZE } from "utils/constants";
 
 const LeadsPage = ({
   leads,
   pageType = "singleCampaign",
-  socialColumns = []
+  socialColumns = [],
+  pageSize = DEFAULT_PAGE_SIZE
 }: {
   leads: any;
   pageType?: string;
   socialColumns?: string[];
+  pageSize?: string;
 }) => {
   const { colorMode } = useColorMode();
   const router = useRouter();
   const style = getStyles(colorMode);
 
   const handleChange = (page: any) => {
-    router.push(`?page=${page}`);
+    const params = router.query;
+    params.page = page;
+    router.push(`?${queryString.stringify(params)}`);
   };
 
   const status = pageType === "allLeads" ? [] : ["status"];
@@ -47,11 +53,24 @@ const LeadsPage = ({
     ...status
   ];
 
+  const renderPagination = () => (
+    <Pagination
+      totalPages={leads?.meta.totalPages}
+      currentPage={leads?.meta.currentPage}
+      count={leads?.meta.count}
+      onChange={handleChange}
+      pageSize={pageSize}
+    />
+  );
+
   return (
     <Box>
-      <Box fontWeight="600" fontSize="24px">
-        Records / Leads
-      </Box>
+      <Flex width="full" alignItems="center" justify="space-between">
+        <Box fontWeight="600" fontSize="24px">
+          Records / Leads
+        </Box>
+        {renderPagination()}
+      </Flex>
 
       {!leads?.data?.length ? (
         <Center flexDir="column" minH="80vh" height="100%">
@@ -88,7 +107,7 @@ const LeadsPage = ({
               </Thead>
 
               <Tbody>
-                {leads.data.map((data: any, i: number) => (
+                {leads?.data.map((data: any, i: number) => (
                   <Tr key={`lead_data_${i}`}>
                     <Td whiteSpace="nowrap" textTransform="capitalize">
                       {data.firstName || "N/A"}
@@ -124,13 +143,7 @@ const LeadsPage = ({
           </Box>
         </Flex>
       )}
-
-      <Pagination
-        totalPages={leads.meta.totalPages}
-        currentPage={leads.meta.currentPage}
-        count={leads.meta.count}
-        onChange={handleChange}
-      />
+      {renderPagination()}
     </Box>
   );
 };
