@@ -17,11 +17,12 @@ const CampaignsLeads = () => {
   const page = router.query.page as string;
   const pageSize = (router.query.pageSize as string) || DEFAULT_PAGE_SIZE;
   const socialColumns = router.query.sc as string;
+  const sortBy = router.query.sortBy as string;
   const campaignsLeads = leads[campaignId];
 
   useEffect(() => {
-    dispatch(getCampaignLeads(campaignId, page, pageSize));
-  }, [page, pageSize]);
+    dispatch(getCampaignLeads(campaignId, page, pageSize, sortBy));
+  }, [page, pageSize, sortBy]);
 
   return loading ? (
     <MainContent>
