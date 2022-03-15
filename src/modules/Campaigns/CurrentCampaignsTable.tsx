@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useColorMode, createStandaloneToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import queryString from 'query-string';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   archiveCampaign,
@@ -36,10 +37,11 @@ const CurrentCampaignsTable = () => {
   const [pageNumber, setPageNumber] = useState(campaigns?.currentPage ?? 1);
 
   const page = router.query.page as string;
+  const pageSize = router.query.pageSize as string;
 
   useEffect(() => {
-    if (page === currentPage) dispatch(getCampaigns(pageNumber));
-  }, [pageNumber]);
+    if (page === currentPage) dispatch(getCampaigns(pageNumber, pageSize));
+  }, [pageNumber, pageSize]);
 
   useEffect(() => {
     if (!firstCampaigns) {
@@ -153,6 +155,7 @@ const CurrentCampaignsTable = () => {
         count={campaigns.count}
         totalPages={campaigns.totalPages}
         onChange={handlePaginate}
+        pageSize={pageSize}
       />
     </>
   );
