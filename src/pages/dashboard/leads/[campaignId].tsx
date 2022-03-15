@@ -9,27 +9,18 @@ import Leads from "modules/Leads";
 import { DEFAULT_PAGE_SIZE } from "utils/constants";
 
 const CampaignsLeads = () => {
-  const { leads } = useSelector((state: any) => state.campaigns);
+  const { leads, loading } = useSelector((state: any) => state.campaigns);
   const router = useRouter();
   const dispatch = useDispatch();
 
   const campaignId = router.query.campaignId as string;
   const page = router.query.page as string;
+  const pageSize = (router.query.pageSize as string) || DEFAULT_PAGE_SIZE;
   const socialColumns = router.query.sc as string;
-  const pageSize = router.query.pageSize as string || DEFAULT_PAGE_SIZE;
-
   const campaignsLeads = leads[campaignId];
-  const [loading, setLoading] = useState(!campaignsLeads);
-
-  const fetchCampaignsLeads = async () => {
-    setLoading(true);
-    dispatch(getCampaignLeads(campaignId, page, pageSize));
-    setLoading(false);
-  };
 
   useEffect(() => {
-    // if (page == leads?.meta?.currentPage) return;
-    fetchCampaignsLeads();
+    dispatch(getCampaignLeads(campaignId, page, pageSize));
   }, [page, pageSize]);
 
   return loading ? (

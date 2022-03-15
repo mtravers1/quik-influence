@@ -7,8 +7,6 @@ import {
   Td,
   Flex,
   Box,
-  Center,
-  Text
 } from "@chakra-ui/react";
 import DropdownSelect from "components/DropdownSelect";
 import React from "react";
@@ -116,7 +114,10 @@ const RenderCampaignsTable = ({
       {campaigns?.length === 0 && !loading && (
         <NoRecordsMessage
           message={
-            'No Records has been made <br /> Please click the "Create a New Campaign" button'
+            <>
+              No Records has been made <br /> Please click the "Create a New
+              Campaign" button
+            </>
           }
         />
       )}

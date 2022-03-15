@@ -14,6 +14,7 @@ type UploadImageProps = {
   handleChange: (event: any) => void;
   name: string;
   label: string;
+  labelProps?: any;
   error?: string;
   initialImage?: string;
   previewImage?: boolean;
@@ -22,6 +23,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
   handleChange,
   name,
   label,
+  labelProps,
   error,
   initialImage,
   previewImage = true,
@@ -82,6 +84,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
                 }
                 htmlFor="multiRangeSelector"
                 data-testid="textInput-label"
+                {...labelProps}
               >
                 {label}
               </FormLabel>

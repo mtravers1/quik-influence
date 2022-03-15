@@ -158,6 +158,23 @@ const theme = extendTheme({
     cssVarPrefix: 'quik',
   },
   components: {
+    Checkbox: {
+      variants: {
+        brand: {
+          control: {
+            h: '1rem',
+            w: '1.5rem',
+            borderRadius: '4px',
+            border: '1px solid',
+            borderColor: '#707070',
+            mr: '0.3rem',
+            _focus: {
+              boxShadow: 'none',
+            },
+          },
+        },
+      },
+    },
     Table: {
       variants: {
         creditsTransactionalTable: (props: any) => ({
@@ -172,6 +189,36 @@ const theme = extendTheme({
             ...creditsTransactionalTableBorder,
           },
         }),
+        leadTable: (props: any) => ({
+          table: { bgColor: mode('#F5F8F9', 'black.500')(props) },
+          tr: {
+            ...creditsTransactionalTableBorder,
+          },
+          td: {
+            padding: '.5rem',
+            fontSize: '1rem',
+            textAlign: 'center',
+          },
+        }),
+      },
+    },
+    Switch: {
+      variants: {
+        brand: {
+          thumb: {
+            bgColor: 'red',
+            _checked: {
+              transform: 'translateX(20px)',
+            },
+          },
+          track: {
+            bgColor: 'black',
+            width: '3.5rem',
+            _focus: {
+              boxShadow: 'none',
+            },
+          },
+        },
       },
     },
   },
