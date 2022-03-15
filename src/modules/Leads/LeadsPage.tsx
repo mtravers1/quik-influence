@@ -17,6 +17,9 @@ import Pagination from "components/Pagination";
 import { getStyles } from "./css";
 import { getSocialHandleHeader } from "utils/helpers";
 import { DEFAULT_PAGE_SIZE } from "utils/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const LeadsPage = ({
   leads,
@@ -38,6 +41,12 @@ const LeadsPage = ({
     params.page = page;
     router.push(`?${queryString.stringify(params)}`);
   };
+
+  const handleSortChange = (sortBy: string) => {
+    const params = router.query;
+    params.sortBy = sortBy;
+    router.push(`?${queryString.stringify(params)}`);
+  }
 
   const status = pageType === "allLeads" ? [] : ["status"];
   const sc: string[] = getSocialHandleHeader(socialColumns);
@@ -61,6 +70,15 @@ const LeadsPage = ({
       onChange={handleChange}
       pageSize={pageSize}
     />
+  );
+
+  const renderSortButton = () => (
+    <button type="button" onClick={() => handleSortChange('paymentStatus')}>
+      <FontAwesomeIcon
+        icon={faAngleDown as IconProp}
+        style={{ margin: "auto 10px" }}
+      />
+    </button>
   );
 
   return (
@@ -101,6 +119,8 @@ const LeadsPage = ({
                       whiteSpace="nowrap"
                     >
                       {th}
+
+                      {th === "status" && renderSortButton()}
                     </Th>
                   ))}
                 </Tr>
