@@ -22,13 +22,15 @@ interface PaginationProp {
   count: number;
   onChange: any;
   pageSize?: string;
+  showTotal?: boolean;
 }
 const Pagination = ({
   currentPage,
   totalPages,
   count,
   onChange,
-  pageSize = DEFAULT_PAGE_SIZE
+  pageSize = DEFAULT_PAGE_SIZE,
+  showTotal = true
 }: PaginationProp) => {
   const router = useRouter();
 
@@ -52,9 +54,14 @@ const Pagination = ({
 
   return (
     <Flex justifyContent="flex-end">
+      {showTotal && (
+        <Text mr={20} my="auto" color={quikColorConstants.greyLighter}>
+          Total Records: {count}
+        </Text>
+      )}
       {!!pageSize ? (
         <Flex>
-          <Text width="15rem" fontSize="10px" my="auto" color={quikColorConstants.greyLighter}>
+          <Text width="25rem" my="auto" color={quikColorConstants.greyLighter}>
             Change Page Size:
           </Text>
           <DropdownSelect
@@ -63,12 +70,12 @@ const Pagination = ({
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
               handlePageSizeChange(e.target.value)
             }
-            selected={router.query.pageSize as string || pageSize}
+            selected={(router.query.pageSize as string) || pageSize}
             selectProps={{
               border: 0,
               width: "10rem",
               fontSize: "xl",
-              marginTop: '1.5rem',
+              marginTop: "1.5rem"
             }}
           />
         </Flex>

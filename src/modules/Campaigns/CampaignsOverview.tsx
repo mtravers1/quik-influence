@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Flex,
   Heading,
@@ -9,20 +9,20 @@ import {
   ModalOverlay,
   Text,
   useColorMode,
-  useDisclosure,
-} from '@chakra-ui/react';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CustomButton from 'components/Button';
-import { useRouter } from 'next/router';
-import CurrentCampaigns from './CurrentCampaigns';
+  useDisclosure
+} from "@chakra-ui/react";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CustomButton from "components/Button";
+import { useRouter } from "next/router";
 import quikColorConstants, {
-  borderThemeColor,
-} from 'utils/constants/colorConstants';
-import { campaignCreations } from 'utils/constants/campaignCreationConstants';
+  borderThemeColor
+} from "utils/constants/colorConstants";
+import { campaignCreations } from "utils/constants/campaignCreationConstants";
+import CurrentCampaignsTable from "./CurrentCampaignsTable";
 
-type CampaignSendTypes = 'Email' | 'SMS' | 'Default';
+type CampaignSendTypes = "Email" | "SMS" | "Default";
 
 const CampaignsOverview = () => {
   const router = useRouter();
@@ -34,12 +34,12 @@ const CampaignsOverview = () => {
     onClose();
 
     switch (type) {
-      case 'SMS':
-        return router.push('/dashboard/campaigns/create/sms');
-      case 'Email':
-        return router.push('/dashboard/campaigns/create/email');
+      case "SMS":
+        return router.push("/dashboard/campaigns/create/sms");
+      case "Email":
+        return router.push("/dashboard/campaigns/create/email");
       default:
-        router.push('/dashboard/campaigns/create');
+        router.push("/dashboard/campaigns/create");
     }
   };
 
@@ -59,7 +59,7 @@ const CampaignsOverview = () => {
               <Heading>Create A New Campaign </Heading>
             </HStack>
             <HStack>
-              {campaignCreations.map(campaignCreation => (
+              {campaignCreations.map((campaignCreation) => (
                 <Flex
                   key={`capign_creation_${campaignCreation.name}`}
                   border={`1px solid ${quikColorConstants.influenceRedWithOpacity}`}
@@ -69,7 +69,7 @@ const CampaignsOverview = () => {
                   justifyContent="space-evenly"
                   alignItems="center"
                   _hover={{
-                    bg: quikColorConstants.grey,
+                    bg: quikColorConstants.grey
                   }}
                   onClick={() => handleCreateCampaign(campaignCreation.label)}
                 >
@@ -90,11 +90,14 @@ const CampaignsOverview = () => {
         <CustomButton width="25rem" my="12" onClick={onOpen}>
           <FontAwesomeIcon
             icon={faPlus as IconProp}
-            style={{ paddingRight: '1rem' }}
+            style={{ paddingRight: "1rem" }}
           />
           Create a New Campaign
         </CustomButton>
-        <CurrentCampaigns />
+
+        <Flex flexDirection="column" mt="12">
+          <CurrentCampaignsTable />
+        </Flex>
       </Flex>
     </>
   );

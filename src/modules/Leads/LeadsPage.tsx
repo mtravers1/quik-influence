@@ -10,7 +10,7 @@ import {
   Center,
   useColorMode
 } from "@chakra-ui/react";
-import queryString from 'query-string';
+import queryString from "query-string";
 import { useRouter } from "next/router";
 import { basicTheme } from "utils/constants/colorConstants";
 import Pagination from "components/Pagination";
@@ -22,7 +22,7 @@ const LeadsPage = ({
   leads,
   pageType = "singleCampaign",
   socialColumns = [],
-  pageSize = DEFAULT_PAGE_SIZE,
+  pageSize = DEFAULT_PAGE_SIZE
 }: {
   leads: any;
   pageType?: string;
@@ -53,11 +53,24 @@ const LeadsPage = ({
     ...status
   ];
 
+  const renderPagination = () => (
+    <Pagination
+      totalPages={leads?.meta.totalPages}
+      currentPage={leads?.meta.currentPage}
+      count={leads?.meta.count}
+      onChange={handleChange}
+      pageSize={pageSize}
+    />
+  );
+
   return (
     <Box>
-      <Box fontWeight="600" fontSize="24px">
-        Records / Leads
-      </Box>
+      <Flex width="full" alignItems="center" justify="space-between">
+        <Box fontWeight="600" fontSize="24px">
+          Records / Leads
+        </Box>
+        {renderPagination()}
+      </Flex>
 
       {!leads?.data?.length ? (
         <Center flexDir="column" minH="80vh" height="100%">
@@ -130,14 +143,7 @@ const LeadsPage = ({
           </Box>
         </Flex>
       )}
-
-      <Pagination
-        totalPages={leads?.meta.totalPages}
-        currentPage={leads?.meta.currentPage}
-        count={leads?.meta.count}
-        onChange={handleChange}
-        pageSize={leads?.meta.pageSize || pageSize}
-      />
+      {renderPagination()}
     </Box>
   );
 };
