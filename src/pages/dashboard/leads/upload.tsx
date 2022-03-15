@@ -1,5 +1,4 @@
-import { useEffect, useState, SyntheticEvent, useRef } from 'react';
-import axios from 'axios';
+import { useState, useRef } from 'react';
 import { Box } from '@chakra-ui/react';
 import MainContent from 'components/MainContent';
 import UploadTable from 'components/UploadTable';
@@ -8,28 +7,36 @@ const UploadNewLeads = () => {
   const [files, setFiles] = useState<any>([]);
   const inputRef = useRef<any>();
 
-  const handleChange = (e: SyntheticEvent) => {
-    const { files } = e?.target as HTMLInputElement;
-    setFiles(files);
-    inputRef.current.files = null;
+  const handleChange = (e: any) => {
+    const { files } = e?.target;
+
+    setFiles((prevFiles: any) => [...prevFiles, files[0]]);
+    inputRef.current.value = null;
   };
 
   return (
     <MainContent>
-      <Box>
+      <Box width="100%">
         <Box>
-          <label htmlFor="upload-btn">
-            Upload
+          <Box
+            as="label"
+            htmlFor="upload-btn"
+            style={{ cursor: 'pointer' }}
+            fontSize="16px"
+            padding="5px 10px"
+            border="1px solid #000"
+            borderRadius="5px"
+          >
+            Choose a File
             <input
               ref={inputRef}
               id="upload-btn"
               type="file"
-              multiple
-              accept=".csv,.xlsx"
+              accept=".csv"
               style={{ display: 'none' }}
               onChange={handleChange}
             />
-          </label>
+          </Box>
         </Box>
 
         {[...files].map((file: any, i: number) => (
@@ -39,7 +46,5 @@ const UploadNewLeads = () => {
     </MainContent>
   );
 };
-
-const Progress = () => {};
 
 export default UploadNewLeads;

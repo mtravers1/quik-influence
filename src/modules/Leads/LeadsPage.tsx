@@ -8,24 +8,24 @@ import {
   Box,
   Flex,
   Center,
-  useColorMode
-} from "@chakra-ui/react";
-import queryString from "query-string";
-import { useRouter } from "next/router";
-import { basicTheme } from "utils/constants/colorConstants";
-import Pagination from "components/Pagination";
-import { getStyles } from "./css";
-import { getSocialHandleHeader } from "utils/helpers";
-import { DEFAULT_PAGE_SIZE } from "utils/constants";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+  useColorMode,
+} from '@chakra-ui/react';
+import queryString from 'query-string';
+import { useRouter } from 'next/router';
+import { basicTheme } from 'utils/constants/colorConstants';
+import Pagination from 'components/Pagination';
+import { getStyles } from './css';
+import { getSocialHandleHeader } from 'utils/helpers';
+import { DEFAULT_PAGE_SIZE } from 'utils/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const LeadsPage = ({
   leads,
-  pageType = "singleCampaign",
+  pageType = 'singleCampaign',
   socialColumns = [],
-  pageSize = DEFAULT_PAGE_SIZE
+  pageSize = DEFAULT_PAGE_SIZE,
 }: {
   leads: any;
   pageType?: string;
@@ -46,20 +46,20 @@ const LeadsPage = ({
     const params = router.query;
     params.sortBy = sortBy;
     router.push(`?${queryString.stringify(params)}`);
-  }
+  };
 
-  const status = pageType === "allLeads" ? [] : ["status"];
+  const status = pageType === 'allLeads' ? [] : ['status'];
   const sc: string[] = getSocialHandleHeader(socialColumns);
 
   const tableHeader = [
-    "First Name",
-    "Last Name",
-    "Email",
-    "Phone",
-    "Gender",
-    "City|State|Zip Code",
+    'First Name',
+    'Last Name',
+    'Email',
+    'Phone',
+    'Gender',
+    'City|State|Zip Code',
     ...sc,
-    ...status
+    ...status,
   ];
 
   const renderPagination = () => (
@@ -76,7 +76,7 @@ const LeadsPage = ({
     <button type="button" onClick={() => handleSortChange('paymentStatus')}>
       <FontAwesomeIcon
         icon={faAngleDown as IconProp}
-        style={{ margin: "auto 10px" }}
+        style={{ margin: 'auto 10px' }}
       />
     </button>
   );
@@ -96,7 +96,7 @@ const LeadsPage = ({
             You don't have any Leads yet
           </Box>
           <Box fontSize="18px">
-            Copy your link from the campaign lists amd share with your users
+            Copy your link from the campaign lists and share with your users
           </Box>
         </Center>
       ) : (
@@ -120,7 +120,7 @@ const LeadsPage = ({
                     >
                       {th}
 
-                      {th === "status" && renderSortButton()}
+                      {th === 'status' && renderSortButton()}
                     </Th>
                   ))}
                 </Tr>
@@ -130,28 +130,28 @@ const LeadsPage = ({
                 {leads?.data.map((data: any, i: number) => (
                   <Tr key={`lead_data_${i}`}>
                     <Td whiteSpace="nowrap" textTransform="capitalize">
-                      {data.firstName || "N/A"}
+                      {data.firstName || 'N/A'}
                     </Td>
                     <Td whiteSpace="nowrap" textTransform="capitalize">
-                      {data.lastName || "N/A"}
+                      {data.lastName || 'N/A'}
                     </Td>
-                    <Td whiteSpace="nowrap">{data.email || "N/A"}</Td>
+                    <Td whiteSpace="nowrap">{data.email || 'N/A'}</Td>
                     <Td>{data.phone}</Td>
-                    <Td textTransform="capitalize">{data.gender || "N/A"}</Td>
+                    <Td textTransform="capitalize">{data.gender || 'N/A'}</Td>
                     {/* <Td>
                       {(data.dateOfBirth &&
                         format(new Date(data.dateOfBirth), "yyyy-mm-dd")) ||
                         "N/A"}
                     </Td> */}
                     <Td textTransform="capitalize">
-                      {`${data.city || ""} ${data.state || ""} ${
-                        data.postalCode || ""
+                      {`${data.city || ''} ${data.state || ''} ${
+                        data.postalCode || ''
                       }`}
                     </Td>
                     {socialColumns.length >= 1 &&
                       !!socialColumns[0] &&
                       socialColumns?.map((s: string, j: number) => (
-                        <Td key={`social_${j}`}>{data[s] || "N/A"}</Td>
+                        <Td key={`social_${j}`}>{data[s] || 'N/A'}</Td>
                       ))}
                     {status.length > 0 && (
                       <Td>{data?.UserCampaigns?.at(0)?.paymentStatus}</Td>
