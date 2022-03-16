@@ -127,7 +127,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                   </Heading>
                   <LeadsForm
                     campaignId={query.campaignId as string}
-                    handleStripe={handleStripe}
+                    // handleStripe={handleStripe}
                     redirectUrl={data?.redirectUrl}
                     form={getFormFields(data?.formData?.form)}
                     paidType={data?.paidType}
