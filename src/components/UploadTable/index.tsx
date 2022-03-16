@@ -3,16 +3,26 @@ import { Table, Thead, Tbody, Tr, Th, Td, Box, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
 import useUpload from './useUpload';
 import ProgressBar from 'components/ProgressBar';
-import { FILE_STATUS, headers } from 'utils/constants';
+import { FILE_STATUS } from 'utils/constants';
 import { similarity } from 'utils/helpers';
 import DropdownSelect from 'components/DropdownSelect';
 import LoaderGif from 'assets/loader.gif';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import quikColorConstants from 'utils/constants/colorConstants';
 
-const UploadTable = ({ file }: { file: any }) => {
+const UploadTable = ({
+  file,
+  headers,
+  removeFile,
+  id,
+}: {
+  file: any;
+  headers: string[];
+  removeFile: any;
+  id: string;
+}) => {
   const {
     progress,
     status,
@@ -22,7 +32,8 @@ const UploadTable = ({ file }: { file: any }) => {
     matchedHeaders,
     setMatchedHeaders,
     processFileAndUpload,
-  } = useUpload(file);
+    fileHeaderError,
+  } = useUpload(file, headers);
 
   useEffect(() => {
     const matchHeaders = () =>
@@ -53,6 +64,10 @@ const UploadTable = ({ file }: { file: any }) => {
     });
   };
 
+  const deleteFile = () => {
+    removeFile(id);
+  };
+
   return (
     <Box width="100%">
       <Flex
@@ -72,19 +87,29 @@ const UploadTable = ({ file }: { file: any }) => {
             Data Sample
           </Box>
 
-          {status === FILE_STATUS.IDLE ||
-            (status === FILE_STATUS.PROCESSING && (
-              <button
-                style={{ padding: '0 10px' }}
-                onClick={processFileAndUpload}
-              >
-                <FontAwesomeIcon
-                  icon={faUpload as IconProp}
-                  fontSize={35}
-                  color={quikColorConstants.influenceRed}
-                />
-              </button>
-            ))}
+          {(status === FILE_STATUS.IDLE ||
+            status === FILE_STATUS.PROCESSING) && (
+            <button
+              style={{ padding: '0 10px' }}
+              onClick={processFileAndUpload}
+            >
+              <FontAwesomeIcon
+                icon={faUpload as IconProp}
+                fontSize={35}
+                color={quikColorConstants.influenceRed}
+              />
+            </button>
+          )}
+
+          {status !== FILE_STATUS.UPLOADING && (
+            <button style={{ padding: '0 10px' }} onClick={deleteFile}>
+              <FontAwesomeIcon
+                icon={faTrash as IconProp}
+                fontSize={35}
+                color={quikColorConstants.influenceRed}
+              />
+            </button>
+          )}
         </Flex>
 
         {status === FILE_STATUS.PROCESSING && (
@@ -130,54 +155,104 @@ const UploadTable = ({ file }: { file: any }) => {
         )}
       </Flex>
 
-      <Box overflow="scroll" width="100%" padding="10px 0">
-        <Table>
-          <Thead>
-            <Tr>
-              {parsedData?.headers?.map((data: any, i: number) => (
-                <Th
-                  fontSize="16px"
-                  textTransform="initial"
-                  fontFamily="Avenir"
-                  key={`lead_data_hd_${i}`}
-                  whiteSpace="nowrap"
-                  padding="10px 15px 10px 0"
-                >
-                  <DropdownSelect
-                    onChange={e => handleChange(e, i)}
-                    placeholder="choose header"
-                    name="header"
-                    options={headersMap}
-                    selected={matchedHeaders[i]}
-                  />
-                </Th>
-              ))}
-            </Tr>
-          </Thead>
+      {fileHeaderError && (
+        <>
+          <Box margin="30px 0 30px">
+            <Box marginBottom="5px" fontSize="16px">
+              The file uploaded doesn't comform to our standard table format
+            </Box>
+            <Box fontWeight="500" whiteSpace="pre-wrap">
+              The table headers are too many, your headers should not be more
+              than{' '}
+              <Box color="red" as="span">
+                {headers.length}
+              </Box>
+              {'\n'}
+              We will try to match your headers as closey as possible to our
+              own, and will give you a drop down to choose from our list of
+              headers
+            </Box>
+            <Box as="p" marginTop="20px">
+              Here is a sample Header
+            </Box>
+          </Box>
 
-          <Tbody>
-            {parsedData?.data?.map((dataArray: any, i: number) => (
-              <Tr key={`lead_data_tr_${i}`}>
-                {dataArray.map((data: any, j: any) => (
-                  <Td
-                    whiteSpace="nowrap"
-                    textTransform="capitalize"
-                    key={`lead_data_td_${i}${j}`}
-                    fontSize="13px"
-                    padding="10px 15px 10px 0"
-                  >
-                    {data}
-                  </Td>
+          <Box overflow="scroll" width="100%" padding="10px 0 10px">
+            <Table>
+              <Thead>
+                <Tr>
+                  {headers?.map((data: any, i: number) => (
+                    <Th
+                      fontSize="16px"
+                      textTransform="initial"
+                      fontFamily="Avenir"
+                      key={`lead_data_hd_${i}`}
+                      whiteSpace="nowrap"
+                      minWidth="200px"
+                      padding="10px 15px 10px 0"
+                    >
+                      {data}
+                    </Th>
+                  ))}
+                </Tr>
+              </Thead>
+            </Table>
+          </Box>
+        </>
+      )}
+
+      {!fileHeaderError && (
+        <>
+          <Box overflow="scroll" width="100%" padding="10px 0">
+            <Table>
+              <Thead>
+                <Tr>
+                  {parsedData?.headers?.map((data: any, i: number) => (
+                    <Th
+                      fontSize="16px"
+                      textTransform="initial"
+                      fontFamily="Avenir"
+                      key={`lead_data_hd_${i}`}
+                      whiteSpace="nowrap"
+                      minWidth="200px"
+                      padding="10px 15px 10px 0"
+                    >
+                      <DropdownSelect
+                        onChange={e => handleChange(e, i)}
+                        placeholder="choose header"
+                        name="header"
+                        options={headersMap}
+                        selected={matchedHeaders[i]}
+                      />
+                    </Th>
+                  ))}
+                </Tr>
+              </Thead>
+
+              <Tbody>
+                {parsedData?.data?.map((dataArray: any, i: number) => (
+                  <Tr key={`lead_data_tr_${i}`}>
+                    {dataArray.map((data: any, j: any) => (
+                      <Td
+                        whiteSpace="nowrap"
+                        textTransform="capitalize"
+                        key={`lead_data_td_${i}${j}`}
+                        fontSize="13px"
+                        padding="10px 15px 10px 0"
+                      >
+                        {data}
+                      </Td>
+                    ))}
+                  </Tr>
                 ))}
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </Box>
-
-      <Box textAlign="right" fontWeight="500" marginTop={10} as="h2">
-        Data Count: {parsedData?.count}
-      </Box>
+              </Tbody>
+            </Table>
+          </Box>
+          <Box textAlign="right" fontWeight="500" marginTop={10} as="h2">
+            Data Count: {parsedData?.count}
+          </Box>
+        </>
+      )}
     </Box>
   );
 };

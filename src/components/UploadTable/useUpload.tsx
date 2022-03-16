@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import papa from 'papaparse';
 import { axiosInstance, baseurl } from 'utils/helpers';
+import { saveAs } from 'file-saver';
 import { FILE_STATUS } from 'utils/constants';
 
-const useUpload = (file: any) => {
+const useUpload = (file: any, headers: any) => {
   const [progress, setProgress] = useState(0);
   const [parsedData, setParsedData] = useState<any>([]);
   const [status, setStatus] = useState(FILE_STATUS.IDLE);
@@ -14,18 +15,30 @@ const useUpload = (file: any) => {
   const [matchedHeaders, setMatchedHeaders] = useState<string[]>([]);
   const [uploadId, setUploadId] = useState();
   const cancelRef = useRef(new AbortController());
+  const [fileHeaderError, setFileHeaderError] = useState(false);
 
   useEffect(() => {
+    setStatus(FILE_STATUS.PROCESSING);
+
     if (file) {
       // parse file
       papa.parse(file, {
         worker: true,
-        complete: results => {
-          setParsedData({
-            headers: results.data[0],
-            data: results.data.slice(1, 10),
-            count: results.data.length,
-          });
+        complete: (results: any) => {
+          const fileHeaders = results?.data[0];
+
+          console.log(results);
+
+          if (fileHeaders.length > headers.length) {
+            setFileHeaderError(true);
+          } else
+            setParsedData({
+              headers: results.data[0],
+              data: results.data.slice(1, 10),
+              count: results.data.length,
+            });
+
+          setStatus(FILE_STATUS.IDLE);
         },
       });
 
@@ -38,15 +51,19 @@ const useUpload = (file: any) => {
 
     setStatus(FILE_STATUS.PROCESSING);
 
-    let newData = [matchedHeaders];
-
     papa.parse(file, {
       worker: true,
       complete: (results: any) => {
-        newData.push(results.data.slice(1));
+        results.data.splice(0, 1);
 
-        const newfile = papa.unparse(newData);
-        uploadFileChunks(newfile, options);
+        let newData = [matchedHeaders, ...results.data];
+
+        const parsedArray = papa.unparse(newData);
+        const newFile = new File([parsedArray], file.name, {
+          type: 'text/csv;charset=utf-8;',
+        });
+
+        uploadFileChunks(newFile, options);
       },
     });
   };
@@ -168,6 +185,7 @@ const useUpload = (file: any) => {
     matchedHeaders,
     setMatchedHeaders,
     processFileAndUpload,
+    fileHeaderError,
   };
 };
 

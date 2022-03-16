@@ -54,16 +54,22 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
 QuikInfluenceApp.getInitialProps = async () => {
   if (typeof window === 'undefined') {
     let nav: any;
+    let formData: any;
 
     try {
       nav = await axiosInstance.get(
         `${CONTENT_URL}?resource=${APP_NAME}&page=${NAV_NAME}`
       );
-    } catch (err) {}
+
+      formData = await axiosInstance.get(`/admin/form-element`);
+    } catch (err) {
+      console.log(err);
+    }
 
     return {
       pageProps: {
         nav: nav?.data?.data,
+        formData: formData?.data.data,
       },
     };
   }
