@@ -9,5 +9,10 @@ export const leadMenu: SideBarOptionMenu = {
   permission: [],
   isShown: true,
   isActive: false,
-  child: [],
+  child: [
+    {
+      name: 'Upload Leads',
+      path: '/dashboard/leads/upload',
+    },
+  ],
 };

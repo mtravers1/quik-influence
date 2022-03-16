@@ -21,34 +21,22 @@ const useUpload = (file: any, headers: any) => {
     setStatus(FILE_STATUS.PROCESSING);
 
     if (file) {
-      // parse file
       papa.parse(file, {
         worker: true,
         complete: (results: any) => {
-          const fileHeaders = results?.data[0];
-
-          console.log(results);
-
-          if (fileHeaders.length > headers.length) {
-            setFileHeaderError(true);
-          } else
-            setParsedData({
-              headers: results.data[0],
-              data: results.data.slice(1, 10),
-              count: results.data.length,
-            });
+          setParsedData({
+            headers: results.data[0],
+            data: results.data.slice(1, 10),
+            count: results.data.length,
+          });
 
           setStatus(FILE_STATUS.IDLE);
         },
       });
-
-      // uploadFileChunks(file, options);
     }
   }, []);
 
   const processFileAndUpload = () => {
-    console.log(matchedHeaders);
-
     setStatus(FILE_STATUS.PROCESSING);
 
     papa.parse(file, {
@@ -73,8 +61,6 @@ const useUpload = (file: any, headers: any) => {
     const formData = new FormData();
     const req = new XMLHttpRequest();
     const chunk = file.slice(options.startingByte);
-
-    // initial upload request
 
     try {
       const uploadIdRes = await axiosInstance.post(

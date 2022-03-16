@@ -12,6 +12,7 @@ import { APP_NAME, NAV_NAME } from 'utils/constants/pageDataConstants';
 import { login } from 'redux/actions/auth';
 import '../styles/globals.css';
 import '../styles/404.css';
+import { createFormData } from 'redux/actions/general';
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -24,6 +25,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true);
 
   const runBeforeLoad = async () => {
+    dispatch(createFormData(pageProps?.formData));
     setLoading(true);
 
     dispatch(login());

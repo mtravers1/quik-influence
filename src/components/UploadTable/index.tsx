@@ -39,7 +39,7 @@ const UploadTable = ({
     const matchHeaders = () =>
       parsedData?.headers?.map((header: string) => {
         for (let i = 0; i < headers.length; i++) {
-          if (similarity(headers[i], header) > 0.5) return header;
+          if (similarity(headers[i], header) > 0.7) return headers[i];
         }
       });
 

@@ -3,8 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { Box } from '@chakra-ui/react';
 import MainContent from 'components/MainContent';
 import UploadTable from 'components/UploadTable';
+import { useSelector } from 'react-redux';
 
-const UploadNewLeads = ({ formData }: { formData: any }) => {
+const UploadNewLeads = () => {
+  const { formData } = useSelector((state: any) => state.generals);
   const [files, setFiles] = useState<any>([]);
   const [headers] = useState<any>(formData.map((form: any) => form.name));
   const inputRef = useRef<any>();
@@ -30,7 +32,7 @@ const UploadNewLeads = ({ formData }: { formData: any }) => {
       <>
         <Box margin="30px 0 30px">
           <Box marginBottom="5px" fontSize="16px">
-            Click on the button to upload file. Upload as many as possible
+            Click on the button to upload file. You can upload multiple files
           </Box>
           <Box fontWeight="500" whiteSpace="pre-wrap">
             Your headers should not be more than {headers.length}
