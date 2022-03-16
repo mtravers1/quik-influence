@@ -15,7 +15,7 @@ const LeadsForm = ({
   paidType,
 }: {
   campaignId: string;
-  handleStripe: (email: string, success?: boolean) => {};
+  handleStripe?: (email: string, success?: boolean) => {};
   redirectUrl: string;
   form: any;
   paidType?: string;
@@ -55,7 +55,7 @@ const LeadsForm = ({
           }
 
           // redirect to stripe checkout
-          handleStripe(inputs.email, res.status === 200);
+          // handleStripe(inputs.email, res.status === 200);
 
           if (typeof window !== "undefined")
             localStorage.setItem("redirectUrl", redirectUrl);
