@@ -20,6 +20,8 @@ export const LEADS_LOADING = 'LEADS_LOADING';
 export const LEADS_ERROR = 'LEADS_ERROR';
 export const LEADS = 'LEADS';
 
+export const CREATE_FORM_DATA = 'CREATE_FORM_DATA';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;
