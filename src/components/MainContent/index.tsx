@@ -68,13 +68,14 @@ const MainContent = ({ children, filter }: MainContentProps) => {
           height="100vh"
         />
         <Flex
-          width="100%"
+          flexGrow={1}
           bgColor={dashboardColor[colorMode]}
           color={themeColor[colorMode]}
           px={20}
           py={10}
+          overflow="hidden"
         >
-          <Box flexGrow={1} maxWidth="2500px" mx="auto">
+          <Box flexGrow={1} width="100%" mx="auto">
             {children}
           </Box>
           {filter && (
