@@ -36,12 +36,23 @@ const UploadTable = ({
   } = useUpload(file, headers);
 
   useEffect(() => {
-    const matchHeaders = () =>
-      parsedData?.headers?.map((header: string) => {
+    const matchHeaders = () => {
+      const formHeaders = [...headers];
+
+      return parsedData?.headers?.map((header: string) => {
         for (let i = 0; i < headers.length; i++) {
-          if (similarity(headers[i], header) > 0.7) return headers[i];
+          if (!formHeaders[i]) continue;
+          if (similarity(formHeaders[i], header) > 0.7) {
+            // remove headers[i] from headers list
+
+            let newHeader = formHeaders[i];
+            delete formHeaders[i];
+
+            return newHeader;
+          }
         }
       });
+    };
 
     setMatchedHeaders(matchHeaders() || []);
   }, [parsedData?.headers]);
