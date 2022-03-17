@@ -37,7 +37,7 @@ const UploadTable = ({
 
   useEffect(() => {
     const matchHeaders = () => {
-      const formHeaders = [...headers];
+      let formHeaders = [...headers];
 
       return parsedData?.headers?.map((header: string) => {
         for (let i = 0; i < headers.length; i++) {
@@ -46,7 +46,7 @@ const UploadTable = ({
             // remove headers[i] from headers list
 
             let newHeader = formHeaders[i];
-            delete formHeaders[i];
+            formHeaders = formHeaders.filter((hdr, idx) => i !== idx);
 
             return newHeader;
           }
