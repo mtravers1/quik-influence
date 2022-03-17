@@ -64,6 +64,7 @@ export function parseJwt(token: any) {
 export function getUser() {
   let user;
   let ctoken;
+  let isExpired: boolean = false;
 
   if (typeof window !== "undefined") {
     ctoken = localStorage.getItem(Q_TOKEN);
@@ -73,7 +74,9 @@ export function getUser() {
     user = parseJwt(ctoken);
   }
 
-  return { admin: user, token: ctoken };
+  isExpired = user && user.exp && user.exp < Date.now() / 1000;
+
+  return { admin: user, token: ctoken, isExpired };
 }
 
 export const getNumberRange = (

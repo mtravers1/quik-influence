@@ -32,9 +32,9 @@ const Header = ({ ...rest }: HeaderProps) => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
-  const { admin } = getUser();
+  const { admin, isExpired } = getUser();
 
-  if (!admin) window.location.href = '/login';
+  if (isExpired) window.location.href = '/login';
 
   return (
     <Flex

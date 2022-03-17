@@ -188,6 +188,7 @@ const NavComponent = ({
           <AccordionPanel paddingLeft="35px">
             {child.map((childEl: any) => (
               <NextLink
+                key={childEl.name}
                 href={childEl.path as string}
                 color={asPath === childEl.path ? 'red' : undefined}
                 {...styles}
