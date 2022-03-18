@@ -1,23 +1,23 @@
-import { get_user, setToken } from 'utils/helpers';
+import { getUser, setToken } from "utils/helpers";
 import {
   LOGIN,
   LOGOUT,
   AUTH_LOADING,
   DispatchWithoutPayload,
-  DispatchWithPayload,
-} from '../actionTypes';
+  DispatchWithPayload
+} from "../actionTypes";
 
 export const loading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: AUTH_LOADING,
-    payload: true,
+    payload: true
   });
 };
 
 export const doneloading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: AUTH_LOADING,
-    payload: false,
+    payload: false
   });
 };
 
@@ -26,19 +26,15 @@ export const login = (userData?: any) => async (dispatch: any) => {
   let user = userData;
 
   if (!user) {
-    try {
-      // call for re-authentication
-      user = get_user();
-    } catch (err) {
-      console.log(err);
-    }
+    // call for re-authentication
+    user = getUser();
   }
 
   user && setToken(user.token);
 
   dispatch({
     type: LOGIN,
-    payload: user,
+    payload: user
   });
 
   dispatch(doneloading());
@@ -46,6 +42,6 @@ export const login = (userData?: any) => async (dispatch: any) => {
 
 export const logout = () => async (dispatch: DispatchWithoutPayload) => {
   dispatch({
-    type: LOGOUT,
+    type: LOGOUT
   });
 };

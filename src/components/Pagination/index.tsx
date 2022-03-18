@@ -1,21 +1,39 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { SyntheticEvent } from "react";
+import queryString from "query-string";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import quikColorConstants from "utils/constants/colorConstants";
+import DropdownSelect from "components/DropdownSelect";
+import { useRouter } from "next/router";
+import { DEFAULT_PAGE_SIZE } from "utils/constants";
+
+const PageSizeOptionsValue = [
+  { label: "20", value: "20" },
+  { label: "50", value: "50" },
+  { label: "100", value: "100" },
+  { label: "200", value: "200" }
+];
 
 interface PaginationProp {
   currentPage: number;
   totalPages: number;
   count: number;
   onChange: any;
+  pageSize?: string;
+  showTotal?: boolean;
 }
 const Pagination = ({
   currentPage,
   totalPages,
   count,
-  onChange
+  onChange,
+  pageSize = DEFAULT_PAGE_SIZE,
+  showTotal = true
 }: PaginationProp) => {
+  const router = useRouter();
+
   const handleButtonClick = (type: string) => {
     if (type === "backward") {
       if (currentPage <= 1) return;
@@ -27,23 +45,58 @@ const Pagination = ({
       onChange(nextPage);
     }
   };
+
+  const handlePageSizeChange = (pageSize: string) => {
+    const params = router.query;
+    params.pageSize = pageSize;
+    router.push(`?${queryString.stringify(params)}`);
+  };
+
   return (
-    <Flex width="full" justifyContent="flex-end" my={8}>
-      <button type="button" onClick={() => handleButtonClick("backward")}>
-        <FontAwesomeIcon
-          icon={faAngleLeft as IconProp}
-          style={{ margin: "auto 10px" }}
-        />
-      </button>
-      <Text>
-        Page <b>{currentPage}</b> of {totalPages}
-      </Text>
-      <button type="button" onClick={() => handleButtonClick("forward")}>
-        <FontAwesomeIcon
-          icon={faAngleRight as IconProp}
-          style={{ margin: "auto 10px" }}
-        />
-      </button>
+    <Flex justifyContent="flex-end">
+      {showTotal && (
+        <Text mr={20} my="auto" color={quikColorConstants.greyLighter}>
+          Total Records: {count}
+        </Text>
+      )}
+      {!!pageSize ? (
+        <Flex>
+          <Text width="25rem" my="auto" color={quikColorConstants.greyLighter}>
+            Change Page Size:
+          </Text>
+          <DropdownSelect
+            size="lg"
+            options={PageSizeOptionsValue}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handlePageSizeChange(e.target.value)
+            }
+            selected={(router.query.pageSize as string) || pageSize}
+            selectProps={{
+              border: 0,
+              width: "10rem",
+              fontSize: "xl",
+              marginTop: "1.5rem"
+            }}
+          />
+        </Flex>
+      ) : null}
+      <Flex my={8}>
+        <button type="button" onClick={() => handleButtonClick("backward")}>
+          <FontAwesomeIcon
+            icon={faAngleLeft as IconProp}
+            style={{ margin: "auto 10px" }}
+          />
+        </button>
+        <Text>
+          Page <b>{currentPage}</b> of {totalPages}
+        </Text>
+        <button type="button" onClick={() => handleButtonClick("forward")}>
+          <FontAwesomeIcon
+            icon={faAngleRight as IconProp}
+            style={{ margin: "auto 10px" }}
+          />
+        </button>
+      </Flex>
     </Flex>
   );
 };

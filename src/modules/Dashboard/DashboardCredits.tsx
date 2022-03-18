@@ -38,24 +38,9 @@ import { TransactionDataTable } from 'components/Dashboard/Credits';
 import { getNumberRange } from 'utils/helpers';
 import { fetchPostJSON } from 'utils/apiHelpers';
 import { stateNames } from 'utils/constants/stateConstants';
-import { authSelectors } from 'redux/selectors';
+import { authSelectors, campaignSelectors } from 'redux/selectors';
 import { formatAmountForDisplay } from 'utils/stripeHelpers';
 import * as stripeConfig from 'utils/stripeConfig';
-
-const transactionData = [
-  {
-    id: 0,
-    date: '02/10/2022',
-    amount: 100,
-    lastCardDigit: '4490',
-  },
-  {
-    id: 1,
-    date: '02/13/2022',
-    amount: 300,
-    lastCardDigit: '4570',
-  },
-];
 
 const stateSelectOptions: DropdownSelectOption[] = stateNames.map(
   stateName => ({
@@ -75,9 +60,13 @@ const DashboardCredits = () => {
   const colSpan = useBreakpointValue({ base: 2, md: 1 });
 
   const user = useSelector(authSelectors.getUser);
+  const SMSCampaign = useSelector(campaignSelectors.getSMSCampaign);
+
   const [transaction, setTransaction] = React.useState<any>();
   const [transactions, setTransactions] = React.useState<any>([]);
   const [currentBalance, setCurrentBalance] = React.useState(0); // Just for testing
+
+  // alert(JSON.stringify(SMSCampaign));
 
   const getSelectionOptions = (selectionType: string) => {
     switch (selectionType) {
@@ -146,7 +135,7 @@ const DashboardCredits = () => {
           variant: 'top-accent',
         });
       }
- 
+
       resetInputs();
     },
   });

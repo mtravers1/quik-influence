@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Heading,
@@ -14,27 +14,28 @@ import {
   Menu,
   MenuButton,
   MenuItem,
-  MenuList,
-} from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
-import AppIcon from '../assets/icon.png';
-import quikColorConstants from 'utils/constants/colorConstants';
-import DarkModeSwitch from './DarkModeSwitch';
-import theme from '../styles/theme';
-import { css } from '@emotion/react';
-import { logout as removeLocalstorageToken } from 'utils/helpers';
-import { logout } from 'redux/actions/auth';
-import { useRouter } from 'next/router';
+  MenuList
+} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import AppIcon from "../assets/icon.png";
+import quikColorConstants from "utils/constants/colorConstants";
+import DarkModeSwitch from "./DarkModeSwitch";
+import theme from "../styles/theme";
+import { css } from "@emotion/react";
+import { getUser, logout as removeLocalstorageToken } from "utils/helpers";
+import { logout } from "redux/actions/auth";
+import { useRouter } from "next/router";
 
-import { authSelectors } from 'redux/selectors';
-import { useSelector } from 'react-redux';
 interface HeaderProps extends FlexProps {}
 
 const Header = ({ ...rest }: HeaderProps) => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
-  const { admin } = useSelector(authSelectors.getUser);
+  const { admin, isExpired } = getUser();
+
+  if (isExpired) logout();
+
   return (
     <Flex
       as="nav"
@@ -61,7 +62,7 @@ const Header = ({ ...rest }: HeaderProps) => {
           src={AppIcon.src}
           alt="quik-influence logo"
         />
-        <Heading as="h1" size="lg" ml={3} letterSpacing={'tighter'}>
+        <Heading as="h1" size="lg" ml={3} letterSpacing={"tighter"}>
           <Flex>
             <Text color={quikColorConstants.influenceRed} mr={1}>
               Quik
@@ -71,7 +72,7 @@ const Header = ({ ...rest }: HeaderProps) => {
         </Heading>
       </Flex>
 
-      <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
+      <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
         <HamburgerIcon />
       </Box>
 
@@ -80,7 +81,7 @@ const Header = ({ ...rest }: HeaderProps) => {
       </Box>
 
       <Box
-        display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
+        display={{ base: isOpen ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
         <Menu>
@@ -89,7 +90,7 @@ const Header = ({ ...rest }: HeaderProps) => {
               <Avatar
                 src={admin?.avatar}
                 size="md"
-                name={admin?.firstName + ' ' + admin?.lastName}
+                name={admin?.firstName + " " + admin?.lastName}
                 ml={1}
                 mr={2}
               />
@@ -102,14 +103,14 @@ const Header = ({ ...rest }: HeaderProps) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                router.push('/profile');
+                router.push("/profile");
               }}
             >
               Profile
-            </MenuItem>{' '}
+            </MenuItem>{" "}
             <MenuItem
               onClick={() => {
-                router.push('/profile/edit');
+                router.push("/profile/edit");
               }}
             >
               Edit profile
@@ -117,7 +118,7 @@ const Header = ({ ...rest }: HeaderProps) => {
             <MenuItem
               onClick={() => {
                 logout();
-                removeLocalstorageToken(router);
+                removeLocalstorageToken();
               }}
             >
               Log out

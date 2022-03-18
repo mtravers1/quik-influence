@@ -11,12 +11,16 @@ type MultiSelectProps = {
   handleChange: (event: any) => void;
   name: string;
   error?: string;
+  labelProps?: any;
+  selectProps?: any;
   initialvalue?: [];
 };
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
   selectOptions,
   label,
+  labelProps,
+  selectProps,
   extraLabel,
   handleChange,
   name,
@@ -49,15 +53,13 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   };
 
   return (
-    <Box maxW="60rem" pt={8}>
+    <Box maxW="30rem" minW="30rem" pt={8}>
       <DropdownSelect
         onChange={handleMultiSelectChange}
         options={selectOptions || []}
-        selectProps={{
-          height: '4.5rem',
-          fontSize: '1.4rem',
-        }}
+        selectProps={{ height: '4.5rem', fontSize: '1.4rem', ...selectProps }}
         label={label}
+        labelProps={labelProps}
         extraLabel={extraLabel}
         noValue={false}
         //  error={error}
