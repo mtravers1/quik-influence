@@ -1,29 +1,27 @@
-import EditableWrapper from 'components/EditableWrapper';
-import Section from '../Section';
-import { Box, Flex } from '@chakra-ui/react';
-import MeetupForm from './MeetupForm';
+import EditableWrapper from "components/EditableWrapper";
+import Section from "../Section";
+import { Box, Flex, Stack, Text } from "@chakra-ui/react";
+import MeetupForm from "./MeetupForm";
+import NextLink from "components/NextLink";
 
 const Footer = ({ footer }: { footer: any }) => {
   return (
-    <Section
-      background="#282828"
-      h={{ base: '100%', lg: '500px' }}
-      padding={{ base: '50px 15px', lg: '70px 15px', xl: '0 15px' }}
-    >
+    <Section background="#282828" h={{ base: "100%", lg: "500px" }}>
       <Flex
         maxW="1440px"
         margin="auto"
         alignItems="center"
         justifyContent="center"
         h="100%"
+        padding={{ base: "50px 15px", lg: "70px 15px", xl: "0 15px" }}
       >
         <Flex
           justifyContent="space-between"
-          direction={{ base: 'column', lg: 'row' }}
+          direction={{ base: "column", lg: "row" }}
         >
           <Box
-            width={{ base: '100%', lg: '55%' }}
-            marginBottom={{ lg: 0, base: '30px' }}
+            width={{ base: "100%", lg: "55%" }}
+            marginBottom={{ lg: 0, base: "30px" }}
             marginRight={20}
             flexShrink={0}
           >
@@ -51,7 +49,7 @@ const Footer = ({ footer }: { footer: any }) => {
               <Box
                 as="h1"
                 color="white"
-                fontSize={{ base: '30px', lg: '35px', xl: '50px' }}
+                fontSize={{ base: "30px", lg: "35px", xl: "50px" }}
                 marginBottom="15px"
                 fontWeight="500"
               >
@@ -67,7 +65,7 @@ const Footer = ({ footer }: { footer: any }) => {
               <Box
                 as="p"
                 color="white"
-                fontSize={{ base: '15px', lg: '16px', xl: '18px' }}
+                fontSize={{ base: "15px", lg: "16px", xl: "18px" }}
               >
                 {footer.content.header_desc}
               </Box>
@@ -75,6 +73,25 @@ const Footer = ({ footer }: { footer: any }) => {
           </Box>
 
           <MeetupForm />
+        </Flex>
+      </Flex>
+      <Flex bg="#000" p={10} justify="center">
+        <Flex w="50%" justify="space-between">
+          <Stack>
+            <NextLink _hover={{ color: "red" }} href="/terms-of-service">
+              Terms of service
+            </NextLink>
+          </Stack>
+          <Stack>
+            <NextLink _hover={{ color: "red" }} href="/refund-policy">
+              Refund Policy
+            </NextLink>
+          </Stack>
+          <Stack>
+            <NextLink _hover={{ color: "red" }} href="/privacy-policy">
+              Privacy Policy
+            </NextLink>
+          </Stack>
         </Flex>
       </Flex>
     </Section>

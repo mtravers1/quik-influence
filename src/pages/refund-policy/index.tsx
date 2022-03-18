@@ -2,18 +2,21 @@ import { Container, Flex, Stack, Text, useColorMode } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import CustomButton from "components/Button";
 import Header from "components/Header";
-import { themeColor } from "utils/constants/colorConstants";
+import { bgThemeColor, themeColor } from "utils/constants/colorConstants";
 
-const PrivacyPolicy = () => {
+const RefundPolicy = () => {
   const { colorMode } = useColorMode();
   return (
     <>
-      <Header type="unauthenticated" color={themeColor[colorMode]} />
+      <Header
+        type="unauthenticated"
+        color={themeColor[colorMode]}
+      />
       <Container height="100%" color="black">
         <Flex direction="column">
           <Stack my={10}>
             <Text fontWeight="bold" fontSize="6xl">
-              Privacy Policy
+              Refund/Cancellation Policy
             </Text>
           </Stack>
           <Stack mb={10}>
@@ -58,4 +61,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default RefundPolicy;
