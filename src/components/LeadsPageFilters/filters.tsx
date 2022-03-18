@@ -50,12 +50,12 @@ export const allFilters  = [
             key: 'age',
             id: 'age_less'
         },
-        {
-            name: 'Age is between',
-            type: FILTER_SEARCH_TYPE.INTEGER_RANGE_SEARCH,
-            key: 'age',
-            id: 'age_between'
-        },
+        // {
+        //     name: 'Age is between',
+        //     type: FILTER_SEARCH_TYPE.INTEGER_RANGE_SEARCH,
+        //     key: 'age',
+        //     id: 'age_between'
+        // },
         {
             name: 'State',
             type: FILTER_SEARCH_TYPE.FUZZY_TEXT_SEARCH,

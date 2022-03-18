@@ -26,6 +26,8 @@ import DropdownSelect from 'components/DropdownSelect';
 import { allFilters } from './filters';
 import { FILTER_SEARCH_TYPE } from './constants';
 import { FilterValueType, SelectedFilterType } from './types';
+import { useDispatch } from 'react-redux';
+import { getAllLeads } from 'redux/actions/leads';
 
 
 const FilterValue = ({ selectedFilter, handleFilterValueChange, filterIndex } : FilterValueType) => {
@@ -69,8 +71,9 @@ const LeadsPageFilters = () => {
     id: ''
   }
 
+  const dispatch = useDispatch()
 
-  const [showAddFilter, setShowAddFilter] = useState(true)
+  const [showAddFilter, setShowAddFilter] = useState(false)
   const [selectedFilters, setSelectedFilters] = useState([emptyFilter])
 
   const getFilterOptions = () => {
@@ -81,6 +84,7 @@ const LeadsPageFilters = () => {
   }
   const addFilter = () => {
     setSelectedFilters(filters => [...filters, emptyFilter])
+    setShowAddFilter(false)
   }
 
   const handleFilterKeyChange = (e: any, id: number) => {
@@ -88,17 +92,42 @@ const LeadsPageFilters = () => {
     if (!selectedFilterObject) return
     selectedFilterObject.value = ''
     setSelectedFilters(selectedFilters => selectedFilters.map((filters, index) => index === id ? selectedFilterObject : filters))
+    setShowAddFilter(false)
   }
 
   const handleFilterValueChange = (e: ChangeEvent, selectedFilter: SelectedFilterType, filterIndex: number) => {
     const target =  e.target as HTMLInputElement
     const value = target.value
     setSelectedFilters(_selectedFilter => _selectedFilter.map((filters, index) => index === filterIndex ? {...filters,value: value} : filters))
+    setShowAddFilter(true)
   }
 
 
   const removeFilter = (filterIndex: number) => {
     setSelectedFilters(_selectedFilter => _selectedFilter.filter((filters, index) => index !== filterIndex))
+  }
+
+  const applyFilter = () => {
+    const filters = {
+      // fuzzy:[]
+    } as any
+    selectedFilters.forEach(selectedFilter => {
+      const {type, value, key} = selectedFilter
+      if (value){
+        switch (type) {
+          case FILTER_SEARCH_TYPE.FUZZY_TEXT_SEARCH:
+          //  filters.fuzzy.push({
+          //    key,
+          //    value
+          //  })
+        
+          default:
+            break;
+        }
+      }
+    })
+    dispatch(getAllLeads({filters}))
+    
   }
 
   return (
@@ -161,7 +190,7 @@ const LeadsPageFilters = () => {
 
         <Box as="div" p={3} borderTop="1px solid #ededed" mt={8}>
           <Box
-            onClick={addFilter}
+            onClick={showAddFilter ? addFilter : () => {}}
             as={showAddFilter ? "a" : 'p'}
             cursor={showAddFilter ? "pointer" : "default"}
             color={showAddFilter ? "rgb(44 110 203)" : "rgb(140 145 150)"} >
@@ -179,6 +208,8 @@ const LeadsPageFilters = () => {
           }
           marginTop="20px"
           marginBottom="25px"
+          type="button"
+          onClick={applyFilter}
         >
           Apply Filter
         </CustomButton>

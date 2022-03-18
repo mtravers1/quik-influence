@@ -31,4 +31,5 @@ export interface FilterDataProps {
   page?: any;
   pageSize?: number;
   sort?: string;
+  filters?: any;
 }

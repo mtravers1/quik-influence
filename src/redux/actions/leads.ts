@@ -29,6 +29,8 @@ export const getAllLeads =
     try {
       const query = getQueryString({ ...params, pageSize: 20 });
 
+      
+
       const response = await axiosInstance.get(`/users/leads?${query}`);
       const {} = response.data.data;
 

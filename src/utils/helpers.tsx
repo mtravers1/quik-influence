@@ -94,11 +94,13 @@ export const getNumberRange = (
 
 export const getQueryString = (params?: FilterDataProps) => {
   const paramsFilters = omitBy(params, isNil);
+  console.log(Object.keys(paramsFilters))
   const query = Object.keys(paramsFilters)
     .map(
       (k) => encodeURIComponent(k) + "=" + encodeURIComponent(paramsFilters[k])
     )
     .join("&");
+  console.log(query)
   return query;
 };
 
