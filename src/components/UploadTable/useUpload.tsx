@@ -4,7 +4,7 @@ import { axiosInstance, baseurl } from 'utils/helpers';
 import { saveAs } from 'file-saver';
 import { FILE_STATUS } from 'utils/constants';
 
-const useUpload = (file: any, headers: any) => {
+const useUpload = (file: any, documentTag: any = {}) => {
   const [progress, setProgress] = useState(0);
   const [parsedData, setParsedData] = useState<any>([]);
   const [status, setStatus] = useState(FILE_STATUS.IDLE);
@@ -57,6 +57,18 @@ const useUpload = (file: any, headers: any) => {
   };
 
   const uploadFileChunks = async (file: any, options: any) => {
+    let tagId: string;
+
+    if (typeof documentTag === 'string') {
+      const newtag = axiosInstance.post('/admin/tag', {
+        name: documentTag,
+      });
+
+      tagId = (await newtag).data.data.id;
+    } else {
+      tagId = documentTag.value;
+    }
+
     setStatus(FILE_STATUS.PENDING);
     const formData = new FormData();
     const req = new XMLHttpRequest();
@@ -67,6 +79,7 @@ const useUpload = (file: any, headers: any) => {
         '/admin/leads-upload-request',
         {
           fileName: file.name,
+          tagId,
         }
       );
 
