@@ -84,12 +84,6 @@ const Footer = ({ footer }: { footer: any }) => {
           </Stack>
           <Divider orientation="vertical" />
           <Stack>
-            <NextLink _hover={{ color: "red" }} href="/refund-policy">
-              Refund Policy
-            </NextLink>
-          </Stack>
-          <Divider orientation="vertical" />
-          <Stack>
             <NextLink _hover={{ color: "red" }} href="/privacy-policy">
               Privacy Policy
             </NextLink>
