@@ -22,7 +22,7 @@ const Dashboard = () => {
   }, [page, pageSize]);
 
   return loading ? (
-    <MainContent>
+    <MainContent filter={<Filters />}>
       <TablePageLoader />
     </MainContent>
   ) : (

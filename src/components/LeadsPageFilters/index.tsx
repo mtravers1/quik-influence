@@ -30,7 +30,7 @@ import { useDispatch } from 'react-redux';
 import { getAllLeads } from 'redux/actions/leads';
 
 
-const FilterValue = ({ selectedFilter, handleFilterValueChange, filterIndex } : FilterValueType) => {
+const FilterValue = ({ selectedFilter, handleFilterValueChange, filterIndex }: FilterValueType) => {
 
   if (selectedFilter.type === FILTER_SEARCH_TYPE.OPTIONS_SEARCH) {
     return (
@@ -96,9 +96,9 @@ const LeadsPageFilters = () => {
   }
 
   const handleFilterValueChange = (e: ChangeEvent, selectedFilter: SelectedFilterType, filterIndex: number) => {
-    const target =  e.target as HTMLInputElement
+    const target = e.target as HTMLInputElement
     const value = target.value
-    setSelectedFilters(_selectedFilter => _selectedFilter.map((filters, index) => index === filterIndex ? {...filters,value: value} : filters))
+    setSelectedFilters(_selectedFilter => _selectedFilter.map((filters, index) => index === filterIndex ? { ...filters, value: value } : filters))
     setShowAddFilter(true)
   }
 
@@ -109,25 +109,36 @@ const LeadsPageFilters = () => {
 
   const applyFilter = () => {
     const filters = {
-      // fuzzy:[]
+      fuzzy: {},
+      match: {},
+      integerGreater: {},
+      integerLess: {},
     } as any
     selectedFilters.forEach(selectedFilter => {
-      const {type, value, key} = selectedFilter
-      if (value){
+      const { type, value, key } = selectedFilter
+      if (value) {
         switch (type) {
           case FILTER_SEARCH_TYPE.FUZZY_TEXT_SEARCH:
-          //  filters.fuzzy.push({
-          //    key,
-          //    value
-          //  })
-        
+            filters.fuzzy[key] = value;
+            break;
+          case FILTER_SEARCH_TYPE.INTEGER_SEARCH:
+          case FILTER_SEARCH_TYPE.OPTIONS_SEARCH:
+            case FILTER_SEARCH_TYPE.FULL_TEXT_SEARCH:
+            filters.match[key] = value;
+            break;
+          case FILTER_SEARCH_TYPE.INTEGER_GREATER_THAN_SEARCH:
+            filters.integerGreater[key] = value;
+            break;
+          case FILTER_SEARCH_TYPE.INTEGER_LESS_THAN_SEARCH:
+            filters.integerLess[key] = value;
+            break;
           default:
             break;
         }
       }
     })
-    dispatch(getAllLeads({filters}))
-    
+    dispatch(getAllLeads({}, { filters }))
+
   }
 
   return (
@@ -164,7 +175,8 @@ const LeadsPageFilters = () => {
                   onChange={(e) => handleFilterKeyChange(e, index)}
                   options={getFilterOptions()}
                   placeholder="Filter"
-                  selected=""
+                  noValue={selectedFilter?.type ? true : false}
+                // selected=""
                 />
               </Box>
 
@@ -190,7 +202,7 @@ const LeadsPageFilters = () => {
 
         <Box as="div" p={3} borderTop="1px solid #ededed" mt={8}>
           <Box
-            onClick={showAddFilter ? addFilter : () => {}}
+            onClick={showAddFilter ? addFilter : () => { }}
             as={showAddFilter ? "a" : 'p'}
             cursor={showAddFilter ? "pointer" : "default"}
             color={showAddFilter ? "rgb(44 110 203)" : "rgb(140 145 150)"} >
