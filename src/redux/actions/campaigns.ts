@@ -100,7 +100,7 @@ export const getFirst10Campaigns = () => async (dispatch: any) => {
 };
 
 export const getCampaignLeads =
-  (campaignId: any, page: string, pageSize: string = DEFAULT_PAGE_SIZE, sortBy = 'createdAt') =>
+  (campaignId: any, page: string, pageSize: string = DEFAULT_PAGE_SIZE, sortBy = 'createdAt', filters: any = {}) =>
   async (dispatch: any) => {
     try {
       dispatch(loading());
@@ -108,7 +108,9 @@ export const getCampaignLeads =
       const response = await axiosInstance.get(
         `/users/leads/${campaignId}?sortField=${sortBy}&orderBy=ASC&pageSize=${pageSize}&${
           page ? `page=${page}` : ""
-        }`
+        }`, {
+          params: filters
+        }
       );
 
       const { rows, count, currentPage, recieved, totalPages } =
