@@ -15,6 +15,7 @@ export type DropdownSelectOption = {
   label: string;
   value: string;
   style?: any;
+  disabled?: boolean;
 };
 
 interface DropdownSelectProp {
@@ -94,6 +95,7 @@ const DropdownSelect = ({
               key={option.value}
               value={option.value}
               style={option.style || {}}
+              {...(option.disabled && {disabled: option.disabled})}
             >
               {option.label}
             </option>
