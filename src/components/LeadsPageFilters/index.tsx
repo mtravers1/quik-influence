@@ -38,7 +38,6 @@ const FilterValue = ({ selectedFilter, handleFilterValueChange, filterIndex }: F
         onChange={(e) => handleFilterValueChange(e, selectedFilter, filterIndex)}
         options={selectedFilter.options}
         placeholder="Filter"
-        selected=""
       />
 
     )
@@ -75,13 +74,41 @@ const LeadsPageFilters = () => {
 
   const [showAddFilter, setShowAddFilter] = useState(false)
   const [selectedFilters, setSelectedFilters] = useState([emptyFilter])
+  const [filterOptions, setFilterOptions] = useState([{
+    label: '',
+    value: '',
+    disabled: false
+  }])
 
-  const getFilterOptions = () => {
-    return allFilters.map(filter => ({
-      label: filter.name,
-      value: filter.id,
-    }))
-  }
+  const allFilterOptions = allFilters.map(filter => ({
+    label: filter.name,
+    value: filter.id,
+    disabled: false
+  }))
+
+  useEffect(() => {
+    setFilterOptions(allFilterOptions)
+  }, [])
+
+  /**
+   * TODO: THIS ISN'T OPTIMAL. NEED TO OPTIMIZE
+   */
+  useEffect(() => {
+    if (Object.keys(selectedFilters).length && selectedFilters[0].value){
+      const seen:string[] = []
+       selectedFilters.forEach( (filter: SelectedFilterType) => {
+        seen.push(filter.key)
+      })
+      console.log(filterOptions)
+      setFilterOptions(_filterOptions =>
+         _filterOptions.map(filter => 
+          seen.includes(filter.value) ? {...filter, disabled: true} : filter ))
+    }
+  },[selectedFilters])
+
+  // setFilterOptions(allFilterOptions)
+
+
   const addFilter = () => {
     setSelectedFilters(filters => [...filters, emptyFilter])
     setShowAddFilter(false)
@@ -107,6 +134,13 @@ const LeadsPageFilters = () => {
     setSelectedFilters(_selectedFilter => _selectedFilter.filter((filters, index) => index !== filterIndex))
   }
 
+  const handleClearFilters = () => {
+    setSelectedFilters([emptyFilter])
+    dispatch(getAllLeads())
+  }
+
+
+
   const applyFilter = () => {
     const filters = {
       fuzzy: {},
@@ -123,7 +157,7 @@ const LeadsPageFilters = () => {
             break;
           case FILTER_SEARCH_TYPE.INTEGER_SEARCH:
           case FILTER_SEARCH_TYPE.OPTIONS_SEARCH:
-            case FILTER_SEARCH_TYPE.FULL_TEXT_SEARCH:
+          case FILTER_SEARCH_TYPE.FULL_TEXT_SEARCH:
             filters.match[key] = value;
             break;
           case FILTER_SEARCH_TYPE.INTEGER_GREATER_THAN_SEARCH:
@@ -160,7 +194,7 @@ const LeadsPageFilters = () => {
         >
           Filter
         </Box>
-        <Box as="span" color={quikColorConstants.influenceRed} fontWeight={500} cursor="pointer" onClick={() => setSelectedFilters([emptyFilter])}>
+        <Box as="span" color={quikColorConstants.influenceRed} fontWeight={500} cursor="pointer" onClick={handleClearFilters}>
           Clear
         </Box>
       </Flex>
@@ -173,7 +207,7 @@ const LeadsPageFilters = () => {
               <Box width="45%" pr={4}>
                 <DropdownSelect
                   onChange={(e) => handleFilterKeyChange(e, index)}
-                  options={getFilterOptions()}
+                  options={filterOptions}
                   placeholder="Filter"
                   noValue={selectedFilter?.type ? true : false}
                 // selected=""
@@ -222,6 +256,7 @@ const LeadsPageFilters = () => {
           marginBottom="25px"
           type="button"
           onClick={applyFilter}
+          disabled={selectedFilters[0].value ? false : true}
         >
           Apply Filter
         </CustomButton>
