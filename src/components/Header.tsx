@@ -18,6 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import AppIcon from '../assets/icon.png';
+import AppLogo from '../assets/logo.png';
 import quikColorConstants from 'utils/constants/colorConstants';
 import DarkModeSwitch from './DarkModeSwitch';
 import theme from '../styles/theme';
@@ -25,12 +26,46 @@ import { css } from '@emotion/react';
 import { getUser, logout as removeLocalstorageToken } from 'utils/helpers';
 import { logout } from 'redux/actions/auth';
 import { useRouter } from 'next/router';
+import NextLink from './NextLink';
 
-const Header = ({ ...rest }: any) => {
+interface HeaderProps extends FlexProps {
+  type?: 'authenticated' | 'unauthenticated';
+  showFilter?: boolean;
+  toggleFilter?: any;
+}
+
+const Header = ({ type = 'authenticated', ...rest }: HeaderProps) => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
   const { admin, isExpired } = getUser();
+
+  if (type === 'unauthenticated') {
+    return (
+      <Flex
+        as="nav"
+        align="center"
+        justify="center"
+        wrap="wrap"
+        padding={6}
+        color="black"
+        boxShadow="base"
+        zIndex="2"
+        {...rest}
+      >
+        <Flex justify="center" mr={5}>
+          <NextLink href="/">
+            <Image
+              boxSize="150px"
+              objectFit="cover"
+              src={AppLogo.src}
+              alt="quik-influence logo"
+            />
+          </NextLink>
+        </Flex>
+      </Flex>
+    );
+  }
 
   if (isExpired) logout();
 

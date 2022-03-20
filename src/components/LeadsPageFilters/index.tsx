@@ -52,9 +52,8 @@ const FilterValue = ({
 };
 
 type LeadsPageFiltersProps = {
-  setAllSelectedFilters?: (_: any) => void;
+  setAllSelectedFilters: (_: any) => void;
 };
-
 const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
   const { setAllSelectedFilters } = props;
   const { colorMode } = useColorMode();
@@ -68,7 +67,6 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
     key: '',
     id: '',
   };
-
   const filters = {
     fuzzy: {},
     match: {},
@@ -164,8 +162,6 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
     const params = router.query;
     params.page = '1';
     router.push(`?${queryString.stringify(params)}`);
-
-    //@ts-ignore
     setAllSelectedFilters(filters);
   };
 
@@ -196,8 +192,6 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
     const params = router.query;
     params.page = '1';
     router.push(`?${queryString.stringify(params)}`);
-
-    //@ts-ignore
     setAllSelectedFilters(filters);
   };
 
