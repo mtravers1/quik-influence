@@ -47,7 +47,9 @@ const Login = () => {
         isClosable: true,
       });
 
-      if (redirect) return router.push(redirect as string);
+      if (redirect) {
+        return router.push(redirect as string);
+      }
 
       router.push('/dashboard');
     },
