@@ -23,13 +23,18 @@ export const leadsDoneLoading = () => async (dispatch: DispatchWithPayload) => {
 };
 
 export const getAllLeads =
-  (params?: FilterDataProps) => async (dispatch: any) => {
+  (params?: FilterDataProps, filters: any = {}) => async (dispatch: any) => {
+  
     dispatch(leadsLoading());
 
     try {
       const query = getQueryString({ ...params });
 
-      const response = await axiosInstance.get(`/users/leads?${query}`);
+      
+
+      const response = await axiosInstance.get(`/users/leads?${query}`, {
+        params:filters
+      });
       const {} = response.data.data;
 
       const { rows, count, currentPage, recieved, totalPages } =

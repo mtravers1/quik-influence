@@ -15,18 +15,25 @@ const Dashboard = () => {
   const socialColumns = router.query.sc as string;
   const page = (router.query.page as string) || '1';
   const pageSize = (router.query.pageSize as string) || DEFAULT_PAGE_SIZE;
+  const [selectedFilters, setSelectedFilters] = useState(undefined)
 
   useEffect(() => {
     // if (page == allLeads?.meta?.currentPage) return;
-    dispatch(getAllLeads({ page, pageSize }));
-  }, [page, pageSize]);
+    dispatch(getAllLeads({ page, pageSize }, {filters: selectedFilters}));
+  }, [page, pageSize, selectedFilters]);
 
+
+  const FiltersComponent = (
+    <Filters
+      setAllSelectedFilters = {setSelectedFilters}
+    />
+  )
   return loading ? (
-    <MainContent>
+    <MainContent filter={FiltersComponent}>
       <TablePageLoader />
     </MainContent>
   ) : (
-    <MainContent filter={<Filters />}>
+    <MainContent filter={FiltersComponent}>
       <Leads
         leads={allLeads}
         pageType="allLeads"
