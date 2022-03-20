@@ -6,8 +6,6 @@ import {
   Text,
   useColorMode
 } from "@chakra-ui/react";
-import { css } from "@emotion/react";
-import CustomButton from "components/Button";
 import Header from "components/Header";
 import { themeColor } from "utils/constants/colorConstants";
 
@@ -164,18 +162,6 @@ const PrivacyPolicy = () => {
               marketing@quikinfluence.com. We will use commercially reasonable
               efforts to promptly determine and remedy the problem.
             </Text>
-          </Stack>
-          <Stack flexDirection={["column", "row"]} mb={10}>
-            <CustomButton
-              css={[
-                css`
-                  margin-top: unset !important;
-                `
-              ]}
-              onClick={() => {} /* history.push("/") */}
-            >
-              I agree with the terms
-            </CustomButton>
           </Stack>
         </Flex>
       </Container>
