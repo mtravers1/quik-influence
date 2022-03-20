@@ -162,6 +162,10 @@ export default function Input({
     return { msg: 'success', response };
   };
 
+  const handleModChange = (values: any) => {
+    setInputTypes({ ...inputTypes, ...values });
+  };
+
   const handleChange = (event: SyntheticEvent<EventTarget>) => {
     event?.preventDefault?.();
 
@@ -206,5 +210,6 @@ export default function Input({
     setInputTypes,
     loading,
     resetInputs,
+    handleModChange,
   };
 }
