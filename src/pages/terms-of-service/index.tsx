@@ -245,7 +245,7 @@ const TermsOfService = () => {
                 `
               ]}
               onClick={() => {
-                router.query.checked = 'checked';
+                router.query.terms = 'checked';
                 router.push(`/signup?${queryString.stringify(router.query)}`);
               }}
             >

@@ -25,14 +25,14 @@ const Register = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { query } = router;
-  const isTermsChecked = query.checked === "checked";
+  const isTermsChecked = query.terms === "checked";
 
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [loadingOtp, setLoadingOtp] = useState(false);
   const [stripeRedirectUrl, setStripeRedirectUrl] = useState();
   const [submitForm, setSubmitForm] = useState(isTermsChecked);
   const [showTermsError, setShowTermsError] = useState<boolean>(
-    query?.checked ? false : isTermsChecked ? true : false
+    query?.terms ? false : isTermsChecked ? true : false
   );
 
   let {
@@ -70,7 +70,7 @@ const Register = () => {
   });
 
   useEffect(() => {
-    delete query.checked;
+    delete query.terms;
     handleModChange(query);
   }, [query]);
 
