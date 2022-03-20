@@ -13,6 +13,7 @@ import { login } from 'redux/actions/auth';
 import '../styles/globals.css';
 import '../styles/404.css';
 import { createFormData, createTags } from 'redux/actions/general';
+import { useRouter } from 'next/router';
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -23,6 +24,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const runBeforeLoad = async () => {
     dispatch(createFormData(pageProps?.formData));
@@ -36,6 +38,18 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     runBeforeLoad();
+    axiosInstance.interceptors.response.use(
+      res => {
+        return res;
+      },
+      err => {
+        if (err.response.status === 401) {
+          localStorage.removeItem('_q_inf');
+          router.push(`/login?redirect=${router.asPath}`);
+        }
+        return Promise.reject(err);
+      }
+    );
   }, []);
 
   return (
