@@ -12,7 +12,7 @@ const CampaignsLeads = () => {
   const { leads, loading } = useSelector((state: any) => state.campaigns);
   const router = useRouter();
   const dispatch = useDispatch();
-  const [selectedFilters, setSelectedFilters] = useState(undefined)
+  const [selectedFilters, setSelectedFilters] = useState(undefined);
 
   const campaignId = router.query.campaignId as string;
   const page = router.query.page as string;
@@ -22,15 +22,16 @@ const CampaignsLeads = () => {
   const campaignsLeads = leads[campaignId];
 
   useEffect(() => {
-    dispatch(getCampaignLeads(campaignId, page, pageSize, sortBy, {filters:selectedFilters}));
+    dispatch(
+      getCampaignLeads(campaignId, page, pageSize, sortBy, {
+        filters: selectedFilters
+      })
+    );
   }, [page, pageSize, sortBy, selectedFilters]);
 
-
   const FiltersComponent = (
-    <Filters
-      setAllSelectedFilters={setSelectedFilters}
-    />
-  )
+    <Filters setAllSelectedFilters={setSelectedFilters} />
+  );
 
   return loading ? (
     <MainContent filter={FiltersComponent}>
