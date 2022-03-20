@@ -9,10 +9,13 @@ import {
 import { css } from "@emotion/react";
 import CustomButton from "components/Button";
 import Header from "components/Header";
+import { useRouter } from "next/router";
+import queryString from "query-string";
 import { themeColor } from "utils/constants/colorConstants";
 
 const TermsOfService = () => {
   const { colorMode } = useColorMode();
+  const router = useRouter();
   return (
     <>
       <Header type="unauthenticated" color={themeColor[colorMode]} />
@@ -241,7 +244,10 @@ const TermsOfService = () => {
                   margin-top: unset !important;
                 `
               ]}
-              onClick={() => {} /* history.push("/") */}
+              onClick={() => {
+                router.query.checked = 'checked';
+                router.push(`/signup?${queryString.stringify(router.query)}`);
+              }}
             >
               I agree with the terms
             </CustomButton>
