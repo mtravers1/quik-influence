@@ -1,6 +1,6 @@
 import EditableWrapper from "components/EditableWrapper";
 import Section from "../Section";
-import { Box, Divider, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Stack, Image } from "@chakra-ui/react";
 import MeetupForm from "./MeetupForm";
 import NextLink from "components/NextLink";
 
@@ -75,8 +75,19 @@ const Footer = ({ footer }: { footer: any }) => {
           <MeetupForm />
         </Flex>
       </Flex>
-      <Flex bg="#000" p={10} justify="center">
-        <Flex w={["100%", "30%"]} justify="space-between">
+      <Flex bg="#000" p={10} px={[10, 56]} justify="space-between">
+        <NextLink href="/" mr={10}>
+          <Image
+            src="/logo-white.png"
+            alt="logo"
+            marginRight="100px"
+            h="40px"
+            objectFit="contain"
+            objectPosition="left"
+          />
+        </NextLink>
+
+        <Flex w={["80%", "20%"]} justify="space-between" alignItems="center">
           <Stack>
             <NextLink _hover={{ color: "red" }} href="/terms-of-service">
               Terms of service
