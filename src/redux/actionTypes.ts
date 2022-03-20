@@ -23,6 +23,8 @@ export const LEADS = 'LEADS';
 export const CREATE_FORM_DATA = 'CREATE_FORM_DATA';
 export const CREATE_TAGS = 'CREATE_TAGS';
 
+export const ADD_TAGS = 'ADD_TAGS';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;

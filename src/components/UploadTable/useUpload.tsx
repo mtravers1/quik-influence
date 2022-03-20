@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import papa from 'papaparse';
+import { useDispatch } from 'react-redux';
 import { axiosInstance, baseurl } from 'utils/helpers';
 import { useToast } from '@chakra-ui/react';
 import { FILE_STATUS } from 'utils/constants';
+import { addTags } from 'redux/actions/general';
 
 const useUpload = (file: any, documentTag?: any) => {
   const [progress, setProgress] = useState(0);
@@ -16,6 +18,8 @@ const useUpload = (file: any, documentTag?: any) => {
   const [uploadId, setUploadId] = useState();
   const cancelRef = useRef(new AbortController());
   const [fileHeaderError, setFileHeaderError] = useState(false);
+
+  const dispatch = useDispatch();
 
   const toast = useToast();
 
@@ -84,6 +88,8 @@ const useUpload = (file: any, documentTag?: any) => {
         const newtag = await axiosInstance.post('/admin/tag', {
           name: documentTag,
         });
+
+        dispatch(addTags(newtag.data.data));
 
         tagId = newtag.data.data.id;
       } else {

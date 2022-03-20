@@ -26,7 +26,7 @@ exports[`renders SideBarMenu component 1`] = `
               type="button"
             >
               <a
-                class="chakra-link css-1uh3aj7"
+                class="chakra-link css-1usgsn8"
                 href="/dashboard"
               >
                 <svg
@@ -80,7 +80,7 @@ exports[`renders SideBarMenu component 1`] = `
               type="button"
             >
               <a
-                class="chakra-link css-1uh3aj7"
+                class="chakra-link css-1usgsn8"
                 href="/dashboard/campaigns"
               >
                 <svg
@@ -134,7 +134,7 @@ exports[`renders SideBarMenu component 1`] = `
               type="button"
             >
               <a
-                class="chakra-link css-1uh3aj7"
+                class="chakra-link css-1usgsn8"
                 href="/dashboard/credits"
               >
                 <svg
@@ -188,7 +188,7 @@ exports[`renders SideBarMenu component 1`] = `
               type="button"
             >
               <a
-                class="chakra-link css-1uh3aj7"
+                class="chakra-link css-1usgsn8"
                 href="/dashboard/leads"
               >
                 <svg
@@ -220,7 +220,18 @@ exports[`renders SideBarMenu component 1`] = `
               class="chakra-accordion__panel css-267yq8"
               id="accordion-panel-4"
               role="region"
-            />
+            >
+              <a
+                class="chakra-link css-15hd71j"
+                href="/dashboard/leads/upload"
+              >
+                <span
+                  class="css-r3hog8"
+                >
+                  Upload Leads
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

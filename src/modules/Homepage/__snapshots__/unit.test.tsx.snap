@@ -23,7 +23,7 @@ exports[`Home page Tests renders Home Page 1`] = `
             class="css-to8a61"
           >
             <a
-              class="chakra-link css-g77k4c"
+              class="chakra-link css-1jeyanu"
               href="/video-help"
             >
               <button
@@ -34,7 +34,7 @@ exports[`Home page Tests renders Home Page 1`] = `
               </button>
             </a>
             <a
-              class="chakra-link css-0"
+              class="chakra-link css-1trwvm"
               href="/text-help"
             >
               <button
@@ -65,7 +65,7 @@ exports[`Home page Tests renders Home Page 1`] = `
                   class="css-0"
                 >
                   <a
-                    class="chakra-link css-1km2gv8"
+                    class="chakra-link css-pvjce0"
                     href="/"
                     style="color: red;"
                   >
@@ -535,10 +535,10 @@ exports[`Home page Tests renders Home Page 1`] = `
       </div>
     </section>
     <section
-      class="css-1o6wpkk"
+      class="css-1m8s7r6"
     >
       <div
-        class="css-m5rldb"
+        class="css-zuecq5"
       >
         <div
           class="css-1x741jx"
@@ -866,6 +866,48 @@ exports[`Home page Tests renders Home Page 1`] = `
               CONTACT US
             </button>
           </form>
+        </div>
+      </div>
+      <div
+        class="css-169cma9"
+      >
+        <a
+          class="chakra-link css-teqzio"
+          href="/"
+        >
+          <img
+            alt="logo"
+            class="chakra-image css-ot153m"
+            src="/logo-white.png"
+          />
+        </a>
+        <div
+          class="css-ns7uoy"
+        >
+          <div
+            class="chakra-stack css-n21gh5"
+          >
+            <a
+              class="chakra-link css-qe5axb"
+              href="/terms-of-service"
+            >
+              Terms of service
+            </a>
+          </div>
+          <hr
+            aria-orientation="vertical"
+            class="chakra-divider css-12gj880"
+          />
+          <div
+            class="chakra-stack css-n21gh5"
+          >
+            <a
+              class="chakra-link css-qe5axb"
+              href="/privacy-policy"
+            >
+              Privacy Policy
+            </a>
+          </div>
         </div>
       </div>
     </section>

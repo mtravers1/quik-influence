@@ -1,47 +1,45 @@
-import { Box, Flex, useColorMode, Text } from "@chakra-ui/react";
-import quikColorConstants, { basicTheme } from "utils/constants/colorConstants";
-import CustomButton from "components/Button";
-import { TextInput } from "components/Input";
-import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Box, Flex, useColorMode, Text } from '@chakra-ui/react';
+import quikColorConstants, { basicTheme } from 'utils/constants/colorConstants';
+import CustomButton from 'components/Button';
+import { TextInput } from 'components/Input';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import queryString from "query-string";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { ChangeEvent, useEffect, useState } from "react";
-import DropdownSelect from "components/DropdownSelect";
-import { allFilters } from "./filters";
-import { FILTER_SEARCH_TYPE } from "./constants";
-import { FilterValueType, SelectedFilterType } from "./types";
-import { useRouter } from "next/router";
+import queryString from 'query-string';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { ChangeEvent, useEffect, useState } from 'react';
+import DropdownSelect from 'components/DropdownSelect';
+import { allFilters } from './filters';
+import { FILTER_SEARCH_TYPE } from './constants';
+import { FilterValueType, SelectedFilterType } from './types';
+import { useRouter } from 'next/router';
 
 const FilterValue = ({
   selectedFilter,
   handleFilterValueChange,
-  filterIndex
+  filterIndex,
 }: FilterValueType) => {
   if (selectedFilter.type === FILTER_SEARCH_TYPE.OPTIONS_SEARCH) {
     return (
       <DropdownSelect
-        onChange={(e) =>
-          handleFilterValueChange(e, selectedFilter, filterIndex)
-        }
+        onChange={e => handleFilterValueChange(e, selectedFilter, filterIndex)}
         options={selectedFilter.options}
         placeholder="Filter"
-        selected={selectedFilter.value ?? ""}
+        selected={selectedFilter.value ?? ''}
       />
     );
   }
   return (
     <TextInput
       name={selectedFilter.name}
-      handleChange={(e) =>
+      handleChange={e =>
         handleFilterValueChange(e, selectedFilter, filterIndex)
       }
       type={
         selectedFilter.type === FILTER_SEARCH_TYPE.FULL_TEXT_SEARCH ||
         selectedFilter.type === FILTER_SEARCH_TYPE.FUZZY_TEXT_SEARCH
-          ? "text"
-          : "number"
+          ? 'text'
+          : 'number'
       }
       placeholder={selectedFilter.name}
       value={selectedFilter.value}
@@ -62,34 +60,34 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
   const router = useRouter();
 
   const emptyFilter: SelectedFilterType = {
-    type: "",
+    type: '',
     options: [],
-    name: "",
-    value: "",
-    key: "",
-    id: ""
+    name: '',
+    value: '',
+    key: '',
+    id: '',
   };
   const filters = {
     fuzzy: {},
     match: {},
     integerGreater: {},
-    integerLess: {}
+    integerLess: {},
   } as any;
 
   const [showAddFilter, setShowAddFilter] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([emptyFilter]);
   const [filterOptions, setFilterOptions] = useState([
     {
-      label: "",
-      value: "",
-      disabled: false
-    }
+      label: '',
+      value: '',
+      disabled: false,
+    },
   ]);
 
-  const allFilterOptions = allFilters.map((filter) => ({
+  const allFilterOptions = allFilters.map(filter => ({
     label: filter.name,
     value: filter.id,
-    disabled: false
+    disabled: false,
   }));
 
   useEffect(() => {
@@ -105,8 +103,8 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
       selectedFilters.forEach((filter: SelectedFilterType) => {
         seen.push(filter.key);
       });
-      setFilterOptions((_filterOptions) =>
-        _filterOptions.map((filter) =>
+      setFilterOptions(_filterOptions =>
+        _filterOptions.map(filter =>
           seen.includes(filter.value)
             ? { ...filter, disabled: true }
             : { ...filter, disabled: false }
@@ -116,7 +114,7 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
   }, [selectedFilters]);
 
   const addFilter = () => {
-    setSelectedFilters((filters) => [...filters, emptyFilter]);
+    setSelectedFilters(filters => [...filters, emptyFilter]);
     setShowAddFilter(false);
   };
 
@@ -125,12 +123,12 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
     selectedFilter: SelectedFilterType
   ) => {
     const selectedFilterObject: any = allFilters.find(
-      (val) => val.id === e.target.value
+      val => val.id === e.target.value
     );
     if (!selectedFilterObject) return;
-    selectedFilterObject.value = "";
-    setSelectedFilters((selectedFilters) =>
-      selectedFilters.map((filters) =>
+    selectedFilterObject.value = '';
+    setSelectedFilters(selectedFilters =>
+      selectedFilters.map(filters =>
         filters === selectedFilter ? selectedFilterObject : filters
       )
     );
@@ -144,7 +142,7 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
   ) => {
     const target = e.target as HTMLInputElement;
     const value = target.value;
-    setSelectedFilters((selectedFilters) =>
+    setSelectedFilters(selectedFilters =>
       selectedFilters.map((filters, index) =>
         filters === selectedFilter ? { ...filters, value: value } : filters
       )
@@ -153,8 +151,8 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
   };
 
   const removeFilter = (filterToRemove: SelectedFilterType) => {
-    setSelectedFilters((selectedFilters) =>
-      selectedFilters.filter((filter) => filter !== filterToRemove)
+    setSelectedFilters(selectedFilters =>
+      selectedFilters.filter(filter => filter !== filterToRemove)
     );
   };
 
@@ -162,13 +160,13 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
     setSelectedFilters([emptyFilter]);
     setFilterOptions(allFilterOptions);
     const params = router.query;
-    params.page = "1";
+    params.page = '1';
     router.push(`?${queryString.stringify(params)}`);
     setAllSelectedFilters(filters);
   };
 
   const applyFilter = () => {
-    selectedFilters.forEach((selectedFilter) => {
+    selectedFilters.forEach(selectedFilter => {
       const { type, value, key } = selectedFilter;
       if (value) {
         switch (type) {
@@ -192,7 +190,7 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
       }
     });
     const params = router.query;
-    params.page = "1";
+    params.page = '1';
     router.push(`?${queryString.stringify(params)}`);
     setAllSelectedFilters(filters);
   };
@@ -232,11 +230,11 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
           <Flex key={index} justifyContent="flex-start" width="full" my={6}>
             <Box width="45%" pr={4}>
               <DropdownSelect
-                onChange={(e) => handleFilterKeyChange(e, selectedFilter)}
+                onChange={e => handleFilterKeyChange(e, selectedFilter)}
                 options={filterOptions}
                 placeholder="Filter"
                 noValue={selectedFilter?.type ? true : false}
-                selected={selectedFilter?.type ? selectedFilter.id : ""}
+                selected={selectedFilter?.type ? selectedFilter.id : ''}
               />
             </Box>
 
@@ -257,7 +255,7 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
                 >
                   <FontAwesomeIcon
                     icon={faTimes as IconProp}
-                    style={{ margin: "auto 5px" }}
+                    style={{ margin: 'auto 5px' }}
                   />
                 </Box>
               </>
@@ -268,13 +266,13 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
         <Box as="div" p={3} borderTop="1px solid #ededed" mt={8}>
           <Box
             onClick={showAddFilter ? addFilter : () => {}}
-            as={showAddFilter ? "a" : "p"}
-            cursor={showAddFilter ? "pointer" : "default"}
-            color={showAddFilter ? "rgb(44 110 203)" : "rgb(140 145 150)"}
+            as={showAddFilter ? 'a' : 'p'}
+            cursor={showAddFilter ? 'pointer' : 'default'}
+            color={showAddFilter ? 'rgb(44 110 203)' : 'rgb(140 145 150)'}
           >
             <FontAwesomeIcon
               icon={faPlus as IconProp}
-              style={{ margin: "auto 5px" }}
+              style={{ margin: 'auto 5px' }}
             />
             Add Filter
           </Box>
@@ -282,7 +280,7 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
 
         <CustomButton
           bgColor={
-            colorMode === "light"
+            colorMode === 'light'
               ? quikColorConstants.greyDarker
               : quikColorConstants.influenceRed
           }
