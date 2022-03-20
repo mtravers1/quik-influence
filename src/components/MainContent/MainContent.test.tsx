@@ -1,3 +1,4 @@
+import '__mocks__/matchMedia.mock';
 import { renderWithStore } from 'utils/testUtils';
 import initialState from '__mockData__/storeData';
 import MainContent from '.';

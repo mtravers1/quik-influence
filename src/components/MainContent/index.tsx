@@ -30,32 +30,38 @@ const MainContent = ({ children, filter }: MainContentProps) => {
 
   useEffect(() => {
     const closeSlider = () => {
-      const smallerScreen = window.matchMedia('(max-width: 50em)');
+      if (typeof window !== 'undefined') {
+        const smallerScreen = window.matchMedia('(max-width: 50em)');
 
-      if (smallerScreen.matches) {
-        close();
-      } else {
-        openBar();
-      }
+        if (smallerScreen?.matches) {
+          close();
+        } else {
+          openBar();
+        }
 
-      const smallerFilterScreen = window.matchMedia('(max-width: 1800px)');
+        const smallerFilterScreen = window.matchMedia('(max-width: 1800px)');
 
-      if (smallerFilterScreen.matches) {
-        toggleFilter(true);
-        setResponsiveFilterMode(true);
-      } else {
-        toggleFilter(false);
-        setResponsiveFilterMode(false);
+        if (smallerFilterScreen?.matches) {
+          toggleFilter(true);
+          setResponsiveFilterMode(true);
+        } else {
+          toggleFilter(false);
+          setResponsiveFilterMode(false);
+        }
       }
     };
 
     closeSlider();
 
-    window.addEventListener('resize', closeSlider);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', closeSlider);
+    }
     // window.addEventListener("scroll", close);
     return () => {
-      window.removeEventListener('resize', closeSlider);
-      window.removeEventListener('scroll', close);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', closeSlider);
+        window.removeEventListener('scroll', close);
+      }
     };
   }, []);
 
@@ -112,7 +118,7 @@ const MainContent = ({ children, filter }: MainContentProps) => {
           py={10}
           overflow="hidden"
         >
-          <Box flexGrow={1} width="100%" mx="auto" >
+          <Box flexGrow={1} width="100%" mx="auto">
             {children}
           </Box>
           {filter && (
