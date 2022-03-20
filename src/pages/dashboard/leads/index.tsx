@@ -25,6 +25,7 @@ const Dashboard = () => {
   const FiltersComponent = (
     <Filters setAllSelectedFilters={setSelectedFilters} />
   );
+
   return loading ? (
     <MainContent filter={FiltersComponent}>
       <TablePageLoader />

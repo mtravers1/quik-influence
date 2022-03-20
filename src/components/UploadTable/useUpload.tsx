@@ -90,7 +90,6 @@ const useUpload = (file: any, documentTag?: any) => {
         });
 
         dispatch(addTags(newtag.data.data));
-
         tagId = newtag.data.data.id;
       } else {
         tagId = documentTag.value;
