@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Box, Input, useColorMode } from '@chakra-ui/react';
 import { dashboardColor } from 'utils/constants/colorConstants';
 import useLogic from './logic';
@@ -13,6 +13,11 @@ const AutoCompleteDropDown = ({
   placeHolder: string;
 }) => {
   const { colorMode } = useColorMode();
+  const inputRef = useRef<any>();
+
+  useEffect(() => {
+    inputRef.current.setAttribute('autocomplete', 'off');
+  }, []);
 
   const {
     handleChange,
@@ -41,6 +46,7 @@ const AutoCompleteDropDown = ({
         onBlur={handleBlur}
         placeholder={placeHolder || ''}
         name="upload"
+        ref={inputRef}
       />
 
       {showDropDown && (
