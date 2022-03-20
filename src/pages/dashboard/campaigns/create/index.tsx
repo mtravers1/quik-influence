@@ -4,7 +4,7 @@ import CreateCampaign from 'modules/Campaigns/CreateCampaign';
 const Create = () => {
   return (
     <MainContent>
-      <CreateCampaign initialdata={null} />
+      <CreateCampaign type="Default" initialdata={null} />
     </MainContent>
   );
 };

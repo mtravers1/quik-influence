@@ -68,6 +68,7 @@ const selectLabelProps = {
 const selectProps = { height: '3rem', width: '30rem', fontSize: '1.4rem' };
 
 const getFormFields = (inputs: string[]) => {
+  if (!inputs) return;
   return formFieldsData.reduce((acc: any, fields: any) => {
     if (inputs.includes(fields.name)) {
       return [...acc, { ...fields, pattern: fields.pattern.toString() }];
@@ -758,61 +759,31 @@ const CreateCampaign = ({
     inputs: getFormData(type as CreateCampaignType),
     initials: initialdata || {},
     cb: async inputs => {
-      if (type === 'SMS') {
-        // Update inputs to have selected checkItems -> leads
-        inputs['selectedLeads'] = checkedItems.filter(
-          (el: any) => el.isChecked
-        );
-
-        // Store to redux
-        dispatch(setSMSCampaign(inputs));
-
-        toast({
-          title: 'Your campaign has been created successfully!',
-          description: 'You will be redirected to a payment page',
-          status: 'success',
-          duration: 4000,
-          isClosable: true,
-        });
-        setTimeout(() => {
-          router.push('/dashboard/credits');
-        }, 2000);
-        return;
-      }
-
-      if (type === 'Email') {
-        // Update inputs to have selected checkItems -> leads
-        inputs['selectedLeads'] = checkedItems.filter(
-          (el: any) => el.isChecked
-        );
-
-        // Store to redux
-        dispatch(setSMSCampaign(inputs));
-
-        toast({
-          title: 'Your campaign has been created successfully!',
-          description: 'You will be redirected to a payment page',
-          status: 'success',
-          duration: 4000,
-          isClosable: true,
-        });
-        setTimeout(() => {
-          router.push('/dashboard/credits');
-        }, 2000);
-        return;
-      }
+      const smsEmailRecord = type !== 'Default' && {
+        message: type === 'Email' ? convertedContent : inputTypes['message'],
+        to: checkedItems
+          .filter((el: any) => el.isChecked)
+          .map((lead: any) =>
+            type === 'Email' ? lead.email : lead.phoneNumber
+          ),
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      };
+      console.log('inputs here', inputs);
+      console.log('smsEmailRecord here', smsEmailRecord);
 
       const formFieldsInput = getFormFields(inputs.formData);
       const formDataObject = {
+        type,
         name: inputs.name,
         description: inputs.description,
-        status: inputs.status,
+        status: inputs.status || 'SCHEDULED',
         redirectUrl: inputs.redirectUrl,
         paidType: inputs.paidType,
         banner: inputs.banner,
         formData: { form: formFieldsInput },
         campaignDate: inputs.campaignDate,
         prices: inputs.prices,
+        ...smsEmailRecord,
       };
       const response = initialdata
         ? await axiosInstance.put(
