@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import papa from 'papaparse';
 import { axiosInstance, baseurl } from 'utils/helpers';
-import { saveAs } from 'file-saver';
+import { useToast } from '@chakra-ui/react';
 import { FILE_STATUS } from 'utils/constants';
 
-const useUpload = (file: any, headers: any) => {
+const useUpload = (file: any, documentTag?: any) => {
   const [progress, setProgress] = useState(0);
   const [parsedData, setParsedData] = useState<any>([]);
   const [status, setStatus] = useState(FILE_STATUS.IDLE);
@@ -16,6 +16,8 @@ const useUpload = (file: any, headers: any) => {
   const [uploadId, setUploadId] = useState();
   const cancelRef = useRef(new AbortController());
   const [fileHeaderError, setFileHeaderError] = useState(false);
+
+  const toast = useToast();
 
   useEffect(() => {
     setStatus(FILE_STATUS.PROCESSING);
@@ -44,19 +46,51 @@ const useUpload = (file: any, headers: any) => {
       complete: (results: any) => {
         results.data.splice(0, 1);
 
+        if (
+          !matchedHeaders.some(header => header) &&
+          matchedHeaders.includes('phone')
+        ) {
+          toast({
+            title: 'Please include headers in your file',
+            description: '',
+            status: 'error',
+            duration: 4000,
+            isClosable: true,
+            position: 'top-right',
+          });
+          return;
+        }
+
+        const fileLength = results.data.length;
+
         let newData = [matchedHeaders, ...results.data];
 
         const parsedArray = papa.unparse(newData);
+
         const newFile = new File([parsedArray], file.name, {
           type: 'text/csv;charset=utf-8;',
         });
 
-        uploadFileChunks(newFile, options);
+        uploadFileChunks(newFile, { ...options, fileLength });
       },
     });
   };
 
   const uploadFileChunks = async (file: any, options: any) => {
+    let tagId: string = '';
+
+    if (documentTag) {
+      if (typeof documentTag === 'string') {
+        const newtag = await axiosInstance.post('/admin/tag', {
+          name: documentTag,
+        });
+
+        tagId = newtag.data.data.id;
+      } else {
+        tagId = documentTag.value;
+      }
+    }
+
     setStatus(FILE_STATUS.PENDING);
     const formData = new FormData();
     const req = new XMLHttpRequest();
@@ -67,6 +101,8 @@ const useUpload = (file: any, headers: any) => {
         '/admin/leads-upload-request',
         {
           fileName: file.name,
+          tagId,
+          fileLength: options.fileLength,
         }
       );
 

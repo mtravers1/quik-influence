@@ -1,9 +1,6 @@
 {
   "name": "quik-influence",
   "private": true,
-  "engines": {
-    "node": "16.x"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -78,6 +75,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.7",
     "prettier": "^2.5.1",
+    "storybook": "^6.4.19",
     "typescript": "4.5.5"
   }
 }

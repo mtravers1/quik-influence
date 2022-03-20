@@ -66,7 +66,7 @@ const UploadNewLeads = () => {
             </Box>
           </Box>
 
-          {[...files].map((file: any) => (
+          {[...files].reverse().map((file: any) => (
             <UploadTable
               file={file.data}
               key={file.id}

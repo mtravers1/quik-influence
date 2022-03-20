@@ -159,3 +159,17 @@ function editDistance(s1: string, s2: string) {
   }
   return costs[s2.length];
 }
+
+export const stringSearch = (val: string, string: string) =>
+  string && string.toLowerCase().search(val.toLowerCase()) !== -1;
+
+export function isInViewport(element: any) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
