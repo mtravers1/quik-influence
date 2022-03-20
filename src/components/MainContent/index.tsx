@@ -17,6 +17,8 @@ interface MainContentProps {
 const MainContent = ({ children, filter }: MainContentProps) => {
   const { colorMode } = useColorMode();
   const [open, setOpen] = useState(true);
+  const [openFilter, setOpenFilter] = useState(false);
+  const [responsiveFilterMode, setResponsiveFilterMode] = useState(true);
 
   const openBar = () => {
     setOpen(!open);
@@ -35,7 +37,19 @@ const MainContent = ({ children, filter }: MainContentProps) => {
       } else {
         openBar();
       }
+
+      const smallerFilterScreen = window.matchMedia('(max-width: 1800px)');
+
+      if (smallerFilterScreen.matches) {
+        toggleFilter(true);
+        setResponsiveFilterMode(true);
+      } else {
+        toggleFilter(false);
+        setResponsiveFilterMode(false);
+      }
     };
+
+    closeSlider();
 
     window.addEventListener('resize', closeSlider);
     // window.addEventListener("scroll", close);
@@ -45,9 +59,32 @@ const MainContent = ({ children, filter }: MainContentProps) => {
     };
   }, []);
 
+  const filterOpenStyles = css`
+    & {
+      position: fixed;
+      height: 100%;
+      background: ${dashboardColor[colorMode]};
+      right: ${openFilter ? '-15px' : '-700px'};
+      top: 61px;
+      padding: 20px;
+      border-left: 1px solid #000;
+      transition: 0.3s ease;
+    }
+  `;
+
+  const toggleFilter = (state: any) => {
+    if (typeof state === 'boolean') setOpenFilter(state);
+    setOpenFilter(prevtoogle => !prevtoogle);
+  };
+
   return (
     <Stack position="relative">
-      <Header bgColor={bgThemeColor[colorMode]} color={themeColor[colorMode]} />
+      <Header
+        bgColor={bgThemeColor[colorMode]}
+        color={themeColor[colorMode]}
+        toggleFilter={toggleFilter}
+        showFilter={!!filter && responsiveFilterMode}
+      />
       <Flex
         flexDirection="row"
         position="relative"
@@ -75,11 +112,24 @@ const MainContent = ({ children, filter }: MainContentProps) => {
           py={10}
           overflow="hidden"
         >
-          <Box flexGrow={1} width="100%" mx="auto" overflowX='scroll'>
+          <Box flexGrow={1} width="100%" mx="auto" >
             {children}
           </Box>
           {filter && (
-            <Box flexShrink={0} marginX="15px">
+            <Box
+              flexShrink={0}
+              marginX="15px"
+              css={
+                responsiveFilterMode
+                  ? filterOpenStyles
+                  : css`
+                      & {
+                        position: sticky;
+                        top: 0;
+                      }
+                    `
+              }
+            >
               {filter}
             </Box>
           )}

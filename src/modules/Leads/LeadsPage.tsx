@@ -100,7 +100,7 @@ const LeadsPage = ({
           </Box>
         </Center>
       ) : (
-        <Flex w="100%">
+        <Flex w="100%" overflowX="auto" width="100%" padding="10px 0">
           <Box flexGrow={1}>
             <Table
               size="lg"
@@ -129,21 +129,45 @@ const LeadsPage = ({
               <Tbody>
                 {leads?.data.map((data: any, i: number) => (
                   <Tr key={`lead_data_${i}`}>
-                    <Td whiteSpace="nowrap" textTransform="capitalize">
+                    <Td
+                      whiteSpace="nowrap"
+                      textTransform="capitalize"
+                      fontSize="16px"
+                    >
                       {data.firstName || 'N/A'}
                     </Td>
-                    <Td whiteSpace="nowrap" textTransform="capitalize">
+                    <Td
+                      whiteSpace="nowrap"
+                      textTransform="capitalize"
+                      fontSize="16px"
+                    >
                       {data.lastName || 'N/A'}
                     </Td>
                     <Td whiteSpace="nowrap">{data.email || 'N/A'}</Td>
-                    <Td>{data.phone}</Td>
-                    <Td textTransform="capitalize">{data.gender || 'N/A'}</Td>
+                    <Td
+                      textTransform="capitalize"
+                      fontSize="16px"
+                      whiteSpace="nowrap"
+                    >
+                      {data.phone}
+                    </Td>
+                    <Td
+                      textTransform="capitalize"
+                      fontSize="16px"
+                      whiteSpace="nowrap"
+                    >
+                      {data.gender || 'N/A'}
+                    </Td>
                     {/* <Td>
                       {(data.dateOfBirth &&
                         format(new Date(data.dateOfBirth), "yyyy-mm-dd")) ||
                         "N/A"}
                     </Td> */}
-                    <Td textTransform="capitalize">
+                    <Td
+                      textTransform="capitalize"
+                      fontSize="16px"
+                      whiteSpace="nowrap"
+                    >
                       {`${data.city || ''} ${data.state || ''} ${
                         data.postalCode || ''
                       }`}
@@ -151,10 +175,18 @@ const LeadsPage = ({
                     {socialColumns.length >= 1 &&
                       !!socialColumns[0] &&
                       socialColumns?.map((s: string, j: number) => (
-                        <Td key={`social_${j}`}>{data[s] || 'N/A'}</Td>
+                        <Td
+                          key={`social_${j}`}
+                          fontSize="16px"
+                          whiteSpace="nowrap"
+                        >
+                          {data[s] || 'N/A'}
+                        </Td>
                       ))}
                     {status.length > 0 && (
-                      <Td>{data?.UserCampaigns?.at(0)?.paymentStatus}</Td>
+                      <Td fontSize="16px" whiteSpace="nowrap">
+                        {data?.UserCampaigns?.at(0)?.paymentStatus}
+                      </Td>
                     )}
                   </Tr>
                 ))}
