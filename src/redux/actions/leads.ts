@@ -25,7 +25,6 @@ export const leadsDoneLoading = () => async (dispatch: DispatchWithPayload) => {
 export const getAllLeads =
   (params?: FilterDataProps, filters: any = {}) =>
   async (dispatch: any) => {
-
     dispatch(leadsLoading());
 
     try {

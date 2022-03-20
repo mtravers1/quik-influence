@@ -1,6 +1,5 @@
 import { CREATE_FORM_DATA, CREATE_TAGS, ADD_TAGS } from '../actionTypes';
 
-
 export const createFormData =
   (data: any) =>
   async (dispatch: (arg0: { type: string; payload: any }) => void) => {
@@ -27,4 +26,3 @@ export const addTags =
       payload: data,
     });
   };
-

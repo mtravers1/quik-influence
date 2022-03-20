@@ -68,7 +68,7 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
     key: '',
     id: '',
   };
- 
+
   const filters = {
     fuzzy: {},
     match: {},
