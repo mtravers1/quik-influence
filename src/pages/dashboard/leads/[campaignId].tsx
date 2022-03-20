@@ -22,15 +22,17 @@ const CampaignsLeads = () => {
   const campaignsLeads = leads[campaignId];
 
   useEffect(() => {
-    dispatch(getCampaignLeads(campaignId, page, pageSize, sortBy, {filters:selectedFilters}));
+    dispatch(
+      getCampaignLeads(campaignId, page, pageSize, sortBy, {
+        filters: selectedFilters
+      })
+    );
   }, [page, pageSize, sortBy, selectedFilters]);
 
-
   const FiltersComponent = (
-    <Filters
-      setAllSelectedFilters={setSelectedFilters}
-    />
-  )
+    <Filters setAllSelectedFilters={setSelectedFilters} />
+  );
+
 
   return loading ? (
     <MainContent filter={FiltersComponent}>

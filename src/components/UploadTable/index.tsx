@@ -212,7 +212,7 @@ const UploadTable = ({
             </Box>
           </Box>
 
-          <Box overflow="scroll" width="100%" padding="10px 0 10px">
+          <Box overflowX="auto" width="100%" padding="10px 0 10px">
             <Table>
               <Thead>
                 <Tr>
@@ -238,7 +238,7 @@ const UploadTable = ({
 
       {!fileHeaderError && (
         <>
-          <Box overflow="scroll" width="100%" padding="10px 0">
+          <Box overflowX="auto" width="100%" padding="10px 0">
             <Table>
               <Thead>
                 <Tr>

@@ -3,7 +3,7 @@
 exports[`renders NextLink component 1`] = `
 <div>
   <a
-    class="chakra-link css-0"
+    class="chakra-link css-1trwvm"
     href="/#"
   />
 </div>
@@ -12,7 +12,7 @@ exports[`renders NextLink component 1`] = `
 exports[`renders NextLink component 2`] = `
 <div>
   <a
-    class="chakra-link css-0"
+    class="chakra-link css-1trwvm"
     href="https://www.google.com"
   />
 </div>
@@ -21,7 +21,7 @@ exports[`renders NextLink component 2`] = `
 exports[`renders NextLink component 3`] = `
 <div>
   <a
-    class="chakra-link css-0"
+    class="chakra-link css-1trwvm"
     href="/dashboard"
   />
 </div>
@@ -30,7 +30,7 @@ exports[`renders NextLink component 3`] = `
 exports[`renders NextLink component 4`] = `
 <div>
   <a
-    class="chakra-link css-0"
+    class="chakra-link css-1trwvm"
     href="/dashboard"
   />
 </div>

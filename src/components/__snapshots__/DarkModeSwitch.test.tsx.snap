@@ -3,7 +3,7 @@
 exports[`renders DarkModeSwitch component 1`] = `
 <div>
   <label
-    class="chakra-switch css-qtgvng"
+    class="chakra-switch css-i8ac42"
   >
     <input
       class="chakra-switch__input"

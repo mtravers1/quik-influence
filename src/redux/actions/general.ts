@@ -1,4 +1,5 @@
-import { CREATE_FORM_DATA, CREATE_TAGS } from '../actionTypes';
+import { CREATE_FORM_DATA, CREATE_TAGS, ADD_TAGS } from '../actionTypes';
+
 
 export const createFormData =
   (data: any) =>
@@ -17,3 +18,13 @@ export const createTags =
       payload: data,
     });
   };
+
+export const addTags =
+  (data: any) =>
+  async (dispatch: (arg0: { type: string; payload: any }) => void) => {
+    dispatch({
+      type: ADD_TAGS,
+      payload: data,
+    });
+  };
+

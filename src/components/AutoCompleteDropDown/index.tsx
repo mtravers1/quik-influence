@@ -56,7 +56,7 @@ const AutoCompleteDropDown = ({
           tabIndex={-1}
           borderRadius="5px"
           maxHeight="400px"
-          overflow="scroll"
+          overflowY="auto"
         >
           {innerOpts.map((option: any, i: any) => (
             <InnerOpts
