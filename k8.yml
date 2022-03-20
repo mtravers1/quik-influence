@@ -30,7 +30,7 @@ spec:
             backend:
               serviceName: ssl-redirect
               servicePort: use-annotation
-          - path: /
+          - path: /*
             backend:
               serviceName: quikinfluence-backend
               servicePort: 5002

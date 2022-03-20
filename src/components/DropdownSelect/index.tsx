@@ -14,6 +14,8 @@ import quikColorConstants from 'utils/constants/colorConstants';
 export type DropdownSelectOption = {
   label: string;
   value: string;
+  style?: any;
+  disabled?: boolean;
 };
 
 interface DropdownSelectProp {
@@ -29,7 +31,7 @@ interface DropdownSelectProp {
   name?: string;
   placeholder?: string;
   selected?: string;
-  noValue?: boolean
+  noValue?: boolean;
 }
 
 const DropdownSelect = ({
@@ -45,9 +47,10 @@ const DropdownSelect = ({
   name,
   placeholder,
   selected,
-  noValue=true
+  noValue = true,
 }: DropdownSelectProp) => {
   const { colorMode } = useColorMode();
+
   return (
     <FormControl isInvalid={!!error}>
       {!!label && (
@@ -78,18 +81,21 @@ const DropdownSelect = ({
         id={inputId}
         data-test-id="select-component"
         defaultValue={selected}
-        {... !noValue && {value: ""}}
+        value={selected}
+        {...(!noValue && { value: '' })}
         {...selectProps}
       >
         <option value="" disabled>
           {`Select ${label || placeholder || '---'}`}
         </option>
-        {options.map(option => {
+        {options.map((option, i) => {
           return (
             <option
               data-testid="select-option"
               key={option.value}
               value={option.value}
+              style={option.style || {}}
+              {...(option.disabled && {disabled: option.disabled})}
             >
               {option.label}
             </option>

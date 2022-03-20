@@ -62,8 +62,11 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
   };
 
   const getFormFields = (optionalFields: any) => {
+    if (!optionalFields) return compulsoryFields;
     return [...compulsoryFields, ...optionalFields];
   };
+
+  if (!data) window.location.href = "/404";
 
   return (
     <Box as="section" bgColor={bgThemeColor[colorMode]}>
@@ -124,7 +127,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                   </Heading>
                   <LeadsForm
                     campaignId={query.campaignId as string}
-                    handleStripe={handleStripe}
+                    // handleStripe={handleStripe}
                     redirectUrl={data?.redirectUrl}
                     form={getFormFields(data?.formData?.form)}
                     paidType={data?.paidType}

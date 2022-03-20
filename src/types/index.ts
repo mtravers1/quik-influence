@@ -8,7 +8,7 @@ export type SelectProps = { label: string; value: string };
 
 export interface SideBarOptionMenu {
   name: string;
-  icon: IconDefinition;
+  icon?: IconDefinition;
   path: string;
   child?: SideBarOptionMenu[];
   order?: number;
@@ -29,6 +29,7 @@ export interface FilterItemProps {
 
 export interface FilterDataProps {
   page?: any;
-  pageSize?: number;
+  pageSize?: string;
   sort?: string;
+  filters?: any;
 }

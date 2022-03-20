@@ -17,6 +17,8 @@ interface MainContentProps {
 const MainContent = ({ children, filter }: MainContentProps) => {
   const { colorMode } = useColorMode();
   const [open, setOpen] = useState(true);
+  const [openFilter, setOpenFilter] = useState(false);
+  const [responsiveFilterMode, setResponsiveFilterMode] = useState(true);
 
   const openBar = () => {
     setOpen(!open);
@@ -28,26 +30,67 @@ const MainContent = ({ children, filter }: MainContentProps) => {
 
   useEffect(() => {
     const closeSlider = () => {
-      const smallerScreen = window.matchMedia('(max-width: 50em)');
+      if (typeof window !== 'undefined') {
+        const smallerScreen = window.matchMedia('(max-width: 50em)');
 
-      if (smallerScreen.matches) {
-        close();
-      } else {
-        openBar();
+        if (smallerScreen?.matches) {
+          close();
+        } else {
+          openBar();
+        }
+
+        const smallerFilterScreen = window.matchMedia('(max-width: 1800px)');
+
+        if (smallerFilterScreen?.matches) {
+          toggleFilter(true);
+          setResponsiveFilterMode(true);
+        } else {
+          toggleFilter(false);
+          setResponsiveFilterMode(false);
+        }
       }
     };
 
-    window.addEventListener('resize', closeSlider);
+    closeSlider();
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', closeSlider);
+    }
     // window.addEventListener("scroll", close);
     return () => {
-      window.removeEventListener('resize', closeSlider);
-      window.removeEventListener('scroll', close);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', closeSlider);
+        window.removeEventListener('scroll', close);
+      }
     };
   }, []);
 
+  const filterOpenStyles = css`
+    & {
+      position: fixed;
+      height: 100%;
+      background: ${dashboardColor[colorMode]};
+      right: ${openFilter ? '-15px' : '-700px'};
+      top: 61px;
+      padding: 20px;
+      border-left: 1px solid #000;
+      transition: 0.3s ease;
+    }
+  `;
+
+  const toggleFilter = (state: any) => {
+    if (typeof state === 'boolean') setOpenFilter(state);
+    setOpenFilter(prevtoogle => !prevtoogle);
+  };
+
   return (
     <Stack position="relative">
-      <Header bgColor={bgThemeColor[colorMode]} color={themeColor[colorMode]} />
+      <Header
+        bgColor={bgThemeColor[colorMode]}
+        color={themeColor[colorMode]}
+        toggleFilter={toggleFilter}
+        showFilter={!!filter && responsiveFilterMode}
+      />
       <Flex
         flexDirection="row"
         position="relative"
@@ -68,17 +111,31 @@ const MainContent = ({ children, filter }: MainContentProps) => {
           height="100vh"
         />
         <Flex
-          width="100%"
+          flexGrow={1}
           bgColor={dashboardColor[colorMode]}
           color={themeColor[colorMode]}
           px={20}
           py={10}
+          overflow="hidden"
         >
-          <Box flexGrow={1} maxWidth="2500px" mx="auto">
+          <Box flexGrow={1} width="100%" mx="auto">
             {children}
           </Box>
           {filter && (
-            <Box flexShrink={0} marginLeft="30px">
+            <Box
+              flexShrink={0}
+              marginX="15px"
+              css={
+                responsiveFilterMode
+                  ? filterOpenStyles
+                  : css`
+                      & {
+                        position: sticky;
+                        top: 0;
+                      }
+                    `
+              }
+            >
               {filter}
             </Box>
           )}

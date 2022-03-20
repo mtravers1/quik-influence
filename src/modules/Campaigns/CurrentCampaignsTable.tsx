@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useColorMode, createStandaloneToast } from '@chakra-ui/react';
+import {
+  useColorMode,
+  createStandaloneToast,
+  Heading,
+  Flex,
+  Box,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import queryString from 'query-string';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   archiveCampaign,
@@ -36,10 +43,11 @@ const CurrentCampaignsTable = () => {
   const [pageNumber, setPageNumber] = useState(campaigns?.currentPage ?? 1);
 
   const page = router.query.page as string;
+  const pageSize = router.query.pageSize as string;
 
   useEffect(() => {
-    if (page === currentPage) dispatch(getCampaigns(pageNumber));
-  }, [pageNumber]);
+    if (page === currentPage) dispatch(getCampaigns(pageNumber, pageSize));
+  }, [pageNumber, pageSize]);
 
   useEffect(() => {
     if (!firstCampaigns) {
@@ -138,22 +146,35 @@ const CurrentCampaignsTable = () => {
     setRowLoading(prevloadState => ({ ...prevloadState, [id]: false }));
   };
 
+  const renderPagination = () => (
+    <Pagination
+      currentPage={campaigns.currentPage}
+      count={campaigns.count}
+      totalPages={campaigns.totalPages}
+      onChange={handlePaginate}
+      pageSize={pageSize}
+    />
+  );
+
   return (
     <>
-      <RenderCampaignsTable
-        tableHeaders={tableHeaders}
-        colorMode={colorMode}
-        campaigns={campaigns?.campaigns}
-        rowLoading={rowLoading}
-        loading={campaigns?.loading}
-        onSelect={onSelect}
-      />
-      <Pagination
-        currentPage={campaigns.currentPage}
-        count={campaigns.count}
-        totalPages={campaigns.totalPages}
-        onChange={handlePaginate}
-      />
+      <Flex flexDirection="row" justify="space-between" my="12">
+        <Heading size="lg" alignSelf="center">
+          Current Campaigns
+        </Heading>
+        {renderPagination()}
+      </Flex>
+      <Box overflowX="auto" width="100%" padding="10px 0 10px">
+        <RenderCampaignsTable
+          tableHeaders={tableHeaders}
+          colorMode={colorMode}
+          campaigns={campaigns?.campaigns}
+          rowLoading={rowLoading}
+          loading={campaigns?.loading}
+          onSelect={onSelect}
+        />
+      </Box>
+      {renderPagination()}
     </>
   );
 };

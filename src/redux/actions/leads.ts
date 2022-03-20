@@ -1,35 +1,38 @@
-import { FilterDataProps } from 'types';
-import { errorParser } from 'utils/apiHelpers';
-import { axiosInstance, getQueryString } from 'utils/helpers';
+import { FilterDataProps } from "types";
+import { errorParser } from "utils/apiHelpers";
+import { axiosInstance, getQueryString } from "utils/helpers";
 import {
   DispatchWithPayload,
   LEADS_LOADING,
   LEADS_ERROR,
-  LEADS,
-} from '../actionTypes';
+  LEADS
+} from "../actionTypes";
 
 export const leadsLoading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: LEADS_LOADING,
-    payload: true,
+    payload: true
   });
 };
 
 export const leadsDoneLoading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: LEADS_LOADING,
-    payload: false,
+    payload: false
   });
 };
 
 export const getAllLeads =
-  (params?: FilterDataProps) => async (dispatch: any) => {
+  (params?: FilterDataProps, filters: any = {}) =>
+  async (dispatch: any) => {
     dispatch(leadsLoading());
 
     try {
-      const query = getQueryString({ ...params, pageSize: 20 });
+      const query = getQueryString({ ...params });
 
-      const response = await axiosInstance.get(`/users/leads?${query}`);
+      const response = await axiosInstance.get(`/users/leads?${query}`, {
+        params: filters
+      });
       const {} = response.data.data;
 
       const { rows, count, currentPage, recieved, totalPages } =
@@ -39,14 +42,14 @@ export const getAllLeads =
         type: LEADS,
         payload: {
           data: rows,
-          meta: { count, currentPage, recieved, totalPages },
-        },
+          meta: { count, currentPage, recieved, totalPages }
+        }
       });
     } catch (error) {
       const errorMessage = errorParser(error);
       dispatch({
         type: LEADS_ERROR,
-        payload: errorMessage,
+        payload: errorMessage
       });
     } finally {
       dispatch(leadsDoneLoading());

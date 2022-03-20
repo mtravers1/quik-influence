@@ -28,7 +28,6 @@ const UploadImage: React.FC<UploadImageProps> = ({
   initialImage,
   previewImage = true,
 }) => {
-  console.log(initialImage);
   const [image, setImage] = React.useState('');
   const asdMediaRef: any = React.useRef();
   const { colorMode } = useColorMode();
