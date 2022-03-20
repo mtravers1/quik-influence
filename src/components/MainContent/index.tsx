@@ -118,7 +118,7 @@ const MainContent = ({ children, filter }: MainContentProps) => {
           py={10}
           overflow="hidden"
         >
-          <Box flexGrow={1} width="100%" mx="auto">
+          <Box flexGrow={1} width="100%" mx="auto" overflowX='scroll'>
             {children}
           </Box>
           {filter && (

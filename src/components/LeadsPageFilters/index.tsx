@@ -54,6 +54,7 @@ const FilterValue = ({
 type LeadsPageFiltersProps = {
   setAllSelectedFilters: (_: any) => void;
 };
+
 const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
   const { setAllSelectedFilters } = props;
   const { colorMode } = useColorMode();
@@ -67,6 +68,7 @@ const LeadsPageFilters = (props: LeadsPageFiltersProps) => {
     key: '',
     id: '',
   };
+ 
   const filters = {
     fuzzy: {},
     match: {},

@@ -1,5 +1,6 @@
 import { CREATE_FORM_DATA, CREATE_TAGS, ADD_TAGS } from '../actionTypes';
 
+
 const generals = (
   state = {
     formData: undefined,
