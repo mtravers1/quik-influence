@@ -13,15 +13,24 @@ export default [
     },
     {
         number: 2,
-        name: 'campaignDate',
-        label: 'Campaign Start Date',
-        errorMessage: 'Enter your campaign start date',
+        name: 'description',
+        label: 'Campaign Description',
+        errorMessage: 'Describe your campaign',
         required: true,
-        type: 'date',
+        type: 'text',
         pattern: FREE_TEXT_REGEX,
     },
     {
         number: 3,
+        name: 'campaignDate',
+        label: 'Campaign Start Date',
+        errorMessage: 'Enter your campaign start date',
+        required: true,
+        type: 'datetime-local',
+        pattern: FREE_TEXT_REGEX,
+    },
+    {
+        number: 4,
         name: 'audience',
         label: 'Audience',
         errorMessage: 'Select atleast one audience',
@@ -114,7 +123,7 @@ export default [
 
     },
     {
-        number: 4,
+        number: 5,
         name: 'message',
         label: 'SMS Message',
         errorMessage: 'enter the SMS Message',
@@ -140,7 +149,7 @@ export default [
         pattern: FREE_TEXT_REGEX,
     },
     {
-        number: 5,
+        number: 6,
         name: 'phone',
         label: 'Send Test Ad',
         placeholder: 'Enter Phone Number',
@@ -150,7 +159,7 @@ export default [
         pattern: FREE_TEXT_REGEX,
     },
     {
-        number: 6,
+        number: 7,
         name: 'submit',
         label: 'Submit Campaign',
         extralabel: 'We will review your campaign and a correspond charges and approval decision to you',
