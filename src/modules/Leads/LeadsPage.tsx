@@ -143,7 +143,9 @@ const LeadsPage = ({
                     >
                       {data.lastName || 'N/A'}
                     </Td>
-                    <Td whiteSpace="nowrap">{data.email || 'N/A'}</Td>
+                    <Td whiteSpace="nowrap" fontSize="16px">
+                      {data.email || 'N/A'}
+                    </Td>
                     <Td
                       textTransform="capitalize"
                       fontSize="16px"
