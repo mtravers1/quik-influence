@@ -61,7 +61,7 @@ const CurrentCampaignsTable = () => {
         title: campaigns.error,
         description: 'Please refresh the page.',
         status: 'error',
-        duration: null,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });

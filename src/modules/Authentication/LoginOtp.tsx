@@ -1,7 +1,7 @@
 import { useState, SyntheticEvent, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { position, useToast } from '@chakra-ui/react';
+import { Flex, position, useToast } from '@chakra-ui/react';
 import Image from 'next/image';
 import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
@@ -117,6 +117,18 @@ const Login = () => {
           </FormControl>
         ))}
       </Box>
+
+      {showOtpInput && (
+        <Flex
+          onClick={getOpt}
+          height="30px"
+          alignItems="center"
+          cursor="pointer"
+        >
+          Resend Otp
+          {loadingOtp && <Image src={loader} alt="" width={30} height={30} />}
+        </Flex>
+      )}
 
       {showOtpInput ? (
         <CustomButton
