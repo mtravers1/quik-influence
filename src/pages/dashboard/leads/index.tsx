@@ -18,12 +18,14 @@ const Dashboard = () => {
   const [selectedFilters, setSelectedFilters] = useState(undefined);
 
   useEffect(() => {
-    // if (page == allLeads?.meta?.currentPage) return;
     dispatch(getAllLeads({ page, pageSize }, { filters: selectedFilters }));
   }, [page, pageSize, selectedFilters]);
 
   const FiltersComponent = (
-    <Filters setAllSelectedFilters={setSelectedFilters} />
+    <Filters
+      pageType="LEADS_DATA_POINTS"
+      setAllSelectedFilters={setSelectedFilters}
+    />
   );
 
   return loading ? (
