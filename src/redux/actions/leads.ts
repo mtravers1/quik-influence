@@ -22,12 +22,13 @@ export const leadsDoneLoading = () => async (dispatch: DispatchWithPayload) => {
   });
 };
 
-export const getAllLeads = (params?: FilterDataProps, filters: any = {}) =>
+export const getAllLeads =
+  (params?: FilterDataProps, filters: any = {}) =>
   async (dispatch: any) => {
     dispatch(leadsLoading());
+    const isAllowed = isAdmin();
 
     try {
-      const isAllowed = isAdmin();
       const query = getQueryString({ ...params });
       let response;
 
@@ -72,7 +73,10 @@ export const getAllLeads = (params?: FilterDataProps, filters: any = {}) =>
       const errorMessage = errorParser(error);
       dispatch({
         type: LEADS_ERROR,
-        payload: errorMessage
+        payload: {
+          errorMessage,
+          resType: !isAllowed ? "LEADS_DATA_POINTS" : "ALL_LEADS"
+        }
       });
     } finally {
       dispatch(leadsDoneLoading());

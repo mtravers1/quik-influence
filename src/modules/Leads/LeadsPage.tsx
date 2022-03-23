@@ -7,7 +7,7 @@ import {
   Td,
   Box,
   Flex,
-  useColorMode,
+  useColorMode
 } from "@chakra-ui/react";
 import queryString from "query-string";
 import { useRouter } from "next/router";
