@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { omitBy, isNil } from 'lodash';
-import { Q_TOKEN } from './constants';
+import { ADMINS_ID, Q_TOKEN } from './constants';
 
 export const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -172,4 +172,9 @@ export function isInViewport(element: any) {
       (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
+}
+
+export const isAdmin = () => {
+  const user = getUser();
+  return user.admin && ADMINS_ID.includes(user.admin.roleId);
 }

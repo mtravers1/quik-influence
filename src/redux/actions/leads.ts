@@ -1,6 +1,6 @@
 import { FilterDataProps } from "types";
 import { errorParser } from "utils/apiHelpers";
-import { axiosInstance, getQueryString } from "utils/helpers";
+import { axiosInstance, getQueryString, isAdmin } from "utils/helpers";
 import {
   DispatchWithPayload,
   LEADS_LOADING,
@@ -22,28 +22,52 @@ export const leadsDoneLoading = () => async (dispatch: DispatchWithPayload) => {
   });
 };
 
-export const getAllLeads =
-  (params?: FilterDataProps, filters: any = {}) =>
+export const getAllLeads = (params?: FilterDataProps, filters: any = {}) =>
   async (dispatch: any) => {
     dispatch(leadsLoading());
 
     try {
+      const isAllowed = isAdmin();
       const query = getQueryString({ ...params });
+      let response;
 
-      const response = await axiosInstance.get(`/users/leads?${query}`, {
-        params: filters
-      });
+      if (
+        filters?.filters &&
+        filters?.filters.pageType === "LEADS_DATA_POINTS" &&
+        !isAllowed
+      ) {
+        const url = `/users/leads-data-points?${query}`;
+        delete filters.filters.pageType;
+        response = await axiosInstance.get(url, {
+          params: filters
+        });
 
-      const { rows, count, currentPage, recieved, totalPages } =
-        response.data.data;
+        dispatch({
+          type: LEADS,
+          payload: {
+            data: [],
+            resType: "LEADS_DATA_POINTS",
+            meta: response.data.data
+          }
+        });
+      } else {
+        const url = `/users/leads?${query}`;
+        response = await axiosInstance.get(url, {
+          params: filters
+        });
 
-      dispatch({
-        type: LEADS,
-        payload: {
-          data: rows,
-          meta: { count, currentPage, recieved, totalPages }
-        }
-      });
+        const { rows, count, currentPage, recieved, totalPages } =
+          response.data.data;
+
+        dispatch({
+          type: LEADS,
+          payload: {
+            data: rows,
+            resType: "ALL_LEADS",
+            meta: { count, currentPage, recieved, totalPages }
+          }
+        });
+      }
     } catch (error) {
       const errorMessage = errorParser(error);
       dispatch({
