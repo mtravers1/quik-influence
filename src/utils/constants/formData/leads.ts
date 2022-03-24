@@ -107,7 +107,7 @@ import {
       pattern: FREE_TEXT_REGEX,
     },
     {
-      name: 'zipCode',
+      name: 'postalCode',
       label: 'Zip code',
       icon: faCode,
       errorMessage: 'Enter your zip code',

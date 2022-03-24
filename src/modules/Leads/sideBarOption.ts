@@ -6,13 +6,19 @@ export const leadMenu: SideBarOptionMenu = {
   icon: faUserPlus,
   path: '/dashboard/leads',
   order: 2,
-  permission: [],
+  permission: ['can_get_all_leads'],
   isShown: true,
   isActive: false,
   child: [
     {
+      name: 'Create Lead',
+      path: '/dashboard/leads/create',
+      permission: ['can_create_leads'],
+    },
+    {
       name: 'Upload Leads',
       path: '/dashboard/leads/upload',
+      permission: [],
     },
   ],
 };
