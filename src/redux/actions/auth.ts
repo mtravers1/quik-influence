@@ -1,8 +1,9 @@
-import { getUser, setToken } from "utils/helpers";
+import { axiosInstance, getUser, setToken } from "utils/helpers";
 import {
   LOGIN,
   LOGOUT,
   AUTH_LOADING,
+  SET_PERMISSIONS,
   DispatchWithoutPayload,
   DispatchWithPayload
 } from "../actionTypes";
@@ -38,6 +39,20 @@ export const login = (userData?: any) => async (dispatch: any) => {
   });
 
   dispatch(doneloading());
+};
+
+export const getUserPermissions = () => async (dispatch: any) => {
+  try {
+    let url = "/auth/permissions/admin";
+    const response = await axiosInstance.get(url);
+    const { permissions } = response.data.data;
+    dispatch({
+      type: SET_PERMISSIONS,
+      payload: permissions
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const logout = () => async (dispatch: DispatchWithoutPayload) => {

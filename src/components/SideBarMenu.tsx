@@ -16,6 +16,8 @@ import {
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import TruncatedText from "./TruncatedText";
+import { useSelector } from "react-redux";
+import { hasPermission } from "utils/helpers";
 
 interface SideBarMenuProps {
   bgColor?: string;
@@ -27,12 +29,10 @@ interface SideBarMenuProps {
 const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
   const route = useRouter();
   const { pathname, asPath } = route || { pathname: "/" };
-
   const SideBarMenuOptions = useSideBarMenuOptions();
-
   const _sideBarOptions = Object.values(SideBarMenuOptions);
-
   const [activeIndex, setActiveIndex] = useState<number | undefined>();
+  const permissions = useSelector((state: any) => state.auth.permissions);
 
   const navcss = (isActive: boolean) => css`
     & {
@@ -51,8 +51,6 @@ const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
       }
     }
   `;
-
-  console.log('_sideBarOptions >>>>> ', _sideBarOptions);
 
   const maincss = css`
     & {
@@ -85,28 +83,32 @@ const SideBarMenu = ({ bgColor, colorMode, open }: SideBarMenuProps) => {
         allowMultiple
         defaultIndex={activeIndex ? [activeIndex] : undefined}
       >
-        {_sideBarOptions.map(({ name, icon, path, isShown, child }, i) => {
-          if (!isShown) return;
+        {_sideBarOptions.map(
+          ({ name, icon, path, isShown, child, permission }, i) => {
+            if (!isShown) return;
 
-          const currentPath = path.split("/dashboard/")[1] || "/dashboard";
-          const isActive = currentRoute === currentPath;
+            const currentPath = path.split("/dashboard/")[1] || "/dashboard";
+            const isActive = currentRoute === currentPath;
+            if (isActive && child?.length && activeIndex !== i)
+              setActiveIndex(i);
 
-          if (isActive && child?.length && activeIndex !== i) setActiveIndex(i);
-
-          return (
-            <NavComponent
-              key={name}
-              isActive={isActive}
-              colorMode={colorMode}
-              navcss={navcss}
-              path={path}
-              icon={icon}
-              child={child}
-              asPath={asPath}
-              name={name}
-            />
-          );
-        })}
+            if (!hasPermission(permission, permissions)) return;
+            return (
+              <NavComponent
+                key={name}
+                isActive={isActive}
+                colorMode={colorMode}
+                navcss={navcss}
+                path={path}
+                icon={icon}
+                child={child}
+                asPath={asPath}
+                name={name}
+                permissions={permissions}
+              />
+            );
+          }
+        )}
       </Accordion>
     </Flex>
   );
@@ -135,7 +137,8 @@ const NavComponent = ({
   icon,
   child,
   asPath,
-  name
+  name,
+  permissions
 }: {
   isActive: boolean;
   colorMode: ColorMode;
@@ -145,6 +148,7 @@ const NavComponent = ({
   child: any;
   asPath: any;
   name: string;
+  permissions?: string[];
 }) => {
   return (
     <>
@@ -218,23 +222,26 @@ const NavComponent = ({
           </Box>
 
           <AccordionPanel paddingLeft="35px">
-            {child.map((childEl: any) => (
-              <NextLink
-                key={childEl.name}
-                href={childEl.path as string}
-                color={asPath === childEl.path ? "red" : undefined}
-                {...styles}
-                _hover={{
-                  textDecoration: "none",
-                  color: asPath === childEl.path ? "red" : "inherit"
-                }}
-                py={3}
-                px={10}
-                fontSize="14px"
-              >
-                <TruncatedText>{childEl.name}</TruncatedText>
-              </NextLink>
-            ))}
+            {child.map((childEl: any) => {
+              if (!hasPermission(childEl.permission, permissions)) return;
+              return (
+                <NextLink
+                  key={childEl.name}
+                  href={childEl.path as string}
+                  color={asPath === childEl.path ? "red" : undefined}
+                  {...styles}
+                  _hover={{
+                    textDecoration: "none",
+                    color: asPath === childEl.path ? "red" : "inherit"
+                  }}
+                  py={3}
+                  px={10}
+                  fontSize="14px"
+                >
+                  <TruncatedText>{childEl.name}</TruncatedText>
+                </NextLink>
+              );
+            })}
           </AccordionPanel>
         </AccordionItem>
       </Box>
