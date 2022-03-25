@@ -8,7 +8,7 @@ const useHasPermission = (pagePermission: string[]) => {
     permissions.includes(permission)
   );
 
-  if (permissions.length && !hasPerm) return router.push('/');
+  if (permissions.length && !hasPerm) return router.push("/dashboard");
 };
 
 export default useHasPermission;
