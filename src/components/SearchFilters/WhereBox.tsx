@@ -23,31 +23,8 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useSelector } from "react-redux";
 import { PropertyType } from "./types";
 import { STATES } from "./constants";
-import { es } from "date-fns/locale";
 import { TextInput } from "components/Input";
 
-const PropertyButton = () => {
-
-}
-
-// const suggestedFields = [
-//   {
-//     label: "State",
-//     key: "state",
-//   },
-//   {
-//     label: "City",
-//     key: "city"
-//   },
-//   {
-//     label: "Phone Number",
-//     key: "phone"
-//   },
-//   {
-//     label: "Gender",
-//     key: "gender"
-//   },
-// ]
 
 const comparators = [
   {
@@ -61,39 +38,6 @@ const comparators = [
 
 ]
 
-const defaultPropertyValues = [
-
-  {
-    label: "FL",
-    key: "fl"
-  }, {
-    label: "NY",
-    key: "ny"
-  }, {
-    label: "CA",
-    key: "ca"
-  }, {
-    label: "CT",
-    key: "ct"
-  }, {
-    label: "DE",
-    key: "de"
-  }, {
-    label: "GA",
-    key: "ga"
-  }, {
-    label: "TN",
-    key: "tn"
-  }, {
-    label: "VT",
-    key: "vt"
-  }, {
-    label: "WA",
-    key: "wa"
-  },
-]
-
-
 const WhereBox = () => {
   const { colorMode } = useColorMode()
   const { formData } = useSelector((state: any) => state.generals)
@@ -102,6 +46,10 @@ const WhereBox = () => {
   const [values, setValues] = useState<string[] | string>()
   const [type, setType] = useState('')
   const [selectAll, setSelectAll] = useState(false)
+  const [allProperties, setAllProperties] = useState([])
+  const [allValues, setAllValues] = useState([])
+  const [searchInput, setSearchInput] = useState('')
+  const [searchValueInput, setSearchValueInput] = useState('')
   
   
   const onCancle = () => {
@@ -121,12 +69,17 @@ const WhereBox = () => {
       }))
   )
 
+  useEffect(() => {
+    setAllProperties(quikInfluenceProperties())
+  }, [])
+
 
   const handlePropertyClick = (field: PropertyType) => {
     setProperty(field)
     setType(field.type)
-    if (field.type === 'state' || field.type === 'city') {
+    if (field.label === 'state' || field.label === 'city') {
       setValues([])
+      setAllValues(STATES)
     } else {
       setValues('')
     }
@@ -160,21 +113,14 @@ const WhereBox = () => {
 
     }
     return (
-      <Text >
-        {
-          values
-        }
-      </Text>)
+      <Text > { values  } </Text>)
   }
 
 
   const handlePropertyValues = (e: ChangeEvent, key?: any) => {
     e.stopPropagation();
-    console.log('adsfasdf')
     const target = e.target as HTMLInputElement
     const { checked, value } = target
-    console.log(checked)
-
     if (key) {
       if (checked) {
         setValues(_key => [..._key, key])
@@ -198,9 +144,27 @@ const WhereBox = () => {
     setSelectAll(checked)
   }
 
-  useEffect(() => {
-    console.log(selectAll)
-  }, [selectAll])
+  const handlePropertySearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value
+    setSearchInput(searchValue)
+    const updatedProperties = quikInfluenceProperties().filter((a: any) => {
+      if (a.label.toLowerCase().includes(searchValue.toLowerCase())){
+        return a
+      }
+    })
+    setAllProperties(updatedProperties)
+  }
+
+  const handleValueSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value
+    setSearchValueInput(searchValue)
+    const updatedSearchValues = STATES.filter((a: any) => {
+      if (a.name.toLowerCase().includes(searchValue.toLowerCase())){
+        return a
+      }
+    })
+    setAllValues(updatedSearchValues)
+  }
 
   //Render value inputs depending on the type of search property field dataname 
   const renderValueInput = () => {
@@ -210,7 +174,13 @@ const WhereBox = () => {
         <>
           <Flex padding={2}>
             <FontAwesomeIcon icon={faSearch as IconProp} style={{ margin: "auto 5px" }} />
-            <Input border='none' fontSize="xl" fontStyle="italic" placeholder="Search" />
+            <Input 
+              value={searchValueInput} 
+              onChange={handleValueSearch}
+              border='none' 
+              fontSize="xl" 
+              fontStyle="italic" 
+              placeholder="Search" />
           </Flex>
           <MenuDivider />
           <MenuGroup title='All Values' fontSize="xl" px={2}>
@@ -226,7 +196,7 @@ const WhereBox = () => {
               </Checkbox>
 
               {
-                STATES.map(state =>
+                allValues.map(state =>
                   <Flex mx="3"
                     key={state.abbreviation}>
                     <Checkbox
@@ -300,12 +270,12 @@ const WhereBox = () => {
                 <MenuList width="500px" maxH="240px" overflow="scroll" fontSize="xl" px={2}>
                   <Flex>
                     <FontAwesomeIcon icon={faSearch as IconProp} style={{ margin: "auto 5px" }} />
-                    <Input border='none' fontSize="xl" fontStyle="italic" placeholder="Search" />
+                    <Input onChange={handlePropertySearch} value={searchInput} border='none' fontSize="xl" fontStyle="italic" placeholder="Search" />
                   </Flex>
                   <MenuDivider />
                   <MenuGroup title='Quik influence fields' fontSize="xl">
                     {
-                      quikInfluenceProperties().map((field: PropertyType) =>
+                      allProperties.map((field: PropertyType) =>
                         <MenuItem
                           onClick={() => handlePropertyClick(field)}
                           key={field.key}>
