@@ -11,6 +11,8 @@ import { faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import quikColorConstants from 'utils/constants/colorConstants';
+import AutoCompleteDropDown from 'components/AutoCompleteDropDown';
+import { useSelector } from 'react-redux';
 
 const UploadTable = ({
   file,
@@ -23,6 +25,12 @@ const UploadTable = ({
   removeFile: any;
   id: string;
 }) => {
+  const { tags } = useSelector((state: any) => state.generals);
+  const [tagOptions] = useState(
+    tags.map((tag: any) => ({ name: tag.name, value: tag.id }))
+  );
+  const [documentTag, setDocumenttag] = useState<string>();
+
   const {
     progress,
     status,
@@ -33,7 +41,7 @@ const UploadTable = ({
     setMatchedHeaders,
     processFileAndUpload,
     fileHeaderError,
-  } = useUpload(file, headers);
+  } = useUpload(file, documentTag);
 
   useEffect(() => {
     const matchHeaders = () => {
@@ -66,7 +74,7 @@ const UploadTable = ({
     })),
   ];
 
-  const handleChange = (e: any, i: any) => {
+  const handleSelect = (e: any, i: any) => {
     setMatchedHeaders(prevMatchedHeaders => {
       const newValues = [...prevMatchedHeaders];
 
@@ -79,12 +87,16 @@ const UploadTable = ({
     removeFile(id);
   };
 
+  const settag = (e: any) => {
+    setDocumenttag(e.target.value);
+  };
+
   return (
     <Box width="100%">
       <Flex
         justifyContent="space-between"
         alignItems="center"
-        margin="30px 0 5px 0"
+        margin="30px 0 15px 0"
         height=""
       >
         <Flex alignItems="center">
@@ -106,8 +118,11 @@ const UploadTable = ({
             >
               <FontAwesomeIcon
                 icon={faUpload as IconProp}
-                fontSize={35}
                 color={quikColorConstants.influenceRed}
+                style={{
+                  width: '16px',
+                  height: '16px',
+                }}
               />
             </button>
           )}
@@ -116,8 +131,11 @@ const UploadTable = ({
             <button style={{ padding: '0 10px' }} onClick={deleteFile}>
               <FontAwesomeIcon
                 icon={faTrash as IconProp}
-                fontSize={35}
                 color={quikColorConstants.influenceRed}
+                style={{
+                  width: '16px',
+                  height: '16px',
+                }}
               />
             </button>
           )}
@@ -166,6 +184,12 @@ const UploadTable = ({
         )}
       </Flex>
 
+      <AutoCompleteDropDown
+        options={tagOptions || []}
+        onSelect={settag}
+        placeHolder="Tag your data"
+      />
+
       {fileHeaderError && (
         <>
           <Box margin="30px 0 30px">
@@ -188,7 +212,7 @@ const UploadTable = ({
             </Box>
           </Box>
 
-          <Box overflow="scroll" width="100%" padding="10px 0 10px">
+          <Box overflowX="auto" width="100%" padding="10px 0 10px">
             <Table>
               <Thead>
                 <Tr>
@@ -214,7 +238,7 @@ const UploadTable = ({
 
       {!fileHeaderError && (
         <>
-          <Box overflow="scroll" width="100%" padding="10px 0">
+          <Box overflowX="auto" width="100%" padding="10px 0">
             <Table>
               <Thead>
                 <Tr>
@@ -229,7 +253,7 @@ const UploadTable = ({
                       padding="10px 15px 10px 0"
                     >
                       <DropdownSelect
-                        onChange={e => handleChange(e, i)}
+                        onChange={e => handleSelect(e, i)}
                         placeholder="choose header"
                         name="header"
                         options={headersMap}

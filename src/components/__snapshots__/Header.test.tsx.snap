@@ -81,110 +81,115 @@ exports[`renders Header component 1`] = `
       </script>
     </div>
     <div
-      class="css-iqqio3"
+      class="css-70qvj9"
     >
-      <button
-        aria-controls="menu-list-6"
-        aria-expanded="false"
-        aria-haspopup="menu"
-        class="chakra-menu__menu-button css-1eqi7qs"
-        id="menu-button-6"
+      <div
+        class="css-iqqio3"
       >
-        <span
-          class="css-xl71ch"
+        <button
+          aria-controls="menu-list-6"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="chakra-menu__menu-button css-1eqi7qs"
+          id="menu-button-6"
         >
           <span
-            class="css-1ehzxp"
+            class="css-xl71ch"
           >
             <span
-              class="chakra-avatar css-o11zrc"
+              class="css-1ehzxp"
             >
-              <div
-                aria-label=" "
-                class="chakra-avatar__initials css-0"
-                role="img"
-              />
-            </span>
-            <span
-              class="css-8uhtka"
-            >
-               
-              
+              <span
+                class="chakra-avatar css-o11zrc"
+              >
+                <div
+                  aria-label="undefined undefined"
+                  class="chakra-avatar__initials css-0"
+                  role="img"
+                >
+                  uu
+                </div>
+              </span>
+              <span
+                class="css-8uhtka"
+              >
+                 
+              </span>
             </span>
           </span>
-        </span>
-      </button>
-      <div
-        class="css-0"
-        style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
-      >
+        </button>
         <div
-          aria-orientation="vertical"
-          class="chakra-menu__menu-list css-sjt5nk"
-          id="menu-list-6"
-          role="menu"
-          style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
-          tabindex="-1"
+          class="css-0"
+          style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
         >
-          <button
-            class="chakra-menu__menuitem css-1k756t9"
-            data-index="0"
-            id="menu-list-6-menuitem-1"
-            role="menuitem"
+          <div
+            aria-orientation="vertical"
+            class="chakra-menu__menu-list css-sjt5nk"
+            id="menu-list-6"
+            role="menu"
+            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
             tabindex="-1"
-            type="button"
           >
-            Theme: 
-            <label
-              class="chakra-switch css-qtgvng"
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="0"
+              id="menu-list-6-menuitem-1"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
             >
-              <input
-                class="chakra-switch__input"
-                style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
-                type="checkbox"
-                value=""
-              />
-              <span
-                aria-hidden="true"
-                class="chakra-switch__track css-14qxnv8"
+              Theme: 
+              <label
+                class="chakra-switch css-i8ac42"
               >
-                <span
-                  class="chakra-switch__thumb css-0"
+                <input
+                  class="chakra-switch__input"
+                  style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                  type="checkbox"
+                  value=""
                 />
-              </span>
-            </label>
-          </button>
-          <button
-            class="chakra-menu__menuitem css-1k756t9"
-            data-index="1"
-            id="menu-list-6-menuitem-2"
-            role="menuitem"
-            tabindex="-1"
-            type="button"
-          >
-            Profile
-          </button>
-           
-          <button
-            class="chakra-menu__menuitem css-1k756t9"
-            data-index="2"
-            id="menu-list-6-menuitem-3"
-            role="menuitem"
-            tabindex="-1"
-            type="button"
-          >
-            Edit profile
-          </button>
-          <button
-            class="chakra-menu__menuitem css-1k756t9"
-            data-index="3"
-            id="menu-list-6-menuitem-4"
-            role="menuitem"
-            tabindex="-1"
-            type="button"
-          >
-            Log out
-          </button>
+                <span
+                  aria-hidden="true"
+                  class="chakra-switch__track css-14qxnv8"
+                >
+                  <span
+                    class="chakra-switch__thumb css-0"
+                  />
+                </span>
+              </label>
+            </button>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="1"
+              id="menu-list-6-menuitem-2"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              Profile
+            </button>
+             
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="2"
+              id="menu-list-6-menuitem-3"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              Edit profile
+            </button>
+            <button
+              class="chakra-menu__menuitem css-1k756t9"
+              data-index="3"
+              id="menu-list-6-menuitem-4"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              Log out
+            </button>
+          </div>
         </div>
       </div>
     </div>

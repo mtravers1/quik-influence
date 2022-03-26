@@ -1,6 +1,5 @@
 import { FILTER_SEARCH_TYPE } from "./constants"
 
-
 export const allFilters = [
     {
         name: 'Email',

@@ -7,25 +7,25 @@ import {
   Td,
   Box,
   Flex,
-  Center,
-  useColorMode,
-} from '@chakra-ui/react';
-import queryString from 'query-string';
-import { useRouter } from 'next/router';
-import { basicTheme } from 'utils/constants/colorConstants';
-import Pagination from 'components/Pagination';
-import { getStyles } from './css';
-import { getSocialHandleHeader } from 'utils/helpers';
-import { DEFAULT_PAGE_SIZE } from 'utils/constants';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+  useColorMode
+} from "@chakra-ui/react";
+import queryString from "query-string";
+import { useRouter } from "next/router";
+import { basicTheme } from "utils/constants/colorConstants";
+import Pagination from "components/Pagination";
+import { getStyles } from "./css";
+import { getSocialHandleHeader, isAdmin } from "utils/helpers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import NoLeadsAvailable from "./NoLeadsAvailable";
+import LeadsDataPoint from "./LeadsDataPoint";
 
 const LeadsPage = ({
   leads,
-  pageType = 'singleCampaign',
+  pageType = "singleCampaign",
   socialColumns = [],
-  pageSize = DEFAULT_PAGE_SIZE,
+  pageSize
 }: {
   leads: any;
   pageType?: string;
@@ -34,49 +34,54 @@ const LeadsPage = ({
 }) => {
   const { colorMode } = useColorMode();
   const router = useRouter();
+  const params = router.query;
   const style = getStyles(colorMode);
+  const isLeadsDataPoint = leads?.resType === "LEADS_DATA_POINTS";
+  const isAllowed = isAdmin();
 
   const handleChange = (page: any) => {
-    const params = router.query;
     params.page = page;
     router.push(`?${queryString.stringify(params)}`);
   };
 
   const handleSortChange = (sortBy: string) => {
-    const params = router.query;
     params.sortBy = sortBy;
     router.push(`?${queryString.stringify(params)}`);
   };
 
-  const status = pageType === 'allLeads' ? [] : ['status'];
+  const status = pageType === "allLeads" ? [] : ["status"];
   const sc: string[] = getSocialHandleHeader(socialColumns);
 
   const tableHeader = [
-    'First Name',
-    'Last Name',
-    'Email',
-    'Phone',
-    'Gender',
-    'City|State|Zip Code',
+    "First Name",
+    "Last Name",
+    "Email",
+    "Phone",
+    "Gender",
+    "City|State|Zip Code",
     ...sc,
-    ...status,
+    ...status
   ];
 
   const renderPagination = () => (
-    <Pagination
-      totalPages={leads?.meta.totalPages}
-      currentPage={leads?.meta.currentPage}
-      count={leads?.meta.count}
-      onChange={handleChange}
-      pageSize={pageSize}
-    />
+    <>
+      {!isLeadsDataPoint && (
+        <Pagination
+          totalPages={leads?.meta.totalPages}
+          currentPage={leads?.meta.currentPage}
+          count={leads?.meta.count}
+          onChange={handleChange}
+          pageSize={pageSize}
+        />
+      )}
+    </>
   );
 
   const renderSortButton = () => (
-    <button type="button" onClick={() => handleSortChange('paymentStatus')}>
+    <button type="button" onClick={() => handleSortChange("paymentStatus")}>
       <FontAwesomeIcon
         icon={faAngleDown as IconProp}
-        style={{ margin: 'auto 10px' }}
+        style={{ margin: "auto 10px" }}
       />
     </button>
   );
@@ -91,16 +96,20 @@ const LeadsPage = ({
       </Flex>
 
       {!leads?.data?.length ? (
-        <Center flexDir="column" minH="80vh" height="100%">
-          <Box as="h2" fontSize="40px" marginBottom="10px" fontWeight="600">
-            You don't have any Leads yet
-          </Box>
-          <Box fontSize="18px">
-            Copy your link from the campaign lists and share with your users
-          </Box>
-        </Center>
+        <>
+          {!isLeadsDataPoint ? (
+            <NoLeadsAvailable isAdmin={isAllowed} />
+          ) : (
+            <LeadsDataPoint
+              totalCount={leads?.meta?.totalCount}
+              filteredCount={leads?.meta?.filteredCount}
+              malecount={leads?.meta?.malecount}
+              femalecount={leads?.meta?.femalecount}
+            />
+          )}
+        </>
       ) : (
-        <Flex w="100%">
+        <Flex w="100%" overflowX="auto" width="100%" padding="10px 0">
           <Box flexGrow={1}>
             <Table
               size="lg"
@@ -120,7 +129,7 @@ const LeadsPage = ({
                     >
                       {th}
 
-                      {th === 'status' && renderSortButton()}
+                      {th === "status" && renderSortButton()}
                     </Th>
                   ))}
                 </Tr>
@@ -129,32 +138,66 @@ const LeadsPage = ({
               <Tbody>
                 {leads?.data.map((data: any, i: number) => (
                   <Tr key={`lead_data_${i}`}>
-                    <Td whiteSpace="nowrap" textTransform="capitalize">
-                      {data.firstName || 'N/A'}
+                    <Td
+                      whiteSpace="nowrap"
+                      textTransform="capitalize"
+                      fontSize="16px"
+                    >
+                      {data.firstName || "N/A"}
                     </Td>
-                    <Td whiteSpace="nowrap" textTransform="capitalize">
-                      {data.lastName || 'N/A'}
+                    <Td
+                      whiteSpace="nowrap"
+                      textTransform="capitalize"
+                      fontSize="16px"
+                    >
+                      {data.lastName || "N/A"}
                     </Td>
-                    <Td whiteSpace="nowrap">{data.email || 'N/A'}</Td>
-                    <Td>{data.phone}</Td>
-                    <Td textTransform="capitalize">{data.gender || 'N/A'}</Td>
+                    <Td whiteSpace="nowrap" fontSize="16px">
+                      {data.email || "N/A"}
+                    </Td>
+                    <Td
+                      textTransform="capitalize"
+                      fontSize="16px"
+                      whiteSpace="nowrap"
+                    >
+                      {data.phone}
+                    </Td>
+                    <Td
+                      textTransform="capitalize"
+                      fontSize="16px"
+                      whiteSpace="nowrap"
+                    >
+                      {data.gender || "N/A"}
+                    </Td>
                     {/* <Td>
                       {(data.dateOfBirth &&
                         format(new Date(data.dateOfBirth), "yyyy-mm-dd")) ||
                         "N/A"}
                     </Td> */}
-                    <Td textTransform="capitalize">
-                      {`${data.city || ''} ${data.state || ''} ${
-                        data.postalCode || ''
+                    <Td
+                      textTransform="capitalize"
+                      fontSize="16px"
+                      whiteSpace="nowrap"
+                    >
+                      {`${data.city || ""} ${data.state || ""} ${
+                        data.postalCode || ""
                       }`}
                     </Td>
                     {socialColumns.length >= 1 &&
                       !!socialColumns[0] &&
                       socialColumns?.map((s: string, j: number) => (
-                        <Td key={`social_${j}`}>{data[s] || 'N/A'}</Td>
+                        <Td
+                          key={`social_${j}`}
+                          fontSize="16px"
+                          whiteSpace="nowrap"
+                        >
+                          {data[s] || "N/A"}
+                        </Td>
                       ))}
                     {status.length > 0 && (
-                      <Td>{data?.UserCampaigns?.at(0)?.paymentStatus}</Td>
+                      <Td fontSize="16px" whiteSpace="nowrap">
+                        {data?.UserCampaigns?.at(0)?.paymentStatus}
+                      </Td>
                     )}
                   </Tr>
                 ))}

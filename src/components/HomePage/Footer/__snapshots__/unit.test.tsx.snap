@@ -3,10 +3,10 @@
 exports[`renders MainContent component 1`] = `
 <div>
   <section
-    class="css-1o6wpkk"
+    class="css-1m8s7r6"
   >
     <div
-      class="css-m5rldb"
+      class="css-zuecq5"
     >
       <div
         class="css-1x741jx"
@@ -334,6 +334,48 @@ exports[`renders MainContent component 1`] = `
             CONTACT US
           </button>
         </form>
+      </div>
+    </div>
+    <div
+      class="css-169cma9"
+    >
+      <a
+        class="chakra-link css-teqzio"
+        href="/"
+      >
+        <img
+          alt="logo"
+          class="chakra-image css-ot153m"
+          src="/logo-white.png"
+        />
+      </a>
+      <div
+        class="css-ns7uoy"
+      >
+        <div
+          class="chakra-stack css-n21gh5"
+        >
+          <a
+            class="chakra-link css-qe5axb"
+            href="/terms-of-service"
+          >
+            Terms of service
+          </a>
+        </div>
+        <hr
+          aria-orientation="vertical"
+          class="chakra-divider css-12gj880"
+        />
+        <div
+          class="chakra-stack css-n21gh5"
+        >
+          <a
+            class="chakra-link css-qe5axb"
+            href="/privacy-policy"
+          >
+            Privacy Policy
+          </a>
+        </div>
       </div>
     </div>
   </section>

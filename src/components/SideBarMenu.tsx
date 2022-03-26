@@ -14,6 +14,7 @@ import {
   ColorMode,
 } from '@chakra-ui/react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import TruncatedText from './TruncatedText';
 
 interface SideBarMenuProps {
@@ -164,25 +165,54 @@ const NavComponent = ({
             }}
             bg={isActive ? sidebarBg[colorMode] : 'transparent'}
           >
-            <AccordionButton fontSize="16px" py={5} px={10}>
-              {path ? (
-                <NextLink href={path as string} {...styles}>
+            {child.length ? (
+              <AccordionButton fontSize="16px" py={2} px={10}>
+                {path ? (
+                  <NextLink
+                    href={path as string}
+                    {...styles}
+                    width="100%"
+                    textAlign="left"
+                    py={3}
+                  >
+                    <FontAwesomeIcon
+                      icon={icon as IconProp}
+                      style={{ marginRight: '20px' }}
+                    />
+                    {name}
+                  </NextLink>
+                ) : (
+                  <Box {...styles}>
+                    <FontAwesomeIcon
+                      icon={icon as IconProp}
+                      style={{ marginRight: '20px' }}
+                    />
+                    {name}
+                  </Box>
+                )}
+
+                <FontAwesomeIcon
+                  icon={faAngleDown as IconProp}
+                  style={{ marginLeft: '20px', padding: '10px 10px' }}
+                />
+              </AccordionButton>
+            ) : (
+              <Box py={2} px={10}>
+                <NextLink
+                  href={path as string}
+                  {...styles}
+                  width="100%"
+                  textAlign="left"
+                  py={3}
+                >
                   <FontAwesomeIcon
                     icon={icon as IconProp}
                     style={{ marginRight: '20px' }}
                   />
                   {name}
                 </NextLink>
-              ) : (
-                <Box {...styles}>
-                  <FontAwesomeIcon
-                    icon={icon as IconProp}
-                    style={{ marginRight: '20px' }}
-                  />
-                  {name}
-                </Box>
-              )}
-            </AccordionButton>
+              </Box>
+            )}
           </Box>
 
           <AccordionPanel paddingLeft="35px">

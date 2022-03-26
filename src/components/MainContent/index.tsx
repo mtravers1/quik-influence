@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Stack, Flex, Divider, Box, useColorMode } from '@chakra-ui/react';
-import { css } from '@emotion/react';
-import Header from 'components/Header';
-import SideBarMenu from 'components/SideBarMenu';
+import { useState, useEffect } from "react";
+import { Stack, Flex, Divider, Box, useColorMode } from "@chakra-ui/react";
+import { css } from "@emotion/react";
+import Header from "components/Header";
+import SideBarMenu from "components/SideBarMenu";
 import {
   bgThemeColor,
   themeColor,
-  dashboardColor,
-} from 'utils/constants/colorConstants';
+  dashboardColor
+} from "utils/constants/colorConstants";
+import useResponsiveFilter from "hooks/useResponsiveFilter";
 
 interface MainContentProps {
   children: React.ReactElement;
@@ -16,38 +17,30 @@ interface MainContentProps {
 
 const MainContent = ({ children, filter }: MainContentProps) => {
   const { colorMode } = useColorMode();
-  const [open, setOpen] = useState(true);
+  const { open, openFilter, responsiveFilterMode, toggleFilter } =
+    useResponsiveFilter();
 
-  const openBar = () => {
-    setOpen(!open);
-  };
-
-  const close = () => {
-    setOpen(false);
-  };
-
-  useEffect(() => {
-    const closeSlider = () => {
-      const smallerScreen = window.matchMedia('(max-width: 50em)');
-
-      if (smallerScreen.matches) {
-        close();
-      } else {
-        openBar();
-      }
-    };
-
-    window.addEventListener('resize', closeSlider);
-    // window.addEventListener("scroll", close);
-    return () => {
-      window.removeEventListener('resize', closeSlider);
-      window.removeEventListener('scroll', close);
-    };
-  }, []);
+  const filterOpenStyles = css`
+    & {
+      position: fixed;
+      height: 100%;
+      background: ${dashboardColor[colorMode]};
+      right: ${openFilter ? "-15px" : "-700px"};
+      top: 61px;
+      padding: 20px;
+      border-left: 1px solid #000;
+      transition: 0.3s ease;
+    }
+  `;
 
   return (
     <Stack position="relative">
-      <Header bgColor={bgThemeColor[colorMode]} color={themeColor[colorMode]} />
+      <Header
+        bgColor={bgThemeColor[colorMode]}
+        color={themeColor[colorMode]}
+        toggleFilter={toggleFilter}
+        showFilter={!!filter && responsiveFilterMode}
+      />
       <Flex
         flexDirection="row"
         position="relative"
@@ -75,11 +68,24 @@ const MainContent = ({ children, filter }: MainContentProps) => {
           py={10}
           overflow="hidden"
         >
-          <Box flexGrow={1} width="100%" mx="auto" overflowX='scroll'>
+          <Box flexGrow={1} width="100%" mx="auto" overflowX="scroll">
             {children}
           </Box>
           {filter && (
-            <Box flexShrink={0} marginX="15px">
+            <Box
+              flexShrink={0}
+              marginX="15px"
+              css={
+                responsiveFilterMode
+                  ? filterOpenStyles
+                  : css`
+                      & {
+                        position: sticky;
+                        top: 0;
+                      }
+                    `
+              }
+            >
               {filter}
             </Box>
           )}

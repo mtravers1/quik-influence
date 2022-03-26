@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { omitBy, isNil } from 'lodash';
-import { Q_TOKEN } from './constants';
+import { ADMINS_ID, Q_TOKEN } from './constants';
 
 export const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -158,4 +158,23 @@ function editDistance(s1: string, s2: string) {
     if (i > 0) costs[s2.length] = lastValue;
   }
   return costs[s2.length];
+}
+
+export const stringSearch = (val: string, string: string) =>
+  string && string.toLowerCase().search(val.toLowerCase()) !== -1;
+
+export function isInViewport(element: any) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+export const isAdmin = () => {
+  const user = getUser();
+  return user.admin && ADMINS_ID.includes(user.admin.roleId);
 }
