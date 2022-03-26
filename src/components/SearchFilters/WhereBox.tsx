@@ -92,7 +92,7 @@ const defaultPropertyValues = [
 const WhereBox = () => {
   const { colorMode } = useColorMode()
   const [selectedComparator, setSelectedComparator] = useState(comparators[0])
-  const [property, setProperty] = useState({})
+  const [property, setProperty] = useState<any>({})
   const [values, setValues] = useState<string[]>([])
   const [selectAll, setSelectAll] = useState(false)
 
@@ -102,11 +102,11 @@ const WhereBox = () => {
     setProperty(field)
   }
 
-  const renderValues = () => {
+  const renderValues = (values: string[]) => {
     return (
       <Text>
         {
-
+          values.map(value => `${value}, `)
         }
       </Text>
     )
@@ -226,7 +226,7 @@ const WhereBox = () => {
                       <Box fontStyle="italic" fontSize="xl" px="2"
                         border={`1px solid ${borderThemeColor[colorMode]}`}>
                         {!values.length ? "Select value(s)..." :
-                          renderValues()
+                          renderValues(values)
                         }
                       </Box>
                     </MenuButton>
