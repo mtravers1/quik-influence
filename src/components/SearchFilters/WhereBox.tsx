@@ -20,29 +20,34 @@ import { borderThemeColor, dashboardColor } from "utils/constants/colorConstants
 import { faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useSelector } from "react-redux";
+import { PropertyType } from "./types";
+import { STATES } from "./constants";
+import { es } from "date-fns/locale";
+import { TextInput } from "components/Input";
 
 const PropertyButton = () => {
 
 }
 
-const suggestedFields = [
-  {
-    label: "State",
-    key: "state"
-  },
-  {
-    label: "City",
-    key: "city"
-  },
-  {
-    label: "Phone Number",
-    key: "phone"
-  },
-  {
-    label: "Gender",
-    key: "gender"
-  },
-]
+// const suggestedFields = [
+//   {
+//     label: "State",
+//     key: "state",
+//   },
+//   {
+//     label: "City",
+//     key: "city"
+//   },
+//   {
+//     label: "Phone Number",
+//     key: "phone"
+//   },
+//   {
+//     label: "Gender",
+//     key: "gender"
+//   },
+// ]
 
 const comparators = [
   {
@@ -91,37 +96,96 @@ const defaultPropertyValues = [
 
 const WhereBox = () => {
   const { colorMode } = useColorMode()
+  const { formData } = useSelector((state: any) => state.generals)
   const [selectedComparator, setSelectedComparator] = useState(comparators[0])
-  const [property, setProperty] = useState<any>({})
-  const [values, setValues] = useState<string[]>([])
+  const [property, setProperty] = useState<PropertyType>()
+  const [values, setValues] = useState<string[] | string>()
+  const [type, setType] = useState('')
   const [selectAll, setSelectAll] = useState(false)
+  
+  
+  const onCancle = () => {
+    setProperty(undefined)
+    setValues(undefined)
+    setType('')
+  }
+
+  const quikInfluenceProperties: any = () => (
+    formData
+      .filter((data: any) => data.status === 'active')
+      .map((data: any) => ({
+        label: data.name,
+        value: data.name,
+        type: ('dataType' in data.meta) ? data.meta.dataType : data.meta.type,
+        key: data.id
+      }))
+  )
 
 
-
-  const handlePropertyClick = (field: any) => {
+  const handlePropertyClick = (field: PropertyType) => {
     setProperty(field)
-  }
-
-  const renderValues = (values: string[]) => {
-    return (
-      <Text>
-        {
-          values.map(value => `${value}, `)
-        }
-      </Text>
-    )
-  }
-
-  const handlePropertyValues = (e: ChangeEvent, key: any) => {
-    e.stopPropagation();
-    const target = e.target as HTMLInputElement
-    const checked = target.checked
-    if (checked) {
-      setValues(_key => [..._key, key])
+    setType(field.type)
+    if (field.type === 'state' || field.type === 'city') {
+      setValues([])
     } else {
-      setValues(_key => _key.filter(a => a !== key))
-      setSelectAll(false)
+      setValues('')
     }
+    //values configuration should depend on the field's type & name.
+  }
+
+  const renderValues = (values: string[] | String) => {
+    if (Array.isArray(values)) {
+      //if values is more than 10, truncate
+      if (values.length > 20) {
+
+        return (
+          <Text>
+            {
+              values.slice(0, 10).map(value => `${value}, `)
+            }
+            ....,
+            {
+              values.slice(values.length - 10).map(value => `${value}, `)
+            }
+          </Text>
+        )
+      }
+      return (
+        <Text >
+          {
+            values.map(value => `${value}, `)
+          }
+        </Text>
+      )
+
+    }
+    return (
+      <Text >
+        {
+          values
+        }
+      </Text>)
+  }
+
+
+  const handlePropertyValues = (e: ChangeEvent, key?: any) => {
+    e.stopPropagation();
+    console.log('adsfasdf')
+    const target = e.target as HTMLInputElement
+    const { checked, value } = target
+    console.log(checked)
+
+    if (key) {
+      if (checked) {
+        setValues(_key => [..._key, key])
+      } else {
+        setValues(_key => _key.filter(a => a !== key))
+        setSelectAll(false)
+      }
+    } else {
+      setValues(value)
+    }
+
 
   }
 
@@ -129,7 +193,7 @@ const WhereBox = () => {
     e.stopPropagation();
     const target = e.target as HTMLInputElement
     const checked = target.checked
-    const keys = defaultPropertyValues.map(value => value.key)
+    const keys = STATES.map(value => value.abbreviation)
     checked && setValues(keys)
     setSelectAll(checked)
   }
@@ -138,6 +202,73 @@ const WhereBox = () => {
     console.log(selectAll)
   }, [selectAll])
 
+  //Render value inputs depending on the type of search property field dataname 
+  const renderValueInput = () => {
+    //When searching for state or city, render checkbox. 
+    if (property && (property.label.toLowerCase() === "city" || property.label.toLowerCase() === "state")) {
+      return (
+        <>
+          <Flex padding={2}>
+            <FontAwesomeIcon icon={faSearch as IconProp} style={{ margin: "auto 5px" }} />
+            <Input border='none' fontSize="xl" fontStyle="italic" placeholder="Search" />
+          </Flex>
+          <MenuDivider />
+          <MenuGroup title='All Values' fontSize="xl" px={2}>
+            <CheckboxGroup colorScheme="brand">
+              <Checkbox
+                ml={3}
+                size="lg"
+                isChecked={selectAll}
+                onChange={(e) => handleSelectAll(e)}
+                fontSize="xl"
+              >
+                Select All
+              </Checkbox>
+
+              {
+                STATES.map(state =>
+                  <Flex mx="3"
+                    key={state.abbreviation}>
+                    <Checkbox
+                      size="lg"
+                      // value={propertyValue.key}
+                      isChecked={values.includes(state.abbreviation)} 
+                      onChange={(e) => handlePropertyValues(e, state.abbreviation)}
+                      fontSize="xl"
+                    >
+                      {state.name}
+                    </Checkbox>
+
+                  </Flex>)
+              }
+            </CheckboxGroup>
+          </MenuGroup>
+        </>
+      )
+    }
+    switch (type) {
+      case "string":
+      case "date":
+        return (
+          <Flex padding={6}>
+            <TextInput
+              type={type}
+              value={values as unknown as string}
+              handleChange={handlePropertyValues}
+              label="Enter Search Value"
+              placeholder="Search Value"
+              TextInputProps={{
+                padding: "0.4rem",
+              }}
+            />
+          </Flex>
+
+        );
+
+      default:
+        break;
+    }
+  }
 
   return (
 
@@ -172,20 +303,15 @@ const WhereBox = () => {
                     <Input border='none' fontSize="xl" fontStyle="italic" placeholder="Search" />
                   </Flex>
                   <MenuDivider />
-                  <MenuGroup title='Suggested fields' fontSize="xl">
+                  <MenuGroup title='Quik influence fields' fontSize="xl">
                     {
-                      suggestedFields.map(field =>
+                      quikInfluenceProperties().map((field: PropertyType) =>
                         <MenuItem
                           onClick={() => handlePropertyClick(field)}
                           key={field.key}>
                           {field.label}
                         </MenuItem>)
                     }
-                  </MenuGroup>
-                  <MenuDivider />
-                  <MenuGroup title='Quik influence fields' fontSize="xl">
-                    <MenuItem>Docs</MenuItem>
-                    <MenuItem>FAQ</MenuItem>
                   </MenuGroup>
                 </MenuList>
               </>
@@ -225,7 +351,7 @@ const WhereBox = () => {
                     <MenuButton isActive={isOpen} as={Button} >
                       <Box fontStyle="italic" fontSize="xl" px="2"
                         border={`1px solid ${borderThemeColor[colorMode]}`}>
-                        {!values.length ? "Select value(s)..." :
+                        {!values.length ? "Enter value(s)..." :
                           renderValues(values)
                         }
                       </Box>
@@ -233,47 +359,14 @@ const WhereBox = () => {
 
 
                     <MenuList padding={0} bg="white" width="500px" maxH="240px" overflow="scroll" fontSize="xl" >
-                      <Flex padding={2}>
-                        <FontAwesomeIcon icon={faSearch as IconProp} style={{ margin: "auto 5px" }} />
-                        <Input border='none' fontSize="xl" fontStyle="italic" placeholder="Search" />
-                      </Flex>
-                      <MenuDivider />
-                      <MenuGroup title='All Values' fontSize="xl" px={2}>
-                        <CheckboxGroup colorScheme="brand">
-                          <Checkbox
-                            ml={3}
-                            size="lg"
-                            isChecked={selectAll}
-                            onChange={(e) => handleSelectAll(e)}
-                            fontSize="xl"
-                          >
-                            Select All
-                          </Checkbox>
-
-                          {
-                            defaultPropertyValues.map(propertyValue =>
-                              <Flex mx="3"
-                                key={propertyValue.key}>
-                                <Checkbox
-                                  size="lg"
-                                  // value={propertyValue.key}
-                                  isChecked={values.includes(propertyValue.key)}
-                                  onChange={(e) => handlePropertyValues(e, propertyValue.key)}
-                                  fontSize="xl"
-                                >
-                                  {propertyValue.label}
-                                </Checkbox>
-
-                              </Flex>)
-                          }
-                        </CheckboxGroup>
-
-                      </MenuGroup>
+                      {
+                        renderValueInput()
+                      }
                       <Box as="div" position="sticky" bottom={0} zIndex={90} bg="white">
                         <MenuDivider />
                         <Flex width="100%" justifyContent="space-between" pb={3} px={5}>
-                          <Button>Cancel</Button>
-                          <Button>Apply Filter</Button>
+                          <Button >Cancel</Button>
+                          <Button colorScheme="brand">Apply Filter</Button>
                         </Flex>
 
                       </Box>
@@ -288,7 +381,7 @@ const WhereBox = () => {
 
       </Flex>
 
-      <Box as="div" cursor="pointer" onClick={() => { }}>
+      <Box as="div" cursor="pointer" onClick={onCancle}>
         <FontAwesomeIcon icon={faTimes as IconProp}
           style={{ margin: "auto 5px" }} />
       </Box>
