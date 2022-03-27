@@ -1,8 +1,9 @@
-import { LOGIN, LOGOUT, AUTH_LOADING } from '../actionTypes';
+import { LOGIN, LOGOUT, AUTH_LOADING, SET_PERMISSIONS } from '../actionTypes';
 
 export const initialState = {
   user: null,
   loading: false,
+  permissions: [],
 };
 
 const user = (state = initialState, action: { type: any; payload: any }) => {
@@ -20,6 +21,11 @@ const user = (state = initialState, action: { type: any; payload: any }) => {
       return {
         ...state,
         loading: action.payload,
+      };
+    case SET_PERMISSIONS:
+      return {
+        ...state,
+        permissions: action.payload,
       };
     case 'RESET':
       return initialState;
