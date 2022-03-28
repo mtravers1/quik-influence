@@ -14,14 +14,14 @@ import {
   CheckboxGroup,
   Stack,
 } from "@chakra-ui/react"
-import { ChangeEvent, useEffect, useState } from "react"
+import React, { ChangeEvent, useEffect, useState } from "react"
 import { borderThemeColor, dashboardColor } from "utils/constants/colorConstants"
 
 import { faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useSelector } from "react-redux";
-import { PropertyType } from "./types";
+import { PropertyType, WhereBoxProps } from "./types";
 import { STATES } from "./constants";
 import { TextInput } from "components/Input";
 
@@ -38,7 +38,7 @@ const comparators = [
 
 ]
 
-const WhereBox = () => {
+const WhereBox: React.FC<WhereBoxProps> = ({setSearchParams, handleRemoveQuery, id}) => {
   const { colorMode } = useColorMode()
   const { formData } = useSelector((state: any) => state.generals)
   const [selectedComparator, setSelectedComparator] = useState(comparators[0])
@@ -53,9 +53,7 @@ const WhereBox = () => {
   
   
   const onCancle = () => {
-    setProperty(undefined)
-    setValues(undefined)
-    setType('')
+    handleRemoveQuery(id)
   }
 
   const quikInfluenceProperties: any = () => (
@@ -130,6 +128,7 @@ const WhereBox = () => {
       }
     } else {
       setValues(value)
+
     }
 
 

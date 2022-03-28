@@ -5,3 +5,9 @@ export type PropertyType = {
     type: string,
     key: string
 }
+
+export type WhereBoxProps={
+    setSearchParams: () => {},
+    handleRemoveQuery: (a: number) => void
+    id: number
+}
