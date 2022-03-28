@@ -25,6 +25,13 @@ const SearchPage = () => {
   const isDisabled = () => {
     // searchParams[searchParams.length-1]
   }
+
+  const applySearch = () => {
+    console.log(searchParams)
+    searchParams.forEach((searchParam) => {
+
+    })
+  }
   return (
     <Box>
       <Flex width="full" alignItems="center" justify="space-between">
@@ -34,7 +41,7 @@ const SearchPage = () => {
       </Flex>
 
       <Flex
-        w="70%"
+        w="80%"
         p={6}
         marginTop={10}
         bg={basicTheme[colorMode]}
@@ -56,11 +63,19 @@ const SearchPage = () => {
         <Flex width="full" mt={4} justifyContent="flex-end">
           <CustomButton
             onClick={handleAddQuery}
+            variant='gray'
             disabled={false}
             fontSize="sm" py={1} px={4} width="">
             Add query
           </CustomButton>
         </Flex>
+      </Flex>
+
+      <Flex justifyContent="flex-end" width="80%" mt={6}>
+          <CustomButton width="" onClick={applySearch} disabled={!searchParams[0].values}
+            fontSize="md" py={4} px={10}>
+            Apply Search
+          </CustomButton>
       </Flex>
     </Box>
   )

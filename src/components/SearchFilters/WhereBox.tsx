@@ -53,6 +53,8 @@ const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery,
 
 
   const onCancle = () => {
+    setValues("")
+    setProperty(undefined)
     handleRemoveQuery(id)
   }
 
