@@ -1,25 +1,26 @@
 import { Box, Flex, Text, useColorMode } from "@chakra-ui/react"
 import CustomButton from "components/Button";
 import WhereBox from "components/SearchFilters/WhereBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { basicTheme } from 'utils/constants/colorConstants';
 
 
 const SearchPage = () => {
   const { colorMode } = useColorMode();
-  const [searchParams, setSearchParams] = useState<any>([{ id: 1 }])
-  const [whereClause, setWhereclause] = useState(1)
+  const [searchParams, setSearchParams] = useState<any>([{id: 1}])
 
   const handleAddQuery = () => {
-    setWhereclause(curr => curr + 1)
-    setSearchParams((params: any) => [...params, { id: whereClause }])
+    setSearchParams((params: any) => [...params, { id: params[params.length-1].id + 1 }])
   }
 
   const handleRemoveQuery = (id: number) => {
+    if(searchParams.length < 2) return
     setSearchParams((params: any) =>  params.filter((param: any) => param.id !== id))
   }
 
-
+  useEffect(() => {
+    console.log(searchParams)
+  }, [searchParams])
 
   const isDisabled = () => {
     // searchParams[searchParams.length-1]
@@ -43,10 +44,10 @@ const SearchPage = () => {
           Search users based on their properties
         </Text>
         {
-          searchParams.map((params: any) =>
+          searchParams.map((params: any, index) =>
             <WhereBox
-              key={params.id}
-              setSearchParams={() => setSearchParams}
+              key={index}
+              setSearchParams={setSearchParams}
               handleRemoveQuery={handleRemoveQuery}
               id={params.id}
             />)

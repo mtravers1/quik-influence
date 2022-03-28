@@ -38,7 +38,7 @@ const comparators = [
 
 ]
 
-const WhereBox: React.FC<WhereBoxProps> = ({setSearchParams, handleRemoveQuery, id}) => {
+const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery, id }) => {
   const { colorMode } = useColorMode()
   const { formData } = useSelector((state: any) => state.generals)
   const [selectedComparator, setSelectedComparator] = useState(comparators[0])
@@ -50,8 +50,8 @@ const WhereBox: React.FC<WhereBoxProps> = ({setSearchParams, handleRemoveQuery, 
   const [allValues, setAllValues] = useState([])
   const [searchInput, setSearchInput] = useState('')
   const [searchValueInput, setSearchValueInput] = useState('')
-  
-  
+
+
   const onCancle = () => {
     handleRemoveQuery(id)
   }
@@ -111,7 +111,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({setSearchParams, handleRemoveQuery, 
 
     }
     return (
-      <Text > { values  } </Text>)
+      <Text > {values} </Text>)
   }
 
 
@@ -147,7 +147,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({setSearchParams, handleRemoveQuery, 
     const searchValue = e.target.value
     setSearchInput(searchValue)
     const updatedProperties = quikInfluenceProperties().filter((a: any) => {
-      if (a.label.toLowerCase().includes(searchValue.toLowerCase())){
+      if (a.label.toLowerCase().includes(searchValue.toLowerCase())) {
         return a
       }
     })
@@ -158,12 +158,21 @@ const WhereBox: React.FC<WhereBoxProps> = ({setSearchParams, handleRemoveQuery, 
     const searchValue = e.target.value
     setSearchValueInput(searchValue)
     const updatedSearchValues = STATES.filter((a: any) => {
-      if (a.name.toLowerCase().includes(searchValue.toLowerCase())){
+      if (a.name.toLowerCase().includes(searchValue.toLowerCase())) {
         return a
       }
     })
     setAllValues(updatedSearchValues)
   }
+
+  useEffect(() => {
+    console.log('heress')
+    setSearchParams((params: any) => 
+      params.map((param: any) => 
+        param.id === id ? {...param, property, values } : param
+      )
+    )
+  }, [values])
 
   //Render value inputs depending on the type of search property field dataname 
   const renderValueInput = () => {
@@ -173,12 +182,12 @@ const WhereBox: React.FC<WhereBoxProps> = ({setSearchParams, handleRemoveQuery, 
         <>
           <Flex padding={2}>
             <FontAwesomeIcon icon={faSearch as IconProp} style={{ margin: "auto 5px" }} />
-            <Input 
-              value={searchValueInput} 
+            <Input
+              value={searchValueInput}
               onChange={handleValueSearch}
-              border='none' 
-              fontSize="xl" 
-              fontStyle="italic" 
+              border='none'
+              fontSize="xl"
+              fontStyle="italic"
               placeholder="Search" />
           </Flex>
           <MenuDivider />
@@ -201,7 +210,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({setSearchParams, handleRemoveQuery, 
                     <Checkbox
                       size="lg"
                       // value={propertyValue.key}
-                      isChecked={values.includes(state.abbreviation)} 
+                      isChecked={values.includes(state.abbreviation)}
                       onChange={(e) => handlePropertyValues(e, state.abbreviation)}
                       fontSize="xl"
                     >
