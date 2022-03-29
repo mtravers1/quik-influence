@@ -47,7 +47,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery,
   const [type, setType] = useState('')
   const [selectAll, setSelectAll] = useState(false)
   const [allProperties, setAllProperties] = useState([])
-  const [allValues, setAllValues] = useState([])
+  const [allValues, setAllValues] = useState<any>([])
   const [searchInput, setSearchInput] = useState('')
   const [searchValueInput, setSearchValueInput] = useState('')
 
@@ -123,9 +123,9 @@ const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery,
     const { checked, value } = target
     if (key) {
       if (checked) {
-        setValues(_key => [..._key, key])
+        setValues((_key:any) => [..._key, key])
       } else {
-        setValues(_key => _key.filter(a => a !== key))
+        setValues((_key:any) => _key.filter((a:any) => a !== key))
         setSelectAll(false)
       }
     } else {
@@ -168,13 +168,12 @@ const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery,
   }
 
   useEffect(() => {
-    console.log('heress')
     setSearchParams((params: any) => 
       params.map((param: any) => 
-        param.id === id ? {...param, property, values } : param
+        param.id === id ? {...param, property, values, comparator:selectedComparator.key } : param
       )
     )
-  }, [values])
+  }, [values, selectedComparator])
 
   //Render value inputs depending on the type of search property field dataname 
   const renderValueInput = () => {
@@ -206,13 +205,13 @@ const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery,
               </Checkbox>
 
               {
-                allValues.map(state =>
+                allValues.map((state:any) =>
                   <Flex mx="3"
                     key={state.abbreviation}>
                     <Checkbox
                       size="lg"
                       // value={propertyValue.key}
-                      isChecked={values.includes(state.abbreviation)}
+                      isChecked={values ? values.includes(state.abbreviation) : false}
                       onChange={(e) => handlePropertyValues(e, state.abbreviation)}
                       fontSize="xl"
                     >
@@ -331,7 +330,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery,
                     <MenuButton isActive={isOpen} as={Button} >
                       <Box fontStyle="italic" fontSize="xl" px="2"
                         border={`1px solid ${borderThemeColor[colorMode]}`}>
-                        {!values.length ? "Enter value(s)..." :
+                        {!values || !values.length ? "Enter value(s)..." :
                           renderValues(values)
                         }
                       </Box>
@@ -344,10 +343,10 @@ const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery,
                       }
                       <Box as="div" position="sticky" bottom={0} zIndex={90} bg="white">
                         <MenuDivider />
-                        <Flex width="100%" justifyContent="space-between" pb={3} px={5}>
+                        {/* <Flex width="100%" justifyContent="space-between" pb={3} px={5}>
                           <Button >Cancel</Button>
                           <Button colorScheme="brand">Apply Filter</Button>
-                        </Flex>
+                        </Flex> */}
 
                       </Box>
                     </MenuList>

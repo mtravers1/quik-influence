@@ -7,7 +7,7 @@ export type PropertyType = {
 }
 
 export type WhereBoxProps={
-    setSearchParams: (params:any) => {},
+    setSearchParams: React.Dispatch<React.SetStateAction<string>>,
     handleRemoveQuery: (a: number) => void
     id: number
 }
