@@ -337,7 +337,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({ setSearchParams, handleRemoveQuery,
                     </MenuButton>
 
 
-                    <MenuList padding={0} bg="white" width="500px" maxH="240px" overflow="scroll" fontSize="xl" >
+                    <MenuList padding={0}  width="500px" maxH="240px" overflow="scroll" fontSize="xl" >
                       {
                         renderValueInput()
                       }
