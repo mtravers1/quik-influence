@@ -13,12 +13,14 @@ const LeadsForm = ({
   redirectUrl,
   form,
   paidType,
+  showConsent = true
 }: {
-  campaignId: string;
+  campaignId?: string;
   handleStripe?: (email: string, success?: boolean) => {};
   redirectUrl: string;
   form: any;
   paidType?: string;
+  showConsent?: boolean;
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
@@ -34,19 +36,33 @@ const LeadsForm = ({
   } = useInput({
     inputs: form,
     cb: async (inputs) => {
-      if (!submitForm) return;
+      if (showConsent && !submitForm) return;
 
-      await axiosInstance
-        .post(`/users/campaign/`, {
+      let payload, url;
+
+      if (!!campaignId) {
+        url = "/users/campaign/";
+        payload = {
           ...inputs,
           campaignId
-        })
+        };
+      } else {
+        url = "/users/admin/";
+        payload = {
+          ...inputs
+        };
+      }
+
+      await axiosInstance
+        .post(url, payload)
         .then(async (res) => {
           if (res.status === 200) {
             resetInputs();
             toast({
               title: "Registered Successfully.",
-              description: isPaidCampaign ? "You would be redirected to a payment screen" : "",
+              description: isPaidCampaign
+                ? "You would be redirected to a payment screen"
+                : "",
               duration: 9000,
               position: "top-right",
               variant: "subtle",
@@ -107,23 +123,25 @@ const LeadsForm = ({
             )}
           </FormControl>
         ))}
-        <Box p="10px">
-          <input
-            type="checkbox"
-            checked={submitForm}
-            onChange={() => setSubmitForm(!submitForm)}
-          />
+        {showConsent && (
+          <Box p="10px">
+            <input
+              type="checkbox"
+              checked={submitForm}
+              onChange={() => setSubmitForm(!submitForm)}
+            />
 
-          <Box as="small" marginLeft="20px">
-            By submitting yes, I consent to having a representative from
-            QuikInfluence or their partners contact me at this number (insert
-            submitted number) and/or this email (insert submitted email
-            address). I understand these calls or texts may be generated using
-            an automated dialer or software and that my consent is not required
-            as a precondition for purchasing or receiving any property, goods or
-            service.
+            <Box as="small" marginLeft="20px">
+              By submitting yes, I consent to having a representative from
+              QuikInfluence or their partners contact me at this number (insert
+              submitted number) and/or this email (insert submitted email
+              address). I understand these calls or texts may be generated using
+              an automated dialer or software and that my consent is not
+              required as a precondition for purchasing or receiving any
+              property, goods or service.
+            </Box>
           </Box>
-        </Box>
+        )}
       </Flex>
 
       <CustomButton

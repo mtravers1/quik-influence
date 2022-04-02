@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Heading,
@@ -24,9 +24,10 @@ import DarkModeSwitch from './DarkModeSwitch';
 import theme from '../styles/theme';
 import { css } from '@emotion/react';
 import { getUser, logout as removeLocalstorageToken } from 'utils/helpers';
-import { logout } from 'redux/actions/auth';
+import { getUserPermissions, logout } from 'redux/actions/auth';
 import { useRouter } from 'next/router';
 import NextLink from './NextLink';
+import { useDispatch } from 'react-redux';
 
 interface HeaderProps extends FlexProps {
   type?: 'authenticated' | 'unauthenticated';
@@ -68,6 +69,11 @@ const Header = ({ type = 'authenticated', ...rest }: HeaderProps) => {
   }
 
   if (isExpired) logout();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserPermissions());
+  }, []);
 
   return (
     <Flex
