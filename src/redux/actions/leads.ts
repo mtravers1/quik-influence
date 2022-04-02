@@ -1,3 +1,4 @@
+import { PropertyType } from "components/SearchFilters/types";
 import { FilterDataProps } from "types";
 import { errorParser } from "utils/apiHelpers";
 import { axiosInstance, getQueryString, isAdmin } from "utils/helpers";
@@ -102,7 +103,10 @@ export const searchAllLeads =
           payload: {
             data: [],
             resType: "LEADS_DATA_POINTS",
-            meta: response.data.data
+            meta: {
+              totalCount: response.data.data.totalCount,
+              ...response.data.data.result
+            }
           }
         });
 
@@ -120,4 +124,17 @@ export const searchAllLeads =
       }
     };
 
+export const fetchPropertyValues = async (field: PropertyType) => {
+  try {
+    let response;
+    const url = `/users/get-property-values`;
+    response = await axiosInstance.get(url, {
+      params: field
+    });
+    return response;
+  } catch (err) {
+    const errorMessage = errorParser(err);
+    console.log('errorMessage  >>> ', errorMessage);
+  }
+};
 

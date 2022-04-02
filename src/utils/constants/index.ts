@@ -51,5 +51,6 @@ export const formDataRelatedToSpecificUser = [
   "tiktokHandle",
   "address",
   "address3",
-  "facebookHandle"
+  "facebookHandle",
+  "gender"
 ];

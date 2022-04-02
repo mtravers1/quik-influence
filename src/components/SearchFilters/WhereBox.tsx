@@ -15,7 +15,7 @@ import {
   Input,
   Checkbox,
   CheckboxGroup,
-  Stack
+  Image
 } from "@chakra-ui/react";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import {
@@ -23,14 +23,16 @@ import {
   dashboardColor
 } from "utils/constants/colorConstants";
 
+import LoaderGif from "assets/loader.gif";
 import { faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { useSelector } from "react-redux";
 import { PropertyType, WhereBoxProps } from "./types";
-import { STATES } from "./constants";
+import { GENDER, STATES } from "./constants";
 import { TextInput } from "components/Input";
 import { formDataRelatedToSpecificUser } from "utils/constants";
+import { fetchPropertyValues } from "redux/actions/leads";
 
 const comparators = [
   {
@@ -55,15 +57,32 @@ const WhereBox: React.FC<WhereBoxProps> = ({
   const [values, setValues] = useState<string[] | string>();
   const [type, setType] = useState("");
   const [selectAll, setSelectAll] = useState(false);
+  const [loadingPropertyValues, setLoadingPropertyValues] = useState(false);
   const [allProperties, setAllProperties] = useState([]);
   const [allValues, setAllValues] = useState<any>([]);
+  const [searchPropertyValues, setSearchPropertyValues] = useState<any>([]);
   const [searchInput, setSearchInput] = useState("");
   const [searchValueInput, setSearchValueInput] = useState("");
 
   const onCancel = () => {
     setValues("");
+    setSearchPropertyValues([]);
     setProperty(undefined);
     handleRemoveQuery(id);
+  };
+
+  const renderLoaderGif = () => {
+    return (
+      <Box>
+        <Image
+          src={LoaderGif.src}
+          mx="auto"
+          alt="loader gif"
+          width={20}
+          height={20}
+        />
+      </Box>
+    );
   };
 
   const quikInfluenceProperties: any = () =>
@@ -84,14 +103,20 @@ const WhereBox: React.FC<WhereBoxProps> = ({
     setAllProperties(quikInfluenceProperties());
   }, []);
 
-  const handlePropertyClick = (field: PropertyType) => {
+  const handlePropertyClick = async (field: PropertyType) => {
     setProperty(field);
     setType(field.type);
     if (field.label === "state" || field.label === "city") {
       setValues([]);
+      setSearchPropertyValues([]);
       setAllValues(STATES);
+    } else if (field.label === "gender") {
+      setValues([]);
+      setSearchPropertyValues([]);
+      setAllValues(GENDER);
     } else {
       setValues("");
+      setSearchPropertyValues([]);
     }
     //values configuration should depend on the field's type & name.
   };
@@ -113,7 +138,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
     return <Text> {values} </Text>;
   };
 
-  const handlePropertyValues = (e: ChangeEvent, key?: any) => {
+  const handlePropertyValues = async (e: ChangeEvent, key?: any) => {
     e.stopPropagation();
     const target = e.target as HTMLInputElement;
     const { checked, value } = target;
@@ -126,6 +151,16 @@ const WhereBox: React.FC<WhereBoxProps> = ({
       }
     } else {
       setValues(value);
+
+      if (property) {
+        setLoadingPropertyValues(true);
+        property.value = value;
+        const res = await fetchPropertyValues(property);
+        if (res) {
+          setLoadingPropertyValues(false);
+          setSearchPropertyValues(res.data.data.propertyValues);
+        }
+      }
     }
   };
 
@@ -176,55 +211,73 @@ const WhereBox: React.FC<WhereBoxProps> = ({
     if (
       property &&
       (property.label.toLowerCase() === "city" ||
-        property.label.toLowerCase() === "state")
+        property.label.toLowerCase() === "state" ||
+        property.label.toLowerCase() === "gender")
     ) {
+      const isGender = property.label.toLowerCase() === "gender";
       return (
         <>
-          <Flex padding={2}>
-            <FontAwesomeIcon
-              icon={faSearch as IconProp}
-              style={{ margin: "auto 5px" }}
-            />
-            <Input
-              value={searchValueInput}
-              onChange={handleValueSearch}
-              border="none"
-              fontSize="xl"
-              fontStyle="italic"
-              placeholder="Search"
-            />
-          </Flex>
+          {!isGender && (
+            <Flex padding={2}>
+              <FontAwesomeIcon
+                icon={faSearch as IconProp}
+                style={{ margin: "auto 5px" }}
+              />
+              <Input
+                value={searchValueInput}
+                onChange={handleValueSearch}
+                border="none"
+                fontSize="xl"
+                fontStyle="italic"
+                placeholder="Search"
+              />
+            </Flex>
+          )}
           <MenuDivider />
           <MenuGroup title="All Values" fontSize="xl" px={2}>
-            <CheckboxGroup colorScheme="brand">
-              <Checkbox
-                ml={3}
-                size="lg"
-                isChecked={selectAll}
-                onChange={(e) => handleSelectAll(e)}
-                fontSize="xl"
-              >
-                Select All
-              </Checkbox>
+            {!isGender && (
+              <CheckboxGroup colorScheme="brand">
+                <Checkbox
+                  ml={3}
+                  size="lg"
+                  isChecked={selectAll}
+                  onChange={(e) => handleSelectAll(e)}
+                  fontSize="xl"
+                >
+                  Select All
+                </Checkbox>
 
-              {allValues.map((state: any) => (
-                <Flex mx="3" key={state.abbreviation}>
-                  <Checkbox
-                    size="lg"
-                    // value={propertyValue.key}
-                    isChecked={
-                      values ? values.includes(state.abbreviation) : false
-                    }
-                    onChange={(e) =>
-                      handlePropertyValues(e, state.abbreviation)
-                    }
-                    fontSize="xl"
+                {allValues.map((state: any) => (
+                  <Flex mx="3" key={state.abbreviation}>
+                    <Checkbox
+                      size="lg"
+                      // value={propertyValue.key}
+                      isChecked={
+                        values ? values.includes(state.abbreviation) : false
+                      }
+                      onChange={(e) =>
+                        handlePropertyValues(e, state.abbreviation)
+                      }
+                      fontSize="xl"
+                    >
+                      {state.name}
+                    </Checkbox>
+                  </Flex>
+                ))}
+              </CheckboxGroup>
+            )}
+            {isGender && (
+              <>
+                {allValues.map((gender: any) => (
+                  <MenuItem
+                    key={gender.name}
+                    onClick={() => setValues(gender.abbreviation)}
                   >
-                    {state.name}
-                  </Checkbox>
-                </Flex>
-              ))}
-            </CheckboxGroup>
+                    <Text>{gender.name}</Text>
+                  </MenuItem>
+                ))}
+              </>
+            )}
           </MenuGroup>
         </>
       );
@@ -233,7 +286,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
       case "string":
       case "date":
         return (
-          <Flex padding={6}>
+          <Flex padding={6} flexDirection="column">
             <TextInput
               type={type}
               value={values as unknown as string}
@@ -244,6 +297,24 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                 padding: "0.4rem"
               }}
             />
+            <>
+              <MenuDivider />
+              {loadingPropertyValues && renderLoaderGif()}
+              {searchPropertyValues.length > 0 && (
+                <>
+                  {searchPropertyValues.map(
+                    (propVal: { [key: string]: string }) => (
+                      <MenuItem
+                        key={propVal.value}
+                        onClick={() => setValues(propVal.value)}
+                      >
+                        <Text>{propVal.value}</Text>
+                      </MenuItem>
+                    )
+                  )}
+                </>
+              )}
+            </>
           </Flex>
         );
 
@@ -313,7 +384,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                         key={field.key}
                         textTransform="capitalize"
                       >
-                        {field.label.replace(/([a-z])([A-Z])/g, '$1 $2')}
+                        {field.label.replace(/([a-z])([A-Z])/g, "$1 $2")}
                       </MenuItem>
                     ))}
                   </MenuGroup>
