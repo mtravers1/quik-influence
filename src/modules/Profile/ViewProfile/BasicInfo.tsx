@@ -71,7 +71,7 @@ const BasicInfo = () => {
       <Heading size="md">Basic Info</Heading>
       <Flex
         w="100%"
-        flexGrow="1"
+        flexGrow={1}
         flexDirection={{ base: 'column', md: 'column', lg: 'row' }}
       >
         <Box flexGrow="inherit">
