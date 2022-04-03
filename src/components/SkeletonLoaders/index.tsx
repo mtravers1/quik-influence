@@ -46,3 +46,13 @@ export const TablePageLoader = () => {
     </Flex>
   );
 };
+
+export const SearchPageLoader = () => {
+  return (
+    <Flex mt={20} flexDir="column">
+      <Skeleton w="40%" h="150px" marginBottom="20px" />
+      <Skeleton w="400%" h="150px" marginBottom="10px" />
+      <Skeleton w="100%" h="50px" marginBottom="10px" />
+    </Flex>
+  );
+};
