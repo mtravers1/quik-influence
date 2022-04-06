@@ -17,7 +17,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - export IMAGE_REPO_NAME quikinfluence-dev-frontend
+      - export IMAGE_REPO_NAME quikinfluence-dev-fe
       - export VERSION_TAG=$(date '+%Y%m%d%H%M')
       - docker build -t $IMAGE_REPO_NAME:$VERSION_TAG .
       - docker tag $IMAGE_REPO_NAME:$VERSION_TAG $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$VERSION_TAG
@@ -28,9 +28,9 @@ phases:
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$VERSION_TAG 
       - echo Entered the deploy phase...
       - aws sts get-caller-identity
-      - echo Deploying quiksession-frontend version VERSION_TAG to cluster
+      - echo Deploying quikinfluence-frontend version VERSION_TAG to cluster
       - echo Entered the deploy phase...
-      - echo Deploying quiksession-frontend version VERSION_TAG to cluster
+      - echo Deploying quikinfluence-frontend version VERSION_TAG to cluster
       - sed -i "s/AWS_ECR_URI/$AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com\/$IMAGE_REPO_NAME:$VERSION_TAG/g" k8.yml
       - grep image k8.yml
       - ./kubectl --kubeconfig='/root/.kube/config' config view
