@@ -142,16 +142,18 @@ const DataTable = () => {
                     isNumeric={column.isNumeric}
                     fontSize="lg"
                   >
-                    {column.render('Header')}
-                    <chakra.span pl="4">
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <TriangleDownIcon aria-label="sorted descending" />
-                        ) : (
-                          <TriangleUpIcon aria-label="sorted ascending" />
-                        )
-                      ) : null}
-                    </chakra.span>
+                    <>
+                      {column.render('Header')}
+                      <chakra.span pl="4">
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <TriangleDownIcon aria-label="sorted descending" />
+                          ) : (
+                            <TriangleUpIcon aria-label="sorted ascending" />
+                          )
+                        ) : null}
+                      </chakra.span>
+                    </>
                   </Th>
                 )
               )}
