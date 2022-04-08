@@ -7,7 +7,7 @@ const defaultStyles = {
 };
 
 const NavBar = ({ children }: { children: (styles: any) => {} }) => {
-  const navRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const navRef = useRef() as React.LegacyRef<HTMLDivElement>;
   const currentScroll = useRef<number>();
   const [styles, setStyles] = useState({ ...defaultStyles });
 
