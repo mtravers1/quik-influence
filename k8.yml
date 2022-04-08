@@ -68,7 +68,7 @@ spec:
       labels:
         app: quikinfluence-frontend
     spec:
-      serviceAccountName: validate-hjn-csi-setup-sa
+      serviceAccountName: quikinfluence-dev-frontend-sa
       volumes:
         - name: quikinfluence-dev-frontend-secrets-volume
           csi:
