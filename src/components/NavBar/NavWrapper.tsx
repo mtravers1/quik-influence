@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 const defaultStyles = {
   position: 'static',
@@ -6,7 +6,7 @@ const defaultStyles = {
   background: 'linear-gradient(#000, transparent)',
 };
 
-const NavBar = ({ children }: { children: (styles: any) => {} }) => {
+const NavBar = ({ children }: { children: (styles: any) => ReactNode }) => {
   const navRef = useRef() as React.LegacyRef<HTMLDivElement>;
   const currentScroll = useRef<number>();
   const [styles, setStyles] = useState({ ...defaultStyles });
