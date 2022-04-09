@@ -56,7 +56,7 @@ import { setSMSCampaign } from 'redux/actions/campaigns';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
 
-const Editor = dynamic(
+const Editor = dynamic<any>(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
   { ssr: false }
 );
