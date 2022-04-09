@@ -29,10 +29,6 @@ import dynamic from 'next/dynamic';
 import draftToHtml from 'draftjs-to-html';
 import { EditorState, convertToRaw } from 'draft-js';
 import { EditorProps } from 'react-draft-wysiwyg';
-const Editor = dynamic<EditorProps>(
-  () => import('react-draft-wysiwyg').then(mod => mod.Editor),
-  { ssr: false }
-);
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import quikColorConstants, {
   bgThemeColor,
@@ -59,6 +55,11 @@ import { fetchPostJSON } from 'utils/apiHelpers';
 import { setSMSCampaign } from 'redux/actions/campaigns';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
+
+const Editor = dynamic(
+  () => import('react-draft-wysiwyg').then(mod => mod.Editor),
+  { ssr: false }
+);
 
 const selectLabelProps = {
   fontSize: '1.4rem',
