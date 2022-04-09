@@ -6,7 +6,7 @@ const defaultStyles = {
   background: 'linear-gradient(#000, transparent)',
 };
 
-const NavBar = ({ children }: { children: (styles: any) => ReactNode }) => {
+const NavBar = ({ children }: { children: (styles: any) => any }) => {
   const navRef = useRef() as React.LegacyRef<HTMLDivElement>;
   const currentScroll = useRef<number>();
   const [styles, setStyles] = useState({ ...defaultStyles });
