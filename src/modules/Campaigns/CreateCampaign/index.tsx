@@ -471,7 +471,7 @@ const CreateCampaign = ({
                                 variant="brand"
                                 isChecked={allChecked}
                                 isIndeterminate={isIndeterminate}
-                                onChange={e =>
+                                onChange={(e: { target: { checked: any; }; }) =>
                                   setCheckedItems(
                                     checkedItems.reduce(
                                       (acc: any, checkItem: any) => [
@@ -503,7 +503,7 @@ const CreateCampaign = ({
                             colorScheme="red"
                             variant="brand"
                             isChecked={checkedItems[i]?.isChecked}
-                            onChange={e => {
+                            onChange={(e: { target: { checked: any; }; }) => {
                               const newItems = [...checkedItems];
                               newItems[i].isChecked = e.target.checked;
                               setCheckedItems(newItems);
