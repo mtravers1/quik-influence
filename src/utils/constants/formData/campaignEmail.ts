@@ -105,7 +105,7 @@ export default [
         label: 'Email Message',
         errorMessage: 'enter the Email Message',
         required: false,
-        type: 'rich_text_editor',
+        type: 'textarea',
         pattern: FREE_TEXT_REGEX,
     },
 
