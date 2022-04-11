@@ -1,21 +1,12 @@
-import {
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  Flex,
-  Box,
-} from "@chakra-ui/react";
-import DropdownSelect from "components/DropdownSelect";
-import React from "react";
-import Image from "next/image";
-import quikColorConstants, { basicTheme } from "utils/constants/colorConstants";
-import { OPEN } from "utils/constants/formConstants";
-import LoaderGif from "assets/loader.gif";
-import NoRecordsMessage from "components/NoRecordsMessage";
-import { getStyles } from "modules/Leads/css";
+import { Table, Thead, Tr, Th, Tbody, Td, Flex, Box } from '@chakra-ui/react';
+import DropdownSelect from 'components/DropdownSelect';
+import React from 'react';
+import Image from 'next/image';
+import quikColorConstants, { basicTheme } from 'utils/constants/colorConstants';
+import { OPEN } from 'utils/constants/formConstants';
+import LoaderGif from 'assets/loader.gif';
+import NoRecordsMessage from 'components/NoRecordsMessage';
+import { getStyles } from 'modules/Leads/css';
 
 interface RenderCampaignsTableProps {
   colorMode: string;
@@ -32,7 +23,7 @@ const RenderCampaignsTable = ({
   loading,
   rowLoading,
   onSelect,
-  tableHeaders
+  tableHeaders,
 }: RenderCampaignsTableProps) => {
   const style = getStyles(colorMode);
   return (
@@ -43,7 +34,7 @@ const RenderCampaignsTable = ({
         <Table size="lg" css={style} bg={basicTheme[colorMode]}>
           <Thead>
             <Tr>
-              {tableHeaders.map((th) => (
+              {tableHeaders.map(th => (
                 <Th key={th} fontSize="14px">
                   {th}
                 </Th>
@@ -57,7 +48,7 @@ const RenderCampaignsTable = ({
                 <Td>{cam.paidType}</Td>
                 <Td>NONE</Td>
                 <Td>{cam.status}</Td>
-                <Td>{new Date(cam.createdAt).toLocaleDateString("en-US")}</Td>
+                <Td>{new Date(cam.createdAt).toLocaleDateString('en-US')}</Td>
                 <Td cursor="pointer">
                   <Flex>
                     <DropdownSelect
@@ -69,33 +60,37 @@ const RenderCampaignsTable = ({
                           {
                             label:
                               cam.status === OPEN
-                                ? "Close campaign"
-                                : "Open campaign",
+                                ? 'Close campaign'
+                                : 'Open campaign',
                             value:
                               cam.status === OPEN
                                 ? `closeCampaign:${cam.id}`
-                                : `openCampaign:${cam.id}`
+                                : `openCampaign:${cam.id}`,
                           },
                           {
-                            label: "Edit",
-                            value: `/dashboard/campaigns/edit/${cam.id}`
+                            label: 'Edit',
+                            value: `/dashboard/campaigns/edit/${cam.id}`,
                           },
-                          { label: "Archive", value: `archive:${cam.id}` },
+                          { label: 'Archive', value: `archive:${cam.id}` },
                           {
-                            label: "Launch",
-                            value: `/campaign/${cam.id}`
+                            label: 'Launch',
+                            value: `/campaign/${cam.id}`,
                           },
                           {
-                            label: "View Registered Leads",
-                            value: `/dashboard/leads/${cam.id}`
+                            label: 'View Registered Leads',
+                            value: `/dashboard/leads/${cam.id}`,
                           },
-                          { label: "Copy link", value: `copy:${cam.id}` }
+                          {
+                            label: 'Reports & Tracking',
+                            value: `/dashboard/campaigns/report/${cam.id}`,
+                          },
+                          { label: 'Copy link', value: `copy:${cam.id}` },
                         ] || []
                       }
                       name="Actions"
                       selectProps={{
-                        fontSize: "1.4rem",
-                        border: "none"
+                        fontSize: '1.4rem',
+                        border: 'none',
                       }}
                     />
                     {/* @ts-expect-error */}

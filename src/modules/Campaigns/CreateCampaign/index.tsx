@@ -23,7 +23,6 @@ import DropdownSelect, {
 } from 'components/DropdownSelect';
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
-import { useDispatch } from 'react-redux';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import draftToHtml from 'draftjs-to-html';
@@ -47,7 +46,7 @@ import MultiRangeSelector, { Range } from './MultiRangeSelector';
 import MultiSelect from './MultiSelect';
 import loader from 'assets/loader.gif';
 import UploadImage from './UploadImage';
-import { axiosInstance } from 'utils/helpers';
+import { axiosInstance, truncateText } from 'utils/helpers';
 import { useRouter } from 'next/router';
 import theme from 'styles/theme';
 import { faCaretRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -56,7 +55,6 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { urlify } from 'utils/urilify';
 import { leadsTableHead, dataBody } from 'utils/constants/leadsPageTableData';
 import { fetchPostJSON } from 'utils/apiHelpers';
-import { setSMSCampaign } from 'redux/actions/campaigns';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
 
@@ -88,7 +86,6 @@ const CreateCampaign = ({
   const toast = createStandaloneToast(theme);
   const { colorMode } = useColorMode();
   const router = useRouter();
-  const dispatch = useDispatch();
   const [isSending, setIsSending] = useState(false);
   const [editorState, setEditorState] = useState<EditorState>(() =>
     EditorState.createEmpty()
@@ -126,6 +123,7 @@ const CreateCampaign = ({
       const response = await fetchPostJSON('/api/messages', {
         to: [phone],
         body: message,
+        mediaUrls: [inputTypes['adImage']],
       });
 
       if (response.statusCode === 500) {
@@ -351,18 +349,22 @@ const CreateCampaign = ({
                 </Text>
               </Flex>
               <Box ml="16">
-                <Editor
-                  editorState={editorState}
-                  onEditorStateChange={onEditorStateChange}
-                  editorClassName="editor"
-                  toolbar={{
-                    inline: { inDropdown: true },
-                    list: { inDropdown: true },
-                    textAlign: { inDropdown: true },
-                    link: { inDropdown: true },
-                    history: { inDropdown: true },
-                  }}
-                />
+                {
+                  <>
+                    <Editor
+                      editorState={editorState}
+                      onEditorStateChange={onEditorStateChange}
+                      editorClassName="editor"
+                      toolbar={{
+                        inline: { inDropdown: true },
+                        list: { inDropdown: true },
+                        textAlign: { inDropdown: true },
+                        link: { inDropdown: true },
+                        history: { inDropdown: true },
+                      }}
+                    />
+                  </>
+                }
               </Box>
             </ListItem>
           );
@@ -461,7 +463,7 @@ const CreateCampaign = ({
                             fontSize="md"
                             textTransform="capitalize"
                             fontFamily="Avenir"
-                            key={`table_h_2_${data.name}`}
+                            key={`table_h_2_${data.name}_${i}`}
                           >
                             {th.name === 'Lead ID' && (
                               <Checkbox
@@ -495,7 +497,7 @@ const CreateCampaign = ({
 
                   <Tbody>
                     {dataBody.map((data, i) => (
-                      <Tr key={`lead_data_${data.name}`}>
+                      <Tr key={`lead_data_${data.name}_${i}`}>
                         <Td>
                           <Checkbox
                             size="lg"
@@ -508,7 +510,8 @@ const CreateCampaign = ({
                               setCheckedItems(newItems);
                             }}
                           />
-                          {data.leadId}
+
+                          {truncateText(data.id, 3)}
                         </Td>
                         <Td>{data.name}</Td>
                         <Td>{data.phoneNumber}</Td>
@@ -763,13 +766,14 @@ const CreateCampaign = ({
         message: type === 'Email' ? convertedContent : inputTypes['message'],
         to: checkedItems
           .filter((el: any) => el.isChecked)
-          .map((lead: any) =>
-            type === 'Email' ? lead.email : lead.phoneNumber
-          ),
+          .map((lead: any) => ({
+            id: lead.id,
+            email: lead.email,
+            phone: lead.phoneNumber,
+          })),
+        mediaUrls: [inputTypes['adImage']],
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
-      console.log('inputs here', inputs);
-      console.log('smsEmailRecord here', smsEmailRecord);
 
       const formFieldsInput = getFormFields(inputs.formData);
       const formDataObject = {

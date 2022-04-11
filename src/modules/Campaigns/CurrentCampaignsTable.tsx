@@ -7,7 +7,6 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import queryString from 'query-string';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   archiveCampaign,
@@ -95,7 +94,7 @@ const CurrentCampaignsTable = () => {
         );
       }
 
-      if (value.includes('campaign')) {
+      if (value.includes('campaign') && !value.includes('report')) {
         return window.open(`${window.location.origin}${value}`, '_blank');
       }
 
