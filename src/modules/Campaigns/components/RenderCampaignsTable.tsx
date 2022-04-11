@@ -2,7 +2,7 @@ import { Table, Thead, Tr, Th, Tbody, Td, Flex, Box } from '@chakra-ui/react';
 import DropdownSelect from 'components/DropdownSelect';
 import React from 'react';
 import Image from 'next/image';
-import quikColorConstants, { basicTheme } from 'utils/constants/colorConstants';
+import { basicTheme } from 'utils/constants/colorConstants';
 import { OPEN } from 'utils/constants/formConstants';
 import LoaderGif from 'assets/loader.gif';
 import NoRecordsMessage from 'components/NoRecordsMessage';
@@ -107,14 +107,12 @@ const RenderCampaignsTable = ({
         </Table>
       )}
       {campaigns?.length === 0 && !loading && (
-        <NoRecordsMessage
-          message={
-            <>
-              No Records has been made <br /> Please click the "Create a New
-              Campaign" button
-            </>
-          }
-        />
+        <NoRecordsMessage>
+          <>
+            No Records has been made <br /> Please click the "Create a New
+            Campaign" button
+          </>
+        </NoRecordsMessage>
       )}
     </>
   );

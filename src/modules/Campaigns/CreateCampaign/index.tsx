@@ -24,15 +24,6 @@ import DropdownSelect, {
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-import draftToHtml from 'draftjs-to-html';
-import { EditorState, convertToRaw } from 'draft-js';
-import { EditorProps } from 'react-draft-wysiwyg';
-const Editor = dynamic<EditorProps>(
-  () => import('react-draft-wysiwyg').then(mod => mod.Editor),
-  { ssr: false }
-);
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import quikColorConstants, {
   bgThemeColor,
   borderThemeColor,
@@ -87,10 +78,7 @@ const CreateCampaign = ({
   const { colorMode } = useColorMode();
   const router = useRouter();
   const [isSending, setIsSending] = useState(false);
-  const [editorState, setEditorState] = useState<EditorState>(() =>
-    EditorState.createEmpty()
-  );
-  const [convertedContent, setConvertedContent] = useState<any>([]);
+
   const [checkedItems, setCheckedItems] = useState<any>([]);
   const allChecked = checkedItems.every(
     (checkItem: any) => checkItem.isChecked
@@ -211,22 +199,6 @@ const CreateCampaign = ({
     }
   };
 
-  const onEditorStateChange = (editorState: EditorState) => {
-    setEditorState(editorState);
-    convertContentToHTML();
-  };
-
-  /**
-   * Converts Editor State to HTML
-   * @returns
-   */
-  const convertContentToHTML = () => {
-    let currentContentAsHTML = draftToHtml(
-      convertToRaw(editorState.getCurrentContent())
-    );
-    setConvertedContent(currentContentAsHTML);
-  };
-
   /**
    * Handles Page Pagination
    * @param page number
@@ -258,7 +230,7 @@ const CreateCampaign = ({
     if (type == 'Email') {
       handleSendEmail({
         to,
-        message: convertedContent,
+        message,
       });
       return;
     }
@@ -323,49 +295,6 @@ const CreateCampaign = ({
                 name={data.name}
                 error={errors[data.name] ? data.errorMessage : undefined}
               />
-            </ListItem>
-          );
-        case 'rich_text_editor':
-          return (
-            <ListItem
-              key={`campaigne_form_${data.name}`}
-              ml={data.isChild ? '5' : 0}
-              maxW="60rem"
-              minW="60rem"
-              display="flex"
-              flexDir="column"
-              mb="8"
-            >
-              <Flex>
-                <Text fontSize="2xl" mx="8" fontWeight="black">
-                  {`${data.number ? data.number + '.' : ''}`}
-                </Text>
-                <Text
-                  mb="5"
-                  color={colorMode === 'dark' ? 'white' : 'black'}
-                  {...selectLabelProps}
-                >
-                  {data.label}
-                </Text>
-              </Flex>
-              <Box ml="16">
-                {
-                  <>
-                    <Editor
-                      editorState={editorState}
-                      onEditorStateChange={onEditorStateChange}
-                      editorClassName="editor"
-                      toolbar={{
-                        inline: { inDropdown: true },
-                        list: { inDropdown: true },
-                        textAlign: { inDropdown: true },
-                        link: { inDropdown: true },
-                        history: { inDropdown: true },
-                      }}
-                    />
-                  </>
-                }
-              </Box>
             </ListItem>
           );
         case 'range-selector':
@@ -472,7 +401,7 @@ const CreateCampaign = ({
                                 variant="brand"
                                 isChecked={allChecked}
                                 isIndeterminate={isIndeterminate}
-                                onChange={e =>
+                                onChange={(e: { target: { checked: any } }) =>
                                   setCheckedItems(
                                     checkedItems.reduce(
                                       (acc: any, checkItem: any) => [
@@ -504,7 +433,7 @@ const CreateCampaign = ({
                             colorScheme="red"
                             variant="brand"
                             isChecked={checkedItems[i]?.isChecked}
-                            onChange={e => {
+                            onChange={(e: { target: { checked: any } }) => {
                               const newItems = [...checkedItems];
                               newItems[i].isChecked = e.target.checked;
                               setCheckedItems(newItems);
@@ -763,7 +692,7 @@ const CreateCampaign = ({
     initials: initialdata || {},
     cb: async inputs => {
       const smsEmailRecord = type !== 'Default' && {
-        message: type === 'Email' ? convertedContent : inputTypes['message'],
+        message: inputTypes['message'],
         to: checkedItems
           .filter((el: any) => el.isChecked)
           .map((lead: any) => ({
