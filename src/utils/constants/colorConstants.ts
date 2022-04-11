@@ -14,7 +14,7 @@ const quikColorConstants = {
   influenceRedWithOpacity: '#FC5A5A',
 };
 
-export const bgThemeColor: Q = { light: '#F5F8F9', dark: 'gray.800' };
+export const bgThemeColor: Q = { light: quikColorConstants.white, dark: 'gray.800' };
 export const sideBarThemeColor: Q = { light: quikColorConstants.white, dark: 'gray.800' };
 export const themeColor: Q = { light: 'black', dark: 'white' };
 
@@ -47,6 +47,21 @@ export const FilterTextTheme: Q = {
 export const FilterHeaderTheme: Q = {
   light: quikColorConstants.greyDark,
   dark: '#fff',
+};
+
+export const grayWhiteColor: Q = {
+  light: 'gray',
+  dark: '#fff',
+};
+
+export const grayBlackColor: Q = {
+  light: 'gray',
+  dark: '#000',
+};
+
+export const chipBg: Q = {
+  light: '#F1F1F5',
+  dark: '#000',
 };
 
 export const tableBorderTheme: Q = { light: 'gray.700', dark: 'gray.300' };

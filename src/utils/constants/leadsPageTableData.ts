@@ -19,7 +19,7 @@ export const leadsTableHead = [
 
 export const dataBody = [
     {
-        leadId: '00001',
+        id: '2103d709-11a5-46cf-96a9-2342f44e3c76',
         name: 'Amen Ra',
         phoneNumber: '12026078069',
         email: 'mojaray2k@gmail.com',
@@ -30,9 +30,9 @@ export const dataBody = [
         revenue: 0,
     },
     {
-        leadId: '00001',
+        id: '34b5db61-81e6-41fd-baae-db092a5844c6',
         name: 'Abdulsamad Suleiman',
-        phoneNumber: '9165483248',
+        phoneNumber: '13234841124',
         email: '360campstore@gmail.com',
         afflicate: 'John Doe',
         status: 'Hot',
@@ -41,7 +41,18 @@ export const dataBody = [
         revenue: 0,
     },
     {
-        leadId: '00001',
+        id: 'd46aa779-f43b-4c50-b30c-f9a80cf30fa4',
+        name: 'Ola Bala Logic',
+        phoneNumber: '9165483248',
+        email: 'logicglide@gmail.com',
+        afflicate: 'John Doe',
+        status: 'Hot',
+        createdAt: '08/12/2021',
+        cost: 100,
+        revenue: 0,
+    },
+    {
+        id: '00001',
         name: 'Noah Lewis',
         phoneNumber: '9165483248',
         email: '360campstore@gmail.com',
@@ -52,7 +63,7 @@ export const dataBody = [
         revenue: 0,
     },
     {
-        leadId: '00001',
+        id: '00001',
         name: 'Noah Lewis',
         phoneNumber: '9165483248',
         email: '360campstore@gmail.com',
@@ -63,7 +74,7 @@ export const dataBody = [
         revenue: 0,
     },
     {
-        leadId: '00001',
+        id: '00001',
         name: 'Noah Lewis',
         phoneNumber: '9165483248',
         email: '360campstore@gmail.com',
@@ -74,7 +85,7 @@ export const dataBody = [
         revenue: 0,
     },
     {
-        leadId: '00001',
+        id: '00001',
         name: 'Noah Lewis',
         phoneNumber: '9165483248',
         email: '360campstore@gmail.com',
@@ -85,7 +96,7 @@ export const dataBody = [
         revenue: 0,
     },
     {
-        leadId: '00001',
+        id: '00001',
         name: 'Noah Lewis',
         phoneNumber: '9165483248',
         email: '360campstore@gmail.com',
@@ -96,18 +107,7 @@ export const dataBody = [
         revenue: 0,
     },
     {
-        leadId: '00001',
-        name: 'Noah Lewis',
-        phoneNumber: '9165483248',
-        email: '360campstore@gmail.com',
-        afflicate: 'John Doe',
-        status: 'Hot',
-        createdAt: '08/12/2021',
-        cost: 100,
-        revenue: 0,
-    },
-    {
-        leadId: '00001',
+        id: '00001',
         name: 'Noah Lewis',
         phoneNumber: '9165483248',
         email: '360campstore@gmail.com',

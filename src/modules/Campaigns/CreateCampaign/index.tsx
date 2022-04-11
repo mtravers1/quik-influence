@@ -23,10 +23,7 @@ import DropdownSelect, {
 } from 'components/DropdownSelect';
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
-import { useDispatch } from 'react-redux';
 import Image from 'next/image';
-import draftToHtml from 'draftjs-to-html';
-import { EditorState, convertToRaw } from 'draft-js';
 import quikColorConstants, {
   bgThemeColor,
   borderThemeColor,
@@ -40,7 +37,7 @@ import MultiRangeSelector, { Range } from './MultiRangeSelector';
 import MultiSelect from './MultiSelect';
 import loader from 'assets/loader.gif';
 import UploadImage from './UploadImage';
-import { axiosInstance } from 'utils/helpers';
+import { axiosInstance, truncateText } from 'utils/helpers';
 import { useRouter } from 'next/router';
 import theme from 'styles/theme';
 import { faCaretRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -49,7 +46,6 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { urlify } from 'utils/urilify';
 import { leadsTableHead, dataBody } from 'utils/constants/leadsPageTableData';
 import { fetchPostJSON } from 'utils/apiHelpers';
-import { setSMSCampaign } from 'redux/actions/campaigns';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
 
@@ -81,12 +77,8 @@ const CreateCampaign = ({
   const toast = createStandaloneToast(theme);
   const { colorMode } = useColorMode();
   const router = useRouter();
-  const dispatch = useDispatch();
   const [isSending, setIsSending] = useState(false);
-  const [editorState, setEditorState] = useState<EditorState>(() =>
-    EditorState.createEmpty()
-  );
-  const [convertedContent, setConvertedContent] = useState<any>([]);
+
   const [checkedItems, setCheckedItems] = useState<any>([]);
   const allChecked = checkedItems.every(
     (checkItem: any) => checkItem.isChecked
@@ -119,6 +111,7 @@ const CreateCampaign = ({
       const response = await fetchPostJSON('/api/messages', {
         to: [phone],
         body: message,
+        mediaUrls: [inputTypes['adImage']],
       });
 
       if (response.statusCode === 500) {
@@ -399,7 +392,7 @@ const CreateCampaign = ({
                             fontSize="md"
                             textTransform="capitalize"
                             fontFamily="Avenir"
-                            key={`table_h_2_${data.name}`}
+                            key={`table_h_2_${data.name}_${i}`}
                           >
                             {th.name === 'Lead ID' && (
                               <Checkbox
@@ -408,7 +401,7 @@ const CreateCampaign = ({
                                 variant="brand"
                                 isChecked={allChecked}
                                 isIndeterminate={isIndeterminate}
-                                onChange={(e: { target: { checked: any; }; }) =>
+                                onChange={(e: { target: { checked: any } }) =>
                                   setCheckedItems(
                                     checkedItems.reduce(
                                       (acc: any, checkItem: any) => [
@@ -433,20 +426,21 @@ const CreateCampaign = ({
 
                   <Tbody>
                     {dataBody.map((data, i) => (
-                      <Tr key={`lead_data_${data.name}`}>
+                      <Tr key={`lead_data_${data.name}_${i}`}>
                         <Td>
                           <Checkbox
                             size="lg"
                             colorScheme="red"
                             variant="brand"
                             isChecked={checkedItems[i]?.isChecked}
-                            onChange={(e: { target: { checked: any; }; }) => {
+                            onChange={(e: { target: { checked: any } }) => {
                               const newItems = [...checkedItems];
                               newItems[i].isChecked = e.target.checked;
                               setCheckedItems(newItems);
                             }}
                           />
-                          {data.leadId}
+
+                          {truncateText(data.id, 3)}
                         </Td>
                         <Td>{data.name}</Td>
                         <Td>{data.phoneNumber}</Td>
@@ -701,13 +695,14 @@ const CreateCampaign = ({
         message: inputTypes['message'],
         to: checkedItems
           .filter((el: any) => el.isChecked)
-          .map((lead: any) =>
-            type === 'Email' ? lead.email : lead.phoneNumber
-          ),
+          .map((lead: any) => ({
+            id: lead.id,
+            email: lead.email,
+            phone: lead.phoneNumber,
+          })),
+        mediaUrls: [inputTypes['adImage']],
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
-      console.log('inputs here', inputs);
-      console.log('smsEmailRecord here', smsEmailRecord);
 
       const formFieldsInput = getFormFields(inputs.formData);
       const formDataObject = {
