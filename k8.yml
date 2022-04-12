@@ -23,7 +23,7 @@ spec:
             backend:
               serviceName: quikinfluence-frontend
               servicePort: 3000
-    - host: api.dev.quikinfluence.com
+    - host: api-dev.quikinfluence.com
       http:
         paths:
           - path: /*
