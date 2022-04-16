@@ -14,6 +14,7 @@ export default async function handler(
 
         const to: string[] = req.body.to
         const body: string = req.body.body
+        const media_urls: string[] = req.body.mediaUrls
 
         try {
 
@@ -44,11 +45,11 @@ export default async function handler(
             //         });
             //     })
             // )
-
             await service.notifications
                 .create({
                     toBinding: bindings,
-                    body: body
+                    body: body,
+                    sms: { media_urls }
                 })
 
             res.status(200).json({ status: 'success', sent: true })

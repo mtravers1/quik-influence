@@ -143,8 +143,11 @@ const theme = extendTheme({
   radii,
   colors: {
     black: '#16161D',
-    blue: '#006EF6',
     green: '#00BE85',
+    brand: {
+      400: '#FC5A5A',
+      500: '#FF0000'
+    }
   },
   fonts,
   fontSizes,
@@ -174,54 +177,70 @@ const theme = extendTheme({
           },
         },
       },
+      search: {
+        _checked: {
+          bgColor: '#FF0000'
+        },
+        control: {
+          h: '2rem',
+          w: '2rem',
+          border: '1px solid',
+          borderColor: '#707070',
+          mr: '0.3rem',
+          bgColor: '#FF0000',
+          _checked: {
+            bgColor: '#FF0000'
+          }
+        },
     },
-    Table: {
-      variants: {
-        creditsTransactionalTable: (props: any) => ({
-          table: { bgColor: mode('white', 'black.500')(props) },
-          tr: {
-            ...creditsTransactionalTableBorder,
-          },
-          th: {
-            ...creditsTransactionalTableBorder,
-          },
-          td: {
-            ...creditsTransactionalTableBorder,
-          },
-        }),
-        leadTable: (props: any) => ({
-          table: { bgColor: mode('#F5F8F9', 'black.500')(props) },
-          tr: {
-            ...creditsTransactionalTableBorder,
-          },
-          td: {
-            padding: '.5rem',
-            fontSize: '1rem',
-            textAlign: 'center',
-          },
-        }),
-      },
+  },
+  Table: {
+    variants: {
+      creditsTransactionalTable: (props: any) => ({
+        table: { bgColor: mode('white', 'black.500')(props) },
+        tr: {
+          ...creditsTransactionalTableBorder,
+        },
+        th: {
+          ...creditsTransactionalTableBorder,
+        },
+        td: {
+          ...creditsTransactionalTableBorder,
+        },
+      }),
+      leadTable: (props: any) => ({
+        table: { bgColor: mode('#F5F8F9', 'black.500')(props) },
+        tr: {
+          ...creditsTransactionalTableBorder,
+        },
+        td: {
+          padding: '.5rem',
+          fontSize: '1rem',
+          textAlign: 'center',
+        },
+      }),
     },
-    Switch: {
-      variants: {
-        brand: {
-          thumb: {
-            bgColor: 'red',
-            _checked: {
-              transform: 'translateX(20px)',
-            },
+  },
+  Switch: {
+    variants: {
+      brand: {
+        thumb: {
+          bgColor: 'red',
+          _checked: {
+            transform: 'translateX(20px)',
           },
-          track: {
-            bgColor: 'black',
-            width: '3.5rem',
-            _focus: {
-              boxShadow: 'none',
-            },
+        },
+        track: {
+          bgColor: 'black',
+          width: '3.5rem',
+          _focus: {
+            boxShadow: 'none',
           },
         },
       },
     },
   },
+},
 });
 
 export default theme;

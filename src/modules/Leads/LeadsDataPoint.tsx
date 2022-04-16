@@ -19,19 +19,19 @@ const LeadsDataPoint = ({
       <Flex mt={10} flexDir="row">
         <Box bg={basicTheme[colorMode]} p={16} mr={20}>
           <Heading size="3xl" mb={5}>
-            {filteredCount}
+            {filteredCount || 0}
           </Heading>
           <Heading size="md">Total Number of Results</Heading>
         </Box>
         <Box bg={basicTheme[colorMode]} p={16} mr={20}>
           <Heading size="3xl" mb={5}>
-            {malecount}
+            {malecount || 0}
           </Heading>
           <Heading size="md">Total Male Records</Heading>
         </Box>
         <Box bg={basicTheme[colorMode]} p={16} mr={20}>
           <Heading size="3xl" mb={5}>
-            {femalecount}
+            {femalecount || 0}
           </Heading>
           <Heading size="md">Total Female Records</Heading>
         </Box>
