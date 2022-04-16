@@ -6,6 +6,7 @@ export const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 import { DropdownSelectOption } from "components/DropdownSelect";
 import { FilterDataProps } from "types";
+import { format } from "date-fns";
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
@@ -169,7 +170,7 @@ export function isInViewport(element: any) {
     rect.top >= 0 &&
     rect.left >= 0 &&
     rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
+    (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
@@ -186,3 +187,28 @@ export const hasPermission = (
   if (userPerm?.length === 0) return true;
   return userPerm?.some((perm) => permission?.includes(perm));
 };
+
+export const getReportOpenDate = (events: any) => {
+  if (!events) return 'NA';
+  const openEvent = events.find((evt: any) => evt['event_name'] === 'open');
+  if (!openEvent) return 'Not opened yet';
+
+  return format(new Date(openEvent['processed']), 'dd/MM/yyyy');
+};
+
+export const getReportUnsub = (events: any) => {
+  if (!events) return 'NA';
+  const unsubEvent = events.find(
+    (evt: any) => evt['event_name'] === 'unsubscribe'
+  );
+  if (!unsubEvent) return 'No';
+
+  return 'Yes';
+};
+
+export const truncateText = (str: string, num: number) => {
+  if (str.length <= num) {
+    return str
+  }
+  return str.slice(0, num) + '...'
+}
