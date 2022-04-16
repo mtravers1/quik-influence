@@ -9,13 +9,6 @@ import {
   FormLabel,
   useColorMode,
   Box,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Checkbox,
 } from '@chakra-ui/react';
 import CustomButton from 'components/Button';
 import DropdownSelect, {
@@ -23,6 +16,7 @@ import DropdownSelect, {
 } from 'components/DropdownSelect';
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
+import { format } from 'date-fns';
 import Image from 'next/image';
 import quikColorConstants, {
   bgThemeColor,
@@ -37,15 +31,16 @@ import MultiRangeSelector, { Range } from './MultiRangeSelector';
 import MultiSelect from './MultiSelect';
 import loader from 'assets/loader.gif';
 import UploadImage from './UploadImage';
-import { axiosInstance, truncateText } from 'utils/helpers';
+import { axiosInstance } from 'utils/helpers';
 import { useRouter } from 'next/router';
 import theme from 'styles/theme';
-import { faCaretRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { urlify } from 'utils/urilify';
-import { leadsTableHead, dataBody } from 'utils/constants/leadsPageTableData';
+import { leadsTableColumns } from 'utils/constants/leadsPageTableData';
 import { fetchPostJSON } from 'utils/apiHelpers';
+import DataTable from 'components/DataTable';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
 
@@ -80,16 +75,35 @@ const CreateCampaign = ({
   const [isSending, setIsSending] = useState(false);
 
   const [checkedItems, setCheckedItems] = useState<any>([]);
-  const allChecked = checkedItems.every(
-    (checkItem: any) => checkItem.isChecked
-  );
-
-  const isIndeterminate =
-    checkedItems.some((checkItem: any) => checkItem.isChecked) && !allChecked;
+  const [myLeadData, setMyLeadData] = useState<any>([]);
 
   useEffect(() => {
-    setCheckedItems(dataBody.map(el => ({ ...el, isChecked: false })));
+    getMyLeads();
   }, []);
+
+  const getMyLeads = async () => {
+    try {
+      const resp = await axiosInstance.get(
+        '/users/leads/get-own-leads?pageSize=1000&page=1'
+      );
+      let respData = resp.data.data.rows;
+      respData = respData.map((item: any) => ({
+        ...item,
+        name: `${item.firstName} ${item.lastName}`,
+        createdOn: format(new Date(item.createdAt), 'dd/MM/yyyy'),
+      }));
+
+      setMyLeadData(respData);
+    } catch (err: any) {
+      toast({
+        title: 'Error While Fetching...',
+        description: err.message,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
 
   /**
    * Sends SMS
@@ -198,13 +212,6 @@ const CreateCampaign = ({
       setIsSending(false);
     }
   };
-
-  /**
-   * Handles Page Pagination
-   * @param page number
-   * @returns
-   */
-  const handlePaginate = (page: number) => {};
 
   /**
    * Sends Test Ad
@@ -364,133 +371,13 @@ const CreateCampaign = ({
               </Text>
               {/* DataTable*/}
               <Box>
-                <Flex flex={1} justifyContent="flex-end" mb="4" mr="8">
-                  <Flex mr="16">
-                    <Text fontSize="md">
-                      Sort by:{' '}
-                      <Text as="span" fontWeight="semibold">
-                        Alphabet
-                      </Text>
-                    </Text>
-                  </Flex>
-                  <Flex>
-                    <Text fontSize="md">
-                      Total:{' '}
-                      <Text as="span" fontWeight="semibold">
-                        {dataBody.length} Contacts
-                      </Text>
-                    </Text>
-                  </Flex>
-                </Flex>
-
-                <Table variant="leadTable">
-                  <Thead>
-                    <Tr>
-                      {leadsTableHead.map((th, i) => {
-                        return (
-                          <Th
-                            fontSize="md"
-                            textTransform="capitalize"
-                            fontFamily="Avenir"
-                            key={`table_h_2_${data.name}_${i}`}
-                          >
-                            {th.name === 'Lead ID' && (
-                              <Checkbox
-                                size="lg"
-                                colorScheme="red"
-                                variant="brand"
-                                isChecked={allChecked}
-                                isIndeterminate={isIndeterminate}
-                                onChange={(e: { target: { checked: any } }) =>
-                                  setCheckedItems(
-                                    checkedItems.reduce(
-                                      (acc: any, checkItem: any) => [
-                                        ...acc,
-                                        {
-                                          ...checkItem,
-                                          isChecked: e.target.checked,
-                                        },
-                                      ],
-                                      []
-                                    )
-                                  )
-                                }
-                              />
-                            )}
-                            {th.name}
-                          </Th>
-                        );
-                      })}
-                    </Tr>
-                  </Thead>
-
-                  <Tbody>
-                    {dataBody.map((data, i) => (
-                      <Tr key={`lead_data_${data.name}_${i}`}>
-                        <Td>
-                          <Checkbox
-                            size="lg"
-                            colorScheme="red"
-                            variant="brand"
-                            isChecked={checkedItems[i]?.isChecked}
-                            onChange={(e: { target: { checked: any } }) => {
-                              const newItems = [...checkedItems];
-                              newItems[i].isChecked = e.target.checked;
-                              setCheckedItems(newItems);
-                            }}
-                          />
-
-                          {truncateText(data.id, 3)}
-                        </Td>
-                        <Td>{data.name}</Td>
-                        <Td>{data.phoneNumber}</Td>
-                        <Td>{data.afflicate}</Td>
-                        <Td>
-                          <Flex justifyContent="center" alignItems="center">
-                            <Text> {data.status}</Text>
-                            <Box
-                              h="4"
-                              w="6"
-                              ml="2"
-                              borderRadius="100%"
-                              border="1px solid #707070"
-                              bgColor={quikColorConstants.influenceRed}
-                            />
-                          </Flex>
-                        </Td>
-                        <Td>{data.createdAt}</Td>
-                        <Td>${data.cost}</Td>
-                        <Td>${data.revenue}</Td>
-                      </Tr>
-                    ))}
-                  </Tbody>
-                </Table>
-                {/* Pagination */}
-                <Flex
-                  width="full"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                  my={8}
-                  mt={2}
-                >
-                  {/* 
-                <button type="button" onClick={() => {}}>
-                  <FontAwesomeIcon
-                    icon={faCaretLeft as IconProp}
-                    style={{ margin: 'auto 10px' }}
-                  />
-                </button>
-               */}
-                  <Text fontSize="md" mr="6">
-                    Page <b>1</b> of 50
-                  </Text>
-                  <button type="button" onClick={() => {}}>
-                    <FontAwesomeIcon
-                      icon={faCaretRight as IconProp}
-                      style={{ margin: 'auto 10px' }}
-                    />
-                  </button>
-                </Flex>
+                <DataTable
+                  title="Leads"
+                  data={myLeadData}
+                  columns={leadsTableColumns}
+                  onRowSelected={setCheckedItems}
+                  variant="leadTable"
+                />
               </Box>
             </ListItem>
           );
@@ -693,13 +580,11 @@ const CreateCampaign = ({
     cb: async inputs => {
       const smsEmailRecord = type !== 'Default' && {
         message: inputTypes['message'],
-        to: checkedItems
-          .filter((el: any) => el.isChecked)
-          .map((lead: any) => ({
-            id: lead.id,
-            email: lead.email,
-            phone: lead.phoneNumber,
-          })),
+        to: checkedItems.map((lead: any) => ({
+          id: lead.id,
+          email: lead.email,
+          phone: lead.phone,
+        })),
         mediaUrls: [inputTypes['adImage']],
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };

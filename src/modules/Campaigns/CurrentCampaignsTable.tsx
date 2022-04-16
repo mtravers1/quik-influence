@@ -73,7 +73,7 @@ const CurrentCampaignsTable = () => {
 
   const getNameProp = (fields: []): string[] => {
     const names: string[] = [];
-    fields.forEach((field: any) => {
+    fields?.forEach((field: any) => {
       names.push(field.name);
     });
     return names;
