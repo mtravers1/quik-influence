@@ -12,7 +12,7 @@ phases:
       - export AWS_ACCOUNT_ID=984575983798
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 984575983798.dkr.ecr.us-east-1.amazonaws.com
       - echo Logging in to Amazon EKS...
-      - aws eks --region us-east-1 update-kubeconfig --name quikinfluence-staging
+      - aws eks --region us-east-1 update-kubeconfig --name quikinfluence-dev
   build:
     commands:
       - echo Build started on `date`
