@@ -2,8 +2,9 @@ import axios from "axios";
 import { omitBy, isNil } from "lodash";
 import { ADMINS_ID, Q_TOKEN } from "./constants";
 
-console.log('NEXT_PUBLIC_BACKEND_URL >>> ', process.env.NEXT_PUBLIC_BACKEND_URL);
-export const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
+export const baseurl = process.env.BACKEND_URL;
+console.log('baseurl >>> ', baseurl);
+console.log('secrets >>> ', process.env.secrets);
 
 import { DropdownSelectOption } from "components/DropdownSelect";
 import { FilterDataProps } from "types";
