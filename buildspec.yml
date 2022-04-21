@@ -3,7 +3,7 @@ version: 0.2
 env:
   secrets-manager:
     NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY: "quikinfluence-dev-frontend:NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY"
-    NEXT_PUBLIC_BACKEND_URL: "my_secret:username"
+    NEXT_PUBLIC_BACKEND_URL: "quikinfluence-dev-frontend:NEXT_PUBLIC_BACKEND_URL"
     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: "quikinfluence-dev-frontend:NEXT_PUBLIC_STRIPE_PUBLIC_KEY"
     SENDGRID_API_KEY: "quikinfluence-dev-frontend:SENDGRID_API_KEY"
 phases:
