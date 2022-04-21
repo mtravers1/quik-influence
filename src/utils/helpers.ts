@@ -2,7 +2,7 @@ import axios from "axios";
 import { omitBy, isNil } from "lodash";
 import { ADMINS_ID, Q_TOKEN } from "./constants";
 
-export const baseurl = process.env.NEXT_PUBLIC_BACKEND_DOMAIN;
+export const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 import { DropdownSelectOption } from "components/DropdownSelect";
 import { FilterDataProps } from "types";
