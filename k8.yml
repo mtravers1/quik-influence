@@ -12,7 +12,7 @@ metadata:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:984575983798:certificate/78a753c8-413e-4f85-8f0b-855413c493ea
 spec:
   rules:
-    - host:  staging.quikinfluence.com
+    - host: staging.quikinfluence.com
       http:
         paths:
           - path: /*
