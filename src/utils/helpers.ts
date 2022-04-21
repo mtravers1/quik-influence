@@ -3,8 +3,6 @@ import { omitBy, isNil } from "lodash";
 import { ADMINS_ID, Q_TOKEN } from "./constants";
 
 export const baseurl = process.env.BACKEND_URL;
-console.log('baseurl >>> ', baseurl);
-console.log('secrets >>> ', process.env);
 
 import { DropdownSelectOption } from "components/DropdownSelect";
 import { FilterDataProps } from "types";

@@ -69,9 +69,19 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   );
 }
 
+export async function getStaticProps() {
+  getSecretsValues();
+
+  console.log('baseurl >>> ', process.env.BACKEND_URL);
+  console.log('secrets >>> ', process.env);
+
+  return {
+    props: {}
+  };
+}
+
 QuikInfluenceApp.getInitialProps = async () => {
   if (typeof window === 'undefined') {
-    getSecretsValues();
 
     let nav: any;
     let formData: any;
