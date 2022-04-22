@@ -71,11 +71,6 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
 
 QuikInfluenceApp.getInitialProps = async () => {
   if (typeof window === 'undefined') {
-    getSecretsValues();
-
-    console.log('baseurl >>> ', process.env.BACKEND_URL);
-    console.log('secrets >>> ', process.env);
-
     let nav: any;
     let formData: any;
     let tags: any;
@@ -157,8 +152,8 @@ export const getSecretsValues = () => {
 
       // Your code goes here.
       console.log('err >>>', err);
-      console.log('secret >>>', secret);
       console.log('data >>>', data);
+      console.log('secret >>>', secret);
       process.env = { ...process.env, ...secret };
     }
   );
