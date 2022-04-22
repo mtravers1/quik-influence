@@ -21,10 +21,14 @@ const client = new AWS.SecretsManager({
 // In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
 // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
 // We rethrow the exception by default.
+console.log('I ran here >>> ');
 
 client.getSecretValue(
   { SecretId: secretName },
   function (err: { code: string }, data: any) {
+    console.log('and ran here >>> ');
+    console.log('err >>>', err);
+    console.log('data >>>', data);
     if (err) {
       if (err.code === 'DecryptionFailureException')
         // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
@@ -58,8 +62,6 @@ client.getSecretValue(
     }
 
     // Your code goes here.
-    console.log('err >>>', err);
-    console.log('data >>>', data);
     console.log('secret >>>', secret);
     process.env = { ...process.env, ...secret };
   }
