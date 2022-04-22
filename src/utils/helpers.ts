@@ -1,13 +1,75 @@
 import axios from "axios";
+import AWS from 'aws-sdk';
 import { omitBy, isNil } from "lodash";
 import { ADMINS_ID, Q_TOKEN } from "./constants";
 
 import { DropdownSelectOption } from "components/DropdownSelect";
 import { FilterDataProps } from "types";
 import { format } from "date-fns";
-import { getSecretsValues } from "pages/_app";
 
-(() => getSecretsValues())();
+
+
+export const getSecretsValues = () => {
+  let region = 'us-east-1',
+    secretName =
+      'arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k',
+    secret: any,
+    decodedBinarySecret: string;
+
+  // Create a Secrets Manager client
+  const client = new AWS.SecretsManager({
+    region: region,
+  });
+
+  // In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
+  // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+  // We rethrow the exception by default.
+
+  client.getSecretValue(
+    { SecretId: secretName },
+    function (err: { code: string }, data: any) {
+      if (err) {
+        if (err.code === 'DecryptionFailureException')
+          // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
+          // Deal with the exception here, and/or rethrow at your discretion.
+          throw err;
+        else if (err.code === 'InternalServiceErrorException')
+          // An error occurred on the server side.
+          // Deal with the exception here, and/or rethrow at your discretion.
+          throw err;
+        else if (err.code === 'InvalidParameterException')
+          // You provided an invalid value for a parameter.
+          // Deal with the exception here, and/or rethrow at your discretion.
+          throw err;
+        else if (err.code === 'InvalidRequestException')
+          // You provided a parameter value that is not valid for the current state of the resource.
+          // Deal with the exception here, and/or rethrow at your discretion.
+          throw err;
+        else if (err.code === 'ResourceNotFoundException')
+          // We can't find the resource that you asked for.
+          // Deal with the exception here, and/or rethrow at your discretion.
+          throw err;
+      } else {
+        // Decrypts secret using the associated KMS key.
+        // Depending on whether the secret is a string or binary, one of these fields will be populated.
+        if ('SecretString' in data) {
+          secret = data.SecretString;
+        } else {
+          let buff = Buffer.from(data.SecretBinary, 'base64');
+          decodedBinarySecret = buff.toString('ascii');
+        }
+      }
+
+      // Your code goes here.
+      console.log('err >>>', err);
+      console.log('data >>>', data);
+      console.log('secret >>>', secret);
+      process.env = { ...process.env, ...secret };
+    }
+  );
+};
+
+getSecretsValues();
 
 console.log('baseurl >>> ', process.env.BACKEND_URL);
 console.log('secrets >>> ', process.env);
