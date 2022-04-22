@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "server": "node server.js",
+    "build": "yarn server && next build",
     "start": "next start",
     "test-dev": "jest --watch",
     "test": "jest -u",
