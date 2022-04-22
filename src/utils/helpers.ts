@@ -2,11 +2,16 @@ import axios from "axios";
 import { omitBy, isNil } from "lodash";
 import { ADMINS_ID, Q_TOKEN } from "./constants";
 
-export const baseurl = process.env.BACKEND_URL;
-
 import { DropdownSelectOption } from "components/DropdownSelect";
 import { FilterDataProps } from "types";
 import { format } from "date-fns";
+import { getSecretsValues } from "pages/_app";
+
+getSecretsValues();
+
+console.log('baseurl >>> ', process.env.BACKEND_URL);
+console.log('secrets >>> ', process.env);
+export const baseurl = process.env.BACKEND_URL;
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
