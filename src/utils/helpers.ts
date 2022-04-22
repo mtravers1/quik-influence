@@ -7,7 +7,7 @@ import { FilterDataProps } from "types";
 import { format } from "date-fns";
 import { getSecretsValues } from "pages/_app";
 
-// getSecretsValues();
+(() => getSecretsValues())();
 
 console.log('baseurl >>> ', process.env.BACKEND_URL);
 console.log('secrets >>> ', process.env);
