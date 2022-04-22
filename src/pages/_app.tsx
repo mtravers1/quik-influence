@@ -159,4 +159,6 @@ export const getSecretsValues = () => {
   );
 };
 
+getSecretsValues();
+
 export default wrapper.withRedux(QuikInfluenceApp);
