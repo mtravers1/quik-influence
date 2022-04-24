@@ -3,11 +3,11 @@ FROM 984575983798.dkr.ecr.us-east-1.amazonaws.com/node16-13-1-alpine:latest
 WORKDIR /app
 
 COPY package.json .
-RUN npm install
+RUN yarn install
 
 
 COPY . .
-RUN npm build
+RUN yarn build
 
 #Define Argument variables
 # ARG env
@@ -21,4 +21,4 @@ RUN npm build
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["yarn", "start"]
