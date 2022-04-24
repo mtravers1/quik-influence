@@ -20,13 +20,13 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  webpack: (config, { dev }) => {
+  webpack: (config, { dev, webpack }) => {
     /* getting env variables from our internal defined files */
-    const fileEnv = dotenv.config({ path: process.env.TYPE  ? `envs/.${process.env.TYPE}.env` : `envs/.env` }).parsed;
+    const fileEnv = dotenv.config({ path: process.env.TYPE ? `envs/.${process.env.TYPE}.env` : `envs/.env` }).parsed;
     /* getting environments from Code Build */
     const codeBuildEnv = dotenv.config({ path: `.env` }).parsed;
-    const { API_BASE } = codeBuildEnv
-    let mergedEnv = { ...fileEnv, API_BASE };
+    const { NEXT_PUBLIC_BACKEND_URL, NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY, NEXT_PUBLIC_STRIPE_PUBLIC_KEY, NEXT_PUBLIC_SENDGRID_API_KEY } = codeBuildEnv
+    let mergedEnv = { ...fileEnv, NEXT_PUBLIC_BACKEND_URL, NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY, NEXT_PUBLIC_STRIPE_PUBLIC_KEY, NEXT_PUBLIC_SENDGRID_API_KEY };
     const envKeys = Object.keys(mergedEnv).reduce((prev, next) => {
       prev[`process.env.${next}`] = JSON.stringify(mergedEnv[next]);
       return prev;
