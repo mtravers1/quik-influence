@@ -5,19 +5,8 @@ WORKDIR /app
 COPY package.json .
 RUN yarn install
 
-
 COPY . .
 RUN yarn build
-
-#Define Argument variables
-# ARG env
-# ENV envValue=$env
-
-
-# #Build
-# RUN if [ "$env" = "prod" ] ; then yarn build ; fi
-# RUN if [ "$env" = "dev" ] ; then yarn buildDev ; fi
-# RUN if [ "$env" = "staging" ] ; then yarn buildStaging ; fi
 
 EXPOSE 3000
 
