@@ -1,16 +1,16 @@
 version: 0.2
 
-env:
-  variables:
-    NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY: $NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY_EXT
-    NEXT_PUBLIC_BACKEND_URL: $NEXT_PUBLIC_BACKEND_URL_EXT
-    NEXT_PUBLIC_STRIPE_PUBLIC_KEY: $NEXT_PUBLIC_STRIPE_PUBLIC_KEY_EXT
-    NEXT_PUBLIC_SENDGRID_API_KEY: $NEXT_PUBLIC_SENDGRID_API_KEY_EXT
-  secrets-manager:
-    NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY: "arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k"
-    NEXT_PUBLIC_BACKEND_URL: "arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k"
-    NEXT_PUBLIC_STRIPE_PUBLIC_KEY: "arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k"
-    SENDGRID_API_KEY: "arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k"
+# env:
+#   variables:
+#     NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY: $NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY_EXT
+#     NEXT_PUBLIC_BACKEND_URL: $NEXT_PUBLIC_BACKEND_URL_EXT
+#     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: $NEXT_PUBLIC_STRIPE_PUBLIC_KEY_EXT
+#     NEXT_PUBLIC_SENDGRID_API_KEY: $NEXT_PUBLIC_SENDGRID_API_KEY_EXT
+#   secrets-manager:
+#     NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY: "arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k"
+#     NEXT_PUBLIC_BACKEND_URL: "arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k"
+#     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: "arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k"
+#     SENDGRID_API_KEY: "arn:aws:secretsmanager:us-east-1:984575983798:secret:quikinfluence-dev-frontend-TFtk1k"
 phases:
   install:
     commands:
@@ -21,7 +21,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - export AWS_ACCOUNT_ID=984575983798
-      - printenv > .env
+      # - printenv > .env
       - echo "NEXT_PUBLIC_BACKEND_URL is $NEXT_PUBLIC_BACKEND_URL"
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 984575983798.dkr.ecr.us-east-1.amazonaws.com
       - echo Logging in to Amazon EKS...
