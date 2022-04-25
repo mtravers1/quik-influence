@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: quikinfluence-ingress
-  namespace: quik-influence
+  namespace: quikinfluence-dev
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/subnets: subnet-0a667dde3aa1c35ec, subnet-0eed7e6d2a2a13285, subnet-09552e105a5b68066
@@ -12,7 +12,7 @@ metadata:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:984575983798:certificate/78a753c8-413e-4f85-8f0b-855413c493ea
 spec:
   rules:
-    - host: quikinfluence.com
+    - host: dev.quikinfluence.com
       http:
         paths:
           - path: /*
@@ -23,7 +23,7 @@ spec:
             backend:
               serviceName: quikinfluence-frontend
               servicePort: 3000
-    - host: api.quikinfluence.com
+    - host: api-dev.quikinfluence.com
       http:
         paths:
           - path: /*
@@ -35,11 +35,12 @@ spec:
               serviceName: quikinfluence-backend
               servicePort: 5002
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
   name: quikinfluence-frontend
-  namespace: quik-influence
+  namespace: quikinfluence-dev
   labels:
     app: quikinfluence-frontend
 spec:
@@ -51,11 +52,12 @@ spec:
       targetPort: frontend-port
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: quikinfluence-frontend
-  namespace: quik-influence
+  namespace: quikinfluence-dev
 spec:
   replicas: 2
   selector:
@@ -66,14 +68,14 @@ spec:
       labels:
         app: quikinfluence-frontend
     spec:
-      serviceAccountName: quikinfluence-backend-sa
+      serviceAccountName: quikinfluence-dev-backend-sa
       volumes:
-        - name: quikinfluence-frontend-secrets-volume
+        - name: quikinfluence-dev-frontend-secrets-volume
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: quikinfluence-secret-credentials-frontend
+              secretProviderClass: quikinfluence-dev-secret-credentials-frontend    
       containers:
         - name: quikinfluence-frontend
           imagePullPolicy: Always
@@ -86,23 +88,24 @@ spec:
                   - -c
                   - cp -f /app/.aws-secret-manager/* /app/.env
           volumeMounts:
-            - name: quikinfluence-frontend-secrets-volume
+            - name: quikinfluence-dev-frontend-secrets-volume
               mountPath: "/app/.aws-secret-manager"
-              readOnly: true
+              readOnly: true          
           envFrom:
           ports:
             - containerPort: 3000
               name: frontend-port
 
+
 ---
 apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
 kind: SecretProviderClass
 metadata:
-  name: quikinfluence-secret-credentials-frontend #This needs to be documented
-  namespace: quikinfluence #This needs to be documented
+  name: quikinfluence-dev-secret-credentials-frontend #This needs to be documented
+  namespace: quikinfluence-dev  #This needs to be documented
 spec:
   provider: aws
   parameters:
     objects: |
-      - objectName: "quikinfluence-frontend"  # our secret //this needs to be documented and explained
+      - objectName: "quikinfluence-dev-frontend"  # our secret //this needs to be documented and explained
         objectType: "secretsmanager"
