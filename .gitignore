@@ -41,3 +41,8 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Build files
+buildspec.yml
+eks-with-existing-vpc.yaml
+k8.yml
