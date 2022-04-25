@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Box } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 
-const TruncatedText: FC<{ lines?: number; as?: any }> = ({
+const TruncatedText: FC<any> = ({
   lines = 1,
   children,
   as = 'span',

@@ -35,7 +35,6 @@ spec:
               serviceName: quikinfluence-backend
               servicePort: 5002
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -52,7 +51,6 @@ spec:
       targetPort: frontend-port
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -68,11 +66,43 @@ spec:
       labels:
         app: quikinfluence-frontend
     spec:
+      serviceAccountName: quikinfluence-backend-sa
+      volumes:
+        - name: quikinfluence-frontend-secrets-volume
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: quikinfluence-secret-credentials-frontend
       containers:
         - name: quikinfluence-frontend
           imagePullPolicy: Always
           image: AWS_ECR_URI
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - cp -f /app/.aws-secret-manager/* /app/.env
+          volumeMounts:
+            - name: quikinfluence-frontend-secrets-volume
+              mountPath: "/app/.aws-secret-manager"
+              readOnly: true
           envFrom:
           ports:
             - containerPort: 3000
               name: frontend-port
+
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
+kind: SecretProviderClass
+metadata:
+  name: quikinfluence-secret-credentials-frontend #This needs to be documented
+  namespace: quikinfluence #This needs to be documented
+spec:
+  provider: aws
+  parameters:
+    objects: |
+      - objectName: "quikinfluence-frontend"  # our secret //this needs to be documented and explained
+        objectType: "secretsmanager"

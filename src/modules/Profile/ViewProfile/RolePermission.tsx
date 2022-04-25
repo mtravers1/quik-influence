@@ -14,7 +14,7 @@ const RolePermission = (props: Props) => {
       p="12"
     >
       <Heading size="md">Role & Permission</Heading>
-      <Flex w="100%" flexGrow="1"></Flex>
+      <Flex w="100%" flexGrow={1}></Flex>
     </Flex>
   );
 };
