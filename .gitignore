@@ -45,6 +45,6 @@ yarn-error.log*
 *.tsbuildinfo
 
 # Build files
-buildspec.yml
 eks-with-existing-vpc.yaml
+buildspec.yml
 k8.yml
