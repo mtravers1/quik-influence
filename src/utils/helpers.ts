@@ -27,9 +27,9 @@ try {
   client.getSecretValue(
     { SecretId: secretName },
     function (err: { code: string }, data: any) {
-      console.log('and ran here >>> ');
-      console.log('err >>>', err);
-      console.log('data >>>', data);
+      // console.log('and ran here >>> ');
+      // console.log('err >>>', err);
+      // console.log('data >>>', data);
       if (err) {
         if (err.code === 'DecryptionFailureException')
           // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
@@ -63,7 +63,7 @@ try {
       }
 
       // Your code goes here.
-      console.log('secret >>>', secret);
+      // console.log('secret >>>', secret);
       process.env = { ...process.env, ...secret };
     }
   );
@@ -73,8 +73,8 @@ try {
 
 // getSecretsValues();
 
-console.log('baseurl >>> ', process.env.BACKEND_URL);
-console.log('secrets >>> ', process.env);
+// console.log('baseurl >>> ', process.env.BACKEND_URL);
+// console.log('secrets >>> ', process.env);
 export const baseurl = process.env.BACKEND_URL;
 
 export const axiosInstance = axios.create({

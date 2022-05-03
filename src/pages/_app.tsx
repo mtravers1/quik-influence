@@ -43,7 +43,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
         return res;
       },
       err => {
-        if (err.response.status === 401) {
+        if (err.response.status === 401 && router.asPath !== '/') {
           localStorage.removeItem('_q_inf');
           router.push(`/login?redirect=${router.asPath}`);
         }

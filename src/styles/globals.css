@@ -42,3 +42,7 @@ a {
   border-top-width: 0;
   padding: 5px;
 }
+
+.asd-media-wrapper__editable_wrapper .uploadcare--widget {
+  display: none;
+}
