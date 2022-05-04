@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: quikinfluence-dev
+  name: quik-influence-prod
   region: us-east-1
   version: "1.21"
 
@@ -24,11 +24,11 @@ vpc:
         cidr: "10.81.5.0/24"
 
 managedNodeGroups:
-  - name: quik-influence-prod-ng
-    instanceType: t2.medium
+  - name: quikinfluence-prod-ng
+    instanceType: t2.large
     minSize: 1
-    maxSize: 2
-    desiredCapacity: 2
+    maxSize: 4
+    desiredCapacity: 3
     ssh:
       allow: true
       publicKeyName: quik-influence-prod-eks-ssh-keypair

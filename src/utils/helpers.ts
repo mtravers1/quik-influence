@@ -1,5 +1,4 @@
 import axios from 'axios';
-import AWS from 'aws-sdk';
 import { omitBy, isNil } from 'lodash';
 import { ADMINS_ID, Q_TOKEN } from './constants';
 
