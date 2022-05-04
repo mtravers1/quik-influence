@@ -1,8 +1,24 @@
 import NextLink from 'components/NextLink';
+import { useRouter } from 'next/router';
 import { Box, Flex, Image, Button } from '@chakra-ui/react';
 import NavWrapper from './NavWrapper';
+import DeskTopLinks from './Links';
+import MobileLinks from './MobileLinks';
 
-const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
+const NavBar = ({
+  links,
+}: {
+  links: [
+    {
+      link: string;
+      name: string;
+      isNotClickable?: boolean;
+      submenu: [{ link: string; name: string }];
+    }
+  ];
+}) => {
+  const router = useRouter();
+
   return (
     <Box as="header" position="absolute" zIndex={2} w="100%">
       <Box as="nav" h="173px">
@@ -62,7 +78,6 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
                 maxW="1440px"
                 margin="auto"
                 h={{ base: '73px', md: '100px' }}
-                padding="0 15px"
               >
                 <Image
                   src="/logo-white.png"
@@ -73,28 +88,8 @@ const NavBar = ({ links }: { links: [{ link: string; name: string }] }) => {
                   objectPosition="left"
                 />
 
-                <Flex
-                  justifyContent="space-between"
-                  flexGrow={1}
-                  display={{ base: 'none', sm: 'flex' }}
-                >
-                  <Box>
-                    {links?.length &&
-                      links.map((link, i) => (
-                        <NextLink
-                          href={link.link}
-                          key={`nav_links_${i}`}
-                          style={{
-                            color: 'red',
-                          }}
-                          marginRight="20px"
-                          fontSize="16px"
-                        >
-                          {link.name}
-                        </NextLink>
-                      ))}
-                  </Box>
-                </Flex>
+                <DeskTopLinks links={links} path={router.asPath} />
+                <MobileLinks links={links} path={router.asPath} />
               </Flex>
             </Box>
           )}

@@ -12,7 +12,6 @@ import { axiosInstance } from 'utils/helpers';
 import { login } from 'redux/actions/auth';
 import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
-import { AxiosError } from 'axios';
 import { errorParser } from 'utils/apiHelpers';
 
 const Login = () => {
