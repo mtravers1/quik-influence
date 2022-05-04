@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { Box, Flex, Image, Button } from '@chakra-ui/react';
 import NavWrapper from './NavWrapper';
 import DeskTopLinks from './Links';
+import MobileLinks from './MobileLinks';
 
 const NavBar = ({
   links,
@@ -88,6 +89,7 @@ const NavBar = ({
                 />
 
                 <DeskTopLinks links={links} path={router.asPath} />
+                <MobileLinks links={links} path={router.asPath} />
               </Flex>
             </Box>
           )}

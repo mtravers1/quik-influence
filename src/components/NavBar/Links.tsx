@@ -1,7 +1,8 @@
 import NextLink from 'components/NextLink';
+import { useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import useLinks from './useLinks';
 
 const DeskTopLinks = ({
   links,
@@ -17,25 +18,8 @@ const DeskTopLinks = ({
   ];
   path: string;
 }) => {
-  const [accordionMap, setAccordionMap] = useState<any>({});
-
-  const isActive = (path: string, link: string, index: number) => {
-    return path.split('/')[index] === link?.split('/')[index];
-  };
-
-  const getLinkColor = (path: string, link: string, index: number) => {
-    return isActive(path, link, index) ? 'red' : '#333';
-  };
-
-  const showBorder = (i: number) => {
-    return i !== 0 || i !== links.length - 1 ? '2px solid #414141' : 'none';
-  };
-
-  const setMap = (index: number) => {
-    setAccordionMap((prevMap: any) => {
-      return { ...prevMap, [index]: !prevMap[index] };
-    });
-  };
+  const { accordionMap, setMap, getLinkColor, showBorder, isActive } =
+    useLinks(links);
 
   const accodionOpenStyles = css`
     width: 100%;
@@ -47,7 +31,7 @@ const DeskTopLinks = ({
   return (
     <Flex
       justifyContent="space-between"
-      display={{ base: 'none', sm: 'flex' }}
+      display={{ base: 'none', lg: 'flex' }}
       background="white"
       flexGrow={1}
       padding="10px"
@@ -78,7 +62,7 @@ const DeskTopLinks = ({
                 {link.submenu && (
                   <Flex
                     css={
-                      accordionMap[i]
+                      accordionMap[i] || isActive(path, link?.link, 1)
                         ? accodionOpenStyles
                         : accodionClosedStyles
                     }
@@ -109,7 +93,7 @@ const DeskTopLinks = ({
                 href={link?.link || '/'}
                 key={`nav_links_${i}`}
                 fontSize="16px"
-                padding="0px 30px"
+                padding="0px 15px"
                 style={{
                   fontWeight: '600',
                   color: getLinkColor(path, link?.link, 1),

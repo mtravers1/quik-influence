@@ -1,110 +1,140 @@
 import NextLink from 'components/NextLink';
-import { Box, Flex, Image, Button } from '@chakra-ui/react';
-import NavWrapper from './NavWrapper';
+import { Box, Flex, Image } from '@chakra-ui/react';
+import { css } from '@emotion/react';
+import useLinks from './useLinks';
+import hamburger from 'assets/hamburger.png';
 
 const MobileLinks = ({
   links,
+  path,
 }: {
-  links: [{ link: string; name: string }];
+  links: [
+    {
+      link: string;
+      name: string;
+      isNotClickable?: boolean;
+      submenu: [{ link: string; name: string }];
+    }
+  ];
+  path: string;
 }) => {
+  const { accordionMap, setMap, getLinkColor, showBorder } = useLinks(links);
+
+  const accodionOpenStyles = css`
+    height: fit-content;
+  `;
+  const accodionClosedStyles = css`
+    height: 0px;
+  `;
+
+  // const [] = useState
+
   return (
-    <Box as="header" position="absolute" zIndex={2} w="100%">
-      <Box as="nav" h="173px">
-        <Flex
-          h={{ base: 'auto', md: '73px' }}
-          background="#fff"
-          alignItems="center"
-          padding={{ base: '5px 15px', md: '0 15px' }}
-          justifyContent="center"
-          direction={{ base: 'column', md: 'row' }}
-        >
-          <Box
-            marginRight="5"
-            height="auto"
-            width="fit-content"
-            fontSize="14px"
-            textAlign="center"
-            color="#333"
-          >
-            Get help for this site or any of our apps with - QUIK ASSISTANT
-          </Box>
-          <Flex marginTop={{ base: '5px', md: '0' }} alignItems="center">
-            <NextLink href={'/video-help'} marginRight={{ base: 2, md: 6 }}>
-              <Button
-                color="white"
-                background="#000"
-                borderRadius="40px"
-                _hover={{ bg: '#000' }}
-                fontSize={{ base: '10px', md: '14ps' }}
-                p={{ base: '10px 20px', md: '15px 30px' }}
-                height="auto"
-              >
-                Get Video Help
-              </Button>
-            </NextLink>
-            <NextLink href={'/text-help'}>
-              <Button
-                color="white"
-                background="#000"
-                borderRadius="40px"
-                _hover={{ bg: '#000' }}
-                fontSize={{ base: '10px', md: '14ps' }}
-                p={{ base: '10px 20px', md: '15px 30px' }}
-                height="auto"
-              >
-                Get Text Help
-              </Button>
-            </NextLink>
-          </Flex>
-        </Flex>
+    <Flex
+      justifyContent="flex-end"
+      display={{ base: 'flex', lg: 'none' }}
+      width="100%"
+      position="relative"
+    >
+      <Flex
+        background="white"
+        padding="10px"
+        justifyContent="flex-end"
+        as="label"
+        htmlFor="nav-toggle"
+        cursor="pointer"
+      >
+        <Image
+          src="/hamburger.png"
+          alt="logo"
+          objectFit="contain"
+          width="30px"
+        />
+      </Flex>
 
-        <NavWrapper>
-          {(styles: any) => (
-            <Box {...styles} w="100%">
-              <Flex
-                alignItems="center"
-                maxW="1440px"
-                margin="auto"
-                h={{ base: '73px', md: '100px' }}
-                padding="0 15px"
-              >
-                <Image
-                  src="/logo-white.png"
-                  alt="logo"
-                  marginRight="100px"
-                  height="90%"
-                  objectFit="contain"
-                  objectPosition="left"
-                />
+      <input id="nav-toggle" style={{ display: 'none' }} type="checkbox" />
 
-                <Flex
-                  justifyContent="space-between"
-                  flexGrow={1}
-                  display={{ base: 'none', sm: 'flex' }}
+      <Flex
+        direction="column"
+        position="absolute"
+        background="white"
+        padding="20px 20px 50px"
+        w="350px"
+        top="100%"
+        className="nav-links"
+      >
+        {links?.length &&
+          links.map((link, i) => {
+            return link?.isNotClickable ? (
+              <Box
+                display="inline-flex"
+                alignItems="flex-start"
+                borderBottom={showBorder(i)}
+                onClick={() => setMap(i)}
+                transition="all 0.5s ease-in-out"
+                padding="10px 30px 10px 0"
+                overflow="hidden"
+                flexDir="column"
+              >
+                <Box
+                  key={`nav_links_${i}`}
+                  fontSize="16px"
+                  fontWeight="600"
+                  cursor="pointer"
+                  color={getLinkColor(path, link?.link, 1)}
                 >
-                  <Box>
-                    {links?.length &&
-                      links.map((link, i) => (
-                        <NextLink
-                          href={link?.link || '/'}
-                          key={`nav_links_${i}`}
-                          style={{
-                            color: 'red',
-                          }}
-                          marginRight="20px"
-                          fontSize="16px"
-                        >
-                          {link.name}
-                        </NextLink>
-                      ))}
-                  </Box>
-                </Flex>
-              </Flex>
-            </Box>
-          )}
-        </NavWrapper>
-      </Box>
-    </Box>
+                  {link.name}
+                </Box>
+
+                {link.submenu && (
+                  <Flex
+                    css={
+                      accordionMap[i]
+                        ? accodionOpenStyles
+                        : accodionClosedStyles
+                    }
+                    flexWrap="nowrap"
+                    flexShrink={0}
+                    overflow="hidden"
+                    direction="column"
+                  >
+                    {link.submenu.map((menu, j) => (
+                      <NextLink
+                        href={menu?.link || '/'}
+                        key={`nav_links_${i}_${j}`}
+                        marginRight="20px"
+                        fontSize="14px"
+                        style={{
+                          fontWeight: '600',
+                          color: getLinkColor(path, menu?.link, 2),
+                        }}
+                        whiteSpace="nowrap"
+                        padding="10px 0"
+                      >
+                        {menu.name}
+                      </NextLink>
+                    ))}
+                  </Flex>
+                )}
+              </Box>
+            ) : (
+              <NextLink
+                href={link?.link || '/'}
+                key={`nav_links_${i}`}
+                fontSize="16px"
+                padding="10px 30px 10px 0"
+                style={{
+                  fontWeight: '600',
+                  color: getLinkColor(path, link?.link, 1),
+                  borderBottom: showBorder(i),
+                }}
+              >
+                {link.name}
+              </NextLink>
+            );
+          })}
+      </Flex>
+    </Flex>
   );
 };
 
