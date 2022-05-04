@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -13,7 +14,6 @@ import { login } from 'redux/actions/auth';
 import '../styles/globals.css';
 import '../styles/404.css';
 import { createFormData, createTags } from 'redux/actions/general';
-import { useRouter } from 'next/router';
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
