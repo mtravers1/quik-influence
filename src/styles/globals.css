@@ -42,3 +42,16 @@ a {
   border-top-width: 0;
   padding: 5px;
 }
+
+.asd-media-wrapper__editable_wrapper .uploadcare--widget {
+  display: none;
+}
+
+.nav-links {
+  right: -150%;
+  transition: 0.3s ease;
+}
+
+#nav-toggle:checked + .nav-links {
+  right: 0;
+}
