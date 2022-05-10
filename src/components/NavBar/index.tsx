@@ -89,7 +89,11 @@ const NavBar = ({
                 />
 
                 <DeskTopLinks links={links} path={router.asPath} />
-                <MobileLinks links={links} path={router.asPath} />
+                <MobileLinks
+                  links={links}
+                  path={router.asPath}
+                  top={styles.top}
+                />
               </Flex>
             </Box>
           )}

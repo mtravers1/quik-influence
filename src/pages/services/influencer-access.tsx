@@ -36,7 +36,7 @@ const Home = ({
       </Head>
       <main className={styles.main}>
         <NavBar links={nav[0].content.navLinks} />
-        <Banner banner={pageContent.banner} height="60vh" minHeight="unset" />
+        <Banner banner={pageContent.banner} height="60vh" minHeight="800px" />
         <ImgSec info={pageContent.info} />
         <Footer footer={pageContent.footer} />
       </main>
