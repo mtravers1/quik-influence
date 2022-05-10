@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next build && next start",
+    "start": "next start",
     "test-dev": "jest --watch",
     "test": "jest -u",
     "coverage": "jest --coverage",
