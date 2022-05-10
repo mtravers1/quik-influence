@@ -7,6 +7,7 @@ import hamburger from 'assets/hamburger.png';
 const MobileLinks = ({
   links,
   path,
+  top,
 }: {
   links: [
     {
@@ -17,6 +18,7 @@ const MobileLinks = ({
     }
   ];
   path: string;
+  top: string;
 }) => {
   const { accordionMap, setMap, getLinkColor, showBorder } = useLinks(links);
 
@@ -56,12 +58,13 @@ const MobileLinks = ({
 
       <Flex
         direction="column"
-        position="absolute"
+        position="fixed"
         background="white"
         padding="20px 20px 50px"
         w="350px"
-        top="100%"
+        top="170px"
         className="nav-links"
+        boxShadow="0 0 10px rgba(0, 0, 0, 0.1)"
       >
         {links?.length &&
           links.map((link, i) => {

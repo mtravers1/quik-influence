@@ -108,7 +108,7 @@ const EditableWrapper: FC<EditableWrapperProps> = props => {
   const onBlur = (e: any) => {
     const leavingParent = !parent?.current?.contains(e.relatedTarget);
 
-    if (leavingParent) {
+    if (leavingParent && editing.edit) {
       finishEditing();
     }
   };
@@ -230,6 +230,7 @@ const ImageSection: FC<ImageSectionProps> = ({
   };
 
   const handleDialogClose = () => {
+    console.log('dialog close');
     showLoader(false);
   };
 
