@@ -2,7 +2,7 @@
 source /home/ubuntu/.bashrc
 
 #create our working directory if it doesnt exist
-DIR="/home/ubuntu/quikinfluence-api"
+DIR="/home/ubuntu/source"
 if [ -d "$DIR" ]; then
   echo "${DIR} exists"
 else

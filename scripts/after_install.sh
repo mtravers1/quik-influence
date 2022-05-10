@@ -1,7 +1,7 @@
 #!/bin/bash
 source /home/ubuntu/.bashrc
 
-cd /home/ubuntu/quikinfluence-api
+cd /home/ubuntu/source
 
 npm install
 npm install pm2 -g
