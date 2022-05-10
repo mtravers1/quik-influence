@@ -150,7 +150,7 @@ const EditableWrapper = (props)=>{
     };
     const onBlur = (e)=>{
         const leavingParent = !parent?.current?.contains(e.relatedTarget);
-        if (leavingParent) {
+        if (leavingParent && editing.edit) {
             finishEditing();
         }
     };
@@ -245,6 +245,7 @@ const ImageSection = ({ sectionName , sectionId , children , showLoader , finish
         finishEditing(e.cdnUrl);
     };
     const handleDialogClose = ()=>{
+        console.log('dialog close');
         showLoader(false);
     };
     return(/*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
@@ -1233,7 +1234,7 @@ const DeskTopLinks = ({ links , path  })=>{
 
 
 
-const MobileLinks = ({ links , path  })=>{
+const MobileLinks = ({ links , path , top  })=>{
     const { accordionMap , setMap , getLinkColor , showBorder  } = NavBar_useLinks(links);
     const accodionOpenStyles = external_emotion_react_.css`
     height: fit-content;
@@ -1274,12 +1275,13 @@ const MobileLinks = ({ links , path  })=>{
             }),
             /*#__PURE__*/ jsx_runtime_.jsx(react_.Flex, {
                 direction: "column",
-                position: "absolute",
+                position: "fixed",
                 background: "white",
                 padding: "20px 20px 50px",
                 w: "350px",
-                top: "100%",
+                top: "170px",
                 className: "nav-links",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                 children: links?.length && links.map((link, i)=>{
                     return link?.isNotClickable ? /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Box, {
                         display: "inline-flex",
@@ -1467,7 +1469,8 @@ const NavBar_NavBar = ({ links  })=>{
                                     }),
                                     /*#__PURE__*/ jsx_runtime_.jsx(NavBar_MobileLinks, {
                                         links: links,
-                                        path: router.asPath
+                                        path: router.asPath,
+                                        top: styles.top
                                     })
                                 ]
                             })

@@ -173,7 +173,7 @@ const Home = ({ pageContent , nav  })=>{
                     /*#__PURE__*/ jsx_runtime_.jsx(Banner/* default */.Z, {
                         banner: pageContent.banner,
                         height: "60vh",
-                        minHeight: "unset"
+                        minHeight: "800px"
                     }),
                     /*#__PURE__*/ jsx_runtime_.jsx(HomePage_ImgSec, {
                         info: pageContent.info
