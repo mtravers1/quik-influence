@@ -1,0 +1,18 @@
+{
+  "../../node_modules/@uploadcare/react-widget/dist/esm/index-ded791f3.js -> ./dialog-98ec5e8a.js": {
+    "id": 86664,
+    "files": [
+      "static/chunks/45e6b777.9a4dd0190d7c60fa.js",
+      "static/chunks/b637e9a5.196abb96d1a2db4f.js",
+      "static/chunks/ucare-panel-chunk.5e1910de2ab5d5fa.js"
+    ]
+  },
+  "../../node_modules/@uploadcare/react-widget/dist/esm/index-ded791f3.js -> ./uploader-5199635b.js": {
+    "id": 44231,
+    "files": [
+      "static/chunks/45e6b777.9a4dd0190d7c60fa.js",
+      "static/chunks/b637e9a5.196abb96d1a2db4f.js",
+      "static/chunks/ucare-widget-chunk.6fb208b4f8201073.js"
+    ]
+  }
+}
