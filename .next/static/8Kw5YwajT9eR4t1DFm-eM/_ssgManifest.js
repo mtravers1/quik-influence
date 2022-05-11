@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002Fservices\u002Finfluencer-access","\u002Fservices\u002Flead-generation","\u002F","\u002Fservices\u002Femail-sms","\u002Fcampaign\u002F[campaignId]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
