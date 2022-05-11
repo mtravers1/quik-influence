@@ -52,5 +52,4 @@ export const formDataRelatedToSpecificUser = [
   "address",
   "address3",
   "facebookHandle",
-  "gender"
 ];
