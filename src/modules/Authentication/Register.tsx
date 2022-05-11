@@ -84,10 +84,8 @@ const Register = () => {
       });
 
       dispatch(login(response.data.data));
-
-      if (typeof window !== "undefined") {
-        window.location.href = stripeRedirectUrl || "";
-      }
+      // Redirect to Dashboard
+      router.push('/dashboard');
     } catch (err) {}
 
     setLoadingOtp(false);
