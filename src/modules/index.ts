@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { dashboardMenu, creditsMenu } from './Dashboard';
 import { campaignsMenu } from './Campaigns';
 import { leadMenu } from './Leads';
+import { searchMenu } from './Search';
 
 export const useSideBarMenuOptions = () => {
   const { firstCampaigns } = useSelector((state: any) => state.campaigns);
@@ -11,6 +12,7 @@ export const useSideBarMenuOptions = () => {
     campaignsMenu: { ...campaignsMenu, child: firstCampaigns || [] },
     creditsMenu,
     leadMenu,
+    searchMenu
   };
 };
 
@@ -19,4 +21,5 @@ export const SideBarMenuOptions = {
   campaignsMenu,
   creditsMenu,
   leadMenu,
+  searchMenu
 };

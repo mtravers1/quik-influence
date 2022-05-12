@@ -27,8 +27,8 @@ managedNodeGroups:
   - name: quikinfluence-staging-ng
     instanceType: t2.medium
     minSize: 1
-    maxSize: 2
-    desiredCapacity: 2
+    maxSize: 4
+    desiredCapacity: 3
     ssh:
       allow: true
       publicKeyName: quik-influence-prod-eks-ssh-keypair
