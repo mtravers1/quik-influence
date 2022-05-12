@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: quik-influence-prod
+  name: quikinfluence-staging
   region: us-east-1
   version: "1.21"
 
@@ -24,8 +24,8 @@ vpc:
         cidr: "10.81.5.0/24"
 
 managedNodeGroups:
-  - name: quikinfluence-prod-ng
-    instanceType: t2.large
+  - name: quikinfluence-staging-ng
+    instanceType: t2.medium
     minSize: 1
     maxSize: 4
     desiredCapacity: 3
