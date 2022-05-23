@@ -47,9 +47,9 @@ const DeskTopLinks = ({
                 onClick={() => setMap(i)}
                 transition="all 0.5s ease-in-out"
                 overflow="hidden"
+                key={`nav_links_${i}`}
               >
                 <Box
-                  key={`nav_links_${i}`}
                   fontSize="16px"
                   padding="0px 30px"
                   fontWeight="600"

@@ -12,3 +12,5 @@ export const HOME_PAGE_SERVICES_LEADS_GENERATION = 'Lead Generation';
 export const HOME_PAGE_SERVICES_INFLUENCER_ACCESS = 'Influencer Access';
 
 export const NAV_NAME = 'Nav';
+export const SECTION_LENGTH = 40;
+export const SECTION_COLUMNS = 5;
