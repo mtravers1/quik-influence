@@ -33,7 +33,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$VERSION_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$VERSION_TAG 
       - echo Entered the deploy phase...
       - aws sts get-caller-identity
       - echo Deploying quikinfluence-frontend version VERSION_TAG to cluster
