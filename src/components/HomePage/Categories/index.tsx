@@ -11,55 +11,55 @@ const Categories = ({ info }: { info: any }) => {
   const [splicedArray, setSplicedArray] = useState<any>([]);
   const [arrayMap, setArrayMap] = useState<any>({});
 
-  useEffect(() => {
-    const sortinfo = () => {
-      let tempArrayMap: any = {};
-      const sortArray: any[] = [[], [], [], [], []];
-      let totalLength = 0;
+  const sortinfo = () => {
+    let tempArrayMap: any = {};
+    const sortArray: any[] = [[], [], [], [], []];
+    let totalLength = 0;
 
-      const infoCopy: any = info?.content?.cards?.reduce(
-        (acc: any, cur: any, i: number) => ({ ...acc, [i]: cur }),
-        {}
-      );
+    const infoCopy: any = info?.content?.cards?.reduce(
+      (acc: any, cur: any, i: number) => ({ ...acc, [i]: cur }),
+      {}
+    );
 
-      for (let i = 0; i < SECTION_COLUMNS; i++) {
-        const tempCopy = Object.create(infoCopy);
-        for (let j in tempCopy) {
-          if (totalLength < SECTION_LENGTH) {
-            sortArray[i].push(infoCopy[j]);
-            totalLength += infoCopy[j].values.length;
+    for (let i = 0; i < SECTION_COLUMNS; i++) {
+      const tempCopy = Object.create(infoCopy);
+      for (let j in tempCopy) {
+        if (totalLength < SECTION_LENGTH) {
+          sortArray[i].push(infoCopy[j]);
+          totalLength += infoCopy[j].values.length;
 
-            delete infoCopy[j];
+          delete infoCopy[j];
+        }
+
+        if (totalLength >= SECTION_LENGTH) {
+          if (i === 0) {
+            tempArrayMap = {
+              [i]: { start: 0, length: sortArray[i].length },
+            };
+          } else {
+            tempArrayMap = {
+              ...tempArrayMap,
+              [i]: {
+                start: tempArrayMap[i - 1].length + tempArrayMap[i - 1].start,
+                length: sortArray[i].length,
+              },
+            };
           }
 
-          if (totalLength >= SECTION_LENGTH) {
-            if (i === 0) {
-              tempArrayMap = {
-                [i]: { start: 0, length: sortArray[i].length },
-              };
-            } else {
-              tempArrayMap = {
-                ...tempArrayMap,
-                [i]: {
-                  start: tempArrayMap[i - 1].length + tempArrayMap[i - 1].start,
-                  length: sortArray[i].length,
-                },
-              };
-            }
-
-            totalLength = 0;
-            break;
-          }
+          totalLength = 0;
+          break;
         }
       }
+    }
 
-      // console.log(tempArrayMap);
+    // console.log(tempArrayMap);
 
-      if (splicedArray.length) return;
-      setSplicedArray(sortArray);
-      setArrayMap(tempArrayMap);
-    };
+    if (splicedArray.length) return;
+    setSplicedArray(sortArray);
+    setArrayMap(tempArrayMap);
+  };
 
+  useEffect(() => {
     sortinfo();
   }, []);
 
