@@ -26,6 +26,10 @@ export const CREATE_TAGS = 'CREATE_TAGS';
 export const ADD_TAGS = 'ADD_TAGS';
 export const SET_PERMISSIONS = 'SET_PERMISSIONS';
 
+export const JOINABLE_CAMPAIGNS_LOADING = 'JOINABLE_CAMPAIGNS_LOADING';
+export const JOINABLE_CAMPAIGNS = 'JOINABLE_CAMPAIGNS';
+export const JOINABLE_CAMPAIGNS_ERROR = 'JOINABLE_CAMPAIGNS_ERROR';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;
