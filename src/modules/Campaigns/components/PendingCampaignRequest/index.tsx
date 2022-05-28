@@ -18,7 +18,6 @@ const PendingCampaignRequest = () => {
   const refreshPendingList = async () => {
     setLoading(true);
     const campaigns = await getPendingCampaigns();
-    console.log('campaigns >>>> ', campaigns);
     setPendingCampaigns(campaigns);
     setLoading(false);
   };

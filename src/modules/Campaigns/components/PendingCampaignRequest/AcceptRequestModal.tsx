@@ -46,7 +46,6 @@ const AcceptRequestModal = ({
         lp_campaign_key: lpCampaignKey,
         status: 'ACTIVE',
       });
-      console.log('res >>>>> ', res);
       if (res.id) {
         setLoadingAcceptRequest(false);
         toast({
