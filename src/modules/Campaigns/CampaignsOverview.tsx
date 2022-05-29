@@ -34,8 +34,6 @@ const CampaignsOverview = () => {
   const { colorMode } = useColorMode();
   const permissions = useSelector((state: any) => state.auth.permissions);
 
-  console.log(permissions);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleCreateCampaign = (type: CampaignSendTypes | string) => {

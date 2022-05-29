@@ -1,4 +1,4 @@
-import { Box, Image, BoxProps, useToast } from '@chakra-ui/react';
+import { Box, Image, BoxProps, createStandaloneToast } from '@chakra-ui/react';
 import CustomButton from 'components/Button';
 import React, { useState } from 'react';
 import { requestToBeAssignedThisCampaign } from 'redux/actions/campaigns';
@@ -14,7 +14,7 @@ const JoinableCampaignCard = ({
 }: JoinableCampaignCardProps) => {
   const [loading, setLoading] = useState(false);
   const [requestPending, setRequestPending] = useState(false);
-  const toast = useToast();
+  const toast = createStandaloneToast();
 
   const handleClick = async (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault();

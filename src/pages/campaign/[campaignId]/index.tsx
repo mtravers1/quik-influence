@@ -33,6 +33,7 @@ const getPaymentInfo = (amount: string) => {
 
 const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const { query } = useRouter();
+  const lpUrl = query.lp as string;
   const { colorMode } = useColorMode();
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
 
@@ -128,6 +129,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                   <LeadsForm
                     campaignId={query.campaignId as string}
                     // handleStripe={handleStripe}
+                    lpCredentials={lpUrl}
                     redirectUrl={data?.redirectUrl}
                     form={getFormFields(data?.formData?.form)}
                     paidType={data?.paidType}

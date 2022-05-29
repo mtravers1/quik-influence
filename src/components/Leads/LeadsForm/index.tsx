@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Box, Flex, createStandaloneToast } from "@chakra-ui/react";
-import { FormControl, FormErrorMessage } from "@chakra-ui/react";
-import CustomButton from "components/Button";
-import useInput from "hooks/useForm";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import CustomInput from "components/CustomInput";
-import { axiosInstance } from "utils/helpers";
+import { useState } from 'react';
+import { Box, Flex, createStandaloneToast } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage } from '@chakra-ui/react';
+import CustomButton from 'components/Button';
+import useInput from 'hooks/useForm';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import CustomInput from 'components/CustomInput';
+import { axiosInstance } from 'utils/helpers';
 
 const LeadsForm = ({
   campaignId,
@@ -13,7 +13,8 @@ const LeadsForm = ({
   redirectUrl,
   form,
   paidType,
-  showConsent = true
+  showConsent = true,
+  lpCredentials,
 }: {
   campaignId?: string;
   handleStripe?: (email: string, success?: boolean) => {};
@@ -21,10 +22,11 @@ const LeadsForm = ({
   form: any;
   paidType?: string;
   showConsent?: boolean;
+  lpCredentials?: string;
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
-  const isPaidCampaign = paidType === "PAID";
+  const isPaidCampaign = paidType === 'PAID';
 
   const {
     handleChange,
@@ -32,59 +34,66 @@ const LeadsForm = ({
     handleSubmit,
     errors,
     loading,
-    resetInputs
+    resetInputs,
   } = useInput({
     inputs: form,
-    cb: async (inputs) => {
+    cb: async inputs => {
       if (showConsent && !submitForm) return;
 
       let payload, url;
 
       if (!!campaignId) {
-        url = "/users/campaign/";
-        payload = {
-          ...inputs,
-          campaignId
-        };
+        url = '/users/campaign/';
       } else {
-        url = "/users/admin/";
+        url = '/users/admin/';
+      }
+
+      payload = {
+        ...inputs,
+      };
+
+      if (!!lpCredentials) {
+        const [lp_campaign_id, lp_campaign_key, campaignAdminId] = lpCredentials.split('_');
         payload = {
-          ...inputs
+          ...payload,
+          lp_campaign_id,
+          lp_campaign_key,
+          campaignAdminId,
         };
       }
 
       await axiosInstance
         .post(url, payload)
-        .then(async (res) => {
+        .then(async res => {
           if (res.status === 200) {
             resetInputs();
             toast({
-              title: "Registered Successfully.",
+              title: 'Registered Successfully.',
               description: isPaidCampaign
-                ? "You would be redirected to a payment screen"
-                : "",
+                ? 'You would be redirected to a payment screen'
+                : '',
               duration: 9000,
-              position: "top-right",
-              variant: "subtle",
-              isClosable: false
+              position: 'top-right',
+              variant: 'subtle',
+              isClosable: false,
             });
           }
 
           // redirect to stripe checkout
           // handleStripe(inputs.email, res.status === 200);
 
-          if (typeof window !== "undefined")
-            localStorage.setItem("redirectUrl", redirectUrl);
+          if (typeof window !== 'undefined')
+            localStorage.setItem('redirectUrl', redirectUrl);
         })
-        .catch((err) => {
+        .catch(err => {
           toast({
             title: err?.response?.data?.message || err.message,
-            status: "error",
+            status: 'error',
             duration: 9000,
-            position: "top-right"
+            position: 'top-right',
           });
         });
-    }
+    },
   });
 
   return (
@@ -152,7 +161,7 @@ const LeadsForm = ({
         paddingBottom={23}
         onClick={handleSubmit}
       >
-        {loading ? "Loading..." : "Submit"}
+        {loading ? 'Loading...' : 'Submit'}
       </CustomButton>
     </Flex>
   );

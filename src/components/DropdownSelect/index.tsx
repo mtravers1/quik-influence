@@ -14,6 +14,7 @@ import quikColorConstants from 'utils/constants/colorConstants';
 export type DropdownSelectOption = {
   label: string;
   value: string;
+  handler?: () => void;
   style?: any;
   disabled?: boolean;
 };

@@ -26,6 +26,7 @@ const RenderCampaignsTable = ({
   tableHeaders,
 }: RenderCampaignsTableProps) => {
   const style = getStyles(colorMode);
+
   return (
     <>
       {!campaigns ? (
@@ -82,7 +83,7 @@ const RenderCampaignsTable = ({
                             { label: 'Archive', value: `archive:${cam.id}` },
                             {
                               label: 'Launch',
-                              value: `/campaign/${cam.id}`,
+                              value: `/campaign/${cam.id}?lp=${cam.CampaignAdmins[0].lp_campaign_id}_${cam.CampaignAdmins[0].lp_campaign_key}_${cam.CampaignAdmins[0].id}`,
                             },
                             {
                               label: 'View Registered Leads',
@@ -92,7 +93,7 @@ const RenderCampaignsTable = ({
                               label: 'Reports & Tracking',
                               value: `/dashboard/campaigns/report/${cam.id}`,
                             },
-                            { label: 'Copy link', value: `copy:${cam.id}` },
+                            { label: 'Copy link', value: `copy:${cam.id}=${cam.CampaignAdmins[0].lp_campaign_id}_${cam.CampaignAdmins[0].lp_campaign_key}_${cam.CampaignAdmins[0].id}` },
                           ] || []
                         }
                         name="Actions"

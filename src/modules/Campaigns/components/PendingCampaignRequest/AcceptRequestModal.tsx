@@ -1,6 +1,6 @@
 import {
   useColorMode,
-  useToast,
+  createStandaloneToast,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -29,7 +29,7 @@ const AcceptRequestModal = ({
   onComplete: () => void;
 }) => {
   const { colorMode } = useColorMode();
-  const toast = useToast();
+  const toast = createStandaloneToast();
   const [loadingAcceptRequest, setLoadingAcceptRequest] =
     useState<boolean>(false);
   const [lpCampaignId, setLPCampaignId] = useState<string>('');

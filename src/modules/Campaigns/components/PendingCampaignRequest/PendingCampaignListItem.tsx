@@ -9,11 +9,10 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useToast,
+  createStandaloneToast,
 } from '@chakra-ui/react';
 import CustomButton from 'components/Button';
 import ComfirmAlertDialog from 'components/ComfirmAlertDialog';
-import { ca } from 'date-fns/locale';
 import { modifyCampaignRequest } from 'redux/actions/campaigns';
 import AcceptRequestModal from './AcceptRequestModal';
 
@@ -24,7 +23,7 @@ const PendingCampaignListItem = ({
   campaign: any;
   onComplete: () => void;
 }) => {
-  const toast = useToast();
+  const toast = createStandaloneToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isAlertOpen,
