@@ -16,12 +16,14 @@ const ComfirmAlertDialog = ({
   buttonText,
   isOpen,
   onClose,
+  onDecline,
 }: {
   title: string;
   message: string;
   buttonText: string;
   isOpen: boolean;
   onClose: any;
+  onDecline: any;
 }) => {
   const cancelRef: RefObject<any> = useRef();
 
@@ -47,7 +49,7 @@ const ComfirmAlertDialog = ({
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="red" onClick={onClose} ml={3}>
+              <Button colorScheme="red" onClick={onDecline} ml={3}>
                 {buttonText}
               </Button>
             </AlertDialogFooter>

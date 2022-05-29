@@ -62,7 +62,8 @@ const PendingCampaignListItem = ({
       <ComfirmAlertDialog
         title="Decline Request"
         isOpen={isAlertOpen}
-        onClose={handleCancel}
+        onClose={onAlertClose}
+        onDecline={handleCancel}
         message="Are you sure? You can't undo this action afterwards."
         buttonText="Decline"
       />
