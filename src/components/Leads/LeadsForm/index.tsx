@@ -56,8 +56,8 @@ const LeadsForm = ({
         const [lp_campaign_id, lp_campaign_key, campaignAdminId] = lpCredentials.split('_');
         payload = {
           ...payload,
-          lp_campaign_id,
-          lp_campaign_key,
+          // lp_campaign_id,
+          // lp_campaign_key,
           campaignAdminId,
         };
       }
