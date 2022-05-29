@@ -4,15 +4,20 @@ import {
   Heading,
   Stack,
   Text,
-  useColorMode
-} from "@chakra-ui/react";
-import Header from "components/Header";
-import { themeColor } from "utils/constants/colorConstants";
+  useColorMode,
+} from '@chakra-ui/react';
+import Header from 'components/Header';
+import Head from 'next/head';
+import { themeColor } from 'utils/constants/colorConstants';
 
 const PrivacyPolicy = () => {
   const { colorMode } = useColorMode();
   return (
     <>
+      <Head>
+        <title>Privacy Policy - Quick Influence</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Header type="unauthenticated" color={themeColor[colorMode]} />
       <Container height="100%" color="black">
         <Flex direction="column">
