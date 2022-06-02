@@ -68,18 +68,29 @@ const EditableWrapper: FC<EditableWrapperProps> = props => {
 
     const lastObj = stack.shift();
 
+    console.log(lastObj);
+
     if (object[lastObj || 0] === element?.textContent && !isImage) {
       showLoader(false);
       return;
     }
 
-    object[lastObj || 0] = isImage ? imgurl : element?.textContent;
+    if (isImage) {
+      object[lastObj || 0] = imgurl;
+    } else {
+      if (lastObj === 'values') {
+        object[lastObj || 0] =
+          element?.textContent?.split('\n') || element?.textContent;
+      } else object[lastObj || 0] = element?.textContent;
+    }
 
     if (!object[lastObj || 0]) {
       return;
     }
 
     try {
+      console.log(data.content);
+
       await axiosInstance.patch(`/content/${data.id}`, {
         content: { ...data.content },
       });

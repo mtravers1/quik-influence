@@ -121,6 +121,7 @@ const Categories = ({ info }: { info: any }) => {
                             base: '16px',
                             '2xl': '20px',
                           }}
+                          whiteSpace="pre-line"
                         >
                           {value}
                         </EditableWrapper>
