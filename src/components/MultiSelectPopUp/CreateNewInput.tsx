@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Box, useToast } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
+import Image from 'next/image';
 import { TextInput } from 'components/Input';
 import DropdownSelect from 'components/DropdownSelect';
 import useForm from 'hooks/useForm';
@@ -10,6 +11,7 @@ import SelectOptionsSelector from './SelectOptionsSelector';
 import CustomButton from 'components/Button';
 import { updateFormInputs } from 'redux/actions/general';
 import CheckBox from 'components/Input/CheckBox';
+import loader from 'assets/loader.gif';
 
 const CreateNewInput: FC<{ close: Function }> = ({ close }) => {
   const dispatch = useDispatch();
@@ -112,7 +114,8 @@ const CreateNewInput: FC<{ close: Function }> = ({ close }) => {
             maxWidth="200px"
             marginTop="30px"
           >
-            Finish
+            Finish{' '}
+            {loading && <Image src={loader} alt="" width={50} height={50} />}
           </CustomButton>
         </form>
       </Box>

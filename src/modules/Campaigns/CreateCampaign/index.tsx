@@ -44,6 +44,8 @@ import { fetchPostJSON } from 'utils/apiHelpers';
 import DataTable from 'components/DataTable';
 import MultiSelectPopUp from 'components/MultiSelectPopUp';
 import CheckBox from 'components/Input/CheckBox';
+import { hasPermission } from 'utils/helpers';
+import { MARKETING_ADMIN } from 'utils/constants';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
 
@@ -53,17 +55,6 @@ const selectLabelProps = {
 };
 
 const selectProps = { height: '3rem', width: '30rem', fontSize: '1.4rem' };
-
-const getFormFields = (inputs: string[]) => {
-  if (!inputs) return;
-  return formFieldsData.reduce((acc: any, fields: any) => {
-    if (inputs.includes(fields.name)) {
-      return [...acc, { ...fields, pattern: fields.pattern.toString() }];
-    }
-
-    return acc;
-  }, []);
-};
 
 const CreateCampaign = ({
   initialdata,
@@ -80,7 +71,7 @@ const CreateCampaign = ({
   const [checkedItems, setCheckedItems] = useState<any>([]);
   const [myLeadData, setMyLeadData] = useState<any>([]);
 
-  const { user } = useSelector((state: any) => state.auth);
+  const { permissions } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
     getMyLeads();
@@ -737,7 +728,11 @@ const CreateCampaign = ({
         <OrderedList size="2xl" marginInlineStart="2em">
           {formdata.map((data, i) => {
             if (data.disabled) return null;
-            if (!user.admin && data.name === 'postingDocUrl') return null;
+            if (
+              !hasPermission(MARKETING_ADMIN, permissions) &&
+              data.name === 'isJoinable'
+            )
+              return null;
 
             switch (data.type) {
               case 'select':

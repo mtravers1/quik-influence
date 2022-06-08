@@ -55,7 +55,7 @@ const SelectOptions = ({
         </Flex>
       </Box>
 
-      <Flex flexWrap="wrap" overflowY="auto">
+      <Box className="fluid-grid">
         {options?.map((option: any, index: any) => {
           return (
             <Box
@@ -96,7 +96,7 @@ const SelectOptions = ({
             </Box>
           );
         })}
-      </Flex>
+      </Box>
     </>
   );
 };

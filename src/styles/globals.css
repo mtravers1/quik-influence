@@ -78,3 +78,9 @@ a {
   font-size: 12px;
   font-weight: 500;
 }
+
+.fluid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  grid-gap: 30px;
+}

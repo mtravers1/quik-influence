@@ -120,14 +120,14 @@ export default [
     type: 'text',
     pattern: URL_REGEX,
   },
-  {
-    name: 'postingDocUrl',
-    label: 'Posting Doc Url',
-    errorMessage: 'Enter a valid URL e.g: http://test.com/something',
-    required: false,
-    type: 'text',
-    pattern: URL_REGEX,
-  },
+  // {
+  //   name: 'postingDocUrl',
+  //   label: 'Posting Doc Url',
+  //   errorMessage: 'Enter a valid URL e.g: http://test.com/something',
+  //   required: false,
+  //   type: 'text',
+  //   pattern: URL_REGEX,
+  // },
   {
     name: 'banner',
     label: 'Campaign Banner',
