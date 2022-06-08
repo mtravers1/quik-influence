@@ -4,20 +4,25 @@ import {
   Heading,
   Stack,
   Text,
-  useColorMode
-} from "@chakra-ui/react";
-import { css } from "@emotion/react";
-import CustomButton from "components/Button";
-import Header from "components/Header";
-import { useRouter } from "next/router";
-import queryString from "query-string";
-import { themeColor } from "utils/constants/colorConstants";
+  useColorMode,
+} from '@chakra-ui/react';
+import { css } from '@emotion/react';
+import CustomButton from 'components/Button';
+import Header from 'components/Header';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import queryString from 'query-string';
+import { themeColor } from 'utils/constants/colorConstants';
 
 const TermsOfService = () => {
   const { colorMode } = useColorMode();
   const router = useRouter();
   return (
     <>
+      <Head>
+        <title>Terms of Service - Quick Influence</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Header type="unauthenticated" color={themeColor[colorMode]} />
       <Container height="100%" color="black">
         <Flex direction="column">
@@ -237,12 +242,12 @@ const TermsOfService = () => {
               agreement.
             </Text>
           </Stack>
-          <Stack flexDirection={["column", "row"]} mb={10}>
+          <Stack flexDirection={['column', 'row']} mb={10}>
             <CustomButton
               css={[
                 css`
                   margin-top: unset !important;
-                `
+                `,
               ]}
               onClick={() => {
                 router.query.terms = 'checked';

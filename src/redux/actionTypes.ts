@@ -29,6 +29,10 @@ export const SET_PERMISSIONS = 'SET_PERMISSIONS';
 export const CREATE_FORM_INPUT = 'CREATE_FORM_INPUT';
 export const UPDATE_FORM_INPUT = 'UPDATE_FORM_INPUT';
 
+export const JOINABLE_CAMPAIGNS_LOADING = 'JOINABLE_CAMPAIGNS_LOADING';
+export const JOINABLE_CAMPAIGNS = 'JOINABLE_CAMPAIGNS';
+export const JOINABLE_CAMPAIGNS_ERROR = 'JOINABLE_CAMPAIGNS_ERROR';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;

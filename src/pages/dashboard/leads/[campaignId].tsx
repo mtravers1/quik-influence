@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import MainContent from "components/MainContent";
-import Filters from "components/LeadsPageFilters";
-import { TablePageLoader } from "components/SkeletonLoaders";
-import { getCampaignLeads } from "redux/actions/campaigns";
-import Leads from "modules/Leads";
-import { DEFAULT_PAGE_SIZE } from "utils/constants";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import MainContent from 'components/MainContent';
+import Filters from 'components/LeadsPageFilters';
+import { TablePageLoader } from 'components/SkeletonLoaders';
+import { getCampaignLeads } from 'redux/actions/campaigns';
+import Leads from 'modules/Leads';
+import { DEFAULT_PAGE_SIZE } from 'utils/constants';
+import Head from 'next/head';
 
 const CampaignsLeads = () => {
   const { leads, loading } = useSelector((state: any) => state.campaigns);
@@ -24,7 +25,7 @@ const CampaignsLeads = () => {
   useEffect(() => {
     dispatch(
       getCampaignLeads(campaignId, page, pageSize, sortBy, {
-        filters: selectedFilters
+        filters: selectedFilters,
       })
     );
   }, [page, pageSize, sortBy, selectedFilters]);
@@ -33,18 +34,24 @@ const CampaignsLeads = () => {
     <Filters setAllSelectedFilters={setSelectedFilters} />
   );
 
-  return loading ? (
-    <MainContent filter={FiltersComponent}>
-      <TablePageLoader />
-    </MainContent>
-  ) : (
-    <MainContent filter={FiltersComponent}>
-      <Leads
-        leads={campaignsLeads}
-        socialColumns={socialColumns?.split(",")}
-        pageSize={pageSize}
-      />
-    </MainContent>
+  return (
+    <>
+      <Head>
+        <title>Campaign leads - Quick Influence</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <MainContent filter={FiltersComponent}>
+        {loading ? (
+          <TablePageLoader />
+        ) : (
+          <Leads
+            leads={campaignsLeads}
+            socialColumns={socialColumns?.split(',')}
+            pageSize={pageSize}
+          />
+        )}
+      </MainContent>
+    </>
   );
 };
 

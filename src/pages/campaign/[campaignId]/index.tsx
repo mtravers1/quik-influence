@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import Head from 'next/head';
 import { bgThemeColor } from 'utils/constants/colorConstants';
 import LeadsForm from 'components/Leads/LeadsForm';
 import { useRouter } from 'next/router';
@@ -34,6 +35,7 @@ const getPaymentInfo = (amount: string) => {
 
 const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const { query } = useRouter();
+  const lpUrl = query.lp as string;
   const { colorMode } = useColorMode();
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const { formInputs: options } = useSelector((state: any) => state.generals);
@@ -86,77 +88,83 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
   if (!data) window.location.href = '/404';
 
   return (
-    <Box as="section" bgColor={bgThemeColor[colorMode]}>
-      <Box as="section">
-        <Flex height={['unset', '100vh']} direction={['column', 'row']}>
-          <Box
-            width={['100%', '55%']}
-            maxHeight={['50%', '100%']}
-            position="relative"
-            display={['block']}
-            as="div"
-          >
-            <Image
-              src={data?.banner || ''}
-              alt={data?.name || ''}
-              width={['100%']}
-              height={['100%']}
-              objectFit="cover"
-            />
-          </Box>
-          <Box
-            zIndex={2}
-            bgColor={bgThemeColor[colorMode]}
-            py={[0, 10]}
-            width={['100%', '45%']}
-            overflowY="scroll"
-          >
-            <Flex
-              justifyContent="center"
-              alignItems="center"
-              p={[6]}
-              pt={['1rem', '0']}
-              height={showSuccessMessage ? '-webkit-fill-available' : 'unset'}
+    <>
+      <Head>
+        <title>{data?.name} - page</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Box as="section" bgColor={bgThemeColor[colorMode]}>
+        <Box as="section">
+          <Flex height={['unset', '100vh']} direction={['column', 'row']}>
+            <Box
+              width={['100%', '55%']}
+              maxHeight={['50%', '100%']}
+              position="relative"
+              display={['block']}
+              as="div"
             >
-              {showSuccessMessage ? (
-                <Alert
-                  status="success"
-                  variant="subtle"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  textAlign="center"
-                  height="250px"
-                  lineHeight="2"
-                >
-                  <AlertIcon boxSize="40px" mr={0} />
-                  <AlertTitle mt={5} mb={5} fontSize="3xl" color="green.400">
-                    Registration submitted!
-                  </AlertTitle>
-                  <AlertDescription maxWidth="sm">
-                    Thanks for submitting your registration.
-                  </AlertDescription>
-                </Alert>
-              ) : (
-                <Box maxW="440px">
-                  <Heading textAlign="center" py={8} fontFamily="montserrat">
-                    {data?.name}
-                  </Heading>
-                  <LeadsForm
-                    campaignId={query.campaignId as string}
-                    // handleStripe={handleStripe}
-                    redirectUrl={data?.redirectUrl}
-                    form={getFormFields()}
-                    paidType={data?.paidType}
-                    postingDocUrl={data?.postingDocUrl}
-                  />
-                </Box>
-              )}
-            </Flex>
-          </Box>
-        </Flex>
+              <Image
+                src={data?.banner || ''}
+                alt={data?.name || ''}
+                width={['100%']}
+                height={['100%']}
+                objectFit="cover"
+              />
+            </Box>
+            <Box
+              zIndex={2}
+              bgColor={bgThemeColor[colorMode]}
+              py={[0, 10]}
+              width={['100%', '45%']}
+              overflowY="scroll"
+            >
+              <Flex
+                justifyContent="center"
+                alignItems="center"
+                p={[6]}
+                pt={['1rem', '0']}
+                height={showSuccessMessage ? '-webkit-fill-available' : 'unset'}
+              >
+                {showSuccessMessage ? (
+                  <Alert
+                    status="success"
+                    variant="subtle"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    textAlign="center"
+                    height="250px"
+                    lineHeight="2"
+                  >
+                    <AlertIcon boxSize="40px" mr={0} />
+                    <AlertTitle mt={5} mb={5} fontSize="3xl" color="green.400">
+                      Registration submitted!
+                    </AlertTitle>
+                    <AlertDescription maxWidth="sm">
+                      Thanks for submitting your registration.
+                    </AlertDescription>
+                  </Alert>
+                ) : (
+                  <Box maxW="440px">
+                    <Heading textAlign="center" py={8} fontFamily="montserrat">
+                      {data?.name}
+                    </Heading>
+                    <LeadsForm
+                      campaignId={query.campaignId as string}
+                      // handleStripe={handleStripe}
+                      lpCredentials={lpUrl}
+                      redirectUrl={data?.redirectUrl}
+                      form={getFormFields()}
+                      paidType={data?.paidType}
+                    />
+                  </Box>
+                )}
+              </Flex>
+            </Box>
+          </Flex>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

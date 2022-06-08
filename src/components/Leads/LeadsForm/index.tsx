@@ -16,6 +16,7 @@ const LeadsForm = ({
   paidType,
   showConsent = true,
   postingDocUrl,
+  lpCredentials,
 }: {
   campaignId?: string;
   handleStripe?: (email: string, success?: boolean) => {};
@@ -24,6 +25,7 @@ const LeadsForm = ({
   paidType?: string;
   showConsent?: boolean;
   postingDocUrl?: string;
+  lpCredentials?: string;
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
@@ -45,14 +47,21 @@ const LeadsForm = ({
 
       if (!!campaignId) {
         url = '/users/campaign/';
-        payload = {
-          ...inputs,
-          campaignId,
-        };
       } else {
         url = '/users/admin/';
+      }
+
+      payload = {
+        ...inputs,
+      };
+
+      if (!!lpCredentials) {
+        const [lp_campaign_id, lp_campaign_key, campaignAdminId] = lpCredentials.split('_');
         payload = {
-          ...inputs,
+          ...payload,
+          // lp_campaign_id,
+          // lp_campaign_key,
+          campaignAdminId,
         };
       }
 

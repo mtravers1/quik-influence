@@ -109,7 +109,8 @@ const CurrentCampaignsTable = () => {
       return router.push(value);
     }
 
-    const [verb, id] = value.split(':');
+    const [verb, urlData] = value.split(':');
+    const [id, url] = urlData.split('=');
 
     setRowLoading(prevloadState => ({ ...prevloadState, [id]: true }));
 
@@ -120,7 +121,7 @@ const CurrentCampaignsTable = () => {
       case 'copy':
         if (typeof window !== 'undefined') {
           navigator.clipboard
-            .writeText(`${window.location.origin}/campaign/${id}`)
+            .writeText(`${window.location.origin}/campaign/${id}?lp=${url}`)
             .then(success =>
               toast({
                 title: 'Copied to clipboard',
