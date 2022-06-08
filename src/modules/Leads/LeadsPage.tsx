@@ -199,6 +199,16 @@ const LeadsPage = ({
                         {data?.UserCampaigns?.at(0)?.paymentStatus}
                       </Td>
                     )}
+                    {data?.UserCampaigns[0].postingResponse.response ? (
+                      <Td
+                        fontSize="16px"
+                        whiteSpace="nowrap"
+                      >
+                        {`${data?.UserCampaigns[0].postingResponse.response.result} |
+                        ${data?.UserCampaigns[0].postingResponse.response.msg} |
+                        ${data?.UserCampaigns[0].postingResponse.response.errors[0].error}`}
+                      </Td>
+                    ) : 'null'}
                   </Tr>
                 ))}
               </Tbody>
