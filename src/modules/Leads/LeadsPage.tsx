@@ -7,25 +7,25 @@ import {
   Td,
   Box,
   Flex,
-  useColorMode
-} from "@chakra-ui/react";
-import queryString from "query-string";
-import { useRouter } from "next/router";
-import { basicTheme } from "utils/constants/colorConstants";
-import Pagination from "components/Pagination";
-import { getStyles } from "./css";
-import { getSocialHandleHeader, isAdmin } from "utils/helpers";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import NoLeadsAvailable from "./NoLeadsAvailable";
-import LeadsDataPoint from "./LeadsDataPoint";
+  useColorMode,
+} from '@chakra-ui/react';
+import queryString from 'query-string';
+import { useRouter } from 'next/router';
+import { basicTheme } from 'utils/constants/colorConstants';
+import Pagination from 'components/Pagination';
+import { getStyles } from './css';
+import { getSocialHandleHeader, isAdmin } from 'utils/helpers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import NoLeadsAvailable from './NoLeadsAvailable';
+import LeadsDataPoint from './LeadsDataPoint';
 
 const LeadsPage = ({
   leads,
-  pageType = "singleCampaign",
+  pageType = 'singleCampaign',
   socialColumns = [],
-  pageSize
+  pageSize,
 }: {
   leads: any;
   pageType?: string;
@@ -36,7 +36,7 @@ const LeadsPage = ({
   const router = useRouter();
   const params = router.query;
   const style = getStyles(colorMode);
-  const isLeadsDataPoint = leads?.resType === "LEADS_DATA_POINTS";
+  const isLeadsDataPoint = leads?.resType === 'LEADS_DATA_POINTS';
   const isAllowed = isAdmin();
 
   const handleChange = (page: any) => {
@@ -49,18 +49,19 @@ const LeadsPage = ({
     router.push(`?${queryString.stringify(params)}`);
   };
 
-  const status = pageType === "allLeads" ? [] : ["status"];
+  const status = pageType === 'allLeads' ? [] : ['status'];
   const sc: string[] = getSocialHandleHeader(socialColumns);
 
   const tableHeader = [
-    "First Name",
-    "Last Name",
-    "Email",
-    "Phone",
-    "Gender",
-    "City|State|Zip Code",
+    'First Name',
+    'Last Name',
+    'Email',
+    'Phone',
+    'Gender',
+    'City|State|Zip Code',
     ...sc,
-    ...status
+    ...status,
+    'Posting Response',
   ];
 
   const renderPagination = () => (
@@ -78,10 +79,10 @@ const LeadsPage = ({
   );
 
   const renderSortButton = () => (
-    <button type="button" onClick={() => handleSortChange("paymentStatus")}>
+    <button type="button" onClick={() => handleSortChange('paymentStatus')}>
       <FontAwesomeIcon
         icon={faAngleDown as IconProp}
-        style={{ margin: "auto 10px" }}
+        style={{ margin: 'auto 10px' }}
       />
     </button>
   );
@@ -129,7 +130,7 @@ const LeadsPage = ({
                     >
                       {th}
 
-                      {th === "status" && renderSortButton()}
+                      {th === 'status' && renderSortButton()}
                     </Th>
                   ))}
                 </Tr>
@@ -143,17 +144,17 @@ const LeadsPage = ({
                       textTransform="capitalize"
                       fontSize="16px"
                     >
-                      {data.firstName || "N/A"}
+                      {data.firstName || 'N/A'}
                     </Td>
                     <Td
                       whiteSpace="nowrap"
                       textTransform="capitalize"
                       fontSize="16px"
                     >
-                      {data.lastName || "N/A"}
+                      {data.lastName || 'N/A'}
                     </Td>
                     <Td whiteSpace="nowrap" fontSize="16px">
-                      {data.email || "N/A"}
+                      {data.email || 'N/A'}
                     </Td>
                     <Td
                       textTransform="capitalize"
@@ -167,7 +168,7 @@ const LeadsPage = ({
                       fontSize="16px"
                       whiteSpace="nowrap"
                     >
-                      {data.gender || "N/A"}
+                      {data.gender || 'N/A'}
                     </Td>
                     {/* <Td>
                       {(data.dateOfBirth &&
@@ -179,8 +180,8 @@ const LeadsPage = ({
                       fontSize="16px"
                       whiteSpace="nowrap"
                     >
-                      {`${data.city || ""} ${data.state || ""} ${
-                        data.postalCode || ""
+                      {`${data.city || ''} ${data.state || ''} ${
+                        data.postalCode || ''
                       }`}
                     </Td>
                     {socialColumns.length >= 1 &&
@@ -191,7 +192,7 @@ const LeadsPage = ({
                           fontSize="16px"
                           whiteSpace="nowrap"
                         >
-                          {data[s] || "N/A"}
+                          {data[s] || 'N/A'}
                         </Td>
                       ))}
                     {status.length > 0 && (
@@ -199,6 +200,14 @@ const LeadsPage = ({
                         {data?.UserCampaigns?.at(0)?.paymentStatus}
                       </Td>
                     )}
+                    {data?.UserCampaigns[0].postingResponse.response ? (
+                      <Td
+                        fontSize="16px"
+                        whiteSpace="nowrap"
+                      >
+                        {`${data?.UserCampaigns[0].postingResponse.response.result} | ${data?.UserCampaigns[0].postingResponse.response.msg} | ${data?.UserCampaigns[0].postingResponse.response.errors[0].error}`}
+                      </Td>
+                    ) : 'null'}
                   </Tr>
                 ))}
               </Tbody>
