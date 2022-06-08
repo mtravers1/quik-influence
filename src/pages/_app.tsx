@@ -13,7 +13,11 @@ import { APP_NAME, NAV_NAME } from 'utils/constants/pageDataConstants';
 import { login } from 'redux/actions/auth';
 import '../styles/globals.css';
 import '../styles/404.css';
-import { createFormData, createTags } from 'redux/actions/general';
+import {
+  createFormData,
+  createTags,
+  createFormInputs,
+} from 'redux/actions/general';
 
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -29,6 +33,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const runBeforeLoad = async () => {
     dispatch(createFormData(pageProps?.formData));
     dispatch(createTags(pageProps?.tags));
+    dispatch(createFormInputs(pageProps?.formInputs));
     setLoading(true);
 
     dispatch(login());
@@ -72,6 +77,7 @@ QuikInfluenceApp.getInitialProps = async () => {
   if (typeof window === 'undefined') {
     let nav: any;
     let formData: any;
+    let formInputs: any;
     let tags: any;
 
     try {
@@ -80,6 +86,7 @@ QuikInfluenceApp.getInitialProps = async () => {
       );
 
       formData = await axiosInstance.get(`/admin/form-element`);
+      formInputs = await axiosInstance.get(`/admin/form-inputs`);
 
       tags = await axiosInstance.get('/admin/tag');
     } catch (err) {
@@ -91,6 +98,7 @@ QuikInfluenceApp.getInitialProps = async () => {
         nav: nav?.data?.data,
         formData: formData?.data.data,
         tags: tags?.data.data,
+        formInputs: formInputs?.data.data,
       },
     };
   }

@@ -26,6 +26,9 @@ export const CREATE_TAGS = 'CREATE_TAGS';
 export const ADD_TAGS = 'ADD_TAGS';
 export const SET_PERMISSIONS = 'SET_PERMISSIONS';
 
+export const CREATE_FORM_INPUT = 'CREATE_FORM_INPUT';
+export const UPDATE_FORM_INPUT = 'UPDATE_FORM_INPUT';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;

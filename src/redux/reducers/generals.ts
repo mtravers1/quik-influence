@@ -1,9 +1,16 @@
-import { CREATE_FORM_DATA, CREATE_TAGS, ADD_TAGS } from '../actionTypes';
+import {
+  CREATE_FORM_DATA,
+  CREATE_TAGS,
+  ADD_TAGS,
+  CREATE_FORM_INPUT,
+  UPDATE_FORM_INPUT,
+} from '../actionTypes';
 
 const generals = (
   state = {
     formData: undefined,
     tags: undefined,
+    formInputs: [],
   },
   action: any
 ) => {
@@ -24,6 +31,18 @@ const generals = (
       return {
         ...state,
         tags: [...(state.tags || []), action.payload],
+      };
+
+    case CREATE_FORM_INPUT:
+      return {
+        ...state,
+        formInputs: action.payload,
+      };
+
+    case UPDATE_FORM_INPUT:
+      return {
+        ...state,
+        formInputs: [...state.formInputs, action.payload],
       };
 
     default:

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Heading,
   Flex,
@@ -41,6 +42,7 @@ import { urlify } from 'utils/urilify';
 import { leadsTableColumns } from 'utils/constants/leadsPageTableData';
 import { fetchPostJSON } from 'utils/apiHelpers';
 import DataTable from 'components/DataTable';
+import MultiSelectPopUp from 'components/MultiSelectPopUp';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
 
@@ -76,6 +78,8 @@ const CreateCampaign = ({
 
   const [checkedItems, setCheckedItems] = useState<any>([]);
   const [myLeadData, setMyLeadData] = useState<any>([]);
+
+  const { user } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
     getMyLeads();
@@ -589,7 +593,6 @@ const CreateCampaign = ({
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
 
-      const formFieldsInput = getFormFields(inputs.formData);
       const formDataObject = {
         type,
         name: inputs.name,
@@ -598,7 +601,7 @@ const CreateCampaign = ({
         redirectUrl: inputs.redirectUrl,
         paidType: inputs.paidType,
         banner: inputs.banner,
-        formData: { form: formFieldsInput },
+        formData: JSON.stringify(inputs.formData),
         campaignDate: inputs.campaignDate,
         prices: inputs.prices,
         ...smsEmailRecord,
@@ -725,9 +728,11 @@ const CreateCampaign = ({
       </Text>
 
       <form action="post">
-        <OrderedList size="2xl">
+        <OrderedList size="2xl" marginInlineStart="1.5em">
           {formdata.map((data, i) => {
             if (data.disabled) return null;
+            if (!user.admin && data.name === 'postingDocUrl') return null;
+
             switch (data.type) {
               case 'select':
                 return (
@@ -749,8 +754,8 @@ const CreateCampaign = ({
               case 'multi-select':
                 return (
                   <ListItem key={`campaigne_form_${i}`}>
-                    <MultiSelect
-                      selectOptions={data.options as DropdownSelectOption[]}
+                    <MultiSelectPopUp
+                      // selectOptions={data.options as DropdownSelectOption[]}
                       label={data.label}
                       extraLabel={data.extraLabel ?? data.extraLabel}
                       handleChange={handleChange}

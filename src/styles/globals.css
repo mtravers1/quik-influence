@@ -55,3 +55,26 @@ a {
 #nav-toggle:checked + .nav-links {
   right: 0;
 }
+
+.select-option-grid-item .option-icon {
+  opacity: 0;
+}
+
+.select-option-grid-item:hover .option-icon {
+  opacity: 1;
+}
+
+.campaign-create label {
+  display: none;
+}
+
+.campaign-create select {
+  border-radius: 50px;
+  padding-left: 50px;
+}
+
+.consent label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+}
