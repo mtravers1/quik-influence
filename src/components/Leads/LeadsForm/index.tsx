@@ -73,10 +73,6 @@ const LeadsForm = ({
             });
           }
 
-          if (postingDocUrl) {
-            // send to posting doc url
-          }
-
           // redirect to stripe checkout
           // handleStripe(inputs.email, res.status === 200);
 

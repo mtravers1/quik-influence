@@ -21,8 +21,6 @@ const Create = () => {
     }
   }, [loading, currentCampaign]);
 
-  console.log(currentCampaign);
-
   return loading && !currentCampaign ? (
     <MainContent>
       <TablePageLoader />
