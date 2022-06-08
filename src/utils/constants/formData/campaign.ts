@@ -136,4 +136,12 @@ export default [
     type: 'image-upload',
     pattern: FREE_TEXT_REGEX,
   },
+  {
+    name: 'isJoinable',
+    label: 'Is this campaigne Joinable?',
+    errorMessage: 'Choose',
+    required: true,
+    type: 'checkbox',
+    pattern: FREE_TEXT_REGEX,
+  },
 ];

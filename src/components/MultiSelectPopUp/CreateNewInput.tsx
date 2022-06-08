@@ -9,6 +9,7 @@ import { axiosInstance } from 'utils/helpers';
 import SelectOptionsSelector from './SelectOptionsSelector';
 import CustomButton from 'components/Button';
 import { updateFormInputs } from 'redux/actions/general';
+import CheckBox from 'components/Input/CheckBox';
 
 const CreateNewInput: FC<{ close: Function }> = ({ close }) => {
   const dispatch = useDispatch();
@@ -71,23 +72,12 @@ const CreateNewInput: FC<{ close: Function }> = ({ close }) => {
                 case 'checkbox':
                   return (
                     <Box p="10px" key={`campaigne_input_${i}`}>
-                      <input
-                        type="checkbox"
+                      <CheckBox
+                        value={inputTypes[data.name]}
                         name={data.name}
-                        checked={inputTypes[data.name]}
-                        onInput={handleChange}
-                        id={data.name}
+                        handleChange={handleChange}
+                        label={data.label}
                       />
-                      <Box
-                        as="label"
-                        marginLeft="20px"
-                        fontSize="16px"
-                        fontWeight="500"
-                        htmlFor={data.name}
-                        cursor="pointer"
-                      >
-                        {data.label}
-                      </Box>
                     </Box>
                   );
 

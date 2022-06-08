@@ -21,6 +21,8 @@ const Create = () => {
     }
   }, [loading, currentCampaign]);
 
+  console.log(currentCampaign);
+
   return loading && !currentCampaign ? (
     <MainContent>
       <TablePageLoader />
@@ -31,9 +33,7 @@ const Create = () => {
         initialdata={
           {
             ...currentCampaign,
-            formData: currentCampaign.formData.form.map(
-              (data: any) => data.name
-            ),
+            formData: JSON.parse(currentCampaign.formData),
           } || {}
         }
       />

@@ -28,6 +28,13 @@ type MultiSelectProps = {
   initialvalue?: [];
 };
 
+const CreateOptionsMap = (options: any) => {
+  return options.reduce(
+    (acc: any, cur: any) => ({ ...acc, [cur.id]: cur }),
+    {}
+  );
+};
+
 const MultiSelectPopUp: React.FC<MultiSelectProps> = ({
   label,
   labelProps,
@@ -42,7 +49,7 @@ const MultiSelectPopUp: React.FC<MultiSelectProps> = ({
   const { colorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<any>(initialvalue || []);
-  const [optionsMap, setOptionsMap] = useState<any>({});
+  const [optionsMap, setOptionsMap] = useState<any>(CreateOptionsMap(options));
   const [createNewField, setCreateNewField] = useState(false);
 
   const onClose = () => {
@@ -71,9 +78,7 @@ const MultiSelectPopUp: React.FC<MultiSelectProps> = ({
   }, [selectedValue]);
 
   useEffect(() => {
-    setOptionsMap(
-      options.reduce((acc: any, cur: any) => ({ ...acc, [cur.id]: cur }), {})
-    );
+    setOptionsMap(CreateOptionsMap(options));
   }, [options]);
 
   return (

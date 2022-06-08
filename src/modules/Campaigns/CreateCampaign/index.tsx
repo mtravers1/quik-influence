@@ -43,6 +43,7 @@ import { leadsTableColumns } from 'utils/constants/leadsPageTableData';
 import { fetchPostJSON } from 'utils/apiHelpers';
 import DataTable from 'components/DataTable';
 import MultiSelectPopUp from 'components/MultiSelectPopUp';
+import CheckBox from 'components/Input/CheckBox';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
 
@@ -593,6 +594,11 @@ const CreateCampaign = ({
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
 
+      let smsObj = {};
+      if (type === 'SMS') {
+        smsObj = smsEmailRecord;
+      }
+
       const formDataObject = {
         type,
         name: inputs.name,
@@ -604,7 +610,7 @@ const CreateCampaign = ({
         formData: JSON.stringify(inputs.formData),
         campaignDate: inputs.campaignDate,
         prices: inputs.prices,
-        ...smsEmailRecord,
+        ...smsObj,
       };
       const response = initialdata
         ? await axiosInstance.put(
@@ -728,7 +734,7 @@ const CreateCampaign = ({
       </Text>
 
       <form action="post">
-        <OrderedList size="2xl" marginInlineStart="1.5em">
+        <OrderedList size="2xl" marginInlineStart="2em">
           {formdata.map((data, i) => {
             if (data.disabled) return null;
             if (!user.admin && data.name === 'postingDocUrl') return null;
@@ -783,6 +789,17 @@ const CreateCampaign = ({
                       handleChange={handleChange}
                       label={data.label}
                       initialImage={inputTypes[data.name]}
+                    />
+                  </ListItem>
+                );
+              case 'checkbox':
+                return (
+                  <ListItem key={`campaigne_form_${i}`} pt={8}>
+                    <CheckBox
+                      value={inputTypes[data.name]}
+                      name={data.name}
+                      handleChange={handleChange}
+                      label={data.label}
                     />
                   </ListItem>
                 );
