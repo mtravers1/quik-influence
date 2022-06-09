@@ -73,7 +73,11 @@ const EditableWrapper: FC<EditableWrapperProps> = props => {
       return;
     }
 
-    object[lastObj || 0] = isImage ? imgurl : element?.textContent;
+    if (isImage) {
+      object[lastObj || 0] = imgurl;
+    } else {
+      object[lastObj || 0] = element?.textContent;
+    }
 
     if (!object[lastObj || 0]) {
       return;

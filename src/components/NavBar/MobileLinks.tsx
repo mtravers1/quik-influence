@@ -78,9 +78,9 @@ const MobileLinks = ({
                 padding="10px 30px 10px 0"
                 overflow="hidden"
                 flexDir="column"
+                key={`nav_links_${i}`}
               >
                 <Box
-                  key={`nav_links_${i}`}
                   fontSize="16px"
                   fontWeight="600"
                   cursor="pointer"

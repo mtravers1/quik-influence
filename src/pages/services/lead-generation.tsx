@@ -11,7 +11,7 @@ import { CONTENT_URL } from 'utils/constants';
 import NavBar from 'components/NavBar';
 import Banner from 'components/HomePage/Banner';
 import Footer from 'components/HomePage/Footer';
-import Categories from 'components/HomePage/Categories/index';
+import ImgSec from 'components/HomePage/ImgSec';
 
 type IpageContent = {
   banner: any;
@@ -37,7 +37,7 @@ const Home = ({
       <main className={styles.main}>
         <NavBar links={nav[0].content.navLinks} />
         <Banner banner={pageContent.banner} />
-        <Categories info={pageContent.info} />
+        <ImgSec info={pageContent.info} imgOnly />
         <Footer footer={pageContent.footer} />
       </main>
     </>
