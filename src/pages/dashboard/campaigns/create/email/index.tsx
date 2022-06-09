@@ -1,11 +1,18 @@
 import MainContent from 'components/MainContent';
 import CreateCampaign from 'modules/Campaigns/CreateCampaign';
+import Head from 'next/head';
 
 const Create = () => {
   return (
-    <MainContent>
-      <CreateCampaign type="Email" initialdata={null} />
-    </MainContent>
+    <>
+      <Head>
+        <title>Create Email campaign - Quick Influence</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <MainContent>
+        <CreateCampaign type="Email" initialdata={null} />
+      </MainContent>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
-import { errorParser } from "utils/apiHelpers";
-import { DEFAULT_PAGE_SIZE } from "utils/constants";
-import { axiosInstance } from "utils/helpers";
+import { errorParser } from 'utils/apiHelpers';
+import { DEFAULT_PAGE_SIZE } from 'utils/constants';
+import { axiosInstance } from 'utils/helpers';
 import {
   CAMPAIGNS_LOADING,
   CAMPAIGNS,
@@ -11,20 +11,39 @@ import {
   ARCHIVE_CAMPAIGN,
   SET_SMS_CAMPAIGN,
   GET_CAMPAIGN_LEADS,
-  FIRST_TEN_CAMPAIGNS
-} from "../actionTypes";
+  FIRST_TEN_CAMPAIGNS,
+  JOINABLE_CAMPAIGNS_LOADING,
+  JOINABLE_CAMPAIGNS,
+  JOINABLE_CAMPAIGNS_ERROR,
+} from '../actionTypes';
+
+export const loadingJoinableCampaign =
+  () => async (dispatch: DispatchWithPayload) => {
+    dispatch({
+      type: JOINABLE_CAMPAIGNS_LOADING,
+      payload: true,
+    });
+  };
+
+export const doneloadingJoinableCampaign =
+  () => async (dispatch: DispatchWithPayload) => {
+    dispatch({
+      type: JOINABLE_CAMPAIGNS_LOADING,
+      payload: false,
+    });
+  };
 
 export const loading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: CAMPAIGNS_LOADING,
-    payload: true
+    payload: true,
   });
 };
 
 export const doneloading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: CAMPAIGNS_LOADING,
-    payload: false
+    payload: false,
   });
 };
 
@@ -44,13 +63,13 @@ export const getSingleCampaign =
 
       dispatch({
         type: GET_SINGLE_CAMPAIGN,
-        payload: campaign
+        payload: campaign,
       });
     } catch (error) {
       const errorMessage = errorParser(error);
       dispatch({
         type: CAMPAIGNS_ERROR,
-        payload: errorMessage
+        payload: errorMessage,
       });
     } finally {
       dispatch(doneloading());
@@ -58,7 +77,7 @@ export const getSingleCampaign =
   };
 
 export const getCampaigns =
-  (pageNumber = "1", pageSize = DEFAULT_PAGE_SIZE) =>
+  (pageNumber = '1', pageSize = DEFAULT_PAGE_SIZE) =>
   async (dispatch: any) => {
     dispatch(loading());
 
@@ -70,18 +89,82 @@ export const getCampaigns =
 
       dispatch({
         type: CAMPAIGNS,
-        payload: campaigns
+        payload: campaigns,
       });
     } catch (error) {
       const errorMessage = errorParser(error);
       dispatch({
         type: CAMPAIGNS_ERROR,
-        payload: errorMessage
+        payload: errorMessage,
       });
     } finally {
       dispatch(doneloading());
     }
   };
+
+export const getJoinableCampaigns =
+  (pageNumber = '1', pageSize = DEFAULT_PAGE_SIZE) =>
+  async (dispatch: any) => {
+    dispatch(loadingJoinableCampaign());
+
+    try {
+      const response = await axiosInstance.get(`/users/joinable-campaigns`);
+      const campaigns = response.data.data;
+
+      dispatch({
+        type: JOINABLE_CAMPAIGNS,
+        payload: campaigns,
+      });
+    } catch (error) {
+      const errorMessage = errorParser(error);
+      dispatch({
+        type: JOINABLE_CAMPAIGNS_ERROR,
+        payload: errorMessage,
+      });
+    } finally {
+      dispatch(doneloadingJoinableCampaign());
+    }
+  };
+
+export const getPendingCampaigns = async (pageNumber = '1', pageSize = DEFAULT_PAGE_SIZE) => {
+  try {
+    const response = await axiosInstance.get(`/users/pending-joinable-campaigns?page=${pageNumber}&pageSize=${DEFAULT_PAGE_SIZE}`);
+    const campaign = response.data.data.rows;
+
+    return campaign;
+  } catch (error) {
+    const errorMessage = errorParser(error);
+    return errorMessage;
+  }
+};
+
+export const modifyCampaignRequest = async (data: any) => {
+  try {
+    const response = await axiosInstance.put(`/users/modify-campaign-request`, {
+      ...data
+    });
+    const campaign = response.data.data;
+
+    return campaign;
+  } catch (error) {
+    const errorMessage = errorParser(error);
+    return errorMessage;
+  }
+};
+
+export const requestToBeAssignedThisCampaign = async (campaignId: string) => {
+  try {
+    const response = await axiosInstance.put(`/users/request-campaign`, {
+      campaignId,
+    });
+    const campaign = response.data.data;
+
+    return campaign;
+  } catch (error) {
+    const errorMessage = errorParser(error);
+    return errorMessage;
+  }
+};
 
 export const getFirst10Campaigns = () => async (dispatch: any) => {
   const response = await axiosInstance.get(
@@ -90,12 +173,12 @@ export const getFirst10Campaigns = () => async (dispatch: any) => {
 
   const campaigns = response.data.data.rows?.map((data: any) => ({
     name: data.name,
-    path: `/campaign/${data.id}`
+    path: `/campaign/${data.id}`,
   }));
 
   dispatch({
     type: FIRST_TEN_CAMPAIGNS,
-    payload: campaigns
+    payload: campaigns,
   });
 };
 
@@ -104,7 +187,7 @@ export const getCampaignLeads =
     campaignId: any,
     page: string,
     pageSize: string = DEFAULT_PAGE_SIZE,
-    sortBy = "createdAt",
+    sortBy = 'createdAt',
     filters: any = {}
   ) =>
   async (dispatch: any) => {
@@ -113,10 +196,10 @@ export const getCampaignLeads =
 
       const response = await axiosInstance.get(
         `/users/leads/${campaignId}?sortField=${sortBy}&orderBy=ASC&pageSize=${pageSize}&${
-          page ? `page=${page}` : ""
+          page ? `page=${page}` : ''
         }`,
         {
-          params: filters
+          params: filters,
         }
       );
 
@@ -132,17 +215,17 @@ export const getCampaignLeads =
               count,
               recieved,
               totalPages,
-              currentPage
-            }
+              currentPage,
+            },
           },
-          campaignId
-        }
+          campaignId,
+        },
       });
     } catch (error) {
       const errorMessage = errorParser(error);
       dispatch({
         type: CAMPAIGNS_ERROR,
-        payload: errorMessage
+        payload: errorMessage,
       });
     } finally {
       dispatch(doneloading());
@@ -155,24 +238,24 @@ export const updateCampaign =
 
     dispatch({
       type: UPDATE_CAMPAIGN,
-      payload: { campaignId, data }
+      payload: { campaignId, data },
     });
   };
 
 export const archiveCampaign = (campaignId: any) => async (dispatch: any) => {
   await axiosInstance.put(`/users/campaign/${campaignId}`, {
-    status: "archive"
+    status: 'archive',
   });
 
   dispatch({
     type: ARCHIVE_CAMPAIGN,
-    payload: campaignId
+    payload: campaignId,
   });
 };
 
 export const setSMSCampaign = (campaign: any) => async (dispatch: any) => {
   dispatch({
     type: SET_SMS_CAMPAIGN,
-    payload: campaign
+    payload: campaign,
   });
 };
