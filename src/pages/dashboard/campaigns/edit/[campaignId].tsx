@@ -5,6 +5,7 @@ import MainContent from 'components/MainContent';
 import CreateCampaign from 'modules/Campaigns/CreateCampaign';
 import { TablePageLoader } from 'components/SkeletonLoaders';
 import { getSingleCampaign } from 'redux/actions/campaigns';
+import Head from 'next/head';
 
 const Create = () => {
   const router = useRouter();
@@ -21,23 +22,27 @@ const Create = () => {
     }
   }, [loading, currentCampaign]);
 
-  return loading && !currentCampaign ? (
-    <MainContent>
-      <TablePageLoader />
-    </MainContent>
-  ) : (
-    <MainContent>
-      <CreateCampaign
-        initialdata={
-          {
-            ...currentCampaign,
-            formData: currentCampaign.formData.form.map(
-              (data: any) => data.name
-            ),
-          } || {}
-        }
-      />
-    </MainContent>
+  return (
+    <>
+      <Head>
+        <title>Edit Campaign - Quick Influence</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <MainContent>
+        {loading && !currentCampaign ? (
+          <TablePageLoader />
+        ) : (
+          <CreateCampaign
+            initialdata={
+              {
+                ...currentCampaign,
+                formData: JSON.parse(currentCampaign.formData),
+              } || {}
+            }
+          />
+        )}
+      </MainContent>
+    </>
   );
 };
 

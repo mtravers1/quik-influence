@@ -61,6 +61,7 @@ export default function Input({
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
     const requiredKeys = inputs?.reduce((acc: any, input: any) => {
       if (input.required || inputTypes[input.name]) {
@@ -155,6 +156,7 @@ export default function Input({
         isClosable: true,
       });
 
+      console.log(error);
       setLoading(false);
       return;
     }
@@ -185,16 +187,16 @@ export default function Input({
 
     switch (type) {
       case 'checkbox':
-        inputValue = !!checked;
+        inputValue = !inputTypes[name];
         break;
       default:
         inputValue = value;
     }
 
-    setInputTypes({
-      ...inputTypes,
+    setInputTypes((prevInputs: any) => ({
+      ...prevInputs,
       [name]: inputValue,
-    });
+    }));
   };
 
   const resetInputs = () => {

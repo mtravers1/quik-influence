@@ -2,7 +2,7 @@ import { Flex, Image, Box } from '@chakra-ui/react';
 import EditableWrapper from 'components/EditableWrapper';
 import Section from '../Section';
 
-const ImgSec = ({ info }: { info: any }) => {
+const ImgSec = ({ info, imgOnly }: { info: any; imgOnly?: boolean }) => {
   return (
     <Section
       background="#fff"
@@ -25,7 +25,11 @@ const ImgSec = ({ info }: { info: any }) => {
           marginTop={{ base: '80px', lg: '0' }}
         >
           <Box
-            width={{ base: '100%', sm: '80%', lg: '38%' }}
+            width={
+              imgOnly
+                ? { base: '100%' }
+                : { base: '100%', sm: '80%', lg: '38%' }
+            }
             height="fit-content"
             position="relative"
           >
@@ -45,24 +49,26 @@ const ImgSec = ({ info }: { info: any }) => {
             </EditableWrapper>
           </Box>
 
-          <Box
-            width={{ base: '100%', lg: '55%' }}
-            marginBottom={{ lg: 0, base: '40px' }}
-          >
-            <EditableWrapper
-              sectionId="header"
-              data={info}
-              sectionName="info"
-              as="h1"
-              color="red"
-              fontSize={{ base: '25px', lg: '50px', xl: '76px' }}
-              marginBottom="15px"
-              fontWeight="700"
-              textAlign={{ base: 'center', lg: 'left' }}
+          {!imgOnly && (
+            <Box
+              width={{ base: '100%', lg: '55%' }}
+              marginBottom={{ lg: 0, base: '40px' }}
             >
-              {info.content.header}
-            </EditableWrapper>
-          </Box>
+              <EditableWrapper
+                sectionId="header"
+                data={info}
+                sectionName="info"
+                as="h1"
+                color="red"
+                fontSize={{ base: '25px', lg: '50px', xl: '76px' }}
+                marginBottom="15px"
+                fontWeight="700"
+                textAlign={{ base: 'center', lg: 'left' }}
+              >
+                {info.content.header}
+              </EditableWrapper>
+            </Box>
+          )}
         </Flex>
       </Flex>
     </Section>

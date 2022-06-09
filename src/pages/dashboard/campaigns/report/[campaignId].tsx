@@ -8,6 +8,7 @@ import {
   getReportOpenDate,
   getReportUnsub,
 } from 'utils/helpers';
+import Head from 'next/head';
 
 const CampaignReports = () => {
   const router = useRouter();
@@ -57,14 +58,23 @@ const CampaignReports = () => {
     }));
   };
 
-  return isLoading ? (
-    <MainContent>
-      <TablePageLoader />
-    </MainContent>
-  ) : (
-    <MainContent>
-      <CampaignReport campaign={campaign} campaignReports={campaignReports} />
-    </MainContent>
+  return (
+    <>
+      <Head>
+        <title>Reporting and Tracking - Quick Influence</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <MainContent>
+        {isLoading ? (
+          <TablePageLoader />
+        ) : (
+          <CampaignReport
+            campaign={campaign}
+            campaignReports={campaignReports}
+          />
+        )}
+      </MainContent>
+    </>
   );
 };
 
