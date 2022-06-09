@@ -15,7 +15,7 @@ import {
   NumberDecrementStepper,
   Textarea,
 } from '@chakra-ui/react';
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { SyntheticEvent } from 'react';
 import quikColorConstants, {
   borderThemeColor,
 } from 'utils/constants/colorConstants';

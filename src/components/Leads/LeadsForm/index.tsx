@@ -4,6 +4,7 @@ import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import CustomButton from 'components/Button';
 import useInput from 'hooks/useForm';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import DropdownSelect from 'components/DropdownSelect';
 import CustomInput from 'components/CustomInput';
 import { axiosInstance } from 'utils/helpers';
 
@@ -14,6 +15,7 @@ const LeadsForm = ({
   form,
   paidType,
   showConsent = true,
+  postingDocUrl,
   lpCredentials,
 }: {
   campaignId?: string;
@@ -22,6 +24,7 @@ const LeadsForm = ({
   form: any;
   paidType?: string;
   showConsent?: boolean;
+  postingDocUrl?: string;
   lpCredentials?: string;
 }) => {
   const toast = createStandaloneToast();
@@ -104,43 +107,86 @@ const LeadsForm = ({
       flexGrow={1}
       alignItems="center"
     >
-      <Flex flexWrap="wrap" marginBottom={30} justifyContent="space-between">
-        {form?.map((data: any, i: number) => (
-          <FormControl
-            key={`contact_form_${i}`}
-            width="100%"
-            isInvalid={errors[data?.name]}
-            isRequired={data?.required}
-            margin="3px 0"
-          >
-            <CustomInput
-              name={data?.name}
-              placeholder={data?.label}
-              paddingLeft={50}
-              onChange={handleChange}
-              value={inputTypes[data?.name]}
-              datatest-id={`test-${data?.name}`}
-              options={data?.options}
-              type={data?.type}
-              icon={data?.icon as IconProp}
-            />
+      <Flex
+        flexWrap="wrap"
+        marginBottom={30}
+        justifyContent="space-between"
+        className="campaign-create"
+      >
+        {form?.map((data: any, i: number) => {
+          switch (data.type) {
+            case 'select':
+              return (
+                <FormControl
+                  key={`contact_form_${i}`}
+                  width="100%"
+                  isInvalid={errors[data?.name]}
+                  isRequired={data?.required}
+                  margin="3px 0"
+                >
+                  <DropdownSelect
+                    error={errors[data.name] ? data.errorMessage : undefined}
+                    onChange={handleChange}
+                    options={data.options || []}
+                    label={data.label}
+                    name={data.name}
+                    selected={inputTypes[data.name]}
+                    selectProps={{
+                      height: '4.5rem',
+                      fontSize: '1.4rem',
+                    }}
+                  />
+                </FormControl>
+              );
+            case 'text':
+            case 'date':
+            case 'number':
+            default:
+              return (
+                <FormControl
+                  key={`contact_form_${i}`}
+                  width="100%"
+                  isInvalid={errors[data?.name]}
+                  isRequired={data?.required}
+                  margin="3px 0"
+                >
+                  <CustomInput
+                    name={data?.name}
+                    placeholder={data?.label}
+                    paddingLeft={50}
+                    onChange={handleChange}
+                    value={inputTypes[data?.name]}
+                    s
+                    datatest-id={`test-${data?.name}`}
+                    options={data?.options}
+                    type={data?.type}
+                    // icon={data?.icon as IconProp}
+                  />
 
-            {errors[data.name] && (
-              <FormErrorMessage paddingLeft={50} fontSize={12}>
-                {data.errorMessage}
-              </FormErrorMessage>
-            )}
-          </FormControl>
-        ))}
+                  {errors[data.name] && (
+                    <FormErrorMessage paddingLeft={50} fontSize={12}>
+                      {data.errorMessage}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+              );
+          }
+        })}
         {showConsent && (
-          <Box p="10px">
+          <Flex p="10px" className="consent">
             <input
               type="checkbox"
               checked={submitForm}
               onChange={() => setSubmitForm(!submitForm)}
+              id="consent"
             />
 
-            <Box as="small" marginLeft="20px">
+            <Box
+              marginLeft="20px"
+              as="label"
+              htmlFor="consent"
+              cursor="pointer"
+            >
               By submitting yes, I consent to having a representative from
               QuikInfluence or their partners contact me at this number (insert
               submitted number) and/or this email (insert submitted email
@@ -149,7 +195,7 @@ const LeadsForm = ({
               required as a precondition for purchasing or receiving any
               property, goods or service.
             </Box>
-          </Box>
+          </Flex>
         )}
       </Flex>
 

@@ -20,12 +20,12 @@ phases:
       - echo "NEXT_PUBLIC_BACKEND_URL is $NEXT_PUBLIC_BACKEND_URL"
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 984575983798.dkr.ecr.us-east-1.amazonaws.com
       - echo Logging in to Amazon EKS...
-      - aws eks --region us-east-1 update-kubeconfig --name quik-influence-prod
+      - aws eks --region us-east-1 update-kubeconfig --name quikinfluence-staging
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - export IMAGE_REPO_NAME=quikinfluence-frontend
+      - export IMAGE_REPO_NAME=quikinfluence-staging-frontend
       - export VERSION_TAG=$(date '+%Y%m%d%H%M')
       - docker build -t $IMAGE_REPO_NAME:$VERSION_TAG .
       - docker tag $IMAGE_REPO_NAME:$VERSION_TAG $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$VERSION_TAG
@@ -36,9 +36,9 @@ phases:
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$VERSION_TAG
       - echo Entered the deploy phase...
       - aws sts get-caller-identity
-      - echo Deploying quikinfluence-frontend version VERSION_TAG to cluster
+      - echo Deploying quikinfluence-staging-frontend version VERSION_TAG to cluster
       - echo Entered the deploy phase...
-      - echo Deploying quikinfluence-frontend version VERSION_TAG to cluster
+      - echo Deploying quikinfluence-staging-frontend version VERSION_TAG to cluster
       - sed -i "s/AWS_ECR_URI/$AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com\/$IMAGE_REPO_NAME:$VERSION_TAG/g" k8.yml
       - grep image k8.yml
       - ./kubectl --kubeconfig='/root/.kube/config' config view

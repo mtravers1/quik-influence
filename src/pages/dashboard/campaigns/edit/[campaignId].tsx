@@ -36,9 +36,7 @@ const Create = () => {
             initialdata={
               {
                 ...currentCampaign,
-                formData: currentCampaign.formData.form.map(
-                  (data: any) => data.name
-                ),
+                formData: JSON.parse(currentCampaign.formData),
               } || {}
             }
           />

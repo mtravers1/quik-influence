@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Heading,
   Flex,
@@ -41,6 +42,10 @@ import { urlify } from 'utils/urilify';
 import { leadsTableColumns } from 'utils/constants/leadsPageTableData';
 import { fetchPostJSON } from 'utils/apiHelpers';
 import DataTable from 'components/DataTable';
+import MultiSelectPopUp from 'components/MultiSelectPopUp';
+import CheckBox from 'components/Input/CheckBox';
+import { hasPermission } from 'utils/helpers';
+import { MARKETING_ADMIN } from 'utils/constants';
 
 type CreateCampaignType = 'SMS' | 'Email' | 'Default';
 
@@ -50,17 +55,6 @@ const selectLabelProps = {
 };
 
 const selectProps = { height: '3rem', width: '30rem', fontSize: '1.4rem' };
-
-const getFormFields = (inputs: string[]) => {
-  if (!inputs) return;
-  return formFieldsData.reduce((acc: any, fields: any) => {
-    if (inputs.includes(fields.name)) {
-      return [...acc, { ...fields, pattern: fields.pattern.toString() }];
-    }
-
-    return acc;
-  }, []);
-};
 
 const CreateCampaign = ({
   initialdata,
@@ -76,6 +70,8 @@ const CreateCampaign = ({
 
   const [checkedItems, setCheckedItems] = useState<any>([]);
   const [myLeadData, setMyLeadData] = useState<any>([]);
+
+  const { permissions } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
     getMyLeads();
@@ -589,7 +585,11 @@ const CreateCampaign = ({
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
 
-      const formFieldsInput = getFormFields(inputs.formData);
+      let smsObj = {};
+      if (type === 'SMS') {
+        smsObj = smsEmailRecord;
+      }
+
       const formDataObject = {
         type,
         name: inputs.name,
@@ -598,10 +598,10 @@ const CreateCampaign = ({
         redirectUrl: inputs.redirectUrl,
         paidType: inputs.paidType,
         banner: inputs.banner,
-        formData: { form: formFieldsInput },
+        formData: JSON.stringify(inputs.formData),
         campaignDate: inputs.campaignDate,
         prices: inputs.prices,
-        ...smsEmailRecord,
+        ...smsObj,
       };
       const response = initialdata
         ? await axiosInstance.put(
@@ -725,9 +725,15 @@ const CreateCampaign = ({
       </Text>
 
       <form action="post">
-        <OrderedList size="2xl">
+        <OrderedList size="2xl" marginInlineStart="2em">
           {formdata.map((data, i) => {
             if (data.disabled) return null;
+            if (
+              !hasPermission(MARKETING_ADMIN, permissions) &&
+              data.name === 'isJoinable'
+            )
+              return null;
+
             switch (data.type) {
               case 'select':
                 return (
@@ -749,8 +755,8 @@ const CreateCampaign = ({
               case 'multi-select':
                 return (
                   <ListItem key={`campaigne_form_${i}`}>
-                    <MultiSelect
-                      selectOptions={data.options as DropdownSelectOption[]}
+                    <MultiSelectPopUp
+                      // selectOptions={data.options as DropdownSelectOption[]}
                       label={data.label}
                       extraLabel={data.extraLabel ?? data.extraLabel}
                       handleChange={handleChange}
@@ -778,6 +784,17 @@ const CreateCampaign = ({
                       handleChange={handleChange}
                       label={data.label}
                       initialImage={inputTypes[data.name]}
+                    />
+                  </ListItem>
+                );
+              case 'checkbox':
+                return (
+                  <ListItem key={`campaigne_form_${i}`} pt={8}>
+                    <CheckBox
+                      value={inputTypes[data.name]}
+                      name={data.name}
+                      handleChange={handleChange}
+                      label={data.label}
                     />
                   </ListItem>
                 );

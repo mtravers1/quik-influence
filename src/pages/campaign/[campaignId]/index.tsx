@@ -10,13 +10,14 @@ import {
   Image,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Head from 'next/head';
 import { bgThemeColor } from 'utils/constants/colorConstants';
 import LeadsForm from 'components/Leads/LeadsForm';
 import { useRouter } from 'next/router';
 import { loadStripe } from '@stripe/stripe-js';
 import { axiosInstance } from 'utils/helpers';
 import compulsoryFields from 'utils/constants/formData/leads';
-import Head from 'next/head';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ''
@@ -37,6 +38,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const lpUrl = query.lp as string;
   const { colorMode } = useColorMode();
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+  const { formInputs: options } = useSelector((state: any) => state.generals);
 
   const handleStripe = async (email: string, success?: boolean) => {
     if (data.paidType === 'PAID') {
@@ -63,9 +65,24 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
     }
   };
 
-  const getFormFields = (optionalFields: any) => {
-    if (!optionalFields) return compulsoryFields;
-    return [...compulsoryFields, ...optionalFields];
+  const getFormFields = () => {
+    const fields: any = [];
+    const formInputs = options.reduce(
+      (acc: any, cur: any) => ({
+        ...acc,
+        [cur.id]: JSON.parse(cur.meta),
+      }),
+      {}
+    );
+
+    const choosenFields = JSON.parse(data.formData);
+
+    choosenFields.forEach((field: any) => {
+      fields.push(formInputs[field]);
+    });
+
+    if (!fields.length) return compulsoryFields;
+    return [...compulsoryFields, ...fields];
   };
 
   if (!data) window.location.href = '/404';
@@ -137,7 +154,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                       // handleStripe={handleStripe}
                       lpCredentials={lpUrl}
                       redirectUrl={data?.redirectUrl}
-                      form={getFormFields(data?.formData?.form)}
+                      form={getFormFields()}
                       paidType={data?.paidType}
                     />
                   </Box>
