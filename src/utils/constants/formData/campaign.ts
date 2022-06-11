@@ -112,14 +112,14 @@ export default [
     extraLabel: '(add as many as apply)',
   },
 
-  {
-    name: 'redirectUrl',
-    label: 'Redirect Url',
-    errorMessage: 'Enter a valid URL e.g: http://test.com/something',
-    required: true,
-    type: 'text',
-    pattern: URL_REGEX,
-  },
+  // {
+  //   name: 'redirectUrl',
+  //   label: 'Redirect Url',
+  //   errorMessage: 'Enter a valid URL e.g: http://test.com/something',
+  //   required: true,
+  //   type: 'text',
+  //   pattern: URL_REGEX,
+  // },
   // {
   //   name: 'postingDocUrl',
   //   label: 'Posting Doc Url',

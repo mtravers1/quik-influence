@@ -729,7 +729,7 @@ const CreateCampaign = ({
           {formdata.map((data, i) => {
             if (data.disabled) return null;
             if (
-              !hasPermission(MARKETING_ADMIN, permissions) &&
+              hasPermission(MARKETING_ADMIN, permissions) &&
               data.name === 'isJoinable'
             )
               return null;
