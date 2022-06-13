@@ -10,6 +10,7 @@ import {
   FormLabel,
   useColorMode,
   Box,
+  HStack,
 } from '@chakra-ui/react';
 import CustomButton from 'components/Button';
 import DropdownSelect, {
@@ -67,6 +68,7 @@ const CreateCampaign = ({
   const { colorMode } = useColorMode();
   const router = useRouter();
   const [isSending, setIsSending] = useState(false);
+  const [isJoinable, setIsJoinable] = useState(false);
 
   const [checkedItems, setCheckedItems] = useState<any>([]);
   const [myLeadData, setMyLeadData] = useState<any>([]);
@@ -603,6 +605,21 @@ const CreateCampaign = ({
         prices: inputs.prices,
         ...smsObj,
       };
+      if (inputs.isJoinable && !inputs.expectedResponse) {
+        //@ts-ignore
+        formDataObject = {
+          ...formDataObject,
+          postingDocUrl: inputs.postingDocUrl,
+          isJoinable: inputs.isJoinable,
+          expectedResponse: {
+            successKey: inputs.successKey,
+            successValue: inputs.successValue,
+            failureKey: inputs.failureKey,
+            failureValue: inputs.failureValue,
+          },
+        };
+      }
+
       const response = initialdata
         ? await axiosInstance.put(
             `/users/campaign/${initialdata.id}`,
@@ -793,12 +810,83 @@ const CreateCampaign = ({
                     <CheckBox
                       value={inputTypes[data.name]}
                       name={data.name}
-                      handleChange={handleChange}
+                      handleChange={(e: any) => {
+                        if (data.name === 'isJoinable') {
+                          setIsJoinable(
+                            inputTypes['isJoinable'] || !isJoinable
+                          );
+                        }
+                        handleChange(e);
+                      }}
                       label={data.label}
                     />
                   </ListItem>
                 );
+              case 'key_value':
+                if (
+                  data.name === 'expectedResponse' &&
+                  !inputTypes['isJoinable']
+                )
+                  return null;
+                if (
+                  data.name === 'successKey' ||
+                  data.name === 'failureKey' ||
+                  data.name === 'successValue' ||
+                  data.name === 'failureValue'
+                )
+                  return null;
+                // console.log('name >>> ', inputTypes[data.name]);
+                return (
+                  <ListItem key={`campaigne_form_${i}`}>
+                    <Text mt={10} fontWeight="500" fontSize="16px">
+                      {data.label}
+                    </Text>
+                    {data?.fields &&
+                      data?.fields.map(item => (
+                        <HStack key={item.keyName} maxW="400px">
+                          <TextInput
+                            error={
+                              errors[item.keyName]
+                                ? data.errorMessage
+                                : undefined
+                            }
+                            name={item.keyName}
+                            value={inputTypes[data.name][item.keyName] || ''}
+                            formControlProps={{
+                              pt: 8,
+                              maxW: '20rem',
+                            }}
+                            handleChange={handleChange}
+                            type={data.type}
+                            placeholder={item.keyName}
+                            TextInputProps={{}}
+                            extraLabel={data.extraLabel ?? data.extraLabel}
+                          />
+                          <TextInput
+                            error={
+                              errors[item.valueName]
+                                ? data.errorMessage
+                                : undefined
+                            }
+                            name={item.valueName}
+                            value={inputTypes[data.name][item.valueName] || ''}
+                            formControlProps={{
+                              pt: 8,
+                              maxW: '20rem',
+                            }}
+                            handleChange={handleChange}
+                            type={data.type}
+                            placeholder={item.valueName}
+                            TextInputProps={{}}
+                            extraLabel={data.extraLabel ?? data.extraLabel}
+                          />
+                        </HStack>
+                      ))}
+                  </ListItem>
+                );
               default:
+                if (data.name === 'postingDocUrl' && !inputTypes['isJoinable'])
+                  return null;
                 return (
                   <ListItem key={`campaigne_form_${i}`}>
                     <TextInput
