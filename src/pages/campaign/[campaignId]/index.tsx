@@ -75,7 +75,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
       {}
     );
 
-    const choosenFields = JSON.parse(data.formData);
+    const choosenFields = data.formData;
 
     choosenFields.forEach((field: any) => {
       fields.push(formInputs[field]);
