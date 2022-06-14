@@ -600,7 +600,7 @@ const CreateCampaign = ({
         redirectUrl: inputs.redirectUrl,
         paidType: inputs.paidType,
         banner: inputs.banner,
-        formData: JSON.stringify(inputs.formData),
+        formData: inputs.formData,
         campaignDate: inputs.campaignDate,
         prices: inputs.prices,
         ...smsObj,
