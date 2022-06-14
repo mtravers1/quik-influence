@@ -14,12 +14,14 @@ import { useRouter } from 'next/router';
 import { basicTheme } from 'utils/constants/colorConstants';
 import Pagination from 'components/Pagination';
 import { getStyles } from './css';
-import { getSocialHandleHeader, isAdmin } from 'utils/helpers';
+import { getSocialHandleHeader, hasPermission, isAdmin } from 'utils/helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import NoLeadsAvailable from './NoLeadsAvailable';
 import LeadsDataPoint from './LeadsDataPoint';
+import { useSelector } from 'react-redux';
+import { MARKETING_ADMIN } from 'utils/constants';
 
 const LeadsPage = ({
   leads,
@@ -38,6 +40,8 @@ const LeadsPage = ({
   const style = getStyles(colorMode);
   const isLeadsDataPoint = leads?.resType === 'LEADS_DATA_POINTS';
   const isAllowed = isAdmin();
+  const permissions = useSelector((state: any) => state.auth.permissions);
+  const hasPerm = hasPermission([...MARKETING_ADMIN], permissions);
 
   const handleChange = (page: any) => {
     params.page = page;
@@ -61,8 +65,11 @@ const LeadsPage = ({
     'City|State|Zip Code',
     ...sc,
     ...status,
-    'Posting Response',
   ];
+
+  if (hasPerm) {
+    tableHeader.push('Posting Response');
+  }
 
   const renderPagination = () => (
     <>
@@ -137,81 +144,82 @@ const LeadsPage = ({
               </Thead>
 
               <Tbody>
-                {leads?.data.map((data: any, i: number) => (
-                  <Tr key={`lead_data_${i}`}>
-                    <Td
-                      whiteSpace="nowrap"
-                      textTransform="capitalize"
-                      fontSize="16px"
-                    >
-                      {data.firstName || 'N/A'}
-                    </Td>
-                    <Td
-                      whiteSpace="nowrap"
-                      textTransform="capitalize"
-                      fontSize="16px"
-                    >
-                      {data.lastName || 'N/A'}
-                    </Td>
-                    <Td whiteSpace="nowrap" fontSize="16px">
-                      {data.email || 'N/A'}
-                    </Td>
-                    <Td
-                      textTransform="capitalize"
-                      fontSize="16px"
-                      whiteSpace="nowrap"
-                    >
-                      {data.phone}
-                    </Td>
-                    <Td
-                      textTransform="capitalize"
-                      fontSize="16px"
-                      whiteSpace="nowrap"
-                    >
-                      {data.gender || 'N/A'}
-                    </Td>
-                    {/* <Td>
-                      {(data.dateOfBirth &&
-                        format(new Date(data.dateOfBirth), "yyyy-mm-dd")) ||
-                        "N/A"}
-                    </Td> */}
-                    <Td
-                      textTransform="capitalize"
-                      fontSize="16px"
-                      whiteSpace="nowrap"
-                    >
-                      {`${data.city || ''} ${data.state || ''} ${
-                        data.postalCode || ''
-                      }`}
-                    </Td>
-                    {socialColumns.length >= 1 &&
-                      !!socialColumns[0] &&
-                      socialColumns?.map((s: string, j: number) => (
-                        <Td
-                          key={`social_${j}`}
-                          fontSize="16px"
-                          whiteSpace="nowrap"
-                        >
-                          {data[s] || 'N/A'}
-                        </Td>
-                      ))}
-                    {status.length > 0 && (
-                      <Td fontSize="16px" whiteSpace="nowrap">
-                        {data?.UserCampaigns?.at(0)?.paymentStatus}
-                      </Td>
-                    )}
-                    {data?.UserCampaigns[0].postingResponse.response ? (
+                {leads?.data.map((data: any, i: number) => {
+                  if (
+                    data?.UserCampaigns[0] &&
+                    !data?.UserCampaigns[0].isPostingSuccess &&
+                    !hasPerm
+                  )
+                    return null;
+                  return (
+                    <Tr key={`lead_data_${i}`}>
                       <Td
+                        whiteSpace="nowrap"
+                        textTransform="capitalize"
+                        fontSize="16px"
+                      >
+                        {data.firstName || 'N/A'}
+                      </Td>
+                      <Td
+                        whiteSpace="nowrap"
+                        textTransform="capitalize"
+                        fontSize="16px"
+                      >
+                        {data.lastName || 'N/A'}
+                      </Td>
+                      <Td whiteSpace="nowrap" fontSize="16px">
+                        {data.email || 'N/A'}
+                      </Td>
+                      <Td
+                        textTransform="capitalize"
                         fontSize="16px"
                         whiteSpace="nowrap"
                       >
-                        {`${data?.UserCampaigns[0].postingResponse.response.result} |
+                        {data.phone}
+                      </Td>
+                      <Td
+                        textTransform="capitalize"
+                        fontSize="16px"
+                        whiteSpace="nowrap"
+                      >
+                        {data.gender || 'N/A'}
+                      </Td>
+                      <Td
+                        textTransform="capitalize"
+                        fontSize="16px"
+                        whiteSpace="nowrap"
+                      >
+                        {`${data.city || ''} ${data.state || ''} ${
+                          data.postalCode || ''
+                        }`}
+                      </Td>
+                      {socialColumns.length >= 1 &&
+                        !!socialColumns[0] &&
+                        socialColumns?.map((s: string, j: number) => (
+                          <Td
+                            key={`social_${j}`}
+                            fontSize="16px"
+                            whiteSpace="nowrap"
+                          >
+                            {data[s] || 'N/A'}
+                          </Td>
+                        ))}
+                      {status.length > 0 && (
+                        <Td fontSize="16px" whiteSpace="nowrap">
+                          {data?.UserCampaigns?.at(0)?.paymentStatus}
+                        </Td>
+                      )}
+                      {hasPerm &&
+                      data?.UserCampaigns[0].postingResponse.response ? (
+                        <Td fontSize="16px" whiteSpace="nowrap">
+                          {`${data?.UserCampaigns[0].postingResponse.response.result} |
                         ${data?.UserCampaigns[0].postingResponse.response.msg} |
                         ${data?.UserCampaigns[0].postingResponse.response.errors[0].error}`}
-                      </Td>
-                    ) : 'null'}
-                  </Tr>
-                ))}
+                        </Td>
+                      ) : null}
+                    </Tr>
+                  );
+                })}
               </Tbody>
             </Table>
           </Box>
