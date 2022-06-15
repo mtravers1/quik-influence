@@ -72,6 +72,14 @@ const MultiSelectPopUp: React.FC<MultiSelectProps> = ({
   };
 
   useEffect(() => {
+    if (!selectedValue.length) {
+      handleChange({
+        target: { name, value: undefined },
+      });
+
+      return;
+    }
+
     handleChange({
       target: { name, value: selectedValue },
     });

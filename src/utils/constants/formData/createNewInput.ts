@@ -61,7 +61,7 @@ export default [
     name: 'required',
     label: 'Should input be required?',
     errorMessage: 'Choose',
-    required: true,
+    required: false,
     type: 'checkbox',
     pattern: FREE_TEXT_REGEX,
   },
