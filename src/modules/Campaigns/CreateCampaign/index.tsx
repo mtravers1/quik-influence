@@ -28,7 +28,6 @@ import quikColorConstants, {
 import formdata from 'utils/constants/formData/campaign';
 import smsFormdata from 'utils/constants/formData/campaignSMS';
 import emailFormdata from 'utils/constants/formData/campaignEmail';
-import formFieldsData from 'utils/constants/formData/closeFriends';
 import MultiRangeSelector, { Range } from './MultiRangeSelector';
 import MultiSelect from './MultiSelect';
 import loader from 'assets/loader.gif';
@@ -643,6 +642,8 @@ const CreateCampaign = ({
       }
     },
   });
+
+  console.log(inputTypes, errors);
 
   if (type === 'SMS') {
     return (
