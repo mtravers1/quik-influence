@@ -58,13 +58,13 @@ const LeadsForm = ({
       newInputs = Object.keys(newInputs).reduce(
         (acc: any, key: string) => {
           if (choosenFields.includes(key) && key.toLowerCase() !== 'gender') {
-            acc.optional[key] = newInputs[key];
+            acc.optionalValues[key] = newInputs[key];
             delete newInputs[key];
           } else acc[key] = newInputs[key];
 
           return acc;
         },
-        { optional: {} }
+        { optionalValues: {} }
       );
 
       payload = Object.assign({}, newInputs);
