@@ -17,6 +17,7 @@ const LeadsForm = ({
   showConsent = true,
   postingDocUrl,
   lpCredentials,
+  choosenFields = [],
 }: {
   campaignId?: string;
   handleStripe?: (email: string, success?: boolean) => {};
@@ -26,6 +27,7 @@ const LeadsForm = ({
   showConsent?: boolean;
   postingDocUrl?: string;
   lpCredentials?: string;
+  choosenFields?: string[];
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
@@ -51,12 +53,25 @@ const LeadsForm = ({
         url = '/users/admin/';
       }
 
-      payload = {
-        ...inputs,
-      };
+      let newInputs = Object.assign({}, inputs);
+
+      newInputs = Object.keys(newInputs).reduce(
+        (acc: any, key: string) => {
+          if (choosenFields.includes(key) && key.toLowerCase() !== 'gender') {
+            acc.optional[key] = newInputs[key];
+            delete newInputs[key];
+          } else acc[key] = newInputs[key];
+
+          return acc;
+        },
+        { optional: {} }
+      );
+
+      payload = Object.assign({}, newInputs);
 
       if (!!lpCredentials) {
-        const [lp_campaign_id, lp_campaign_key, campaignAdminId] = lpCredentials.split('_');
+        const [lp_campaign_id, lp_campaign_key, campaignAdminId] =
+          lpCredentials.split('_');
         payload = {
           ...payload,
           // lp_campaign_id,
