@@ -146,7 +146,7 @@ const LeadsPage = ({
               <Tbody>
                 {leads?.data.map((data: any, i: number) => {
                   if (
-                    data?.UserCampaigns[0] &&
+                    data?.UserCampaigns &&
                     !data?.UserCampaigns[0].isPostingSuccess &&
                     !hasPerm
                   )
@@ -210,6 +210,7 @@ const LeadsPage = ({
                         </Td>
                       )}
                       {hasPerm &&
+                      data?.UserCampaigns &&
                       data?.UserCampaigns[0].postingResponse.response ? (
                         <Td fontSize="16px" whiteSpace="nowrap">
                           {`${data?.UserCampaigns[0].postingResponse.response.result} |
