@@ -43,7 +43,7 @@ const getFormFields = (options: any, data: any) => {
     {}
   );
 
-  const choosenFields = data.formData;
+  const choosenFields = data.formData || [];
 
   choosenFields.forEach((field: any) => {
     fields.push(formInputs[field]);
@@ -52,7 +52,7 @@ const getFormFields = (options: any, data: any) => {
   const choosenFieldsList = fields.map((field: any) => field.name);
   const allFieldsSet = [...compulsoryFields, ...fields];
 
-  if (!fields.length) return compulsoryFields;
+  if (!fields.length) return { allFieldsSet };
   return { choosenFieldsList, allFieldsSet };
 };
 
