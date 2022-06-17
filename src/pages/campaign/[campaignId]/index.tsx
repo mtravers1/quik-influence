@@ -33,12 +33,36 @@ const getPaymentInfo = (amount: string) => {
   };
 };
 
+const getFormFields = (options: any, data: any) => {
+  const fields: any = [];
+  const formInputs = options.reduce(
+    (acc: any, cur: any) => ({
+      ...acc,
+      [cur.id]: JSON.parse(cur.meta),
+    }),
+    {}
+  );
+
+  const choosenFields = data.formData;
+
+  choosenFields.forEach((field: any) => {
+    fields.push(formInputs[field]);
+  });
+
+  const choosenFieldsList = fields.map((field: any) => field.name);
+  const allFieldsSet = [...compulsoryFields, ...fields];
+
+  if (!fields.length) return compulsoryFields;
+  return { choosenFieldsList, allFieldsSet };
+};
+
 const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const { query } = useRouter();
   const lpUrl = query.lp as string;
   const { colorMode } = useColorMode();
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const { formInputs: options } = useSelector((state: any) => state.generals);
+  const [allFields] = useState<any>(getFormFields(options, data));
 
   const handleStripe = async (email: string, success?: boolean) => {
     if (data.paidType === 'PAID') {
@@ -63,26 +87,6 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
     } else if (success) {
       setShowSuccessMessage(true);
     }
-  };
-
-  const getFormFields = () => {
-    const fields: any = [];
-    const formInputs = options.reduce(
-      (acc: any, cur: any) => ({
-        ...acc,
-        [cur.id]: JSON.parse(cur.meta),
-      }),
-      {}
-    );
-
-    const choosenFields = data.formData;
-
-    choosenFields.forEach((field: any) => {
-      fields.push(formInputs[field]);
-    });
-
-    if (!fields.length) return compulsoryFields;
-    return [...compulsoryFields, ...fields];
   };
 
   if (!data) window.location.href = '/404';
@@ -154,7 +158,8 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                       // handleStripe={handleStripe}
                       lpCredentials={lpUrl}
                       redirectUrl={data?.redirectUrl}
-                      form={getFormFields()}
+                      form={allFields.allFieldsSet}
+                      choosenFields={allFields.choosenFieldsList}
                       paidType={data?.paidType}
                     />
                   </Box>
