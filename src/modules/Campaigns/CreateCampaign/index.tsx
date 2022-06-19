@@ -643,8 +643,6 @@ const CreateCampaign = ({
     },
   });
 
-  console.log(inputTypes, errors);
-
   if (type === 'SMS') {
     return (
       <Flex flexDirection="column">

@@ -13,6 +13,8 @@ export default [
       { label: 'Text', value: 'text' },
       { label: 'Select', value: 'select' },
       { label: 'Multi Select', value: 'multi-select' },
+      { label: 'Checkbox', value: 'checkbox' },
+      { label: 'Radio', value: 'radio' },
     ],
     pattern: FREE_TEXT_REGEX,
   },

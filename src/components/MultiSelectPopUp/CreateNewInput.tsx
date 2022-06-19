@@ -104,7 +104,8 @@ const CreateNewInput: FC<{ close: Function }> = ({ close }) => {
             })}
 
             {(inputTypes.type === 'select' ||
-              inputTypes.type === 'multi-select') && (
+              inputTypes.type === 'multi-select' ||
+              inputTypes.type === 'radio') && (
               <SelectOptionsSelector onChange={handleChange} name={'options'} />
             )}
           </Box>

@@ -84,3 +84,50 @@ a {
   grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   grid-gap: 30px;
 }
+
+.input-div.radx {
+  width: 100%;
+}
+
+.rad_options {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+.rad_options::before {
+  content: '';
+  box-shadow: 0 0 0 2px #26a595;
+  top: 10%;
+  transform: unset;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}
+
+.rad_options.light::before {
+  box-shadow: 0 0 0 2px #000;
+}
+
+.rad_options.dark::before {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.rad_options.selected.light::before {
+  background: black;
+  border: 2px solid white;
+}
+
+.rad_options.selected.dark::before {
+  background: white;
+  border: 2px solid black;
+}
+
+.leads-form .multi-select {
+  padding-top: 0;
+}
