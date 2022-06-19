@@ -46,8 +46,6 @@ const MultiSelectPopUp: React.FC<MultiSelectProps> = ({
 }) => {
   const { formInputs: options } = useSelector((state: any) => state.generals);
 
-  console.log(initialvalue);
-
   const { colorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<any>(initialvalue || []);
