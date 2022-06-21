@@ -53,7 +53,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   };
 
   return (
-    <Box maxW="30rem" minW="30rem" pt={8}>
+    <Box maxW="30rem" minW="30rem" pt={8} className="multi-select">
       <DropdownSelect
         onChange={handleMultiSelectChange}
         options={selectOptions || []}

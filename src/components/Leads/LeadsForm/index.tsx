@@ -7,6 +7,9 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import DropdownSelect from 'components/DropdownSelect';
 import CustomInput from 'components/CustomInput';
 import { axiosInstance } from 'utils/helpers';
+import Radio from 'components/Radio';
+import CheckBox from 'components/Input/CheckBox';
+import MultiSelect from 'modules/Campaigns/CreateCampaign/MultiSelect';
 
 const LeadsForm = ({
   campaignId,
@@ -121,13 +124,9 @@ const LeadsForm = ({
       flexDirection="column"
       flexGrow={1}
       alignItems="center"
+      className="leads-form"
     >
-      <Flex
-        flexWrap="wrap"
-        marginBottom={30}
-        justifyContent="space-between"
-        className="campaign-create"
-      >
+      <Flex flexWrap="wrap" marginBottom={30} justifyContent="space-between">
         {form?.map((data: any, i: number) => {
           switch (data.type) {
             case 'select':
@@ -151,8 +150,83 @@ const LeadsForm = ({
                       fontSize: '1.4rem',
                     }}
                   />
+
+                  {errors[data.name] && (
+                    <FormErrorMessage paddingLeft={50} fontSize={12}>
+                      {data.errorMessage}
+                    </FormErrorMessage>
+                  )}
                 </FormControl>
               );
+            case 'multi-select':
+              return (
+                <FormControl
+                  borderWidth={1}
+                  borderColor="grey.200"
+                  padding="10px 10px 10px 30px"
+                  borderRadius={20}
+                  margin="3px 0"
+                >
+                  <MultiSelect
+                    selectOptions={data.options}
+                    label={data.label}
+                    handleChange={handleChange}
+                    name={data.name}
+                    error={errors[data.name] ? data.errorMessage : undefined}
+                    
+                  />
+                </FormControl>
+              );
+
+            case 'radio':
+              return (
+                <FormControl
+                  borderWidth={1}
+                  borderColor="grey.200"
+                  padding="10px 10px 10px 30px"
+                  borderRadius={20}
+                  margin="3px 0"
+                >
+                  <Radio
+                    name={data.name}
+                    label={data.label}
+                    inputs={data.options || []}
+                    handleSelect={handleChange}
+                    value={inputTypes[data.name]}
+                  />
+
+                  {errors[data.name] && (
+                    <FormErrorMessage paddingLeft={50} fontSize={12}>
+                      {data.errorMessage}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+              );
+            case 'checkbox':
+              return (
+                <FormControl
+                  borderWidth={1}
+                  borderColor="grey.200"
+                  padding="10px 10px 10px 30px"
+                  borderRadius={40}
+                  margin="3px 0"
+                >
+                  <CheckBox
+                    value={inputTypes[data.name]}
+                    name={data.name}
+                    handleChange={handleChange}
+                    label={data.label}
+                  />
+
+                  {errors[data.name] && (
+                    <FormErrorMessage paddingLeft={50} fontSize={12}>
+                      {data.errorMessage}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+              );
+
+            case 'textarea':
             case 'text':
             case 'date':
             case 'number':

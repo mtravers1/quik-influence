@@ -234,7 +234,6 @@ const ImageSection: FC<ImageSectionProps> = ({
   };
 
   const handleDialogClose = () => {
-    console.log('dialog close');
     showLoader(false);
   };
 
