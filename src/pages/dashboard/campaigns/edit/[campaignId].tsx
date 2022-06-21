@@ -36,7 +36,7 @@ const Create = () => {
             initialdata={
               {
                 ...currentCampaign,
-                formData: JSON.parse(currentCampaign.formData),
+                formData: currentCampaign.formData,
               } || {}
             }
           />
