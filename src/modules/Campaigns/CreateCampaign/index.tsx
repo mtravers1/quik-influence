@@ -850,7 +850,7 @@ const CreateCampaign = ({
                                 : undefined
                             }
                             name={item.keyName}
-                            value={inputTypes[data.name][item.keyName] || ''}
+                            value={inputTypes[item.keyName] || ''}
                             formControlProps={{
                               pt: 8,
                               maxW: '20rem',
@@ -868,7 +868,7 @@ const CreateCampaign = ({
                                 : undefined
                             }
                             name={item.valueName}
-                            value={inputTypes[data.name][item.valueName] || ''}
+                            value={inputTypes[item.valueName] || ''}
                             formControlProps={{
                               pt: 8,
                               maxW: '20rem',
