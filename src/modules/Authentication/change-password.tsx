@@ -1,52 +1,69 @@
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useToast } from '@chakra-ui/react';
 import Image from 'next/image';
 import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
-import formdata from 'utils/constants/formData/login';
+import formdata from 'utils/constants/formData/change-password';
 import { FormControl, FormErrorMessage, Box, Flex } from '@chakra-ui/react';
 import { axiosInstance } from 'utils/helpers';
-import { login } from 'redux/actions/auth';
 import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
-import Link from 'next/link';
 
-const Login = () => {
-  const dispatch = useDispatch();
+export const ChangePasswordPage = () => {
   const router = useRouter();
   const toast = useToast();
+  const [loadingResend, setLoadingResend] = useState<boolean>();
 
-  const { redirect } = router.query;
+  const { redirect, email } = router.query;
 
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
     cb: async inputs => {
-      const response = await axiosInstance.post('/auth/admin/login', {
-        email: inputs.email,
-        password: inputs.loginPassword,
-      });
+      if (inputs.password !== inputs.confirm_password) {
+        return toast({
+          title: `Your passwords don't match`,
+          description: '',
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+          position: 'top-right',
+        });
+      }
 
-      dispatch(login(response.data.data));
-
-      toast({
-        title: `Welcome back ${response.data.data.firstName}`,
-        description: '',
-        status: 'success',
-        duration: 4000,
-        isClosable: true,
+      await axiosInstance.put('/auth/admin/resetPassword', {
+        email,
+        password: inputs.password,
+        otp: inputs.otp,
       });
 
       if (redirect) return router.push(redirect as string);
 
-      router.push('/dashboard');
+      router.push('/login');
     },
   });
 
+  const resendOtp = async () => {
+    if (loadingResend) return;
+
+    setLoadingResend(true);
+
+    try {
+      await axiosInstance.patch('/auth/admin/forgotPassword', {
+        email,
+      });
+    } catch (err) {}
+
+    setLoadingResend(false);
+  };
+
   return (
     <form action="post">
-      <Box marginBottom="15px">
+      <Box
+        marginBottom="15px"
+        borderTop={`1px solid ${quikColorConstants.influenceRed}`}
+      >
         {formdata.map((data, i) => (
           <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
             <TextInput
@@ -74,17 +91,19 @@ const Login = () => {
         ))}
       </Box>
 
-      <Flex justifyContent="flex-end">
-        <Link href="/reset-password">
-          <Box
-            as="p"
-            color={quikColorConstants.influenceRed}
-            cursor="pointer"
-            fontWeight="bold"
-          >
-            Forgot Password ?
-          </Box>
-        </Link>
+      <Flex justifyContent="flex-end" alignItems="center">
+        <Box
+          cursor="pointer"
+          color={quikColorConstants.influenceRed}
+          fontSize="14px"
+          fontWeight="bold"
+          onClick={resendOtp}
+        >
+          Resend{' '}
+          {loadingResend && (
+            <Image src={loader} alt="" width={30} height={30} />
+          )}
+        </Box>
       </Flex>
 
       <CustomButton
@@ -94,10 +113,9 @@ const Login = () => {
         mt={4}
         onClick={handleSubmit}
       >
-        Login {loading && <Image src={loader} alt="" width={50} height={50} />}
+        Reset Password{' '}
+        {loading && <Image src={loader} alt="" width={50} height={50} />}
       </CustomButton>
     </form>
   );
 };
-
-export default Login;
