@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AuthenticationProps } from './types';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import quikColorConstants from 'utils/constants/colorConstants';
-import LoginOtp from './LoginOtp';
+import Login from './Login';
 import Register from './Register';
 import Router, { useRouter } from 'next/router';
 
@@ -44,7 +44,7 @@ const AuthTab: React.FC<AuthenticationProps> = ({ type }) => {
 
       <TabPanels>
         <TabPanel padding={0}>
-          <LoginOtp />
+          <Login />
         </TabPanel>
         <TabPanel padding={0}>
           <Register />
