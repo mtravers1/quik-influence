@@ -173,7 +173,6 @@ const LeadsForm = ({
                     handleChange={handleChange}
                     name={data.name}
                     error={errors[data.name] ? data.errorMessage : undefined}
-                    
                   />
                 </FormControl>
               );

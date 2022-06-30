@@ -18,13 +18,7 @@ const links = [
 
 const Fizzy = () => {
   return (
-    <Flex
-      background="#242424"
-      height="100vh"
-      as="main"
-      minH="100Vh"
-      flexDirection="column"
-    >
+    <Flex background="#242424" as="main" minH="100Vh" flexDirection="column">
       <Flex
         as="header"
         justifyContent="space-between"
@@ -78,14 +72,15 @@ const Fizzy = () => {
         </Box>
       </Flex>
 
-      <Flex as="section" padding="100px 30px" flexGrow={1}>
-        <Box
+      <Box as="section" padding="100px 30px" flexGrow={1}>
+        <Flex
           maxW="1200px"
           margin="auto"
           padding="25px"
           backgroundColor="rgba(0,0,0,0.7)"
           width="100%"
           height="100%"
+          flexDirection="column"
         >
           <Flex
             flexDirection={{ base: 'column', lg: 'row' }}
@@ -114,8 +109,8 @@ const Fizzy = () => {
             ))}
           </Flex>
           <Payment />
-        </Box>
-      </Flex>
+        </Flex>
+      </Box>
     </Flex>
   );
 };
