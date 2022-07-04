@@ -1,29 +1,31 @@
-import { FC } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { FC, useState } from 'react';
+import { Box, Flex, FormControl, FormErrorMessage } from '@chakra-ui/react';
+import formdata from 'utils/constants/formData/checkout';
+import { TextInput } from 'components/Input';
+import useForm from 'hooks/useForm';
+import { axiosInstance } from 'utils/helpers';
+import Image from 'next/image';
+import loader from 'assets/loader.gif';
 
-const data: any = {
-  optionalValues: {
-    visitedStates: [],
-  },
-  firstName: 'Jude',
-  lastName: 'Violet',
-  phone: '08027444796',
-  email: 'jjchinosoviolet@gmail.com',
-  dateOfBirth: '2022-06-30',
-  address: '32 Airport road',
-  city: 'Warri',
-  state: 'Delta',
-  postalCode: '330102',
-  campaignAdminId: 'f8547859-3e5f-42d1-919a-eec2b1568b26',
-};
+let userData: any;
 
-const main_data = [
-  { name: 'First Name', value: data.firstName },
-  { name: 'Last Name', value: data.lastName },
-  { name: 'Phone', value: data.phone },
-  { name: 'Email Address', value: data.email },
-  { name: 'Address', value: data.address },
-];
+if (typeof window !== 'undefined') {
+  const campaign_data = localStorage.getItem('campaign_data');
+  if (campaign_data) {
+    userData = JSON.parse(campaign_data);
+  }
+
+  userData = {
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    phone: userData.phone,
+    email: userData.email,
+    address: userData.address,
+    city: userData.city,
+    state: userData.state,
+    country: userData.country,
+  };
+}
 
 export const BillingPage: FC<{ setCurrentPage: Function }> = ({
   setCurrentPage,
@@ -32,50 +34,136 @@ export const BillingPage: FC<{ setCurrentPage: Function }> = ({
     setCurrentPage(1);
   };
 
+  const [edit, setEdit] = useState(true);
+  const [otpTime, setOtpTime] = useState(0);
+  const [usedPhone, setUsedPhone] = useState();
+
+  const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
+    inputs: formdata,
+    initials: userData,
+    cb: async inputs => {
+      // do what you will with inputs
+
+      await axiosInstance.put('/auth/profile/user/editWithOtp', inputs);
+      setEdit(true);
+    },
+  });
+
+  const sendOtp = async () => {
+    let time = (Date.now() - otpTime) / 1000 / 60;
+
+    if (otpTime === 0 || time > 4.5 || usedPhone !== inputTypes.phone) {
+      // send otp
+      axiosInstance.post('/auth/user/otpEditProfile', {
+        phone: inputTypes.phone,
+      });
+
+      setUsedPhone(inputTypes.phone);
+      setOtpTime(Date.now());
+    }
+  };
+
+  const editPage = () => {
+    setEdit(!edit);
+    sendOtp();
+  };
+
   return (
     <Box
       border="1px solid rgb(62, 62, 62)"
       flexGrow={1}
       height="100%"
-      padding="20px"
+      padding={{ base: '10px', md: '20px' }}
     >
-      <Box
-        borderBottom="1px solid rgb(62, 62, 62)"
+      <Flex
+        fontWeight="bold"
         padding="10px 0 20px"
         marginBottom="30px"
-        fontSize="24px"
-        color="#0bcbfb"
-        fontWeight="bold"
+        borderBottom="1px solid rgb(62, 62, 62)"
+        alignItems="center"
+        justifyContent="space-between"
       >
-        Billing details
+        <Box fontSize="24px" color="#0bcbfb">
+          Billing details
+        </Box>
+
+        {edit ? (
+          <Box cursor="pointer" onClick={editPage}>
+            Edit
+          </Box>
+        ) : (
+          <Box cursor="pointer" onClick={editPage}>
+            Cancel
+          </Box>
+        )}
+      </Flex>
+
+      <Box className="billing-form" display={{ base: 'block', md: 'grid' }}>
+        {formdata.slice(0, edit ? 7 : 8).map((data, i) => (
+          <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
+            <TextInput
+              name={data.name}
+              label={data.label}
+              labelProps={{
+                fontSize: '1.2rem',
+              }}
+              value={inputTypes[data.name]}
+              formControlProps={{
+                pt: 8,
+              }}
+              handleChange={handleChange}
+              type={data.type}
+              placeholder={data.label}
+              TextInputProps={{
+                className: `${
+                  inputTypes[data.name] && !errors[data.name] ? ' valid' : ''
+                }${errors[data.name] ? ' invalid' : ''}`,
+                // @ts-ignore
+                disabled: edit,
+              }}
+            />
+
+            {errors[data.name] && (
+              <FormErrorMessage fontSize="14px">
+                {data.errorMessage}
+              </FormErrorMessage>
+            )}
+          </FormControl>
+        ))}
       </Box>
 
-      <Box className="billing-form">
-        {main_data.map((detail: any, i) => {
-          if (detail === 'optionalValues') return null;
+      {!edit && (
+        <Box
+          onClick={sendOtp}
+          color="red"
+          textAlign="right"
+          fontWeight="bold"
+          marginTop="5px"
+          cursor="pointer"
+        >
+          Resend
+        </Box>
+      )}
 
-          return (
-            <Box key={`data_${i}`} marginBottom="25px">
-              <Box
-                as="label"
-                fontSize="18px"
-                color="#0bcbfb"
-                textTransform="capitalize"
-                fontWeight="bold"
-                marginBottom="10px"
-                display="inline-block"
-              >
-                {detail.name}
-              </Box>
-              <Box padding="10px" background="rgb(62, 62, 62)" fontSize="16px">
-                {detail.value}
-              </Box>
-            </Box>
-          );
-        })}
-      </Box>
+      <Flex justifyContent="flex-end" marginTop="30px">
+        {!edit && (
+          <Box
+            as="button"
+            onClick={handleSubmit}
+            background="#fff"
+            color="#000"
+            padding="10px 30px"
+            fontSize="18px"
+            fontWeight="bold"
+            marginRight="20px"
+            display="flex"
+            alignItems="center"
+          >
+            Edit
+            {loading && <Image src={loader} alt="" width={30} height={30} />}
+          </Box>
+        )}
 
-      <Flex justifyContent="flex-end">
         <Box
           as="button"
           onClick={next}

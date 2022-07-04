@@ -10,6 +10,7 @@ import { axiosInstance } from 'utils/helpers';
 import Radio from 'components/Radio';
 import CheckBox from 'components/Input/CheckBox';
 import MultiSelect from 'modules/Campaigns/CreateCampaign/MultiSelect';
+import { useRouter } from 'next/router';
 
 const LeadsForm = ({
   campaignId,
@@ -35,6 +36,7 @@ const LeadsForm = ({
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
   const isPaidCampaign = paidType === 'PAID';
+  const router = useRouter();
 
   const {
     handleChange,
@@ -98,13 +100,19 @@ const LeadsForm = ({
               variant: 'subtle',
               isClosable: false,
             });
+
+            if (typeof window !== 'undefined') {
+              localStorage.setItem(
+                'campaign_data',
+                JSON.stringify({ ...res.data.data, campaignId })
+              );
+            }
           }
 
           // redirect to stripe checkout
           // handleStripe(inputs.email, res.status === 200);
 
-          if (typeof window !== 'undefined')
-            localStorage.setItem('redirectUrl', redirectUrl);
+          if (typeof window !== 'undefined') router.push(redirectUrl);
         })
         .catch(err => {
           toast({

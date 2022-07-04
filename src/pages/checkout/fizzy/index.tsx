@@ -72,11 +72,15 @@ const Fizzy = () => {
         </Box>
       </Flex>
 
-      <Box as="section" padding="100px 30px" flexGrow={1}>
+      <Box
+        as="section"
+        padding={{ base: '100px 15px', md: '100px 30px' }}
+        flexGrow={1}
+      >
         <Flex
           maxW="1200px"
           margin="auto"
-          padding="25px"
+          padding={{ base: '15px', md: '25px' }}
           backgroundColor="rgba(0,0,0,0.7)"
           width="100%"
           height="100%"
@@ -86,7 +90,7 @@ const Fizzy = () => {
             flexDirection={{ base: 'column', lg: 'row' }}
             borderTop="1px solid rgb(62, 62, 62)"
             borderBottom="1px solid rgb(62, 62, 62)"
-            alignItems="center"
+            alignItems={{ base: 'flex-start', md: 'center' }}
             marginBottom="30px"
           >
             {[
@@ -101,7 +105,7 @@ const Fizzy = () => {
                 }}
                 flexGrow={1}
                 padding="20px"
-                fontSize={i === 0 ? '18px' : '24px'}
+                fontSize={i === 0 ? '18px' : { base: '18px', md: '24px' }}
                 color="#0bcbfb"
               >
                 {item}

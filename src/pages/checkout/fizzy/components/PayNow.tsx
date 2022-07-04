@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import loadable from '@loadable/component';
+import DropdownSelect from 'components/DropdownSelect';
 import {
   Box,
   Flex,
@@ -11,18 +12,28 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 
-// import { FormComponent, FormContainer } from 'react-authorize-net';
-
 const AuthorizeComponent = loadable(
   () => import(/* webpackPrefetch: true */ './authorize')
 );
+
+let price = 35.99;
+let tax = 2.52;
 
 export const PayNow = () => {
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [number, setNumber] = useState(1);
 
-  const submit = () => {};
+  const [total, setTotal] = useState(44.93);
+  const [totalTax, setTotalTax] = useState(2.52);
+  const [flavour, setFlavour] = useState('Wild Strawberry');
+
+  useEffect(() => {
+    const newTax = Number((tax * number).toFixed(2));
+    setTotalTax(newTax);
+    setTotal(Number((number * price + newTax).toFixed(2)));
+  }, [number]);
 
   const onClose = () => {
     setOpenModal(false);
@@ -34,6 +45,19 @@ export const PayNow = () => {
 
   const handleInput = () => {
     setAgreed(!agreed);
+  };
+
+  const addMore = () => {
+    setNumber(number + 1);
+  };
+  const subtract = () => {
+    if (number > 1) {
+      setNumber(number - 1);
+    }
+  };
+
+  const updateflavour = (e: any) => {
+    setFlavour(e.target.value);
   };
 
   const onErrorHandler = () => {};
@@ -59,13 +83,66 @@ export const PayNow = () => {
 
       <Box color="#0bcbfb" marginBottom="30px">
         <Box justifyContent="space-between" fontSize="17px" fontWeight="bold">
-          <Box
+          <Flex
             borderBottom="1px solid rgb(62, 62, 62)"
             padding="10px 0"
             marginBottom="20px"
+            justifyContent="space-between"
           >
-            Product
-          </Box>
+            <Box as="h1">Select Flavour</Box>
+            <Flex alignItems="center">
+              <DropdownSelect
+                // error={errors[data.name] ? data.errorMessage : undefined}
+                onChange={updateflavour}
+                options={[
+                  {
+                    label: 'Wild Strawberry',
+                    value: 'Wild Strawberry',
+                  },
+                  {
+                    label: 'Mango Tango',
+                    value: 'Mango Tango',
+                  },
+                ]}
+                selected={flavour}
+                selectProps={{
+                  height: '4.5rem',
+                  fontSize: '1.4rem',
+                }}
+              />
+            </Flex>
+          </Flex>
+          <Flex
+            borderBottom="1px solid rgb(62, 62, 62)"
+            padding="10px 0"
+            marginBottom="20px"
+            justifyContent="space-between"
+          >
+            <Box as="h1">Product</Box>
+            <Flex alignItems="center">
+              <Flex
+                width="25px"
+                justifyContent="center"
+                border="1px solid rgb(62, 62, 62)"
+                onClick={subtract}
+                cursor="pointer"
+                fontSize="16px"
+              >
+                <Box>-</Box>
+              </Flex>
+              <Box margin="0 20px">{number}</Box>
+              <Flex
+                width="25px"
+                justifyContent="center"
+                border="1px solid rgb(62, 62, 62)"
+                onClick={addMore}
+                cursor="pointer"
+                fontSize="16px"
+              >
+                <Box>+</Box>
+              </Flex>
+            </Flex>
+          </Flex>
           <Flex
             alignItems="center"
             flexWrap="wrap"
@@ -77,7 +154,7 @@ export const PayNow = () => {
             </Box>
 
             <Box>
-              Fizzy Delta-8 Infused Seltzer - Wild Strawberry, 6 Pack × 1
+              Fizzy Delta-8 Infused Seltzer - {flavour}, 6 Pack ×{number}
             </Box>
           </Flex>
         </Box>
@@ -100,15 +177,15 @@ export const PayNow = () => {
           >
             <Flex marginBottom="20px">
               <Box marginRight="30px">Subtotal</Box>
-              <Box>$41.99</Box>
+              <Box>${(number * price).toFixed(2)}</Box>
             </Flex>
             <Flex marginBottom="20px">
               <Box marginRight="30px">Tax</Box>
-              <Box>$2.99</Box>
+              <Box>${totalTax}</Box>
             </Flex>
             <Flex marginBottom="20px">
               <Box marginRight="30px">Total</Box>
-              <Box>$44.93</Box>
+              <Box>${total}</Box>
             </Flex>
           </Flex>
         </Box>
