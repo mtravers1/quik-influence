@@ -94,6 +94,8 @@ const LeadsPage = ({
     </button>
   );
 
+  console.log(leads?.data);
+
   return (
     <Box>
       <Flex width="full" alignItems="center" justify="space-between">
@@ -211,7 +213,7 @@ const LeadsPage = ({
                       )}
                       {hasPerm &&
                       data?.UserCampaigns &&
-                      data?.UserCampaigns[0].postingResponse.response ? (
+                      data?.UserCampaigns[0].postingResponse?.response ? (
                         <Td fontSize="16px" whiteSpace="nowrap">
                           {`${data?.UserCampaigns[0].postingResponse.response.result} |
                         ${data?.UserCampaigns[0].postingResponse.response.msg} |

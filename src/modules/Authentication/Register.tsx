@@ -1,31 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   FormControl,
   FormErrorMessage,
   Box,
   useToast,
-  Text
-} from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
-import { login } from "redux/actions/auth";
-import Image from "next/image";
-import CustomButton from "components/Button";
-import { TextInput } from "components/Input";
-import useForm from "hooks/useForm";
-import formdata from "utils/constants/formData/register";
-import { axiosInstance } from "utils/helpers";
-import quikColorConstants from "utils/constants/colorConstants";
-import loader from "assets/loader.gif";
-import NextLink from "components/NextLink";
-import queryString from "query-string";
-import { useRouter } from "next/router";
+  Text,
+} from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
+import { login } from 'redux/actions/auth';
+import Image from 'next/image';
+import CustomButton from 'components/Button';
+import { TextInput } from 'components/Input';
+import useForm from 'hooks/useForm';
+import formdata from 'utils/constants/formData/register';
+import { axiosInstance } from 'utils/helpers';
+import quikColorConstants from 'utils/constants/colorConstants';
+import loader from 'assets/loader.gif';
+import NextLink from 'components/NextLink';
+import queryString from 'query-string';
+import { useRouter } from 'next/router';
 
 const Register = () => {
   const toast = useToast();
   const dispatch = useDispatch();
   const router = useRouter();
   const { query } = router;
-  const isTermsChecked = query.terms === "checked";
+  const isTermsChecked = query.terms === 'checked';
 
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [loadingOtp, setLoadingOtp] = useState(false);
@@ -41,32 +41,32 @@ const Register = () => {
     inputTypes,
     handleSubmit,
     errors,
-    loading
+    loading,
   } = useForm({
     inputs: formdata,
-    cb: async (inputs) => {
+    cb: async inputs => {
       if (!submitForm) return setShowTermsError(true);
 
       const response = await axiosInstance.post(
-        "/auth/admin/otpRegister",
+        '/auth/admin/otpRegister',
         inputs
       );
 
       toast({
-        title: "Account created.",
+        title: 'Account created.',
         description: "We've created your account for you.",
-        status: "success",
+        status: 'success',
         duration: 4000,
-        isClosable: true
+        isClosable: true,
       });
 
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("email", inputs.email);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('email', inputs.email);
       }
 
       setShowOtpInput(true);
       setStripeRedirectUrl(response.data.data.url);
-    }
+    },
   });
 
   useEffect(() => {
@@ -78,9 +78,9 @@ const Register = () => {
     setLoadingOtp(true);
 
     try {
-      const response = await axiosInstance.post("/auth/admin/otpLogin", {
+      const response = await axiosInstance.post('/auth/admin/otpLogin', {
         email: inputTypes.email,
-        otp: inputTypes.otp
+        otp: inputTypes.otp,
       });
 
       dispatch(login(response.data.data));
@@ -100,20 +100,20 @@ const Register = () => {
               name={data.name}
               label={data.label}
               labelProps={{
-                fontSize: "1.2rem"
+                fontSize: '1.2rem',
               }}
               value={inputTypes[data.name] || query[data.name]}
               formControlProps={{
-                pt: 8
+                pt: 8,
               }}
               handleChange={handleChange}
               type={data.type}
               placeholder={data.label}
               TextInputProps={{
                 border:
-                  data.name === "otp"
+                  data.name === 'otp'
                     ? `2px solid ${quikColorConstants.influenceRed} !important`
-                    : undefined
+                    : undefined,
               }}
             />
 
@@ -137,14 +137,14 @@ const Register = () => {
             setShowTermsError(false);
           }}
         />
-        <Box as="small" marginLeft="20px">
-          Please Agree to the{" "}
+        <Box as="small" marginLeft="20px" fontSize="14px">
+          Please Agree to the{' '}
           <NextLink
             href={`/terms-of-service?${queryString.stringify(inputTypes)}`}
             textDecor="underline"
           >
             Terms of Service
-          </NextLink>{" "}
+          </NextLink>{' '}
           before submitting
         </Box>
       </Box>
