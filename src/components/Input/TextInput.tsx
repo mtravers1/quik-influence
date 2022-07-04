@@ -69,11 +69,11 @@ const TextInput: React.FC<TextInputProps> = ({
     <FormControl isInvalid={!!error} {...formControlProps}>
       {!!label && (
         <FormLabel
-          fontSize="1.6rem"
           color={colorMode === 'light' ? quikColorConstants.black : '#FFFFFF'}
           htmlFor={inputId}
           data-testid="textInput-label"
           {...labelProps}
+          fontSize="16px"
         >
           {label}
           {extraLabel && (
@@ -127,6 +127,7 @@ const TextInput: React.FC<TextInputProps> = ({
           onChange={handleChange}
           border={`1px solid ${borderThemeColor[colorMode]}`}
           size="xl"
+          fontSize="16px"
           p="1rem"
           borderRadius="xl"
           placeholder={placeholder}
