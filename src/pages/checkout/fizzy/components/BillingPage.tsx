@@ -6,67 +6,59 @@ import useForm from 'hooks/useForm';
 import { axiosInstance } from 'utils/helpers';
 import Image from 'next/image';
 import loader from 'assets/loader.gif';
+import { useSelectLocations } from 'hooks/useSelectLocations';
+import DropdownSelect from 'components/DropdownSelect';
 
-let userData: any;
-
-if (typeof window !== 'undefined') {
-  const campaign_data = localStorage.getItem('campaign_data');
-  if (campaign_data) {
-    userData = JSON.parse(campaign_data);
-  }
-
-  userData = {
-    firstName: userData.firstName,
-    lastName: userData.lastName,
-    phone: userData.phone,
-    email: userData.email,
-    address: userData.address,
-    city: userData.city,
-    state: userData.state,
-    country: userData.country,
-  };
-}
-
-export const BillingPage: FC<{ setCurrentPage: Function }> = ({
-  setCurrentPage,
-}) => {
+export const BillingPage: FC<{
+  setCurrentPage: Function;
+  userData: any;
+  openLoginOtp: any;
+}> = ({ setCurrentPage, userData, openLoginOtp }) => {
   const next = () => {
     setCurrentPage(1);
   };
 
   const [edit, setEdit] = useState(true);
-  const [otpTime, setOtpTime] = useState(0);
-  const [usedPhone, setUsedPhone] = useState();
 
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
     initials: userData,
     cb: async inputs => {
-      // do what you will with inputs
+      let newData = {};
+      Object.assign(newData, inputs);
 
-      await axiosInstance.put('/auth/profile/user/editWithOtp', inputs);
+      let newStorageData = {};
+      const campaign_data = localStorage.getItem('campaign_data');
+      if (campaign_data) {
+        newStorageData = JSON.parse(campaign_data);
+        newStorageData = { ...newStorageData, ...newData };
+        localStorage.setItem('campaign_data', JSON.stringify(newStorageData));
+      }
+
+      // @ts-ignore
+      delete newData.phone;
+
+      await axiosInstance.put('/auth/profile/user', newData, {
+        headers: { token: userData.token },
+      });
+
+      window.location.reload();
       setEdit(true);
+    },
+    runOnError: (error: any) => {
+      if (error.response.status === 401) {
+        openLoginOtp();
+      }
     },
   });
 
-  const sendOtp = async () => {
-    let time = (Date.now() - otpTime) / 1000 / 60;
-
-    if (otpTime === 0 || time > 4.5 || usedPhone !== inputTypes.phone) {
-      // send otp
-      axiosInstance.post('/auth/user/otpEditProfile', {
-        phone: inputTypes.phone,
-      });
-
-      setUsedPhone(inputTypes.phone);
-      setOtpTime(Date.now());
-    }
-  };
-
   const editPage = () => {
     setEdit(!edit);
-    sendOtp();
   };
+
+  const { internalSelectOptions, loadingStates } = useSelectLocations(
+    inputTypes.country
+  );
 
   return (
     <Box
@@ -99,51 +91,90 @@ export const BillingPage: FC<{ setCurrentPage: Function }> = ({
       </Flex>
 
       <Box className="billing-form" display={{ base: 'block', md: 'grid' }}>
-        {formdata.slice(0, edit ? 7 : 8).map((data, i) => (
-          <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
-            <TextInput
-              name={data.name}
-              label={data.label}
-              labelProps={{
-                fontSize: '1.2rem',
-              }}
-              value={inputTypes[data.name]}
-              formControlProps={{
-                pt: 8,
-              }}
-              handleChange={handleChange}
-              type={data.type}
-              placeholder={data.label}
-              TextInputProps={{
-                className: `${
-                  inputTypes[data.name] && !errors[data.name] ? ' valid' : ''
-                }${errors[data.name] ? ' invalid' : ''}`,
-                // @ts-ignore
-                disabled: edit,
-              }}
-            />
+        {formdata.map((data, i) => {
+          switch (data.type) {
+            case 'select':
+              return (
+                <FormControl
+                  key={`contact_form_${i}`}
+                  width="100%"
+                  isInvalid={errors[data?.name]}
+                  isRequired={data?.required}
+                  margin="3px 0"
+                >
+                  <Flex alignItems="center">
+                    <DropdownSelect
+                      error={errors[data.name] ? data.errorMessage : undefined}
+                      onChange={handleChange}
+                      options={internalSelectOptions[data.name] || []}
+                      label={data.label}
+                      name={data.name}
+                      selected={inputTypes[data.name]}
+                      selectProps={{
+                        height: '4.5rem',
+                        fontSize: '1.4rem',
+                      }}
+                    />
 
-            {errors[data.name] && (
-              <FormErrorMessage fontSize="14px">
-                {data.errorMessage}
-              </FormErrorMessage>
-            )}
-          </FormControl>
-        ))}
+                    <Box marginTop="30px">
+                      {data.name === 'state' && loadingStates && (
+                        <Image src={loader} alt="" width={40} height={40} />
+                      )}
+                    </Box>
+                  </Flex>
+
+                  {errors[data.name] && (
+                    <FormErrorMessage paddingLeft={50} fontSize={12}>
+                      {data.errorMessage}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+              );
+
+            case 'textarea':
+            case 'text':
+            case 'date':
+            case 'number':
+            default:
+              return (
+                <FormControl
+                  isInvalid={errors[data.name]}
+                  key={`register_${i}`}
+                >
+                  <TextInput
+                    name={data.name}
+                    label={data.label}
+                    labelProps={{
+                      fontSize: '1.2rem',
+                    }}
+                    value={inputTypes[data.name]}
+                    formControlProps={{
+                      pt: 8,
+                    }}
+                    handleChange={handleChange}
+                    type={data.type}
+                    placeholder={data.label}
+                    TextInputProps={{
+                      className: `${
+                        inputTypes[data.name] && !errors[data.name]
+                          ? ' valid'
+                          : ''
+                      }${errors[data.name] ? ' invalid' : ''}`,
+                      // @ts-ignore
+                      disabled: data.name === 'phone' || edit,
+                    }}
+                  />
+
+                  {errors[data.name] && (
+                    <FormErrorMessage fontSize="14px">
+                      {data.errorMessage}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+              );
+          }
+        })}
       </Box>
-
-      {!edit && (
-        <Box
-          onClick={sendOtp}
-          color="red"
-          textAlign="right"
-          fontWeight="bold"
-          marginTop="5px"
-          cursor="pointer"
-        >
-          Resend
-        </Box>
-      )}
 
       <Flex justifyContent="flex-end" marginTop="30px">
         {!edit && (

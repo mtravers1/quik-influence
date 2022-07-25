@@ -3,7 +3,6 @@ import { Box, Flex, createStandaloneToast } from '@chakra-ui/react';
 import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import CustomButton from 'components/Button';
 import useInput from 'hooks/useForm';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import DropdownSelect from 'components/DropdownSelect';
 import CustomInput from 'components/CustomInput';
 import { axiosInstance } from 'utils/helpers';
@@ -11,6 +10,9 @@ import Radio from 'components/Radio';
 import CheckBox from 'components/Input/CheckBox';
 import MultiSelect from 'modules/Campaigns/CreateCampaign/MultiSelect';
 import { useRouter } from 'next/router';
+import loader from 'assets/loader.gif';
+import Image from 'next/image';
+import { useSelectLocations } from 'hooks/useSelectLocations';
 
 const LeadsForm = ({
   campaignId,
@@ -47,6 +49,7 @@ const LeadsForm = ({
     resetInputs,
   } = useInput({
     inputs: form,
+    initials: { country: 'US' },
     cb: async inputs => {
       if (showConsent && !submitForm) return;
 
@@ -125,6 +128,10 @@ const LeadsForm = ({
     },
   });
 
+  const { internalSelectOptions, loadingStates } = useSelectLocations(
+    inputTypes.country
+  );
+
   return (
     <Flex
       display="flex"
@@ -146,18 +153,28 @@ const LeadsForm = ({
                   isRequired={data?.required}
                   margin="3px 0"
                 >
-                  <DropdownSelect
-                    error={errors[data.name] ? data.errorMessage : undefined}
-                    onChange={handleChange}
-                    options={data.options || []}
-                    label={data.label}
-                    name={data.name}
-                    selected={inputTypes[data.name]}
-                    selectProps={{
-                      height: '4.5rem',
-                      fontSize: '1.4rem',
-                    }}
-                  />
+                  <Flex alignItems="center">
+                    <DropdownSelect
+                      error={errors[data.name] ? data.errorMessage : undefined}
+                      onChange={handleChange}
+                      options={
+                        internalSelectOptions[data.name] || data.options || []
+                      }
+                      label={data.label}
+                      name={data.name}
+                      selected={inputTypes[data.name]}
+                      selectProps={{
+                        height: '4.5rem',
+                        fontSize: '1.4rem',
+                      }}
+                    />
+
+                    <Box marginTop="30px">
+                      {data.name === 'state' && loadingStates && (
+                        <Image src={loader} alt="" width={40} height={40} />
+                      )}
+                    </Box>
+                  </Flex>
 
                   {errors[data.name] && (
                     <FormErrorMessage paddingLeft={50} fontSize={12}>

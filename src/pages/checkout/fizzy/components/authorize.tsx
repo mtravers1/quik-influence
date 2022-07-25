@@ -1,24 +1,30 @@
-import { FC } from 'react';
-import { FormComponent, FormContainer } from 'react-authorize-net';
+import React from 'react';
+import { HostedForm } from 'react-acceptjs';
 
-let clientKey = process.env.REACT_APP_AUTHORIZENET_CLIENTKEY as string;
-let apiLoginId = process.env.REACT_APP_AUTHORIZENET_LOGINID as string;
+const authData = {
+  apiLoginID: process.env.NEXT_PUBLIC_AUTHORIZENET_LOGINID,
+  clientKey: process.env.NEXT_PUBLIC_AUTHORIZENET_CLIENTKEY,
+};
 
-const Authorize: FC<{
-  onErrorHandler: any;
-  onSuccessHandler: any;
-}> = ({ onErrorHandler, onSuccessHandler }) => {
+export const Authorize = ({ onSuccessHandler, onErrorHandler, agreed }) => {
+  const handleSubmit = (response: any) => {
+    console.log('Received response: ====>', response);
+  };
+
   return (
-    <FormContainer
-      environment="sandbox"
-      onError={onErrorHandler}
-      onSuccess={onSuccessHandler}
-      amount={44.93}
-      component={FormComponent}
-      clientKey={clientKey}
-      apiLoginId={apiLoginId}
+    <HostedForm
+      //@ts-ignore
+      authData={authData}
+      onSubmit={handleSubmit}
+      environment="SANDBOX"
+      buttonText="Pay Now"
+      buttonStyle={{
+        background: '#fff',
+        color: '#000',
+        padding: '10px 30px',
+        fontSize: '18px',
+        fontWeight: 'bold',
+      }}
     />
   );
 };
-
-export default Authorize;

@@ -40,6 +40,14 @@ export default [
     pattern: PHONE_NUMBER_REGEX,
   },
   {
+    name: 'address',
+    label: 'Address *',
+    type: 'text',
+    errorMessage: 'Enter your city',
+    required: true,
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
     name: 'city',
     label: 'Town/City *',
     type: 'text',
@@ -50,7 +58,7 @@ export default [
   {
     name: 'state',
     label: 'State *',
-    type: 'text',
+    type: 'select',
     errorMessage: 'Enter your state',
     required: true,
     pattern: FREE_TEXT_REGEX,
@@ -58,16 +66,8 @@ export default [
   {
     name: 'country',
     label: 'Country *',
-    type: 'text',
+    type: 'select',
     errorMessage: 'Enter your country',
-    required: true,
-    pattern: FREE_TEXT_REGEX,
-  },
-  {
-    name: 'otp',
-    label: 'An Otp has been sent to your email',
-    type: 'text',
-    errorMessage: 'Enter OTP',
     required: true,
     pattern: FREE_TEXT_REGEX,
   },

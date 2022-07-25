@@ -7,6 +7,7 @@ type props = {
   cb: (args: any) => {};
   validateForm?: boolean;
   initials?: any;
+  runOnError?: any;
 };
 
 export default function Input({
@@ -14,6 +15,7 @@ export default function Input({
   cb,
   validateForm = true,
   initials = {},
+  runOnError,
 }: props) {
   const toast = useToast();
 
@@ -155,6 +157,8 @@ export default function Input({
         duration: 4000,
         isClosable: true,
       });
+
+      runOnError?.(error);
 
       console.log(error);
       setLoading(false);

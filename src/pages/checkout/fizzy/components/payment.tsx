@@ -1,39 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect, FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCountries } from 'redux/actions/general';
 import { Box, Flex } from '@chakra-ui/react';
 import { BillingPage } from './BillingPage';
 import { PayNow } from './PayNow';
+import Image from 'next/image';
+import loader from 'assets/loader.gif';
 
 const links = [
   { name: 'Billing Address', value: 0 },
   { name: 'Review & Payment', value: 1 },
 ];
 
-const data: any = {
-  optionalValues: {
-    visitedStates: [],
-  },
-  firstName: 'Jude',
-  lastName: 'Violet',
-  phone: '08027444796',
-  email: 'jjchinosoviolet@gmail.com',
-  dateOfBirth: '2022-06-30',
-  address: '32 Airport road',
-  city: 'Warri',
-  state: 'Delta',
-  postalCode: '330102',
-  campaignAdminId: 'f8547859-3e5f-42d1-919a-eec2b1568b26',
-};
-
-const main_data = [
-  { name: 'First Name', value: data.firstName },
-  { name: 'Last Name', value: data.lastName },
-  { name: 'Phone', value: data.phone },
-  { name: 'Email Address', value: data.email },
-  { name: 'Address', value: data.address },
-];
-
-export const Payment = () => {
+export const Payment: FC<{ userData: any; openLoginOtp: any }> = ({
+  userData,
+  openLoginOtp,
+}) => {
   const [currentPage, setCurrentPage] = useState(0);
+
+  const { countryData } = useSelector((state: any) => state.generals);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!countryData.country.length) {
+      dispatch(fetchCountries());
+    }
+  }, []);
 
   return (
     <Flex flexDirection={{ base: 'column', lg: 'row' }} height="100%">
@@ -59,9 +51,31 @@ export const Payment = () => {
           </Box>
         ))}
       </Box>
-      {currentPage === 0 && <BillingPage setCurrentPage={setCurrentPage} />}
 
-      {currentPage === 1 && <PayNow />}
+      {countryData.country.length ? (
+        <>
+          {currentPage === 0 && (
+            <BillingPage
+              setCurrentPage={setCurrentPage}
+              userData={userData}
+              openLoginOtp={openLoginOtp}
+            />
+          )}
+
+          {currentPage === 1 && (
+            <PayNow userData={userData} openLoginOtp={openLoginOtp} />
+          )}
+        </>
+      ) : (
+        <Flex
+          flexGrow={1}
+          alignItems="center"
+          justifyContent="center"
+          minHeight="500px"
+        >
+          <Image src={loader} alt="" width={40} height={40} />
+        </Flex>
+      )}
     </Flex>
   );
 };

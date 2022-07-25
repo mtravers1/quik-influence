@@ -1,47 +1,66 @@
-import { useEffect, useState } from 'react';
-import loadable from '@loadable/component';
+import { useEffect, useState, FC } from 'react';
 import DropdownSelect from 'components/DropdownSelect';
-import {
-  Box,
-  Flex,
-  Image,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-} from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import Link from 'next/link';
-
-const AuthorizeComponent = loadable(
-  () => import(/* webpackPrefetch: true */ './authorize')
-);
+import { Authorize } from './authorize';
+import { axiosInstance } from 'utils/helpers';
 
 let price = 35.99;
 let tax = 2.52;
 
-export const PayNow = () => {
+export const PayNow: FC<{ userData: any; openLoginOtp: any }> = ({
+  userData,
+  openLoginOtp,
+}) => {
   const [agreed, setAgreed] = useState(false);
-  const [status, setStatus] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
   const [number, setNumber] = useState(1);
 
-  const [total, setTotal] = useState(44.93);
+  const [total, setTotal] = useState(0);
   const [totalTax, setTotalTax] = useState(2.52);
   const [flavour, setFlavour] = useState('Wild Strawberry');
+
+  const [shippingRate, setShippingRate] = useState(0);
+  const [shipmentId, setShippmentId] = useState('');
 
   useEffect(() => {
     const newTax = Number((tax * number).toFixed(2));
     setTotalTax(newTax);
-    setTotal(Number((number * price + newTax).toFixed(2)));
-  }, [number]);
+    setTotal(Number((number * price + newTax + shippingRate).toFixed(2)));
+  }, [number, shippingRate]);
 
-  const onClose = () => {
-    setOpenModal(false);
+  const getShippingCost = async () => {
+    try {
+      const rates = await axiosInstance.post(
+        '/users/shippo/rate',
+        {
+          adminId: '6b8073ca-ccb3-44d4-8fb6-3befcc3daa80',
+          parcels: Array.from(Array(number).keys()).map(item => ({
+            weight: 2.72,
+            length: 7,
+            width: 7,
+            height: 7,
+            distance_unit: 'in',
+            mass_unit: 'kg',
+          })),
+        },
+        {
+          headers: { token: userData.token },
+        }
+      );
+
+      setShippingRate(rates.data.data.rate || 0);
+      setShippmentId(rates.data.data.shipmentId);
+    } catch (err: any) {
+      console.log(err);
+      if (err.response.status === 401) {
+        openLoginOtp();
+      }
+    }
   };
 
-  const openpaymentModal = () => {
-    setOpenModal(true);
-  };
+  useEffect(() => {
+    getShippingCost();
+  }, [total, userData.token]);
 
   const handleInput = () => {
     setAgreed(!agreed);
@@ -61,7 +80,9 @@ export const PayNow = () => {
   };
 
   const onErrorHandler = () => {};
-  const onSuccessHandler = () => {};
+  const onSuccessHandler = () => {
+    // save data in database
+  };
 
   return (
     <Box
@@ -180,6 +201,10 @@ export const PayNow = () => {
               <Box>${(number * price).toFixed(2)}</Box>
             </Flex>
             <Flex marginBottom="20px">
+              <Box marginRight="30px">Shipping Fee</Box>
+              <Box>${shippingRate.toFixed(2)}</Box>
+            </Flex>
+            <Flex marginBottom="20px">
               <Box marginRight="30px">Tax</Box>
               <Box>${totalTax}</Box>
             </Flex>
@@ -220,37 +245,12 @@ export const PayNow = () => {
         </Flex>
       </Box>
 
-      <Modal blockScrollOnMount={false} isOpen={openModal} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent
-          minW="60vw"
-          width="fit-content"
-          borderRadius={0}
-          background="transparent"
-          boxShadow="unset"
-        >
-          <ModalBody>
-            <AuthorizeComponent
-              onErrorHandler={onErrorHandler}
-              onSuccessHandler={onSuccessHandler}
-            />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-
-      <Flex justifyContent="flex-end">
-        <Box
-          as="button"
-          onClick={openpaymentModal}
-          background="#fff"
-          color="#000"
-          padding="10px 30px"
-          fontSize="18px"
-          fontWeight="bold"
-          disabled={!agreed}
-        >
-          Pay Now
-        </Box>
+      <Flex justifyContent="flex-end" pointerEvents={agreed ? 'all' : 'none'}>
+        <Authorize
+          onSuccessHandler={onSuccessHandler}
+          onErrorHandler={onErrorHandler}
+          agreed={agreed}
+        />
       </Flex>
     </Box>
   );

@@ -1,121 +1,94 @@
-import Image from 'next/image';
-import { Box, Flex } from '@chakra-ui/react';
-import fb from './assets/facebook.png';
-import tw from './assets/twitter.png';
-import insta from './assets/insta.png';
-import email from './assets/email.png';
-import phone from './assets/phone.png';
-import logo from './assets/Journey_default.png';
+import { useEffect, useState } from 'react';
 import { Payment } from './components/payment';
+import { FizzyLayout } from 'layout/fizzy';
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Box,
+} from '@chakra-ui/react';
+import LoginOtp from './components/login';
 
-const links = [
-  { href: '#', img: fb, target: '_blank' },
-  { href: '#', img: tw, target: '_blank' },
-  { href: '#', img: insta, target: '_blank' },
-  { href: 'mailto:info@journeyhemp.com', img: email, target: '_self' },
-  { href: 'tel:(561) 453-0671', img: phone, target: '_self' },
-];
+const filterUserData = (userData: any) => ({
+  firstName: userData.firstName,
+  lastName: userData.lastName,
+  phone: userData.phone,
+  email: userData.email,
+  address: userData.address,
+  city: userData.city,
+  state: userData.state,
+  country: userData.country,
+  token: userData.token,
+  id: userData.id,
+});
 
 const Fizzy = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [userDataInfo, setUserData] = useState<any>();
+
+  useEffect(() => {
+    if (userDataInfo) return;
+    let userData: any;
+
+    if (typeof window !== 'undefined') {
+      const campaign_data = localStorage.getItem('campaign_data');
+      if (campaign_data) {
+        userData = JSON.parse(campaign_data);
+      }
+
+      userData = filterUserData(userData);
+      setUserData(userData);
+    }
+  }, []);
+
+  const onClose = () => {
+    setOpenModal(false);
+  };
+
+  const updateOnLogin = (data: any) => {
+    const token = data.token;
+
+    let userData: any;
+    const campaign_data = localStorage.getItem('campaign_data');
+    if (campaign_data) {
+      userData = JSON.parse(campaign_data);
+    }
+
+    const newuserData = { ...userData, token };
+    localStorage.setItem('campaign_data', JSON.stringify(newuserData));
+
+    const newUserDataInfo = filterUserData(newuserData);
+
+    setUserData(newUserDataInfo);
+    onClose();
+  };
+
+  const openLoginOtp = () => {
+    setOpenModal(true);
+  };
+
   return (
-    <Flex background="#242424" as="main" minH="100Vh" flexDirection="column">
-      <Flex
-        as="header"
-        justifyContent="space-between"
-        alignItems="center"
-        padding="20px 30px"
-        flexDirection={{ base: 'column-reverse', lg: 'row' }}
-      >
-        <Flex marginTop={{ base: '40px', lg: 0 }}>
-          {links.map((link, i) => (
-            <Box
-              marginRight="30px"
-              as="a"
-              target={link.target}
-              href={link.href}
-              key={`links_${i}`}
-              display="inline-block"
-              width={{ base: '25px', md: '30px', lg: '40px' }}
-            >
-              <Image
-                src={link.img}
-                alt="Facebook"
-                objectFit="contain"
-                width="100%"
-                height="100%"
-              />
+    <>
+      <FizzyLayout>
+        <Payment userData={userDataInfo || {}} openLoginOtp={openLoginOtp} />
+      </FizzyLayout>
+
+      <Modal blockScrollOnMount={false} isOpen={openModal} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent minW="40vw" p="8" borderRadius={0}>
+          <ModalBody>
+            <Box marginBottom="20px" fontSize="16px">
+              You'll recieve a <strong>one time password</strong> so you can
+              continue
             </Box>
-          ))}
-        </Flex>
-        <Box>
-          <Image src={logo} alt="Journey" height="130px" objectFit="contain" />
-        </Box>
-        <Box flexShrink={0} width="200px"></Box>
-      </Flex>
+            <LoginOtp callback={updateOnLogin} phone={userDataInfo?.phone} />
 
-      <Flex
-        as="section"
-        backgroundImage="linear-gradient(rgb(11, 203, 251) 0%, rgb(143, 252, 160) 100%)"
-        padding="20px 40px"
-        justifyContent="flex-end"
-      >
-        <Box
-          as="p"
-          fontSize={{ base: '16px', lg: '20px' }}
-          fontWeight="bold"
-          color="#000"
-        >
-          <Box as="span" color="rgb(255, 81, 81);">
-            Free Shipping
-          </Box>{' '}
-          on orders over $50
-        </Box>
-      </Flex>
-
-      <Box
-        as="section"
-        padding={{ base: '100px 15px', md: '100px 30px' }}
-        flexGrow={1}
-      >
-        <Flex
-          maxW="1200px"
-          margin="auto"
-          padding={{ base: '15px', md: '25px' }}
-          backgroundColor="rgba(0,0,0,0.7)"
-          width="100%"
-          height="100%"
-          flexDirection="column"
-        >
-          <Flex
-            flexDirection={{ base: 'column', lg: 'row' }}
-            borderTop="1px solid rgb(62, 62, 62)"
-            borderBottom="1px solid rgb(62, 62, 62)"
-            alignItems={{ base: 'flex-start', md: 'center' }}
-            marginBottom="30px"
-          >
-            {[
-              'Hello',
-              'Support: (888) 992-8701',
-              'Email: admin@journeyhemp.com',
-            ].map((item, i) => (
-              <Box
-                borderRight={{
-                  base: 'none',
-                  lg: i === 2 ? 'none' : '1px solid rgb(62, 62, 62)',
-                }}
-                flexGrow={1}
-                padding="20px"
-                fontSize={i === 0 ? '18px' : { base: '18px', md: '24px' }}
-                color="#0bcbfb"
-              >
-                {item}
-              </Box>
-            ))}
-          </Flex>
-          <Payment />
-        </Flex>
-      </Box>
-    </Flex>
+            <Box></Box>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
