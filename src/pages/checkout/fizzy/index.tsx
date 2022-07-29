@@ -23,22 +23,25 @@ const filterUserData = (userData: any) => ({
   id: userData.id,
 });
 
+const filterOtherInfo = (otherInfoData: any) => ({
+  campaignId: otherInfoData.campaignId,
+});
+
 const Fizzy = () => {
   const [openModal, setOpenModal] = useState(false);
   const [userDataInfo, setUserData] = useState<any>();
+  const [otherInfo, setOtherInfo] = useState<any>();
 
   useEffect(() => {
     if (userDataInfo) return;
-    let userData: any;
 
     if (typeof window !== 'undefined') {
       const campaign_data = localStorage.getItem('campaign_data');
       if (campaign_data) {
-        userData = JSON.parse(campaign_data);
+        const parsed_campaign_data = JSON.parse(campaign_data);
+        setUserData(filterUserData(parsed_campaign_data));
+        setOtherInfo(filterOtherInfo(parsed_campaign_data));
       }
-
-      userData = filterUserData(userData);
-      setUserData(userData);
     }
   }, []);
 
@@ -71,7 +74,11 @@ const Fizzy = () => {
   return (
     <>
       <FizzyLayout>
-        <Payment userData={userDataInfo || {}} openLoginOtp={openLoginOtp} />
+        <Payment
+          userData={userDataInfo || {}}
+          openLoginOtp={openLoginOtp}
+          otherInfo={otherInfo || {}}
+        />
       </FizzyLayout>
 
       <Modal blockScrollOnMount={false} isOpen={openModal} onClose={onClose}>

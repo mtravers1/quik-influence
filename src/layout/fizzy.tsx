@@ -16,7 +16,10 @@ const links = [
   { href: 'tel:(561) 453-0671', img: phone, target: '_self' },
 ];
 
-export const FizzyLayout: FC = ({ children }) => {
+export const FizzyLayout: FC<{ maxWidth?: string }> = ({
+  children,
+  maxWidth = '1200px',
+}) => {
   return (
     <Flex background="#242424" as="main" minH="100Vh" flexDirection="column">
       <Flex
@@ -78,7 +81,7 @@ export const FizzyLayout: FC = ({ children }) => {
         flexGrow={1}
       >
         <Flex
-          maxW="1200px"
+          maxW={maxWidth}
           margin="auto"
           padding={{ base: '15px', md: '25px' }}
           backgroundColor="rgba(0,0,0,0.7)"

@@ -12,10 +12,11 @@ const links = [
   { name: 'Review & Payment', value: 1 },
 ];
 
-export const Payment: FC<{ userData: any; openLoginOtp: any }> = ({
-  userData,
-  openLoginOtp,
-}) => {
+export const Payment: FC<{
+  userData: any;
+  openLoginOtp: any;
+  otherInfo: any;
+}> = ({ userData, openLoginOtp, otherInfo }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const { countryData } = useSelector((state: any) => state.generals);
@@ -63,7 +64,11 @@ export const Payment: FC<{ userData: any; openLoginOtp: any }> = ({
           )}
 
           {currentPage === 1 && (
-            <PayNow userData={userData} openLoginOtp={openLoginOtp} />
+            <PayNow
+              userData={userData}
+              openLoginOtp={openLoginOtp}
+              otherInfo={otherInfo}
+            />
           )}
         </>
       ) : (

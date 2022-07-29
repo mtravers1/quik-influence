@@ -3,7 +3,7 @@ import { FizzyLayout } from 'layout/fizzy';
 
 const Orders = () => {
   return (
-    <FizzyLayout>
+    <FizzyLayout maxWidth="1440px">
       <OrdersTable />
     </FizzyLayout>
   );

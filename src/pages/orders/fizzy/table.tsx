@@ -49,8 +49,10 @@ export const OrdersTable = ({}: {}) => {
         rows: res.data.data.rows.map((row: any) => {
           return {
             ...row,
+            amount: `$${row.amount}`,
             firstName: row.User.firstName,
             lastName: row.User.lastName,
+            description: row.meta?.item?.description,
             address: row.meta?.shipmentMeta?.to?.street1,
             city: row.meta?.shipmentMeta?.to?.city,
             numberOfProducts:
@@ -71,7 +73,7 @@ export const OrdersTable = ({}: {}) => {
 
   const handleChange = (page: any) => {
     params.page = page;
-    router.push(`?${queryString. (params)}`);
+    router.push(`?${queryString.stringify(params)}`);
   };
 
   const tableHeader = [
@@ -189,9 +191,10 @@ export const OrdersTable = ({}: {}) => {
                       {tableHeader.map((th, j) => (
                         <Td
                           key={`lead_data_col_${j}`}
-                          whiteSpace="nowrap"
                           textTransform="capitalize"
                           fontSize="16px"
+                          maxWidth="300px"
+                          lineHeight="1.5"
                         >
                           {data[th.accessor] || 'N/A'}
                         </Td>
