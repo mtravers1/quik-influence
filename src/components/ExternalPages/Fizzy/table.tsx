@@ -14,7 +14,6 @@ import queryString from 'query-string';
 import { useRouter } from 'next/router';
 import { basicTheme } from 'utils/constants/colorConstants';
 import Pagination from 'components/Pagination';
-import { getStyles } from './css';
 import DropdownSelect from 'components/DropdownSelect';
 import { useEffect } from 'react';
 import { axiosInstance } from 'utils/helpers';
@@ -23,7 +22,6 @@ export const OrdersTable = ({}: {}) => {
   const { colorMode } = useColorMode();
   const router = useRouter();
   const params = router.query;
-  const style = getStyles(colorMode);
   const pageSize = '20';
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({
@@ -161,12 +159,7 @@ export const OrdersTable = ({}: {}) => {
 
       <Flex w="100%" overflowX="auto" width="100%" padding="10px 0">
         <Box flexGrow={1}>
-          <Table
-            size="lg"
-            marginTop={10}
-            css={style}
-            bg={basicTheme[colorMode]}
-          >
+          <Table size="lg" marginTop={10} bg={basicTheme[colorMode]}>
             <Thead>
               <Tr>
                 {tableHeader.map((th, i) => (

@@ -1,4 +1,4 @@
-import { OrdersTable } from './table';
+import { OrdersTable } from 'components/ExternalPages/Fizzy/table';
 import { FizzyLayout } from 'layout/fizzy';
 
 const Orders = () => {
