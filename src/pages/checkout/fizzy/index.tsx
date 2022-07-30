@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Payment } from './components/payment';
+import { Payment } from 'components/ExternalPages/Fizzy/payment';
 import { FizzyLayout } from 'layout/fizzy';
 import {
   Modal,
@@ -8,7 +8,7 @@ import {
   ModalOverlay,
   Box,
 } from '@chakra-ui/react';
-import LoginOtp from './components/login';
+import LoginOtp from 'components/ExternalPages/Fizzy/login';
 
 const filterUserData = (userData: any) => ({
   firstName: userData.firstName,
@@ -65,6 +65,10 @@ const Fizzy = () => {
 
     setUserData(newUserDataInfo);
     onClose();
+
+    if (typeof window !== 'undefined') {
+      window.location.reload();
+    }
   };
 
   const openLoginOtp = () => {
