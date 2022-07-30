@@ -155,14 +155,14 @@ const Header = ({ type = 'authenticated', ...rest }: HeaderProps) => {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  router.push('/profile');
+                  router.push('/dashboard/profile');
                 }}
               >
                 Profile
               </MenuItem>{' '}
               <MenuItem
                 onClick={() => {
-                  router.push('/profile/edit');
+                  router.push('/dashboard/profile/edit');
                 }}
               >
                 Edit profile

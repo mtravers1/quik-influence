@@ -32,6 +32,7 @@ import { axiosInstance } from 'utils/helpers';
 import UserImage from '../ViewProfile/UserImage';
 import { Q_TOKEN } from 'utils/constants';
 import { login } from 'redux/actions/auth';
+import { PaymentInfoComp } from 'modules/Profile/ViewProfile/PaymentInfoComp';
 
 const stateSelectOptions: DropdownSelectOption[] = stateNames.map(
   stateName => ({
@@ -121,6 +122,9 @@ const EditBasicInfo = () => {
         handleChange={handleChange}
         avatar={inputTypes.avatar}
       />
+
+      <PaymentInfoComp />
+
       <Flex
         bgColor={cardThemeColor[colorMode]}
         w="100%"
@@ -130,6 +134,7 @@ const EditBasicInfo = () => {
         <Heading pb="12" size="md">
           Edit profile
         </Heading>
+
         <form action="post">
           <VStack spacing="10" width="full" alignItems="flex-start">
             <SimpleGrid w="full" columns={2} columnGap={3} rowGap={6}>

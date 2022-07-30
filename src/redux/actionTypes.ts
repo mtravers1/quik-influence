@@ -33,6 +33,13 @@ export const JOINABLE_CAMPAIGNS_LOADING = 'JOINABLE_CAMPAIGNS_LOADING';
 export const JOINABLE_CAMPAIGNS = 'JOINABLE_CAMPAIGNS';
 export const JOINABLE_CAMPAIGNS_ERROR = 'JOINABLE_CAMPAIGNS_ERROR';
 
+export const GET_PAYMENT_INFO = 'GET_PAYMENT_INFO';
+export const UPDATE_PAYMENT_INFO = 'UPDATE_PAYMENT_INFO';
+export const CREATE_PAYMENT_INFO = 'CREATE_PAYMENT_INFO';
+
+export const GET_COUNTRIES = 'GET_COUNTRIES';
+export const UPDATE_STATES = 'UPDATE_STATES';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;
