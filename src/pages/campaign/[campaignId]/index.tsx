@@ -22,6 +22,10 @@ import { fetchCountries } from 'redux/actions/general';
 import Image from 'next/image';
 import loader from 'assets/loader.gif';
 
+// const stripePromise = loadStripe(
+//   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ''
+// );
+
 // const getPaymentInfo = (amount: string) => {
 //   const _amount = parseInt(amount, 10);
 //   const fee = (_amount * (12 + 2.9 + 0.33)) / 100;
