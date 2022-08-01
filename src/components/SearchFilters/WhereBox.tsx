@@ -101,6 +101,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
         key: data.id,
       })) || [];
 
+
   useEffect(() => {
     setAllProperties(quikInfluenceProperties());
   }, [formData]);
