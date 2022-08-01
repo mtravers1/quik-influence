@@ -87,23 +87,24 @@ const WhereBox: React.FC<WhereBoxProps> = ({
 
   const quikInfluenceProperties: any = () =>
     formData
-      .filter(
+      ?.filter(
         (data: any) =>
           data.status === 'active' &&
           !formDataRelatedToSpecificUser.includes(data.name)
       )
-      .map((data: any) => ({
+      ?.map((data: any) => ({
         label: data.name,
         value: data.name,
         type: data.meta.hasOwnProperty('dataType')
           ? data.meta.dataType
           : data.meta.type,
         key: data.id,
-      }));
+      })) || [];
+
 
   useEffect(() => {
     setAllProperties(quikInfluenceProperties());
-  }, []);
+  }, [formData]);
 
   const handlePropertyClick = async (field: PropertyType) => {
     setProperty(field);
