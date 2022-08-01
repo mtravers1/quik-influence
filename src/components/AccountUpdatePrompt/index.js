@@ -10,9 +10,11 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import CustomButton from 'components/Button';
+import { useRouter } from 'next/router';
 
 export const AccountUpdatePrompt = () => {
   const { admin } = useSelector(authSelectors.getUser);
+  const router = useRouter();
 
   const [showModal, setShowModal] = useState(false);
   const closeModal = () => {
@@ -26,7 +28,7 @@ export const AccountUpdatePrompt = () => {
   };
 
   useEffect(() => {
-    if (admin) {
+    if (router.pathname.includes('/profile') && admin) {
       let has_seen_modal;
       if (typeof window !== 'undefined') {
         has_seen_modal = sessionStorage.getItem('has_seen_modal');

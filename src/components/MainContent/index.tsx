@@ -8,7 +8,7 @@ import {
   dashboardColor,
 } from 'utils/constants/colorConstants';
 import useResponsiveFilter from 'hooks/useResponsiveFilter';
-import { AccountUpdatePrompt } from 'components/AccountUpdatePromt';
+import { AccountUpdatePrompt } from 'components/AccountUpdatePrompt';
 
 interface MainContentProps {
   children: React.ReactElement;

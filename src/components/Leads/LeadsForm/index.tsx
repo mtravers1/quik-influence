@@ -21,8 +21,7 @@ const LeadsForm = ({
   form,
   paidType,
   showConsent = true,
-  postingDocUrl,
-  lpCredentials,
+  query,
   choosenFields = [],
 }: {
   campaignId?: string;
@@ -32,13 +31,15 @@ const LeadsForm = ({
   paidType?: string;
   showConsent?: boolean;
   postingDocUrl?: string;
-  lpCredentials?: string;
+  query?: any;
   choosenFields?: string[];
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
   const isPaidCampaign = paidType === 'PAID';
   const router = useRouter();
+
+  console.log(query);
 
   const {
     handleChange,
@@ -77,9 +78,9 @@ const LeadsForm = ({
 
       payload = Object.assign({}, newInputs);
 
-      if (!!lpCredentials) {
-        const [lp_campaign_id, lp_campaign_key, campaignAdminId] =
-          lpCredentials.split('_');
+      if (query) {
+        const campaignAdminId = query.campaign_admin_id;
+        query.split('_');
         payload = {
           ...payload,
           // lp_campaign_id,
