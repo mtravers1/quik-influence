@@ -100,10 +100,10 @@ const LeadsForm = ({
       });
 
       if (typeof window !== 'undefined') {
-        localStorage.setItem(
-          'campaign_data',
-          JSON.stringify({ ...res.data.data, campaignId })
-        );
+        document.cookie = `campaign_data=${JSON.stringify({
+          ...res.data.data,
+          campaignId,
+        })}`;
       }
 
       // redirect to stripe checkout
