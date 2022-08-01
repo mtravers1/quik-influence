@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { Flex, Box } from '@chakra-ui/react';
 import MainContent from 'components/MainContent';
 import { TablePageLoader } from 'components/SkeletonLoaders';
 import CampaignReport from 'modules/Campaigns/Report';
@@ -68,10 +69,27 @@ const CampaignReports = () => {
         {isLoading ? (
           <TablePageLoader />
         ) : (
-          <CampaignReport
-            campaign={campaign}
-            campaignReports={campaignReports}
-          />
+          <>
+            {campaign && (
+              <CampaignReport
+                campaign={campaign}
+                campaignReports={campaignReports}
+              />
+            )}
+
+            {!campaign && (
+              <Flex
+                width="100%"
+                height="20vh"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Box as="h1" fontSize="20px" fontWeight="bold">
+                  Reports are not available for this campaign
+                </Box>
+              </Flex>
+            )}
+          </>
         )}
       </MainContent>
     </>
