@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import loader from 'assets/loader.gif';
 import Image from 'next/image';
 import { useSelectLocations } from 'hooks/useSelectLocations';
+import { setCookie } from 'utils/helpers';
 
 const LeadsForm = ({
   campaignId,
@@ -99,12 +100,21 @@ const LeadsForm = ({
         isClosable: false,
       });
 
-      if (typeof window !== 'undefined') {
-        document.cookie = `campaign_data=${JSON.stringify({
+      setCookie(
+        'campaign_data',
+        JSON.stringify({
           ...res.data.data,
           campaignId,
-        })}`;
-      }
+        }),
+        10
+      );
+      localStorage.setItem(
+        'campaign_data',
+        JSON.stringify({
+          ...res.data.data,
+          campaignId,
+        })
+      );
 
       // redirect to stripe checkout
       // handleStripe(inputs.email, res.status === 200);
