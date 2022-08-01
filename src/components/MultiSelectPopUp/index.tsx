@@ -29,8 +29,8 @@ type MultiSelectProps = {
 };
 
 const CreateOptionsMap = (options: any) => {
-  return options.reduce(
-    (acc: any, cur: any) => ({ ...acc, [cur.id]: cur }),
+  return (
+    options?.reduce((acc: any, cur: any) => ({ ...acc, [cur.id]: cur }), {}) ||
     {}
   );
 };
