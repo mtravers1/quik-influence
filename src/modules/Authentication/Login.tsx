@@ -31,11 +31,11 @@ const Login = () => {
       dispatch(login(response.data.data));
 
       toast({
-        title: `Welcome back ${response.data.data.firstName}`,
-        description: '',
-        status: 'success',
+        title: 'LoggedIn successfully Approved!',
+        description: `Welcome back ${response.data.data.admin.firstName}`,
         duration: 4000,
         isClosable: true,
+        position: 'top-right',
       });
 
       if (redirect) return router.push(redirect as string);

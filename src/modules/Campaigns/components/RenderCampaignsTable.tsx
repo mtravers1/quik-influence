@@ -27,6 +27,59 @@ const RenderCampaignsTable = ({
 }: RenderCampaignsTableProps) => {
   const style = getStyles(colorMode);
 
+  const DropDownList = (campaign: any) => {
+    const { isJoinable, CampaignAdmins } = campaign;
+
+    const regularButtons = [
+      {
+        label: campaign.status === OPEN ? 'Close campaign' : 'Open campaign',
+        value:
+          campaign.status === OPEN
+            ? `closeCampaign:${campaign.id}`
+            : `openCampaign:${campaign.id}`,
+      },
+      { label: 'Archive', value: `archive:${campaign.id}` },
+      {
+        label: 'View Registered Leads',
+        value: `/dashboard/leads/${campaign.id}`,
+      },
+      {
+        label: 'Reports & Tracking',
+        value: `/dashboard/campaigns/report/${campaign.id}`,
+      },
+      {
+        label: 'Copy link',
+        value: `copy:${campaign.id}=${campaign.CampaignAdmins[0].lp_campaign_id}_${campaign.CampaignAdmins[0].lp_campaign_key}_${campaign.CampaignAdmins[0].id}`,
+      },
+    ];
+
+    const launchButton =
+      !isJoinable ||
+      (isJoinable &&
+        !CampaignAdmins?.[0]?.isOwner &&
+        CampaignAdmins?.[0]?.lp_campaign_id &&
+        CampaignAdmins?.[0]?.lp_campaign_key)
+        ? [
+            {
+              label: 'Launch',
+              value: `/campaign/${campaign.id}?lp=${campaign.CampaignAdmins[0].lp_campaign_id}_${campaign.CampaignAdmins[0].lp_campaign_key}_${campaign.CampaignAdmins[0].id}`,
+            },
+          ]
+        : [];
+
+    const editButton =
+      !isJoinable || (isJoinable && CampaignAdmins?.[0]?.isOwner)
+        ? [
+            {
+              label: 'Edit',
+              value: `/dashboard/campaigns/edit/${campaign.id}`,
+            },
+          ]
+        : [];
+
+    return [...regularButtons, ...launchButton, ...editButton];
+  };
+
   return (
     <>
       {!campaigns ? (
@@ -64,38 +117,7 @@ const RenderCampaignsTable = ({
                         onChange={onSelect}
                         placeholder="action"
                         noValue={false}
-                        options={
-                          [
-                            {
-                              label:
-                                cam.status === OPEN
-                                  ? 'Close campaign'
-                                  : 'Open campaign',
-                              value:
-                                cam.status === OPEN
-                                  ? `closeCampaign:${cam.id}`
-                                  : `openCampaign:${cam.id}`,
-                            },
-                            {
-                              label: 'Edit',
-                              value: `/dashboard/campaigns/edit/${cam.id}`,
-                            },
-                            { label: 'Archive', value: `archive:${cam.id}` },
-                            {
-                              label: 'Launch',
-                              value: `/campaign/${cam.id}?lp=${cam.CampaignAdmins[0].lp_campaign_id}_${cam.CampaignAdmins[0].lp_campaign_key}_${cam.CampaignAdmins[0].id}`,
-                            },
-                            {
-                              label: 'View Registered Leads',
-                              value: `/dashboard/leads/${cam.id}`,
-                            },
-                            {
-                              label: 'Reports & Tracking',
-                              value: `/dashboard/campaigns/report/${cam.id}`,
-                            },
-                            { label: 'Copy link', value: `copy:${cam.id}=${cam.CampaignAdmins[0].lp_campaign_id}_${cam.CampaignAdmins[0].lp_campaign_key}_${cam.CampaignAdmins[0].id}` },
-                          ] || []
-                        }
+                        options={DropDownList(cam) || []}
                         name="Actions"
                         selectProps={{
                           fontSize: '1.4rem',
