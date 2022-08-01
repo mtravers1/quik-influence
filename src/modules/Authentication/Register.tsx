@@ -55,7 +55,6 @@ const Register = () => {
       toast({
         title: 'Account created.',
         description: "We've created your account for you.",
-        status: 'success',
         duration: 4000,
         isClosable: true,
       });

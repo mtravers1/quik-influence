@@ -53,4 +53,3 @@ const PreCreatedCampaigns = () => {
 };
 
 export default PreCreatedCampaigns;
-function loadPreCreatedCampaigns() {}

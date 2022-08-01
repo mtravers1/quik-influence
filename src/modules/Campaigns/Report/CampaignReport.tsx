@@ -149,7 +149,7 @@ const CampaignReport = ({ campaign, campaignReports }: IProps) => {
         </Flex>
 
         <Heading size="md" mt="16">
-          Campaign: {campaign.name}
+          Campaign: {campaign?.name}
         </Heading>
 
         {/* Report Summary Widget  */}
@@ -176,7 +176,7 @@ const CampaignReport = ({ campaign, campaignReports }: IProps) => {
             <TextInput
               type="text"
               label="Campaign Name"
-              value={campaign.name}
+              value={campaign?.name}
               TextInputProps={{ ...textInputProps }}
               formControlProps={{ ...formControlProps }}
               labelProps={{ ...textInputLabelProps }}
@@ -187,7 +187,7 @@ const CampaignReport = ({ campaign, campaignReports }: IProps) => {
             <TextInput
               type="text"
               label="Campaign Start Date"
-              value={format(new Date(campaign.campaignDate), 'dd/MM/yyyy')}
+              value={format(new Date(campaign?.campaignDate), 'dd/MM/yyyy')}
               TextInputProps={{ ...textInputProps }}
               formControlProps={{ ...formControlProps }}
               labelProps={{ ...textInputLabelProps }}

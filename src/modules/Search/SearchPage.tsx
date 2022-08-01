@@ -1,12 +1,12 @@
-import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
-import CustomButton from "components/Button";
-import WhereBox from "components/SearchFilters/WhereBox";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { searchAllLeads } from "redux/actions/leads";
-import { formDataRelatedToSpecificUser } from "utils/constants";
-import { basicTheme } from "utils/constants/colorConstants";
-import SearchResults from "./SearchResults";
+import { Box, Flex, Text, useColorMode } from '@chakra-ui/react';
+import CustomButton from 'components/Button';
+import WhereBox from 'components/SearchFilters/WhereBox';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchAllLeads } from 'redux/actions/leads';
+import { formDataRelatedToSpecificUser } from 'utils/constants';
+import { basicTheme } from 'utils/constants/colorConstants';
+import SearchResults from './SearchResults';
 
 const SearchPage = () => {
   const { colorMode } = useColorMode();
@@ -19,7 +19,7 @@ const SearchPage = () => {
   const handleAddQuery = () => {
     setSearchParams((params: any) => [
       ...params,
-      { id: params[params.length - 1].id + 1 }
+      { id: params[params.length - 1].id + 1 },
     ]);
   };
 
@@ -38,12 +38,12 @@ const SearchPage = () => {
     const filters: any = {};
     //populate filters
     formData
-      .filter(
+      ?.filter(
         (data: any) =>
-          data.status === "active" &&
+          data.status === 'active' &&
           !formDataRelatedToSpecificUser.includes(data.name)
       )
-      .forEach((data: any) => {
+      ?.forEach((data: any) => {
         filters[data.name] = {};
       });
 

@@ -38,27 +38,35 @@ const AcceptRequestModal = ({
   const [lpCampaignKeyError, setLPCampaignKeyError] = useState<string>('');
 
   const handleAcceptCampaign = async () => {
-    if (!!lpCampaignId && !!lpCampaignKey) {
+    if (lpCampaignId && lpCampaignKey) {
       setLoadingAcceptRequest(true);
-      const res = await modifyCampaignRequest({
-        campaignAdminId,
-        lp_campaign_id: lpCampaignId,
-        lp_campaign_key: lpCampaignKey,
-        status: 'ACTIVE',
-      });
-      if (res.id) {
-        setLoadingAcceptRequest(false);
+      try {
+        const res = await modifyCampaignRequest({
+          campaignAdminId,
+          lp_campaign_id: lpCampaignId,
+          lp_campaign_key: lpCampaignKey,
+          status: 'ACTIVE',
+        });
+
         toast({
           title: 'Request Approved!',
           description: `An email has been sent to ${adminName}!`,
-          status: 'success',
           duration: 9000,
           isClosable: true,
-          position: "top-right",
+          position: 'top-right',
         });
         onComplete();
         onClose();
+      } catch (err: any) {
+        toast({
+          title: err?.response?.data?.message || err.message,
+          status: 'error',
+          duration: 9000,
+          position: 'top-right',
+        });
       }
+
+      setLoadingAcceptRequest(false);
     }
     if (!lpCampaignId) {
       setLPCampaignIdError('Campaign Id Required');

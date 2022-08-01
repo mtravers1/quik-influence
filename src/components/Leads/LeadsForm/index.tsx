@@ -88,43 +88,30 @@ const LeadsForm = ({
         };
       }
 
-      await axiosInstance
-        .post(url, payload)
-        .then(async res => {
-          if (res.status === 200) {
-            resetInputs();
-            toast({
-              title: 'Registered Successfully.',
-              description: isPaidCampaign
-                ? 'You would be redirected to a payment screen'
-                : '',
-              duration: 9000,
-              position: 'top-right',
-              variant: 'subtle',
-              isClosable: false,
-            });
+      const res = await axiosInstance.post(url, payload);
+      resetInputs();
+      toast({
+        title: 'Registered Successfully.',
+        description: isPaidCampaign
+          ? 'You would be redirected to a payment screen'
+          : '',
+        duration: 9000,
+        position: 'top-right',
+        variant: 'subtle',
+        isClosable: false,
+      });
 
-            if (typeof window !== 'undefined') {
-              localStorage.setItem(
-                'campaign_data',
-                JSON.stringify({ ...res.data.data, campaignId })
-              );
-            }
-          }
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(
+          'campaign_data',
+          JSON.stringify({ ...res.data.data, campaignId })
+        );
+      }
 
-          // redirect to stripe checkout
-          // handleStripe(inputs.email, res.status === 200);
+      // redirect to stripe checkout
+      // handleStripe(inputs.email, res.status === 200);
 
-          if (typeof window !== 'undefined') router.push(redirectUrl);
-        })
-        .catch(err => {
-          toast({
-            title: err?.response?.data?.message || err.message,
-            status: 'error',
-            duration: 9000,
-            position: 'top-right',
-          });
-        });
+      if (typeof window !== 'undefined') router.push(redirectUrl);
     },
   });
 

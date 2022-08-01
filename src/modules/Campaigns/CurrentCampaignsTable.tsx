@@ -125,7 +125,6 @@ const CurrentCampaignsTable = () => {
             .then(success =>
               toast({
                 title: 'Copied to clipboard',
-                status: 'success',
                 duration: 4000,
                 isClosable: true,
                 position: 'top-right',

@@ -41,7 +41,6 @@ const Login = () => {
       toast({
         title: `Welcome back ${response.data.data.admin.firstName}`,
         description: '',
-        status: 'success',
         duration: 4000,
         isClosable: true,
       });

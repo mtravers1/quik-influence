@@ -15,57 +15,57 @@ import {
   Input,
   Checkbox,
   CheckboxGroup,
-  Image
-} from "@chakra-ui/react";
-import React, { ChangeEvent, useEffect, useState } from "react";
+  Image,
+} from '@chakra-ui/react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import {
   borderThemeColor,
-  dashboardColor
-} from "utils/constants/colorConstants";
+  dashboardColor,
+} from 'utils/constants/colorConstants';
 
-import LoaderGif from "assets/loader.gif";
-import { faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { useSelector } from "react-redux";
-import { PropertyType, WhereBoxProps } from "./types";
-import { GENDER, STATES } from "./constants";
-import { TextInput } from "components/Input";
-import { formDataRelatedToSpecificUser } from "utils/constants";
-import { fetchPropertyValues } from "redux/actions/leads";
+import LoaderGif from 'assets/loader.gif';
+import { faPlus, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useSelector } from 'react-redux';
+import { PropertyType, WhereBoxProps } from './types';
+import { GENDER, STATES } from './constants';
+import { TextInput } from 'components/Input';
+import { formDataRelatedToSpecificUser } from 'utils/constants';
+import { fetchPropertyValues } from 'redux/actions/leads';
 
 const comparators = [
   {
-    label: "=",
-    key: "equal"
+    label: '=',
+    key: 'equal',
   },
   {
-    label: "Not =",
-    key: "notEqual"
-  }
+    label: 'Not =',
+    key: 'notEqual',
+  },
 ];
 
 const WhereBox: React.FC<WhereBoxProps> = ({
   setSearchParams,
   handleRemoveQuery,
-  id
+  id,
 }) => {
   const { colorMode } = useColorMode();
   const { formData } = useSelector((state: any) => state.generals);
   const [selectedComparator, setSelectedComparator] = useState(comparators[0]);
   const [property, setProperty] = useState<PropertyType>();
   const [values, setValues] = useState<string[] | string>();
-  const [type, setType] = useState("");
+  const [type, setType] = useState('');
   const [selectAll, setSelectAll] = useState(false);
   const [loadingPropertyValues, setLoadingPropertyValues] = useState(false);
   const [allProperties, setAllProperties] = useState([]);
   const [allValues, setAllValues] = useState<any>([]);
   const [searchPropertyValues, setSearchPropertyValues] = useState<any>([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [searchValueInput, setSearchValueInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
+  const [searchValueInput, setSearchValueInput] = useState('');
 
   const onCancel = () => {
-    setValues("");
+    setValues('');
     setSearchPropertyValues([]);
     setProperty(undefined);
     handleRemoveQuery(id);
@@ -87,35 +87,38 @@ const WhereBox: React.FC<WhereBoxProps> = ({
 
   const quikInfluenceProperties: any = () =>
     formData
-      .filter(
+      ?.filter(
         (data: any) =>
-          data.status === "active" &&
+          data.status === 'active' &&
           !formDataRelatedToSpecificUser.includes(data.name)
       )
-      .map((data: any) => ({
+      ?.map((data: any) => ({
         label: data.name,
         value: data.name,
-        type: "dataType" in data.meta ? data.meta.dataType : data.meta.type,
-        key: data.id
-      }));
+        type: data.meta.hasOwnProperty('dataType')
+          ? data.meta.dataType
+          : data.meta.type,
+        key: data.id,
+      })) || [];
+
 
   useEffect(() => {
     setAllProperties(quikInfluenceProperties());
-  }, []);
+  }, [formData]);
 
   const handlePropertyClick = async (field: PropertyType) => {
     setProperty(field);
     setType(field.type);
-    if (field.label === "state" || field.label === "city") {
+    if (field.label === 'state' || field.label === 'city') {
       setValues([]);
       setSearchPropertyValues([]);
       setAllValues(STATES);
-    } else if (field.label === "gender") {
+    } else if (field.label === 'gender') {
       setValues([]);
       setSearchPropertyValues([]);
       setAllValues(GENDER);
     } else {
-      setValues("");
+      setValues('');
       setSearchPropertyValues([]);
     }
     //values configuration should depend on the field's type & name.
@@ -127,13 +130,13 @@ const WhereBox: React.FC<WhereBoxProps> = ({
       if (values.length > 20) {
         return (
           <Text>
-            {values.slice(0, 10).map((value) => `${value}, `)}
+            {values.slice(0, 10).map(value => `${value}, `)}
             ....,
-            {values.slice(values.length - 10).map((value) => `${value}, `)}
+            {values.slice(values.length - 10).map(value => `${value}, `)}
           </Text>
         );
       }
-      return <Text>{values.map((value) => `${value}, `)}</Text>;
+      return <Text>{values.map(value => `${value}, `)}</Text>;
     }
     return <Text> {values} </Text>;
   };
@@ -168,7 +171,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
     e.stopPropagation();
     const target = e.target as HTMLInputElement;
     const checked = target.checked;
-    const keys = STATES.map((value) => value.abbreviation);
+    const keys = STATES.map(value => value.abbreviation);
     checked && setValues(keys);
     setSelectAll(checked);
   };
@@ -210,18 +213,18 @@ const WhereBox: React.FC<WhereBoxProps> = ({
     //When searching for state or city, render checkbox.
     if (
       property &&
-      (property.label.toLowerCase() === "city" ||
-        property.label.toLowerCase() === "state" ||
-        property.label.toLowerCase() === "gender")
+      (property.label.toLowerCase() === 'city' ||
+        property.label.toLowerCase() === 'state' ||
+        property.label.toLowerCase() === 'gender')
     ) {
-      const isGender = property.label.toLowerCase() === "gender";
+      const isGender = property.label.toLowerCase() === 'gender';
       return (
         <>
           {!isGender && (
             <Flex padding={2}>
               <FontAwesomeIcon
                 icon={faSearch as IconProp}
-                style={{ margin: "auto 5px" }}
+                style={{ margin: 'auto 5px' }}
               />
               <Input
                 value={searchValueInput}
@@ -241,7 +244,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                   ml={3}
                   size="lg"
                   isChecked={selectAll}
-                  onChange={(e) => handleSelectAll(e)}
+                  onChange={e => handleSelectAll(e)}
                   fontSize="xl"
                 >
                   Select All
@@ -255,7 +258,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                       isChecked={
                         values ? values.includes(state.abbreviation) : false
                       }
-                      onChange={(e) =>
+                      onChange={e =>
                         handlePropertyValues(e, state.abbreviation)
                       }
                       fontSize="xl"
@@ -283,8 +286,8 @@ const WhereBox: React.FC<WhereBoxProps> = ({
       );
     }
     switch (type) {
-      case "string":
-      case "date":
+      case 'string':
+      case 'date':
         return (
           <Flex padding={6} flexDirection="column">
             <TextInput
@@ -294,7 +297,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
               label="Enter Search Value"
               placeholder="Search Value"
               TextInputProps={{
-                padding: "0.4rem"
+                padding: '0.4rem',
               }}
             />
             <>
@@ -350,7 +353,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                     border={`1px solid ${borderThemeColor[colorMode]}`}
                   >
                     {!property?.label
-                      ? "Select user property..."
+                      ? 'Select user property...'
                       : property.label}
                   </Box>
                 </MenuButton>
@@ -365,7 +368,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                   <Flex>
                     <FontAwesomeIcon
                       icon={faSearch as IconProp}
-                      style={{ margin: "auto 5px" }}
+                      style={{ margin: 'auto 5px' }}
                     />
                     <Input
                       onChange={handlePropertySearch}
@@ -384,7 +387,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                         key={field.key}
                         textTransform="capitalize"
                       >
-                        {field.label.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                        {field.label.replace(/([a-z])([A-Z])/g, '$1 $2')}
                       </MenuItem>
                     ))}
                   </MenuGroup>
@@ -408,7 +411,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                       </Box>
                     </MenuButton>
                     <MenuList overflow="scroll" fontSize="xl" px={2}>
-                      {comparators.map((comparator) => (
+                      {comparators.map(comparator => (
                         <MenuItem
                           onClick={() => setSelectedComparator(comparator)}
                           key={comparator.key}
@@ -433,7 +436,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
                         border={`1px solid ${borderThemeColor[colorMode]}`}
                       >
                         {!values || !values.length
-                          ? "Enter value(s)..."
+                          ? 'Enter value(s)...'
                           : renderValues(values)}
                       </Box>
                     </MenuButton>
@@ -471,7 +474,7 @@ const WhereBox: React.FC<WhereBoxProps> = ({
       <Box as="div" cursor="pointer" onClick={onCancel}>
         <FontAwesomeIcon
           icon={faTimes as IconProp}
-          style={{ margin: "auto 5px" }}
+          style={{ margin: 'auto 5px' }}
         />
       </Box>
     </Flex>

@@ -254,7 +254,6 @@ const CreatePaymentInfo = ({ info, onClose }) => {
       toast({
         title: info ? 'Payment Info Updated' : 'Payment Info Created',
         description: '',
-        status: 'success',
         duration: 4000,
         isClosable: true,
         position: 'top-right',

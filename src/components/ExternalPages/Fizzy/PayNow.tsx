@@ -151,7 +151,6 @@ export const PayNow: FC<{
       toast({
         title: `Your payment is processing`,
         description: '',
-        status: 'success',
         duration: 4000,
         isClosable: true,
         position: 'top-right',

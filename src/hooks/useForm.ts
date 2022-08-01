@@ -106,12 +106,12 @@ export default function Input({
     if (shouldNotSubmit(errorMap) && validateForm) {
       // you can add a toast here
       toast({
-        title:
-          'An error occurred. Please check your form for uncompleted fields',
-        description: '',
-        status: 'error',
-        duration: 4000,
+        title: 'The form may not be complete',
+        description: 'Please check your form for uncompleted fields',
+        status: 'warning',
+        duration: 5000,
         isClosable: true,
+        position: 'top-right',
       });
       errorMap.reset = false;
       errorMap.onSubmit = true;

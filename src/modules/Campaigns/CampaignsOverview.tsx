@@ -95,7 +95,6 @@ const CampaignsOverview = () => {
       <Flex flexDirection="column">
         <Flex mb={20} flexDirection="row" justifyContent="space-between">
           <Heading alignSelf="center" size="xl">
-            {' '}
             Campaigns Dashboard
           </Heading>
           <CustomButton width="25rem" my="0" onClick={onOpen}>
@@ -107,7 +106,9 @@ const CampaignsOverview = () => {
           </CustomButton>
         </Flex>
 
-        {hasPermission(ADMIN_USER_AFFILIATE, permissions) && (<PreCreatedCampaigns />)}
+        {hasPermission(ADMIN_USER_AFFILIATE, permissions) && (
+          <PreCreatedCampaigns />
+        )}
         {hasPermission(MARKETING_ADMIN, permissions) && (
           <PendingCampaignRequest />
         )}
