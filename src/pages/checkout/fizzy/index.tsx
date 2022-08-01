@@ -33,14 +33,14 @@ const Fizzy = () => {
   const [otherInfo, setOtherInfo] = useState<any>();
 
   useEffect(() => {
-    if (userDataInfo) return;
-
-    const campaign_data = localStorage?.getItem('campaign_data');
-    if (campaign_data) {
-      const parsed_campaign_data = JSON.parse(campaign_data);
-      setUserData(filterUserData(parsed_campaign_data));
-      setOtherInfo(filterOtherInfo(parsed_campaign_data));
-    }
+    setTimeout(() => {
+      const campaign_data = localStorage?.getItem('campaign_data');
+      if (campaign_data) {
+        const parsed_campaign_data = JSON.parse(campaign_data);
+        setUserData(filterUserData(parsed_campaign_data));
+        setOtherInfo(filterOtherInfo(parsed_campaign_data));
+      }
+    }, 1000);
   }, []);
 
   const onClose = () => {
