@@ -61,7 +61,6 @@ const getFormFields = (options: any, data: any) => {
 
 const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const { query } = useRouter();
-  const lpUrl = query.lp as string;
   const { colorMode } = useColorMode();
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const { formInputs: options } = useSelector((state: any) => state.generals);
@@ -179,7 +178,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                         <LeadsForm
                           campaignId={query.campaignId as string}
                           // handleStripe={handleStripe}
-                          lpCredentials={lpUrl}
+                          query={query}
                           redirectUrl={data?.redirectUrl}
                           form={allFields.allFieldsSet}
                           choosenFields={allFields.choosenFieldsList}
