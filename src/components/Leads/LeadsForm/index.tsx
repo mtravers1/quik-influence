@@ -39,8 +39,6 @@ const LeadsForm = ({
   const isPaidCampaign = paidType === 'PAID';
   const router = useRouter();
 
-  console.log(query);
-
   const {
     handleChange,
     inputTypes,
@@ -80,7 +78,6 @@ const LeadsForm = ({
 
       if (query) {
         const campaignAdminId = query.campaign_admin_id;
-        query.split('_');
         payload = {
           ...payload,
           // lp_campaign_id,
