@@ -13,6 +13,8 @@ import {
 import Link from 'next/link';
 import { Authorize } from './authorize';
 import { axiosInstance } from 'utils/helpers';
+import loader from 'assets/loader.gif';
+import NextImage from 'next/image';
 
 let price = 35.99;
 let tax = 2.52;
@@ -30,9 +32,10 @@ export const PayNow: FC<{
   const [flavour, setFlavour] = useState('Wild Strawberry');
 
   const [shippingRate, setShippingRate] = useState(0);
-  const [shipmentId, setShippmentId] = useState('');
+  const [shipmentId, setShippmentId] = useState(undefined);
 
   const [showOrderModal, setShowOrderModal] = useState(false);
+  const [loadingShipment, setLoadingShipment] = useState(false);
 
   const closeOrderModal = () => {
     setShowOrderModal(false);
@@ -43,15 +46,30 @@ export const PayNow: FC<{
   useEffect(() => {
     const newTax = Number((tax * number).toFixed(2));
     setTotalTax(newTax);
-    setTotal(Number((number * price + newTax + shippingRate).toFixed(2)));
-  }, [number, shippingRate]);
 
-  const getShippingCost = async () => {
+    const newTotalAmount = Number((number * price + newTax).toFixed(2));
+    setTotal(newTotalAmount);
+
+    getShippingCost(newTotalAmount);
+  }, [number]);
+
+  useEffect(() => {
+    const newTotalAmount = Number(
+      (number * price + totalTax + shippingRate).toFixed(2)
+    );
+
+    setTotal(newTotalAmount);
+  }, [shippingRate]);
+
+  const getShippingCost = async (totalParcelAmount: number) => {
+    setLoadingShipment(true);
+
     try {
       const rates = await axiosInstance.post(
         '/users/shippo/rate',
         {
-          adminId: '6b8073ca-ccb3-44d4-8fb6-3befcc3daa80',
+          adminId: 'f556e492-860b-4dc7-9661-175e25f42e9a',
+          existingShipmentId: shipmentId,
           // parcels: Array.from(Array(number).keys()).map(item => ({
           //   weight: 2.72,
           //   length: 7,
@@ -76,19 +94,19 @@ export const PayNow: FC<{
         }
       );
 
-      setShippingRate(rates.data.data.rate || 0);
-      setShippmentId(rates.data.data.id);
+      setShippingRate(
+        totalParcelAmount > 50 ? 0 : Number(rates.data.data.rate) || 0
+      );
+      if (!shipmentId) setShippmentId(rates.data.data.id);
     } catch (err: any) {
       console.log(err);
       if (err.response.status === 401) {
         openLoginOtp();
       }
     }
-  };
 
-  useEffect(() => {
-    getShippingCost();
-  }, [number]);
+    setLoadingShipment(false);
+  };
 
   const handleInput = () => {
     setAgreed(!agreed);
@@ -269,7 +287,17 @@ export const PayNow: FC<{
                 <Box marginRight="30px">Subtotal</Box>
                 <Box>${(number * price).toFixed(2)}</Box>
               </Flex>
-              <Flex marginBottom="20px">
+              <Flex marginBottom="20px" alignItems="center" position="relative">
+                {loadingShipment && (
+                  <Box position="absolute" left="-40px" top="-2px">
+                    <NextImage
+                      src={loader}
+                      alt="Loading..."
+                      width={30}
+                      height={30}
+                    />
+                  </Box>
+                )}
                 <Box marginRight="30px">Shipping Fee</Box>
                 <Box>${shippingRate.toFixed(2)}</Box>
               </Flex>
@@ -314,7 +342,12 @@ export const PayNow: FC<{
           </Flex>
         </Box>
 
-        <Flex justifyContent="flex-end" pointerEvents={agreed ? 'all' : 'none'}>
+        <Flex
+          justifyContent="flex-end"
+          pointerEvents={
+            (agreed || !loadingShipment) && shipmentId ? 'all' : 'none'
+          }
+        >
           <Authorize onSuccessHandler={onSuccessHandler} />
         </Flex>
       </Box>
