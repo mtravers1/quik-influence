@@ -36,6 +36,8 @@ const Fizzy = () => {
 
   const router = useRouter();
 
+  console.log(router.asPath, router);
+
   useEffect(() => {
     let campaign_data;
 
@@ -49,7 +51,7 @@ const Fizzy = () => {
     }
 
     if (router.query.refresh) {
-      window.location.reload();
+      window.location.href = `${window.location.origin}${window.location.pathname}`;
     }
   }, []);
 
