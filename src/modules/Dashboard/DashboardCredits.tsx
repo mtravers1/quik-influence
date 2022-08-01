@@ -129,7 +129,6 @@ const DashboardCredits = () => {
         toast({
           title: 'Credits Added Successfully.',
           description: `We've added $${chargeRes.amount} credits your account for you.`,
-          status: 'success',
           duration: 4000,
           isClosable: true,
           variant: 'top-accent',

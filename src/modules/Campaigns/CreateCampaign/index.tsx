@@ -133,7 +133,6 @@ const CreateCampaign = ({
         toast({
           title: 'SMS Successfully Sent.',
           description: `The SMS has been successfully sent.`,
-          status: 'success',
           duration: 4000,
           isClosable: true,
           variant: 'top-accent',
@@ -187,7 +186,6 @@ const CreateCampaign = ({
         toast({
           title: 'Email Successfully Sent.',
           description: `The Email has been successfully sent.`,
-          status: 'success',
           duration: 4000,
           isClosable: true,
           variant: 'top-accent',
@@ -632,7 +630,6 @@ const CreateCampaign = ({
             ? 'Campaign updated successfully!'
             : 'Your campaign has been created successfully!',
           description: '',
-          status: 'success',
           duration: 4000,
           isClosable: true,
         });

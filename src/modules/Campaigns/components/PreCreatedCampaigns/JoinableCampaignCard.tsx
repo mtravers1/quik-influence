@@ -27,10 +27,9 @@ const JoinableCampaignCard = ({
       toast({
         title: 'Request Sent!.',
         description: 'Admin as been Notified.',
-        status: 'success',
         duration: 9000,
         isClosable: true,
-        position: "top-right",
+        position: 'top-right',
       });
     }
   };
@@ -43,9 +42,17 @@ const JoinableCampaignCard = ({
       borderRadius="lg"
       overflow="hidden"
       cursor="pointer"
+      height="200px"
       mr={10}
     >
-      <Image src={campaign.banner} alt={campaign.slug} />
+      <Image
+        src={campaign.banner}
+        alt={campaign.slug}
+        height="125"
+        objectFit="cover"
+        w="100%"
+        objectPosition="left"
+      />
 
       <Box p="6">
         <Box

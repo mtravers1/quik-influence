@@ -27,7 +27,6 @@ export const ResetPassword = () => {
       toast({
         title: `An otp has been sent to  ${inputs.email}`,
         description: '',
-        status: 'success',
         duration: 4000,
         isClosable: true,
       });

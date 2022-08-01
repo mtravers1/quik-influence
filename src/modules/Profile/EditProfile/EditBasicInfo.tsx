@@ -62,7 +62,7 @@ const EditBasicInfo = () => {
       case 'country':
         return countrySelectOptions;
       default:
-        return [];
+        return null;
     }
   };
 
@@ -70,18 +70,18 @@ const EditBasicInfo = () => {
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
     initials: {
-      address_line1: admin['address1'],
-      address_line2: admin['address2'],
-      address_state: admin['state'],
-      address_zip: admin['zipCode'],
-      city: admin['city'],
-      country: admin['country'],
-      dob: admin['dateOfBirth'],
-      firstName: admin['firstName'],
-      gender: admin['gender'],
-      lastName: admin['lastName'],
-      phone: admin['phone'],
-      avatar: admin['avatar'],
+      address_line1: admin?.address1,
+      address_line2: admin?.address2,
+      address_state: admin?.state,
+      address_zip: admin?.zipCode,
+      city: admin?.city,
+      country: admin?.country,
+      dob: admin?.dateOfBirth,
+      firstName: admin?.firstName,
+      gender: admin?.gender,
+      lastName: admin?.lastName,
+      phone: admin?.phone,
+      avatar: admin?.avatar,
     },
     cb: async inputs => {
       const response = await axiosInstance.put('/auth/profile/admin', {
@@ -108,13 +108,14 @@ const EditBasicInfo = () => {
         toast({
           title: 'Your profile has been updated succesfully',
           description: '',
-          status: 'success',
           duration: 4000,
           isClosable: true,
+          position: 'top-right',
         });
       }
     },
   });
+
   return (
     <>
       <UserImage
@@ -153,7 +154,9 @@ const EditBasicInfo = () => {
                         onChange={handleChange}
                         label={data.label}
                         labelProps={{ ...textInputLabelProps }}
-                        options={getSelectionOptions(data.name) || []}
+                        options={
+                          getSelectionOptions(data.name) || data.options || []
+                        }
                         error={errors[data.name] && data.errorMessage}
                       />
                     </GridItem>

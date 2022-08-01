@@ -70,7 +70,6 @@ const DashboardLeads = () => {
           toast({
             title: 'Email Successfully Sent.',
             description: `The lead has been successfully sent.`,
-            status: 'success',
             duration: 4000,
             isClosable: true,
             variant: 'top-accent',
@@ -95,7 +94,6 @@ const DashboardLeads = () => {
           toast({
             title: 'SMS Successfully Sent.',
             description: `The lead has been successfully sent.`,
-            status: 'success',
             duration: 4000,
             isClosable: true,
             variant: 'top-accent',

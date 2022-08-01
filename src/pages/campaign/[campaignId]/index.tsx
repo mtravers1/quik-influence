@@ -15,26 +15,26 @@ import Head from 'next/head';
 import { bgThemeColor } from 'utils/constants/colorConstants';
 import LeadsForm from 'components/Leads/LeadsForm';
 import { useRouter } from 'next/router';
-import { loadStripe } from '@stripe/stripe-js';
+// import { loadStripe } from '@stripe/stripe-js';
 import { axiosInstance } from 'utils/helpers';
 import compulsoryFields from 'utils/constants/formData/leads';
 import { fetchCountries } from 'redux/actions/general';
 import Image from 'next/image';
 import loader from 'assets/loader.gif';
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ''
-);
+// const stripePromise = loadStripe(
+//   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ''
+// );
 
-const getPaymentInfo = (amount: string) => {
-  const _amount = parseInt(amount, 10);
-  const fee = (_amount * (12 + 2.9 + 0.33)) / 100;
-  return {
-    campaignAmount: _amount,
-    fee,
-    actualAmount: Math.round(_amount + fee) * 100,
-  };
-};
+// const getPaymentInfo = (amount: string) => {
+//   const _amount = parseInt(amount, 10);
+//   const fee = (_amount * (12 + 2.9 + 0.33)) / 100;
+//   return {
+//     campaignAmount: _amount,
+//     fee,
+//     actualAmount: Math.round(_amount + fee) * 100,
+//   };
+// };
 
 const getFormFields = (options: any, data: any) => {
   const fields: any = [];
@@ -46,7 +46,7 @@ const getFormFields = (options: any, data: any) => {
     {}
   );
 
-  const choosenFields = data.formData || [];
+  const choosenFields = data?.formData || [];
 
   choosenFields.forEach((field: any) => {
     fields.push(formInputs[field]);
@@ -67,30 +67,32 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
   const { formInputs: options } = useSelector((state: any) => state.generals);
   const [allFields] = useState<any>(getFormFields(options, data));
 
-  const handleStripe = async (email: string, success?: boolean) => {
-    if (data.paidType === 'PAID') {
-      const stripe = await stripePromise;
+  // const handleStripe = async (email: string, success?: boolean) => {
+  //   if (data.paidType === 'PAID') {
+  //     const stripe = await stripePromise;
 
-      const paymentInfo = getPaymentInfo(data.prices);
+  //     const paymentInfo = getPaymentInfo(data.prices);
 
-      const response = await axiosInstance.post(
-        '/stripe/create-payment-session',
-        {
-          email,
-          image: data?.banner,
-          title: data?.name,
-          amount: paymentInfo.actualAmount,
-          campaignId: query.campaignId as string,
-        }
-      );
+  //     const response = await axiosInstance.post(
+  //       '/stripe/create-payment-session',
+  //       {
+  //         email,
+  //         image: data?.banner,
+  //         title: data?.name,
+  //         amount: paymentInfo.actualAmount,
+  //         campaignId: query.campaignId as string,
+  //       }
+  //     );
 
-      const result = await stripe?.redirectToCheckout({
-        sessionId: response.data.data.id,
-      });
-    } else if (success) {
-      setShowSuccessMessage(true);
-    }
-  };
+  //     const result = await stripe?.redirectToCheckout({
+  //       sessionId: response.data.data.id,
+  //     });
+  //   } else if (success) {
+  //     setShowSuccessMessage(true);
+  //   }
+  // };
+
+  if (!data) window.location.href = '/404';
 
   const { countryData } = useSelector((state: any) => state.generals);
   const dispatch = useDispatch();
@@ -100,8 +102,6 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
       dispatch(fetchCountries());
     }
   }, []);
-
-  if (!data) window.location.href = '/404';
 
   return (
     <>

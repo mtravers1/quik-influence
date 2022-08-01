@@ -40,7 +40,6 @@ const PendingCampaignListItem = ({
       toast({
         title: 'Request Declined!',
         description: `An email has been sent to ${campaign.Admin.firstName}!`,
-        status: 'success',
         duration: 9000,
         isClosable: true,
         position: 'top-right',

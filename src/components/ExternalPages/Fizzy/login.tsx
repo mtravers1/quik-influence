@@ -27,7 +27,6 @@ const Login: FC<{ phone: any; callback: any }> = ({ phone, callback }) => {
       toast({
         title: `Thanks for logging in!`,
         description: '',
-        status: 'success',
         duration: 4000,
         isClosable: true,
       });

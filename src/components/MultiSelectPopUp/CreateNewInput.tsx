@@ -30,7 +30,6 @@ const CreateNewInput: FC<{ close: Function }> = ({ close }) => {
       toast({
         title: `Input create successfully`,
         description: '',
-        status: 'success',
         duration: 4000,
         isClosable: true,
       });
