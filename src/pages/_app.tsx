@@ -19,6 +19,8 @@ import {
   createFormInputs,
 } from 'redux/actions/general';
 
+const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
+
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -48,14 +50,17 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
         return res;
       },
       err => {
-        if (err.response.status === 401 && router.asPath !== '/') {
+        if (
+          err.response.status === 401 &&
+          !excludedPages.includes(router.pathname)
+        ) {
           localStorage.removeItem('_q_inf');
           router.push(`/login?redirect=${router.asPath}`);
         }
         return Promise.reject(err);
       }
     );
-  }, []);
+  }, [router.asPath]);
 
   return (
     <>

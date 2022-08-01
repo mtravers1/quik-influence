@@ -7,10 +7,10 @@ import {
   Flex,
   Heading,
   useColorMode,
-  Image,
+  Image as ChakraImage,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { bgThemeColor } from 'utils/constants/colorConstants';
 import LeadsForm from 'components/Leads/LeadsForm';
@@ -18,6 +18,9 @@ import { useRouter } from 'next/router';
 import { loadStripe } from '@stripe/stripe-js';
 import { axiosInstance } from 'utils/helpers';
 import compulsoryFields from 'utils/constants/formData/leads';
+import { fetchCountries } from 'redux/actions/general';
+import Image from 'next/image';
+import loader from 'assets/loader.gif';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ''
@@ -89,6 +92,15 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
     }
   };
 
+  const { countryData } = useSelector((state: any) => state.generals);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!countryData.country.length) {
+      dispatch(fetchCountries());
+    }
+  }, []);
+
   if (!data) window.location.href = '/404';
 
   return (
@@ -107,7 +119,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
               display={['block']}
               as="div"
             >
-              <Image
+              <ChakraImage
                 src={data?.banner || ''}
                 alt={data?.name || ''}
                 width={['100%']}
@@ -129,40 +141,55 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                 pt={['1rem', '0']}
                 height={showSuccessMessage ? '-webkit-fill-available' : 'unset'}
               >
-                {showSuccessMessage ? (
-                  <Alert
-                    status="success"
-                    variant="subtle"
-                    flexDirection="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    textAlign="center"
-                    height="250px"
-                    lineHeight="2"
-                  >
-                    <AlertIcon boxSize="40px" mr={0} />
-                    <AlertTitle mt={5} mb={5} fontSize="3xl" color="green.400">
-                      Registration submitted!
-                    </AlertTitle>
-                    <AlertDescription maxWidth="sm">
-                      Thanks for submitting your registration.
-                    </AlertDescription>
-                  </Alert>
+                {countryData.country.length ? (
+                  <>
+                    {showSuccessMessage ? (
+                      <Alert
+                        status="success"
+                        variant="subtle"
+                        flexDirection="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        textAlign="center"
+                        height="250px"
+                        lineHeight="2"
+                      >
+                        <AlertIcon boxSize="40px" mr={0} />
+                        <AlertTitle
+                          mt={5}
+                          mb={5}
+                          fontSize="3xl"
+                          color="green.400"
+                        >
+                          Registration submitted!
+                        </AlertTitle>
+                        <AlertDescription maxWidth="sm">
+                          Thanks for submitting your registration.
+                        </AlertDescription>
+                      </Alert>
+                    ) : (
+                      <Box maxW="440px">
+                        <Heading
+                          textAlign="center"
+                          py={8}
+                          fontFamily="montserrat"
+                        >
+                          {data?.name}
+                        </Heading>
+                        <LeadsForm
+                          campaignId={query.campaignId as string}
+                          // handleStripe={handleStripe}
+                          lpCredentials={lpUrl}
+                          redirectUrl={data?.redirectUrl}
+                          form={allFields.allFieldsSet}
+                          choosenFields={allFields.choosenFieldsList}
+                          paidType={data?.paidType}
+                        />
+                      </Box>
+                    )}
+                  </>
                 ) : (
-                  <Box maxW="440px">
-                    <Heading textAlign="center" py={8} fontFamily="montserrat">
-                      {data?.name}
-                    </Heading>
-                    <LeadsForm
-                      campaignId={query.campaignId as string}
-                      // handleStripe={handleStripe}
-                      lpCredentials={lpUrl}
-                      redirectUrl={data?.redirectUrl}
-                      form={allFields.allFieldsSet}
-                      choosenFields={allFields.choosenFieldsList}
-                      paidType={data?.paidType}
-                    />
-                  </Box>
+                  <Image src={loader} alt="" width={40} height={40} />
                 )}
               </Flex>
             </Box>
