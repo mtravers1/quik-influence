@@ -11,13 +11,13 @@ import { wrapper } from '../store';
 import { CONTENT_URL } from 'utils/constants';
 import { APP_NAME, NAV_NAME } from 'utils/constants/pageDataConstants';
 import { login } from 'redux/actions/auth';
-import '../styles/globals.css';
-import '../styles/404.css';
 import {
   createFormData,
   createTags,
   createFormInputs,
 } from 'redux/actions/general';
+import '../styles/globals.css';
+import '../styles/404.css';
 
 const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
 
@@ -60,7 +60,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
         return Promise.reject(err);
       }
     );
-  }, [router.asPath]);
+  }, [router.asPath, pageProps]);
 
   return (
     <>
@@ -79,36 +79,32 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
 }
 
 QuikInfluenceApp.getInitialProps = async () => {
-  if (typeof window === 'undefined') {
-    let nav: any;
-    let formData: any;
-    let formInputs: any;
-    let tags: any;
+  let nav: any;
+  let formData: any;
+  let formInputs: any;
+  let tags: any;
 
-    try {
-      nav = await axiosInstance.get(
-        `${CONTENT_URL}?resource=${APP_NAME}&page=${NAV_NAME}`
-      );
+  try {
+    nav = await axiosInstance.get(
+      `${CONTENT_URL}?resource=${APP_NAME}&page=${NAV_NAME}`
+    );
 
-      formData = await axiosInstance.get(`/admin/form-element`);
-      formInputs = await axiosInstance.get(`/admin/form-inputs`);
+    formData = await axiosInstance.get(`/admin/form-element`);
+    formInputs = await axiosInstance.get(`/admin/form-inputs`);
 
-      tags = await axiosInstance.get('/admin/tag');
-    } catch (err) {
-      console.log(err);
-    }
-
-    return {
-      pageProps: {
-        nav: nav?.data?.data,
-        formData: formData?.data.data,
-        tags: tags?.data.data,
-        formInputs: formInputs?.data.data,
-      },
-    };
+    tags = await axiosInstance.get('/admin/tag');
+  } catch (err) {
+    console.log(err);
   }
 
-  return {};
+  return {
+    pageProps: {
+      nav: nav?.data?.data,
+      formData: formData?.data.data,
+      tags: tags?.data.data,
+      formInputs: formInputs?.data.data,
+    },
+  };
 };
 
 export default wrapper.withRedux(QuikInfluenceApp);
