@@ -119,7 +119,9 @@ const LeadsForm = ({
       // redirect to stripe checkout
       // handleStripe(inputs.email, res.status === 200);
 
-      if (typeof window !== 'undefined') router.push(redirectUrl);
+      if (typeof window !== 'undefined')
+        if (typeof window !== 'undefined')
+          router.push(`${redirectUrl}?refresh=true`);
     },
   });
 
