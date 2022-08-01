@@ -49,7 +49,9 @@ const MultiSelectPopUp: React.FC<MultiSelectProps> = ({
   const { colorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<any>(initialvalue || []);
-  const [optionsMap, setOptionsMap] = useState<any>(CreateOptionsMap(options));
+  const [optionsMap, setOptionsMap] = useState<any>(
+    CreateOptionsMap(options || {})
+  );
   const [createNewField, setCreateNewField] = useState(false);
 
   const onClose = () => {
