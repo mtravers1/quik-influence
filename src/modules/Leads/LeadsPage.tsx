@@ -94,6 +94,8 @@ const LeadsPage = ({
     </button>
   );
 
+  console.log(leads?.data);
+
   return (
     <Box>
       <Flex width="full" alignItems="center" justify="space-between">

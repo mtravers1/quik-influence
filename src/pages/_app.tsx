@@ -21,6 +21,8 @@ import '../styles/404.css';
 
 const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
 
+const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
+
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
     defaultOptions: {
