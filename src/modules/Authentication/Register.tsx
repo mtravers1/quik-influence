@@ -83,8 +83,9 @@ const Register = () => {
       });
 
       dispatch(login(response.data.data));
-      // Redirect to Dashboard
-      router.push('/dashboard');
+
+      // Redirect to User profile page
+      router.push('/dashboard/profile/edit');
     } catch (err) {}
 
     setLoadingOtp(false);
