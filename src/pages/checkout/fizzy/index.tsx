@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Payment } from 'components/ExternalPages/Fizzy/payment';
 import { FizzyLayout } from 'layout/fizzy';
 import {
@@ -33,6 +34,8 @@ const Fizzy = () => {
   const [userDataInfo, setUserData] = useState<any>();
   const [otherInfo, setOtherInfo] = useState<any>();
 
+  const router = useRouter();
+
   useEffect(() => {
     let campaign_data;
 
@@ -43,6 +46,10 @@ const Fizzy = () => {
       const parsed_campaign_data = JSON.parse(campaign_data);
       setUserData(filterUserData(parsed_campaign_data));
       setOtherInfo(filterOtherInfo(parsed_campaign_data));
+    }
+
+    if (router.query.refresh) {
+      window.location.reload();
     }
   }, []);
 
