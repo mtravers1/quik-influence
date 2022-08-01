@@ -10,6 +10,7 @@ import {
 import useResponsiveFilter from 'hooks/useResponsiveFilter';
 import { AccountUpdatePrompt } from 'components/AccountUpdatePrompt';
 
+
 interface MainContentProps {
   children: React.ReactElement;
   filter?: React.ReactElement;
