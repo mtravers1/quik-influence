@@ -36,7 +36,7 @@ import loader from 'assets/loader.gif';
 //   };
 // };
 
-const getFormFields = (options: any, data: any) => {
+const getFormFields: any = (options: any, data: any) => {
   const fields: any = [];
   const formInputs = options.reduce(
     (acc: any, cur: any) => ({

@@ -35,13 +35,11 @@ const Fizzy = () => {
   useEffect(() => {
     if (userDataInfo) return;
 
-    if (typeof window !== 'undefined') {
-      const campaign_data = localStorage.getItem('campaign_data');
-      if (campaign_data) {
-        const parsed_campaign_data = JSON.parse(campaign_data);
-        setUserData(filterUserData(parsed_campaign_data));
-        setOtherInfo(filterOtherInfo(parsed_campaign_data));
-      }
+    const campaign_data = localStorage?.getItem('campaign_data');
+    if (campaign_data) {
+      const parsed_campaign_data = JSON.parse(campaign_data);
+      setUserData(filterUserData(parsed_campaign_data));
+      setOtherInfo(filterOtherInfo(parsed_campaign_data));
     }
   }, []);
 
