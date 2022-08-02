@@ -61,3 +61,127 @@ a {
   display: block;
   cursor: pointer;
 }
+
+.asd-media-wrapper__editable_wrapper .uploadcare--widget {
+  display: none;
+}
+
+.nav-links {
+  right: -150%;
+  transition: 0.3s ease;
+}
+
+#nav-toggle:checked + .nav-links {
+  right: 0;
+}
+
+.select-option-grid-item .option-icon {
+  opacity: 0;
+}
+
+.select-option-grid-item:hover .option-icon {
+  opacity: 1;
+}
+
+.campaign-create label {
+  display: none;
+}
+
+.campaign-create select {
+  border-radius: 50px;
+  padding-left: 50px;
+}
+
+.consent label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.fluid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  grid-gap: 30px;
+}
+
+.input-div.radx {
+  width: 100%;
+}
+
+.rad_options {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+.rad_options::before {
+  content: '';
+  box-shadow: 0 0 0 2px #26a595;
+  top: 10%;
+  transform: unset;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}
+
+.rad_options.light::before {
+  box-shadow: 0 0 0 2px #000;
+}
+
+.rad_options.dark::before {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.rad_options.selected.light::before {
+  background: black;
+  border: 2px solid white;
+}
+
+.rad_options.selected.dark::before {
+  background: white;
+  border: 2px solid black;
+}
+
+.leads-form .multi-select {
+  padding-top: 0;
+}
+
+.billing-form {
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  grid-gap: 30px;
+}
+
+.billing-form label {
+  color: #0bcbfb;
+  font-weight: bold;
+}
+
+.billing-form input {
+  border-radius: 0;
+  outline: none;
+  transition: 0.3s ease;
+  background: #3e3e3e;
+  color: #ccc;
+  font-weight: bold;
+}
+
+.billing-form > div:nth-child(n + 3) {
+  grid-column: 1/3;
+}
+
+.billing-form input:focus {
+  outline: none;
+}
+
+.billing-form input.valid {
+  border-left: 2px solid green;
+}
+
+.billing-form input.invalid {
+  border-left: 2px solid red;
+}

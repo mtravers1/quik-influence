@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -10,11 +11,15 @@ import { wrapper } from '../store';
 import { CONTENT_URL } from 'utils/constants';
 import { APP_NAME, NAV_NAME } from 'utils/constants/pageDataConstants';
 import { login } from 'redux/actions/auth';
+import {
+  createFormData,
+  createTags,
+  createFormInputs,
+} from 'redux/actions/general';
 import '../styles/globals.css';
 import '../styles/404.css';
-import { createFormData, createTags } from 'redux/actions/general';
-import { useRouter } from 'next/router';
 
+const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -29,6 +34,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const runBeforeLoad = async () => {
     dispatch(createFormData(pageProps?.formData));
     dispatch(createTags(pageProps?.tags));
+    dispatch(createFormInputs(pageProps?.formInputs));
     setLoading(true);
 
     dispatch(login());
@@ -43,14 +49,17 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
         return res;
       },
       err => {
-        if (err.response.status === 401) {
+        if (
+          err.response.status === 401 &&
+          !excludedPages.includes(router.pathname)
+        ) {
           localStorage.removeItem('_q_inf');
           router.push(`/login?redirect=${router.asPath}`);
         }
         return Promise.reject(err);
       }
     );
-  }, []);
+  }, [router.asPath, pageProps]);
 
   return (
     <>
@@ -69,33 +78,32 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
 }
 
 QuikInfluenceApp.getInitialProps = async () => {
-  if (typeof window === 'undefined') {
-    let nav: any;
-    let formData: any;
-    let tags: any;
+  let nav: any;
+  let formData: any;
+  let formInputs: any;
+  let tags: any;
 
-    try {
-      nav = await axiosInstance.get(
-        `${CONTENT_URL}?resource=${APP_NAME}&page=${NAV_NAME}`
-      );
+  try {
+    nav = await axiosInstance.get(
+      `${CONTENT_URL}?resource=${APP_NAME}&page=${NAV_NAME}`
+    );
 
-      formData = await axiosInstance.get(`/admin/form-element`);
+    formData = await axiosInstance.get(`/admin/form-element`);
+    formInputs = await axiosInstance.get(`/admin/form-inputs`);
 
-      tags = await axiosInstance.get('/admin/tag');
-    } catch (err) {
-      console.log(err);
-    }
-
-    return {
-      pageProps: {
-        nav: nav?.data?.data,
-        formData: formData?.data.data,
-        tags: tags?.data.data,
-      },
-    };
+    tags = await axiosInstance.get('/admin/tag');
+  } catch (err) {
+    console.log(err);
   }
 
-  return {};
+  return {
+    pageProps: {
+      nav: nav?.data?.data,
+      formData: formData?.data.data,
+      tags: tags?.data.data,
+      formInputs: formInputs?.data.data,
+    },
+  };
 };
 
 export default wrapper.withRedux(QuikInfluenceApp);

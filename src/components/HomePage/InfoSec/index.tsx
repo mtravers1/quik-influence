@@ -1,6 +1,6 @@
 import EditableWrapper from 'components/EditableWrapper';
 import Section from '../Section';
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Flex, Image } from '@chakra-ui/react';
 
 const InfoSec = ({ info }: { info: any }) => {
   return (
@@ -17,29 +17,31 @@ const InfoSec = ({ info }: { info: any }) => {
         h="100%"
         direction="column"
       >
-        <EditableWrapper sectionId="header" data={info} sectionName="info">
-          <Box
-            as="h2"
-            color="#333"
-            maxW={{ base: '90%', lg: '600px', xl: '736px' }}
-            textAlign="center"
-            margin="0 auto 10px"
-            fontSize={{ base: '25px', lg: '30px', xl: '43px' }}
-          >
-            {info.content.header}
-          </Box>
+        <EditableWrapper
+          sectionId="header"
+          data={info}
+          sectionName="info"
+          as="h2"
+          color="#333"
+          maxW={{ base: '90%', lg: '600px', xl: '736px' }}
+          textAlign="center"
+          margin="0 auto 10px"
+          fontSize={{ base: '25px', lg: '30px', xl: '43px' }}
+        >
+          {info.content.header}
         </EditableWrapper>
 
-        <EditableWrapper sectionId="sub_header" data={info} sectionName="info">
-          <Box
-            as="p"
-            color="#333"
-            textAlign="center"
-            margin="0 auto 35px"
-            maxW={{ base: '70%', lg: '500px', xl: '611px' }}
-          >
-            {info.content.sub_header}
-          </Box>
+        <EditableWrapper
+          sectionId="sub_header"
+          data={info}
+          sectionName="info"
+          as="p"
+          color="#333"
+          textAlign="center"
+          margin="0 auto 35px"
+          maxW={{ base: '70%', lg: '500px', xl: '611px' }}
+        >
+          {info.content.sub_header}
         </EditableWrapper>
 
         <Flex
@@ -71,37 +73,47 @@ const InfoSec = ({ info }: { info: any }) => {
                   sectionId={`cards__${i}__header`}
                   data={info}
                   sectionName="info"
+                  as="h3"
+                  fontSize={25}
+                  color={i % 2 === 1 ? '#fff' : '#333'}
+                  fontWeight="500"
                 >
-                  <Box
-                    as="h3"
-                    fontSize={25}
-                    color={i % 2 === 1 ? '#fff' : '#333'}
-                    fontWeight="500"
-                  >
-                    {card.header}
-                  </Box>
+                  {card.header}
                 </EditableWrapper>
 
-                <Image margin="25px 0" src="/icon.png" w="75px" h="75px" />
+                <EditableWrapper
+                  sectionId={`cards__${i}__img`}
+                  data={info}
+                  sectionName="info"
+                  isImage
+                >
+                  <Image margin="25px 0" src={card.img} w="75px" h="75px" />
+                </EditableWrapper>
 
                 <EditableWrapper
                   sectionId={`cards__${i}__desc`}
                   data={info}
                   sectionName="info"
+                  as="p"
+                  color={i % 2 === 1 ? '#fff' : '#333'}
                 >
-                  <Box as="p" color={i % 2 === 1 ? '#fff' : '#333'}>
-                    {card.desc}
-                  </Box>
+                  {card.desc}
                 </EditableWrapper>
               </Flex>
             )
           )}
         </Flex>
 
-        <EditableWrapper sectionId="footer" data={info} sectionName="info">
-          <Box as="p" fontSize={14} fontWeight="500" color="#333">
-            {info.content.footer}
-          </Box>
+        <EditableWrapper
+          sectionId="footer"
+          data={info}
+          sectionName="info"
+          as="p"
+          fontSize={14}
+          fontWeight="500"
+          color="#333"
+        >
+          {info.content.footer}
         </EditableWrapper>
       </Flex>
     </Section>

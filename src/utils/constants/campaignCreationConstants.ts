@@ -1,4 +1,4 @@
-import { faComment, faSms } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faEnvelopeOpen, faSms } from "@fortawesome/free-solid-svg-icons";
 
 export const campaignCreations = [
     {
@@ -9,11 +9,11 @@ export const campaignCreations = [
     {
         name: 'email',
         label: 'Email',
-        icon: faComment,
+        icon: faEnvelopeOpen,
     },
     {
         name: 'default',
         label: 'Default',
-        icon: faComment,
+        icon: faEnvelope,
     }
 ]

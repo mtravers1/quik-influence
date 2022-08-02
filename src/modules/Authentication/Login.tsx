@@ -6,10 +6,12 @@ import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
 import formdata from 'utils/constants/formData/login';
-import { FormControl, FormErrorMessage, Box } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, Box, Flex } from '@chakra-ui/react';
 import { axiosInstance } from 'utils/helpers';
 import { login } from 'redux/actions/auth';
+import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
+import Link from 'next/link';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -29,11 +31,11 @@ const Login = () => {
       dispatch(login(response.data.data));
 
       toast({
-        title: `Welcome back ${response.data.data.firstName}`,
-        description: '',
-        status: 'success',
+        title: 'LoggedIn successfully Approved!',
+        description: `Welcome back ${response.data.data.admin.firstName}`,
         duration: 4000,
         isClosable: true,
+        position: 'top-right',
       });
 
       if (redirect) return router.push(redirect as string);
@@ -71,6 +73,19 @@ const Login = () => {
           </FormControl>
         ))}
       </Box>
+
+      <Flex justifyContent="flex-end">
+        <Link href="/reset-password">
+          <Box
+            as="p"
+            color={quikColorConstants.influenceRed}
+            cursor="pointer"
+            fontWeight="bold"
+          >
+            Forgot Password ?
+          </Box>
+        </Link>
+      </Flex>
 
       <CustomButton
         maxW="204px"

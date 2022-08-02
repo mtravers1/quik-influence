@@ -27,11 +27,15 @@ export default [
   {
     name: 'gender',
     label: 'Gender',
-    errorMessage: 'Enter your gender',
+    errorMessage: 'Select your gender',
     required: true,
-    type: 'text',
+    type: 'select',
     pattern: FREE_TEXT_REGEX,
-    colSpan: 2,
+    colSpan: 1,
+    options: [
+      { label: 'Female', value: 'Female' },
+      { label: 'Male', value: 'Male' },
+    ],
   },
   {
     name: 'address_line1',
@@ -112,7 +116,7 @@ export default [
     name: 'avatar',
     label: 'Profile picture',
     errorMessage: 'Upload profile picture',
-    required: true,
+    required: false,
     type: 'image-upload',
     pattern: FREE_TEXT_REGEX,
   },

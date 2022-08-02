@@ -1,26 +1,26 @@
-import axios from "axios";
-import { omitBy, isNil } from "lodash";
-import { ADMINS_ID, Q_TOKEN } from "./constants";
+import axios from 'axios';
+import { omitBy, isNil } from 'lodash';
+import { ADMINS_ID, Q_TOKEN } from './constants';
 
-export const baseurl = process.env.NEXT_PUBLIC_BACKEND_URL;
+import { DropdownSelectOption } from 'components/DropdownSelect';
+import { FilterDataProps } from 'types';
+import { format } from 'date-fns';
 
-import { DropdownSelectOption } from "components/DropdownSelect";
-import { FilterDataProps } from "types";
-import { format } from "date-fns";
+export const baseurl = process.env.BACKEND_URL;
 
 export const axiosInstance = axios.create({
   baseURL: `${baseurl}/api/v1`,
   // withCredentials: true,
   headers: {
-    "Access-Control-Allow-Headers":
-      "Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type",
-    "Access-Control-Allow-Origin": "*"
-  }
+    'Access-Control-Allow-Headers':
+      'Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type',
+    'Access-Control-Allow-Origin': '*',
+  },
 });
 
 export const logout = () => {
   localStorage.removeItem(Q_TOKEN);
-  window.location.href = "/login";
+  window.location.href = '/login';
 };
 
 export const validate = (field: any, pattern: any) => {
@@ -31,9 +31,9 @@ export const validate = (field: any, pattern: any) => {
 };
 
 export const setToken = (token: string) => {
-  axiosInstance.defaults.headers.common["token"] = token;
+  axiosInstance.defaults.headers.common['token'] = token;
 
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     localStorage.setItem(Q_TOKEN, token);
   }
 };
@@ -44,16 +44,16 @@ export function parseJwt(token: any) {
   if (!token) return;
   if (tokens[token]) return tokens[token];
 
-  const base64Url = token.split(".")[1];
-  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
     atob(base64)
       // Buffer.from(base64, 'base64')
-      .split("")
-      .map((c) => {
-        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      .split('')
+      .map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
       })
-      .join("")
+      .join('')
   );
 
   const result = JSON.parse(jsonPayload);
@@ -67,11 +67,11 @@ export function getUser() {
   let ctoken;
   let isExpired: boolean = false;
 
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     ctoken = localStorage.getItem(Q_TOKEN);
   }
 
-  if (ctoken !== "null") {
+  if (ctoken !== 'null') {
     user = parseJwt(ctoken);
   }
 
@@ -87,16 +87,16 @@ export const getNumberRange = (
 ): DropdownSelectOption[] =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => ({
     label: (start + i * step).toString(),
-    value: (start + i * step).toString()
+    value: (start + i * step).toString(),
   }));
 
 export const getQueryString = (params?: FilterDataProps) => {
   const paramsFilters = omitBy(params, isNil);
   const query = Object.keys(paramsFilters)
     .map(
-      (k) => encodeURIComponent(k) + "=" + encodeURIComponent(paramsFilters[k])
+      k => encodeURIComponent(k) + '=' + encodeURIComponent(paramsFilters[k])
     )
-    .join("&");
+    .join('&');
   return query;
 };
 
@@ -104,17 +104,17 @@ export const getSocialHandleHeader = (socialColumns: string[]): string[] => {
   let socialHeader: string[] = [];
   socialColumns.forEach((socialColumn: any) => {
     switch (socialColumn) {
-      case "facebookHandle":
-        socialHeader.push("Facebook");
+      case 'facebookHandle':
+        socialHeader.push('Facebook');
         break;
-      case "twitterHandle":
-        socialHeader.push("Twitter");
+      case 'twitterHandle':
+        socialHeader.push('Twitter');
         break;
-      case "instagramId":
-        socialHeader.push("Instagram");
+      case 'instagramId':
+        socialHeader.push('Instagram');
         break;
-      case "tiktokHandle":
-        socialHeader.push("Tik Tok");
+      case 'tiktokHandle':
+        socialHeader.push('Tik Tok');
         break;
       default:
         break;
@@ -170,7 +170,7 @@ export function isInViewport(element: any) {
     rect.top >= 0 &&
     rect.left >= 0 &&
     rect.bottom <=
-    (window.innerHeight || document.documentElement.clientHeight) &&
+      (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
@@ -185,7 +185,7 @@ export const hasPermission = (
   permission: string[] | undefined
 ) => {
   if (userPerm?.length === 0) return true;
-  return userPerm?.some((perm) => permission?.includes(perm));
+  return userPerm?.some(perm => permission?.includes(perm));
 };
 
 export const getReportOpenDate = (events: any) => {
@@ -208,7 +208,30 @@ export const getReportUnsub = (events: any) => {
 
 export const truncateText = (str: string, num: number) => {
   if (str.length <= num) {
-    return str
+    return str;
   }
-  return str.slice(0, num) + '...'
-}
+  return str.slice(0, num) + '...';
+};
+
+export const getCookie = (cname: string) => {
+  let name = cname + '=';
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return '';
+};
+
+export const setCookie = (cName: string, cValue: string, expDays: number) => {
+  let date = new Date();
+  date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000);
+  const expires = 'expires=' + date.toUTCString();
+  document.cookie = cName + '=' + cValue + '; ' + expires + '; path=/';
+};

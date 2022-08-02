@@ -14,6 +14,7 @@ import quikColorConstants from 'utils/constants/colorConstants';
 export type DropdownSelectOption = {
   label: string;
   value: string;
+  handler?: () => void;
   style?: any;
   disabled?: boolean;
 };
@@ -95,7 +96,7 @@ const DropdownSelect = ({
               key={option.value}
               value={option.value}
               style={option.style || {}}
-              {...(option.disabled && {disabled: option.disabled})}
+              {...(option.disabled && { disabled: option.disabled })}
             >
               {option.label}
             </option>

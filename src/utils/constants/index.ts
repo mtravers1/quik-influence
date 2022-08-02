@@ -52,5 +52,7 @@ export const formDataRelatedToSpecificUser = [
   "address",
   "address3",
   "facebookHandle",
-  "gender"
 ];
+
+export const MARKETING_ADMIN = ["can_approve_or_reject_campaign"];
+export const ADMIN_USER_AFFILIATE = ["can_get_joinable_campaigns"];

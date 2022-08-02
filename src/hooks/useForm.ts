@@ -7,6 +7,7 @@ type props = {
   cb: (args: any) => {};
   validateForm?: boolean;
   initials?: any;
+  runOnError?: any;
 };
 
 export default function Input({
@@ -14,6 +15,7 @@ export default function Input({
   cb,
   validateForm = true,
   initials = {},
+  runOnError,
 }: props) {
   const toast = useToast();
 
@@ -61,6 +63,7 @@ export default function Input({
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
     const requiredKeys = inputs?.reduce((acc: any, input: any) => {
       if (input.required || inputTypes[input.name]) {
@@ -103,12 +106,12 @@ export default function Input({
     if (shouldNotSubmit(errorMap) && validateForm) {
       // you can add a toast here
       toast({
-        title:
-          'An error occurred. Please check your form for uncompleted fields',
-        description: '',
-        status: 'error',
-        duration: 4000,
+        title: 'The form may not be complete',
+        description: 'Please check your form for uncompleted fields',
+        status: 'warning',
+        duration: 5000,
         isClosable: true,
+        position: 'top-right',
       });
       errorMap.reset = false;
       errorMap.onSubmit = true;
@@ -155,6 +158,9 @@ export default function Input({
         isClosable: true,
       });
 
+      runOnError?.(error);
+
+      console.log(error);
       setLoading(false);
       return;
     }
@@ -185,16 +191,16 @@ export default function Input({
 
     switch (type) {
       case 'checkbox':
-        inputValue = !!checked;
+        inputValue = !inputTypes[name];
         break;
       default:
         inputValue = value;
     }
 
-    setInputTypes({
-      ...inputTypes,
+    setInputTypes((prevInputs: any) => ({
+      ...prevInputs,
       [name]: inputValue,
-    });
+    }));
   };
 
   const resetInputs = () => {

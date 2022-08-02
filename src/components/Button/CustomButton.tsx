@@ -3,7 +3,7 @@ import { Button, ButtonProps } from '@chakra-ui/react';
 import quikColorConstants from 'utils/constants/colorConstants';
 
 type CustomButtonPropType = ButtonProps & {
-  variant?: 'outline' | 'default' | 'gray';
+  variant?: 'outline' | 'default' | 'gray' | 'link';
 };
 
 const BaseButton: React.FC<ButtonProps> = ({ children, ...props }) => (
@@ -52,6 +52,20 @@ const CustomButton: React.FC<CustomButtonPropType> = ({
             color: quikColorConstants.greyDarker,
             bgColor: quikColorConstants.white,
             border: '1px solid #696974',
+          }}
+          {...props}
+        >
+          {children}
+        </BaseButton>
+      );
+    case 'link':
+      return (
+        <BaseButton
+          variant={variant}
+          color={quikColorConstants.influenceRed}
+          bgColor="transparent"
+          _hover={{
+            textDecoration: 'underline'
           }}
           {...props}
         >

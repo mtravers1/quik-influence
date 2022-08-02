@@ -1,4 +1,12 @@
-import { CLOSED, DIRECT, DRIP, OPEN, PAID, SCHEDULED, UNPAID } from '../formConstants';
+import {
+  CLOSED,
+  DIRECT,
+  DRIP,
+  OPEN,
+  PAID,
+  SCHEDULED,
+  UNPAID,
+} from '../formConstants';
 import { FREE_TEXT_REGEX, NUMBER_REGEX, URL_REGEX } from '../regexConstants';
 
 export default [
@@ -27,8 +35,8 @@ export default [
     options: [
       { label: 'OPEN', value: OPEN },
       { label: 'CLOSED', value: CLOSED },
-    //   { label: 'DRIP', value: DRIP },
-    //   { label: 'SCHEDULED', value: SCHEDULED },
+      //   { label: 'DRIP', value: DRIP },
+      //   { label: 'SCHEDULED', value: SCHEDULED },
     ],
     pattern: FREE_TEXT_REGEX,
   },
@@ -39,28 +47,6 @@ export default [
     required: true,
     type: 'date',
     pattern: FREE_TEXT_REGEX,
-  },
-  {
-    name: 'paidType',
-    label: 'Payment Type',
-    errorMessage: 'Select payment type',
-    required: true,
-    type: 'select',
-    options: [
-      { label: 'Paid', value: PAID },
-      { label: 'Unpaid', value: UNPAID },
-    ],
-    pattern: FREE_TEXT_REGEX,
-  },
-  {
-    name: 'prices',
-    label: 'Price',
-    errorMessage: 'Enter your campaign price',
-    type: 'amount',
-    dependent: {
-        name: 'paidType',
-        value: 'PAID'
-    }
   },
   // {
   //     name: 'type',
@@ -122,12 +108,6 @@ export default [
     disabled: false,
     ranges: [],
     type: 'multi-select',
-    options: [
-        { label: 'Instagram Handle', value: 'instagramId' },
-        { label: 'Tiktok Handle', value: 'tiktokHandle' },
-        { label: 'Facebook Handle', value: 'facebookHandle' },
-        { label: 'Twitter Handle', value: 'twitterHandle' },
-    ],
     pattern: FREE_TEXT_REGEX,
     extraLabel: '(add as many as apply)',
   },
@@ -136,16 +116,89 @@ export default [
     name: 'redirectUrl',
     label: 'Redirect Url',
     errorMessage: 'Enter a valid URL e.g: http://test.com/something',
-    required: true,
+    required: false,
     type: 'text',
     pattern: URL_REGEX,
-  }, 
+  },
+  // {
+  //   name: 'postingDocUrl',
+  //   label: 'Posting Doc Url',
+  //   errorMessage: 'Enter a valid URL e.g: http://test.com/something',
+  //   required: false,
+  //   type: 'text',
+  //   pattern: URL_REGEX,
+  // },
   {
     name: 'banner',
     label: 'Campaign Banner',
     errorMessage: 'Upload campaign banner',
     required: true,
     type: 'image-upload',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'isJoinable',
+    label: 'Is this campaign Joinable?',
+    errorMessage: 'Choose',
+    required: false,
+    type: 'checkbox',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'postingDocUrl',
+    label: 'Posting Doc Url',
+    errorMessage: 'Enter a valid URL e.g: http://test.com/something',
+    required: false,
+    type: 'text',
+    pattern: URL_REGEX,
+  },
+  {
+    name: 'expectedResponse',
+    label: 'Expected Response success or failure key',
+    required: false,
+    type: 'key_value',
+    fields: [
+      {
+        keyName: 'successKey',
+        valueName: 'successValue',
+      },
+      {
+        keyName: 'failureKey',
+        valueName: 'failureValue',
+      },
+    ],
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'successKey',
+    label: 'Enter Success Key and value',
+    errorMessage: 'Please Success Key and value',
+    required: false,
+    type: 'key_value',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'successValue',
+    label: 'Enter Success Key and value',
+    errorMessage: 'Please Success Key and value',
+    required: false,
+    type: 'key_value',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'failureKey',
+    label: 'Enter Success Key and value',
+    errorMessage: 'Please Success Key and value',
+    required: false,
+    type: 'key_value',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'failureValue',
+    label: 'Enter Success Key and value',
+    errorMessage: 'Please Success Key and value',
+    required: false,
+    type: 'key_value',
     pattern: FREE_TEXT_REGEX,
   },
 ];

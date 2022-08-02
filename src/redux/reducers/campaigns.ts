@@ -9,10 +9,14 @@ import {
   SET_SMS_CAMPAIGN,
   GET_CAMPAIGN_LEADS,
   FIRST_TEN_CAMPAIGNS,
+  JOINABLE_CAMPAIGNS_LOADING,
+  JOINABLE_CAMPAIGNS,
+  JOINABLE_CAMPAIGNS_ERROR,
 } from 'redux/actionTypes';
 
 export const initialState = {
   campaigns: null,
+  joinableCampaigns: {},
   SMSCampaign: null,
   loading: true,
   leads: {},
@@ -29,13 +33,11 @@ const campaigns = (
         ...state,
         loading: action.payload,
       };
-
     case FIRST_TEN_CAMPAIGNS:
       return {
         ...state,
         firstCampaigns: action.payload,
       };
-
     case CAMPAIGNS:
       return {
         ...state,
@@ -84,6 +86,32 @@ const campaigns = (
         ...state,
         error: action.payload,
         loading: state.loading,
+      };
+    case JOINABLE_CAMPAIGNS_LOADING:
+      return {
+        ...state,
+        joinableCampaigns: {
+          ...state.joinableCampaigns,
+          loading: action.payload,
+        },
+      };
+    case JOINABLE_CAMPAIGNS_ERROR:
+      return {
+        ...state,
+        joinableCampaigns: {
+          ...state.joinableCampaigns,
+          error: action.payload,
+          loading: false,
+        },
+      };
+    case JOINABLE_CAMPAIGNS:
+      return {
+        ...state,
+        joinableCampaigns: {
+          ...state.joinableCampaigns,
+          data: action.payload,
+          loading: false,
+        },
       };
     default:
       return state;

@@ -18,11 +18,13 @@ import { authSelectors } from 'redux/selectors';
 import { cardThemeColor } from 'utils/constants/colorConstants';
 import { axiosInstance } from 'utils/helpers';
 import { useSelector } from 'react-redux';
+import { PaymentInfoComp } from './PaymentInfoComp';
 
 type Props = {};
 
 const BasicInfo = () => {
   const { admin } = useSelector(authSelectors.getUser);
+
   const basicInfoConstant = [
     {
       icon: faUserTag,
@@ -61,6 +63,7 @@ const BasicInfo = () => {
   ];
 
   const { colorMode } = useColorMode();
+
   return (
     <Flex
       bgColor={cardThemeColor[colorMode]}
@@ -69,6 +72,7 @@ const BasicInfo = () => {
       p="12"
     >
       <Heading size="md">Basic Info</Heading>
+
       <Flex
         w="100%"
         flexGrow={1}
