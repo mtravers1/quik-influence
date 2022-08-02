@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
-export interface User {}
+export interface User { }
 
 export type T = { [key: string]: any };
 export type Q = { [key: string]: string };
@@ -33,3 +33,10 @@ export interface FilterDataProps {
   sort?: string;
   filters?: any;
 }
+
+export type ZippedUrlAndQR = string[][];
+
+export type QrCodeRawData = {
+  id: number;
+  text: string;
+};
