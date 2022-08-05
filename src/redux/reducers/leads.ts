@@ -57,6 +57,9 @@ const campaigns = (
         error: action.payload,
         loading: state.loading,
       };
+
+    case 'RESET':
+      return initialState;
     default:
       return state;
   }

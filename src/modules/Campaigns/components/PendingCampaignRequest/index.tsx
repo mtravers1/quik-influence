@@ -1,24 +1,29 @@
-import {
-  Box,
-  Flex,
-  Heading,
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, createStandaloneToast } from '@chakra-ui/react';
 import Image from 'next/image';
 import LoaderGif from 'assets/loader.gif';
 import { useEffect, useState } from 'react';
-import {
-  getPendingCampaigns,
-} from 'redux/actions/campaigns';
+import { getPendingCampaigns } from 'redux/actions/campaigns';
 import PendingCampaignListItem from './PendingCampaignListItem';
 
 const PendingCampaignRequest = () => {
   const [pendingCampaigns, setPendingCampaigns] = useState([]);
   const [loading, setLoading] = useState(false);
+  const toast = createStandaloneToast();
 
   const refreshPendingList = async () => {
     setLoading(true);
-    const campaigns = await getPendingCampaigns();
-    setPendingCampaigns(campaigns);
+    try {
+      const campaigns = await getPendingCampaigns();
+      setPendingCampaigns(campaigns);
+    } catch (err: any) {
+      toast({
+        title: err?.response?.data?.message || err.message,
+        status: 'error',
+        duration: 9000,
+        position: 'top-right',
+      });
+    }
+
     setLoading(false);
   };
 

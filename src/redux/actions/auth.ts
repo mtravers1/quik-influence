@@ -1,24 +1,24 @@
-import { axiosInstance, getUser, setToken } from "utils/helpers";
+import { axiosInstance, getUser, setToken } from 'utils/helpers';
 import {
   LOGIN,
   LOGOUT,
   AUTH_LOADING,
   SET_PERMISSIONS,
   DispatchWithoutPayload,
-  DispatchWithPayload
-} from "../actionTypes";
+  DispatchWithPayload,
+} from '../actionTypes';
 
 export const loading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: AUTH_LOADING,
-    payload: true
+    payload: true,
   });
 };
 
 export const doneloading = () => async (dispatch: DispatchWithPayload) => {
   dispatch({
     type: AUTH_LOADING,
-    payload: false
+    payload: false,
   });
 };
 
@@ -35,7 +35,7 @@ export const login = (userData?: any) => async (dispatch: any) => {
 
   dispatch({
     type: LOGIN,
-    payload: user
+    payload: user,
   });
 
   dispatch(doneloading());
@@ -43,12 +43,12 @@ export const login = (userData?: any) => async (dispatch: any) => {
 
 export const getUserPermissions = () => async (dispatch: any) => {
   try {
-    let url = "/auth/permissions/admin";
+    let url = '/auth/permissions/admin';
     const response = await axiosInstance.get(url);
     const { permissions } = response.data.data;
     dispatch({
       type: SET_PERMISSIONS,
-      payload: permissions
+      payload: permissions,
     });
   } catch (error) {
     console.log(error);
@@ -57,6 +57,10 @@ export const getUserPermissions = () => async (dispatch: any) => {
 
 export const logout = () => async (dispatch: DispatchWithoutPayload) => {
   dispatch({
-    type: LOGOUT
+    type: LOGOUT,
+  });
+
+  dispatch({
+    type: 'RESET',
   });
 };

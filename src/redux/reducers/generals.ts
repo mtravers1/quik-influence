@@ -112,6 +112,12 @@ const generals = (
         },
       };
 
+    case 'RESET':
+      return {
+        ...state,
+        paymentInfo: undefined,
+      };
+
     default:
       return state;
   }

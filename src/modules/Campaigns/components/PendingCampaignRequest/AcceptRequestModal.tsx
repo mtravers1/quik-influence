@@ -41,7 +41,7 @@ const AcceptRequestModal = ({
     if (lpCampaignId && lpCampaignKey) {
       setLoadingAcceptRequest(true);
       try {
-        const res = await modifyCampaignRequest({
+        await modifyCampaignRequest({
           campaignAdminId,
           lp_campaign_id: lpCampaignId,
           lp_campaign_key: lpCampaignKey,
@@ -68,6 +68,7 @@ const AcceptRequestModal = ({
 
       setLoadingAcceptRequest(false);
     }
+
     if (!lpCampaignId) {
       setLPCampaignIdError('Campaign Id Required');
     }
