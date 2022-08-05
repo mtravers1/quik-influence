@@ -36,8 +36,6 @@ const Fizzy = () => {
 
   const router = useRouter();
 
-  console.log(router.asPath, router);
-
   useEffect(() => {
     let campaign_data;
 

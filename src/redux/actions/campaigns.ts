@@ -105,65 +105,39 @@ export const getCampaigns =
 export const getJoinableCampaigns =
   (pageNumber = '1', pageSize = DEFAULT_PAGE_SIZE) =>
   async (dispatch: any) => {
-    dispatch(loadingJoinableCampaign());
+    const response = await axiosInstance.get(`/users/joinable-campaigns`);
+    const campaigns = response.data.data;
 
-    try {
-      const response = await axiosInstance.get(`/users/joinable-campaigns`);
-      const campaigns = response.data.data;
-
-      dispatch({
-        type: JOINABLE_CAMPAIGNS,
-        payload: campaigns,
-      });
-    } catch (error) {
-      const errorMessage = errorParser(error);
-      dispatch({
-        type: JOINABLE_CAMPAIGNS_ERROR,
-        payload: errorMessage,
-      });
-    } finally {
-      dispatch(doneloadingJoinableCampaign());
-    }
+    dispatch({
+      type: JOINABLE_CAMPAIGNS,
+      payload: campaigns,
+    });
   };
 
-export const getPendingCampaigns = async (pageNumber = '1', pageSize = DEFAULT_PAGE_SIZE) => {
-  try {
-    const response = await axiosInstance.get(`/users/pending-joinable-campaigns?page=${pageNumber}&pageSize=${DEFAULT_PAGE_SIZE}`);
-    const campaign = response.data.data.rows;
+export const getPendingCampaigns = async (
+  pageNumber = '1',
+  pageSize = DEFAULT_PAGE_SIZE
+) => {
+  const response = await axiosInstance.get(
+    `/users/pending-joinable-campaigns?page=${pageNumber}&pageSize=${DEFAULT_PAGE_SIZE}`
+  );
 
-    return campaign;
-  } catch (error) {
-    const errorMessage = errorParser(error);
-    return errorMessage;
-  }
+  const campaign = response.data.data.rows;
+  return campaign;
 };
 
-export const modifyCampaignRequest = async (data: any) => {
-  try {
-    const response = await axiosInstance.put(`/users/modify-campaign-request`, {
-      ...data
-    });
-    const campaign = response.data.data;
-
-    return campaign;
-  } catch (error) {
-    const errorMessage = errorParser(error);
-    return errorMessage;
-  }
-};
+export const modifyCampaignRequest = async (data: any) =>
+  axiosInstance.put(`/users/modify-campaign-request`, {
+    ...data,
+  });
 
 export const requestToBeAssignedThisCampaign = async (campaignId: string) => {
-  try {
-    const response = await axiosInstance.put(`/users/request-campaign`, {
-      campaignId,
-    });
-    const campaign = response.data.data;
+  const response = await axiosInstance.put(`/users/request-campaign`, {
+    campaignId,
+  });
+  const campaign = response.data.data;
 
-    return campaign;
-  } catch (error) {
-    const errorMessage = errorParser(error);
-    return errorMessage;
-  }
+  return campaign;
 };
 
 export const getFirst10Campaigns = () => async (dispatch: any) => {
