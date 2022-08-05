@@ -19,10 +19,9 @@ const JoinableCampaignCard = ({
   const handleClick = async (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault();
     setLoading(true);
-    const res = await requestToBeAssignedThisCampaign(campaign.id);
+    try {
+      await requestToBeAssignedThisCampaign(campaign.id);
 
-    if (res.status === 'PENDING') {
-      setLoading(false);
       setRequestPending(true);
       toast({
         title: 'Request Sent!.',
@@ -31,7 +30,17 @@ const JoinableCampaignCard = ({
         isClosable: true,
         position: 'top-right',
       });
+    } catch (err: any) {
+      toast({
+        title: 'Error!',
+        description: err?.response?.data?.message,
+        duration: 9000,
+        isClosable: true,
+        position: 'top-right',
+      });
     }
+
+    setLoading(false);
   };
 
   return (
@@ -67,7 +76,7 @@ const JoinableCampaignCard = ({
         </Box>
 
         <Box display="flex" mt="2">
-          {requestPending || campaign.ispending === '1' ? (
+          {requestPending || campaign.has_pending === '1' ? (
             <CustomButton
               variant="link"
               p={0}

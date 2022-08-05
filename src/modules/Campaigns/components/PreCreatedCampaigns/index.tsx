@@ -1,5 +1,5 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import { Box, Flex, Heading, useToast } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJoinableCampaigns } from 'redux/actions/campaigns';
@@ -8,15 +8,31 @@ import JoinableCampaignCard from './JoinableCampaignCard';
 import { T } from 'types';
 
 const PreCreatedCampaigns = () => {
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
   const {
     campaigns: {
-      joinableCampaigns: { data, loading },
+      joinableCampaigns: { data },
     },
   } = useSelector((state: any) => state);
 
   useEffect(() => {
-    dispatch(getJoinableCampaigns());
+    setLoading(true);
+
+    try {
+      dispatch(getJoinableCampaigns());
+    } catch (err: any) {
+      toast({
+        title: err?.response?.data?.message || err.message,
+        status: 'error',
+        duration: 9000,
+        position: 'top-right',
+      });
+    }
+
+    setLoading(false);
   }, []);
 
   return (
