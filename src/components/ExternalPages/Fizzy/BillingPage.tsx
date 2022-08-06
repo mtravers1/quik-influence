@@ -1,4 +1,5 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import lodash from 'lodash';
 import { Box, Flex, FormControl, FormErrorMessage } from '@chakra-ui/react';
 import formdata from 'utils/constants/formData/checkout';
 import { TextInput } from 'components/Input';
@@ -18,7 +19,7 @@ export const BillingPage: FC<{
     setCurrentPage(1);
   };
 
-  const [edit, setEdit] = useState(true);
+  const [edit, setEdit] = useState(false);
 
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
@@ -33,6 +34,8 @@ export const BillingPage: FC<{
         newStorageData = JSON.parse(campaign_data);
         newStorageData = { ...newStorageData, ...newData };
         localStorage.setItem('campaign_data', JSON.stringify(newStorageData));
+
+        
       }
 
       // @ts-ignore
@@ -43,7 +46,7 @@ export const BillingPage: FC<{
       });
 
       window.location.reload();
-      setEdit(true);
+      setEdit(false);
     },
     runOnError: (error: any) => {
       if (error.response.status === 401) {
@@ -52,13 +55,39 @@ export const BillingPage: FC<{
     },
   });
 
-  const editPage = () => {
-    setEdit(!edit);
-  };
-
   const { internalSelectOptions, loadingStates } = useSelectLocations(
     inputTypes.country
   );
+
+  useEffect(() => {
+    const inputTypeObj = {
+      firstName: inputTypes.firstName,
+      lastName: inputTypes.lastName,
+      email: inputTypes.email,
+      phone: inputTypes.phone,
+      address: inputTypes.address,
+      city: inputTypes.city,
+      state: inputTypes.state,
+      country: inputTypes.country,
+    };
+
+    const userDataObj = {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      phone: userData.phone,
+      address: userData.address,
+      city: userData.city,
+      state: userData.state,
+      country: userData.country,
+    };
+
+    if (lodash.isEqual(inputTypeObj, userDataObj)) {
+      setEdit(false);
+    } else {
+      setEdit(true);
+    }
+  }, [inputTypes]);
 
   return (
     <Box
@@ -78,16 +107,6 @@ export const BillingPage: FC<{
         <Box fontSize="24px" color="#0bcbfb">
           Billing details
         </Box>
-
-        {edit ? (
-          <Box cursor="pointer" onClick={editPage}>
-            Edit
-          </Box>
-        ) : (
-          <Box cursor="pointer" onClick={editPage}>
-            Cancel
-          </Box>
-        )}
       </Flex>
 
       <Box className="billing-form" display={{ base: 'block', md: 'grid' }}>
@@ -161,7 +180,7 @@ export const BillingPage: FC<{
                           : ''
                       }${errors[data.name] ? ' invalid' : ''}`,
                       // @ts-ignore
-                      disabled: data.name === 'phone' || edit,
+                      disabled: data.name === 'phone',
                     }}
                   />
 
@@ -177,7 +196,7 @@ export const BillingPage: FC<{
       </Box>
 
       <Flex justifyContent="flex-end" marginTop="30px">
-        {!edit && (
+        {edit && (
           <Box
             as="button"
             onClick={handleSubmit}
@@ -190,7 +209,7 @@ export const BillingPage: FC<{
             display="flex"
             alignItems="center"
           >
-            Edit
+            Save
             {loading && <Image src={loader} alt="" width={30} height={30} />}
           </Box>
         )}

@@ -41,7 +41,7 @@ const Login: FC<{ phone: any; callback: any }> = ({ phone, callback }) => {
     setLoadingOtp(true);
 
     try {
-      await axiosInstance.get(`/users/otp/${phone}`);
+      await axiosInstance.get(`/users/otp/${inputTypes.phone}`);
       setShowOtpInput(true);
     } catch (err) {
       const errMessage = errorParser(err);
@@ -82,7 +82,6 @@ const Login: FC<{ phone: any; callback: any }> = ({ phone, callback }) => {
                     ? `2px solid ${quikColorConstants.influenceRed} !important`
                     : undefined,
                 // @ts-ignore
-                disabled: data.disabled,
               }}
             />
 
