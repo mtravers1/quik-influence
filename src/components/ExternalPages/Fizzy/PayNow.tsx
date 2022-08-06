@@ -103,6 +103,17 @@ export const PayNow: FC<{
       if (err.response.status === 401) {
         openLoginOtp();
       }
+
+      if (err.response.status === 400) {
+        toast({
+          title: err.response?.data?.data?.type || 'An error occured',
+          description: err.response?.data?.data?.message?.[0].text || '',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right',
+        });
+      }
     }
 
     setLoadingShipment(false);
