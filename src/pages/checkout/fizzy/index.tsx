@@ -21,6 +21,7 @@ const filterUserData = (userData: any) => ({
   state: userData.state,
   country: userData.country,
   token: userData.token,
+  postalCode: userData.postalCode,
   id: userData.id,
 });
 
