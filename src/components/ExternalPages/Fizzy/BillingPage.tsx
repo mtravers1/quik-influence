@@ -34,8 +34,6 @@ export const BillingPage: FC<{
         newStorageData = JSON.parse(campaign_data);
         newStorageData = { ...newStorageData, ...newData };
         localStorage.setItem('campaign_data', JSON.stringify(newStorageData));
-
-        
       }
 
       // @ts-ignore
@@ -69,6 +67,7 @@ export const BillingPage: FC<{
       city: inputTypes.city,
       state: inputTypes.state,
       country: inputTypes.country,
+      postalCode: inputTypes.postalCode,
     };
 
     const userDataObj = {
@@ -80,6 +79,7 @@ export const BillingPage: FC<{
       city: userData.city,
       state: userData.state,
       country: userData.country,
+      postalCode: userData.postalCode,
     };
 
     if (lodash.isEqual(inputTypeObj, userDataObj)) {
