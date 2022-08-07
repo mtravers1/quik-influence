@@ -56,6 +56,14 @@ export default [
     pattern: FREE_TEXT_REGEX,
   },
   {
+    name: 'postalCode',
+    label: 'Postal code *',
+    type: 'text',
+    errorMessage: 'Enter your postal code',
+    required: true,
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
     name: 'state',
     label: 'State *',
     type: 'select',
