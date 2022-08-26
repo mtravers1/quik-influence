@@ -90,27 +90,10 @@ export const addPaymentInfo =
 
 export const fetchCountries =
   () => async (dispatch: (arg0: { type: string; payload: any }) => void) => {
-    let countries = await axios.get(
-      'https://api.countrystatecity.in/v1/countries',
-      {
-        headers: {
-          'X-CSCAPI-KEY':
-            'YkRMeEFlYXFwbmZqY1NEbkpybG1MbjNUcHdhTjdrNDc4a2oyaWZRUg==',
-          'content-type': 'application/json',
-        },
-      }
-    );
-
-    countries = countries.data.map((country: any) => ({
-      label: country.name,
-      value: country.iso2,
-    }));
-
     dispatch({
       type: GET_COUNTRIES,
       payload: {
-        country: countries,
-        apiToken: 'YkRMeEFlYXFwbmZqY1NEbkpybG1MbjNUcHdhTjdrNDc4a2oyaWZRUg==',
+        country: [{ label: 'United States', value: 'US' }],
       },
     });
   };

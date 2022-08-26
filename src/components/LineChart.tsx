@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   Brush,
   XAxis,
   YAxis,
@@ -13,7 +13,7 @@ import { ChartContainer } from './ChartContainer';
 
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-export const CustomBarChart: FC<{
+export const CustomLineChart: FC<{
   height?: number;
   data: any;
   dataKeys: string[];
@@ -23,7 +23,7 @@ export const CustomBarChart: FC<{
     <ChartContainer responsive asFunction label={label}>
       {(colorMode: string) => (
         <ResponsiveContainer width="100%" height={height}>
-          <BarChart data={data}>
+          <LineChart data={data}>
             <XAxis
               dataKey="name"
               stroke={colorMode === 'dark' ? 'white' : '#333'}
@@ -38,9 +38,14 @@ export const CustomBarChart: FC<{
             <Brush dataKey="name" height={20} stroke="#19212d" />
 
             {dataKeys.map((key, index) => (
-              <Bar dataKey={key} fill={colors[index % dataKeys.length]} />
+              <Line
+                type="monotone"
+                dataKey={key}
+                fill={colors[index % dataKeys.length]}
+                strokeWidth={2}
+              />
             ))}
-          </BarChart>
+          </LineChart>
         </ResponsiveContainer>
       )}
     </ChartContainer>

@@ -25,7 +25,7 @@ export const ChartContainer: FC<{
       }
       borderRadius="10px"
       padding="20px"
-      style={styles}
+      {...styles}
       border={`1px solid ${colorMode === 'dark' ? '#19212d' : '#4A5568'}`}
     >
       {label && <Box>{label}</Box>}

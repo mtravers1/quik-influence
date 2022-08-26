@@ -13,7 +13,15 @@ export const NumberChartComp: FC<{
   icon: any;
   loading: boolean;
   isCurrency?: boolean;
-}> = ({ name, value, icon = '', loading = false, isCurrency = false }) => {
+  styles?: any;
+}> = ({
+  name,
+  value,
+  icon = '',
+  loading = false,
+  isCurrency = false,
+  styles = {},
+}) => {
   const addSign = (value?: number) => {
     if (value === undefined) return 0;
 
@@ -24,7 +32,7 @@ export const NumberChartComp: FC<{
   };
 
   return (
-    <ChartContainer>
+    <ChartContainer styles={styles}>
       <Box marginBottom="20px">
         <FontAwesomeIcon
           icon={icon as IconProp}

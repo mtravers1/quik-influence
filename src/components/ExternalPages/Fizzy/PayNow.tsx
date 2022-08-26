@@ -16,8 +16,28 @@ import { axiosInstance } from 'utils/helpers';
 import loader from 'assets/loader.gif';
 import NextImage from 'next/image';
 
-let price = 35.99;
-let tax = 2.52;
+const products: any = [
+  {
+    name: 'Fizzy Delta-8 Infused Seltzer',
+    packSize: '6 pack',
+    price: 35.99,
+    tax: 2.52,
+    weight: 2.72,
+    width: 7,
+    length: 7,
+    height: 7,
+  },
+  // {
+  //   name: 'Fizzy Delta-12 Infused Seltzer',
+  //   packSize: '12 pack',
+  //   price: 59.99,
+  //   tax: 2.92,
+  //   weight: 5,
+  //   width: 9,
+  //   length: 9,
+  //   height: 9,
+  // },
+];
 
 export const PayNow: FC<{
   userData: any;
@@ -27,8 +47,10 @@ export const PayNow: FC<{
   const [agreed, setAgreed] = useState(false);
   const [number, setNumber] = useState(1);
 
+  const [currentProduct, setCurrentproduct] = useState(0);
+
   const [total, setTotal] = useState(0);
-  const [totalTax, setTotalTax] = useState(2.52);
+  const [totalTax, setTotalTax] = useState(products[currentProduct].tax);
   const [flavour, setFlavour] = useState('Wild Strawberry');
 
   const [shippingRate, setShippingRate] = useState(0);
@@ -44,18 +66,27 @@ export const PayNow: FC<{
   const toast = useToast();
 
   useEffect(() => {
-    const newTax = Number((tax * number).toFixed(2));
+    const newTax = Number((products[currentProduct].tax * number).toFixed(2));
     setTotalTax(newTax);
 
-    const newTotalAmount = Number((number * price + newTax).toFixed(2));
+    const newTotalAmount = Number(
+      (number * products[currentProduct].price + newTax).toFixed(2)
+    );
+
+    console.log((number * products[currentProduct].price + newTax).toFixed(2));
+
     setTotal(newTotalAmount);
 
     getShippingCost(newTotalAmount);
-  }, [number]);
+  }, [number, currentProduct]);
 
   useEffect(() => {
     const newTotalAmount = Number(
-      (number * price + totalTax + shippingRate).toFixed(2)
+      (
+        number * products[currentProduct].price +
+        totalTax +
+        shippingRate
+      ).toFixed(2)
     );
 
     setTotal(newTotalAmount);
@@ -80,10 +111,10 @@ export const PayNow: FC<{
           // })),
           parcels: [
             {
-              weight: 2.72 * number,
-              length: 7 * number,
-              width: 7,
-              height: 7,
+              weight: products[currentProduct].weight * number,
+              length: products[currentProduct].length * number,
+              width: products[currentProduct].width,
+              height: products[currentProduct].height,
               distance_unit: 'in',
               mass_unit: 'kg',
             },
@@ -136,6 +167,11 @@ export const PayNow: FC<{
     setFlavour(e.target.value);
   };
 
+  const updateProduct = (e: any) => {
+    setCurrentproduct(e.target.value);
+    setNumber(1);
+  };
+
   const onSuccessHandler = async (response: any) => {
     const paymentDets = {
       campaignId: otherInfo.campaignId,
@@ -145,9 +181,9 @@ export const PayNow: FC<{
       nonce: response.opaqueData.dataValue,
       item: {
         itemId: '245',
-        description: `Fizzy Delta-8 Infused Seltzer - ${flavour}, 6 Pack`,
-        name: `Fizzy 6 Pack`,
-        unitPrice: price,
+        description: `${products[currentProduct].name} - ${flavour}, ${products[currentProduct].packSize} ×${number}`,
+        name: `Fizzy ${products[currentProduct].packSize}`,
+        unitPrice: products[currentProduct].price,
         quantity: number,
       },
     };
@@ -236,6 +272,29 @@ export const PayNow: FC<{
               marginBottom="20px"
               justifyContent="space-between"
             >
+              <Box as="h1">Select Product</Box>
+              <Flex alignItems="center">
+                <DropdownSelect
+                  // error={errors[data.name] ? data.errorMessage : undefined}
+                  onChange={updateProduct}
+                  options={products.map((product: any, index: number) => ({
+                    label: product.name,
+                    value: index,
+                  }))}
+                  selected={currentProduct.toString()}
+                  selectProps={{
+                    height: '4.5rem',
+                    fontSize: '1.4rem',
+                  }}
+                />
+              </Flex>
+            </Flex>
+            <Flex
+              borderBottom="1px solid rgb(62, 62, 62)"
+              padding="10px 0"
+              marginBottom="20px"
+              justifyContent="space-between"
+            >
               <Box as="h1">Product</Box>
               <Flex alignItems="center">
                 <Flex
@@ -272,7 +331,8 @@ export const PayNow: FC<{
               </Box>
 
               <Box>
-                Fizzy Delta-8 Infused Seltzer - {flavour}, 6 Pack ×{number}
+                {products[currentProduct].name} - {flavour},{' '}
+                {products[currentProduct].packSize} ×{number}
               </Box>
             </Flex>
           </Box>
@@ -295,7 +355,9 @@ export const PayNow: FC<{
             >
               <Flex marginBottom="20px">
                 <Box marginRight="30px">Subtotal</Box>
-                <Box>${(number * price).toFixed(2)}</Box>
+                <Box>
+                  ${(number * products[currentProduct].price).toFixed(2)}
+                </Box>
               </Flex>
               <Flex marginBottom="20px" alignItems="center" position="relative">
                 {loadingShipment && (
