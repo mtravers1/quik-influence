@@ -10,6 +10,8 @@ import {
   CREATE_PAYMENT_INFO,
   GET_COUNTRIES,
   UPDATE_STATES,
+  GET_DASHBOARD_INFO,
+  UPDATE_DASHBOARD_INFO,
 } from '../actionTypes';
 import axios from 'axios';
 
@@ -123,3 +125,15 @@ export const updateStates =
       },
     });
   };
+
+export const getDashboardInfo =
+  () => async (dispatch: (arg0: { type: string; payload: any }) => void) => {
+    const res = await axiosInstance.get('/admin/dashboard');
+
+    dispatch({
+      type: GET_DASHBOARD_INFO,
+      payload: res.data.data,
+    });
+  };
+
+// GET_DASHBOARD_INFO, UPDATE_DASHBOARD_INFO;

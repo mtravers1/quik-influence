@@ -1,78 +1,126 @@
-import { Box, Divider, Heading, Text } from '@chakra-ui/layout';
+import { useEffect, useState } from 'react';
+import { Box } from '@chakra-ui/layout';
+import { useColorMode } from '@chakra-ui/react';
+import { useSelector, useDispatch } from 'react-redux';
+import { NumberChartComp } from 'components/NumberChartComp';
 import {
-  Flex,
-  Grid,
-  GridItem,
-  IconButton,
-  Image,
-  useColorMode,
-} from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import { OverviewSkeletonLoaders } from 'components/SkeletonLoaders';
-import React from 'react';
-import { cardThemeColor } from 'utils/constants/colorConstants';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import EmailConversions from './charts/EmailConversions';
-import Revenue from './charts/Revenue';
-import Activity from './charts/Activity';
-import Deals from './Deals';
-import Summary from './Summary';
+  faCalendarMinus,
+  faCreditCard,
+  faCalendarCheck,
+  faMoneyBill,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
+import { getDashboardInfo } from 'redux/actions/general';
+import { CustomBarChart } from '../../components/BarChart';
+import { CustomPieChart } from 'components/PieChart';
 
 const DashboardOverview = () => {
   const { colorMode } = useColorMode();
+  const [loading, setLoading] = useState(false);
+
+  const { dashboardData } = useSelector((state: any) => state.generals);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!dashboardData) {
+      fetchDashboardData();
+    }
+  }, []);
+
+  const fetchDashboardData = async () => {
+    setLoading(true);
+    await dispatch(getDashboardInfo());
+    setLoading(false);
+  };
+
+  console.log(dashboardData);
+
   return (
     <Box>
-      <Box>
-        {/* <OverviewSkeletonLoaders />
-        <OverviewSkeletonLoaders /> */}
-        <Flex mb={4} flexWrap="wrap">
-          <Grid w="100%" templateColumns="repeat(3, minmax(0,1fr))" gap={4}>
-            <GridItem
-              rowSpan={1}
-              colSpan={1}
-              background={cardThemeColor[colorMode]}
-              borderRadius="8px"
-            >
-              <EmailConversions />
-            </GridItem>
-            <GridItem
-              rowSpan={1}
-              colSpan={1}
-              background={cardThemeColor[colorMode]}
-              borderRadius="8px"
-            >
-              <Revenue />
-            </GridItem>
-            <GridItem rowSpan={1} colSpan={1} borderRadius="8px">
-              <Deals />
-            </GridItem>
-          </Grid>
-          <Grid
-            w="100%"
-            py={5}
-            gap={5}
-            templateColumns="repeat(2, minmax(0,1fr))"
-          >
-            <GridItem
-              rowSpan={1}
-              colSpan={1}
-              background={cardThemeColor[colorMode]}
-              borderRadius="8px"
-            >
-              <Activity />
-            </GridItem>
-            <GridItem
-              rowSpan={1}
-              colSpan={1}
-              background={cardThemeColor[colorMode]}
-              borderRadius="8px"
-            >
-              <Summary />
-            </GridItem>
-          </Grid>
-        </Flex>
+      <Box
+        display="grid"
+        // gridTemplateColumns="repeat(5, minmax(300px,1fr))"
+        gridTemplateColumns={{
+          lg: `repeat(auto-fill, minmax(min(300px, 100%), 1fr))`,
+          xl: 'repeat(5, 1fr)',
+        }}
+        gridGap="20px"
+        marginBottom="20px"
+      >
+        <NumberChartComp
+          name="Total Campaigns"
+          value={dashboardData?.campaignCount}
+          icon={faCalendarMinus}
+          loading={loading}
+        />
+
+        <NumberChartComp
+          name="Total Successful Payments"
+          value={dashboardData?.totalSuccessfulPayments}
+          icon={faCreditCard}
+          loading={loading}
+        />
+
+        <NumberChartComp
+          name="Total Lead Count"
+          value={
+            dashboardData?.campaignWithUsers?.totalCampaignRecord?.totallead
+          }
+          icon={faUsers}
+          loading={loading}
+        />
+
+        <NumberChartComp
+          name="Campaigns With Registered Leads"
+          value={
+            dashboardData?.campaignWithUsers?.totalCampaignRecord?.campaigncount
+          }
+          icon={faCalendarCheck}
+          loading={loading}
+        />
+
+        <NumberChartComp
+          name="Total Revenue"
+          value={
+            dashboardData?.campaignWithUsers?.totalCampaignRecord?.totalrevenue
+          }
+          icon={faMoneyBill}
+          loading={loading}
+          isCurrency
+        />
       </Box>
+
+      <Box marginBottom="20px">
+        <CustomBarChart
+          label="Campaigns By Leads count / Revenue"
+          height={500}
+          data={dashboardData?.campaignWithUsers?.campaignLeads?.map(
+            (data: any) => ({
+              'Lead Count': Number(data.lead_count),
+              Revenue: Number(data.revenue),
+              'Successful Lead Count': Number(data.successful_lead_count),
+              name: data.name,
+            })
+          )}
+          dataKeys={['Lead Count', 'Revenue', 'Successful Lead Count']}
+        />
+      </Box>
+
+      <CustomPieChart
+        label="campaigns vs Registered Leads"
+        height={400}
+        data={[
+          { name: 'Campaign Count', value: dashboardData?.campaignCount || 0 },
+          {
+            name: 'Campaign With Leads',
+            value:
+              Number(
+                dashboardData?.campaignWithUsers?.totalCampaignRecord
+                  ?.campaigncount
+              ) || 0,
+          },
+        ]}
+      />
     </Box>
   );
 };
