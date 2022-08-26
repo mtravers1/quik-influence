@@ -40,6 +40,9 @@ export const CREATE_PAYMENT_INFO = 'CREATE_PAYMENT_INFO';
 export const GET_COUNTRIES = 'GET_COUNTRIES';
 export const UPDATE_STATES = 'UPDATE_STATES';
 
+export const GET_DASHBOARD_INFO = 'GET_DASHBOARD_INFO';
+export const UPDATE_DASHBOARD_INFO = 'UPDATE_DASHBOARD_INFO';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;

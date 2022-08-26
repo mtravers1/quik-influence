@@ -24,6 +24,7 @@ const LeadsForm = ({
   showConsent = true,
   query,
   choosenFields = [],
+  campaignData,
 }: {
   campaignId?: string;
   handleStripe?: (email: string, success?: boolean) => {};
@@ -34,6 +35,7 @@ const LeadsForm = ({
   postingDocUrl?: string;
   query?: any;
   choosenFields?: string[];
+  campaignData?: any;
 }) => {
   const toast = createStandaloneToast();
   const [submitForm, setSubmitForm] = useState(false);
@@ -50,6 +52,15 @@ const LeadsForm = ({
   } = useInput({
     inputs: form,
     initials: { country: 'US' },
+    runOnError: (error: any) => {
+      if (
+        error.response?.data?.message ===
+          'Email and phone already exist for this campaign' &&
+        campaignData.name.toLowerCase().includes('fizzy')
+      ) {
+        router.push(`${redirectUrl}?refresh=true`);
+      }
+    },
     cb: async inputs => {
       if (showConsent && !submitForm) return;
 

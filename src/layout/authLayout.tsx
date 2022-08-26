@@ -6,7 +6,11 @@ import landingImage from '../../public/homepage.jpg';
 export const AuthLayout: React.FC<{}> = ({ children }) => {
   return (
     <Box as="section" background={'#19212d'}>
-      <Flex height="100vh">
+      <Flex
+        style={{
+          minHeight: '100vh',
+        }}
+      >
         <Box
           width="55%"
           position="relative"

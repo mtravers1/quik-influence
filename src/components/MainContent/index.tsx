@@ -10,7 +10,6 @@ import {
 import useResponsiveFilter from 'hooks/useResponsiveFilter';
 import { AccountUpdatePrompt } from 'components/AccountUpdatePrompt';
 
-
 interface MainContentProps {
   children: React.ReactElement;
   filter?: React.ReactElement;
@@ -70,7 +69,13 @@ const MainContent = ({ children, filter }: MainContentProps) => {
             py={10}
             overflow="hidden"
           >
-            <Box flexGrow={1} width="100%" mx="auto" overflowX="scroll">
+            <Box
+              flexGrow={1}
+              width="100%"
+              mx="auto"
+              overflowX="scroll"
+              maxW="2000px"
+            >
               {children}
             </Box>
             {filter && (

@@ -183,6 +183,7 @@ const CloseFriendsCampaign = ({ data }: { data: any }) => {
                           form={allFields.allFieldsSet}
                           choosenFields={allFields.choosenFieldsList}
                           paidType={data?.paidType}
+                          campaignData={data}
                         />
                       </Box>
                     )}

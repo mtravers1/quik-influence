@@ -10,6 +10,8 @@ import {
   CREATE_PAYMENT_INFO,
   GET_COUNTRIES,
   UPDATE_STATES,
+  GET_DASHBOARD_INFO,
+  UPDATE_DASHBOARD_INFO,
 } from '../actionTypes';
 import axios from 'axios';
 
@@ -88,27 +90,10 @@ export const addPaymentInfo =
 
 export const fetchCountries =
   () => async (dispatch: (arg0: { type: string; payload: any }) => void) => {
-    let countries = await axios.get(
-      'https://api.countrystatecity.in/v1/countries',
-      {
-        headers: {
-          'X-CSCAPI-KEY':
-            'YkRMeEFlYXFwbmZqY1NEbkpybG1MbjNUcHdhTjdrNDc4a2oyaWZRUg==',
-          'content-type': 'application/json',
-        },
-      }
-    );
-
-    countries = countries.data.map((country: any) => ({
-      label: country.name,
-      value: country.iso2,
-    }));
-
     dispatch({
       type: GET_COUNTRIES,
       payload: {
-        country: countries,
-        apiToken: 'YkRMeEFlYXFwbmZqY1NEbkpybG1MbjNUcHdhTjdrNDc4a2oyaWZRUg==',
+        country: [{ label: 'United States', value: 'US' }],
       },
     });
   };
@@ -123,3 +108,15 @@ export const updateStates =
       },
     });
   };
+
+export const getDashboardInfo =
+  () => async (dispatch: (arg0: { type: string; payload: any }) => void) => {
+    const res = await axiosInstance.get('/admin/dashboard');
+
+    dispatch({
+      type: GET_DASHBOARD_INFO,
+      payload: res.data.data,
+    });
+  };
+
+// GET_DASHBOARD_INFO, UPDATE_DASHBOARD_INFO;
