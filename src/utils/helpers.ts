@@ -235,3 +235,8 @@ export const setCookie = (cName: string, cValue: string, expDays: number) => {
   const expires = 'expires=' + date.toUTCString();
   document.cookie = cName + '=' + cValue + '; ' + expires + '; path=/';
 };
+
+export const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});

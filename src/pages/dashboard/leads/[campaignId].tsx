@@ -18,7 +18,6 @@ const CampaignsLeads = () => {
   const campaignId = router.query.campaignId as string;
   const page = router.query.page as string;
   const pageSize = (router.query.pageSize as string) || DEFAULT_PAGE_SIZE;
-  const socialColumns = router.query.sc as string;
   const sortBy = router.query.sortBy as string;
   const campaignsLeads = leads[campaignId];
 
@@ -46,7 +45,6 @@ const CampaignsLeads = () => {
         ) : (
           <Leads
             leads={campaignsLeads}
-            socialColumns={socialColumns?.split(',')}
             pageSize={pageSize}
           />
         )}

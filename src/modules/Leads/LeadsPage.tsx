@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { basicTheme } from 'utils/constants/colorConstants';
 import Pagination from 'components/Pagination';
 import { getStyles } from './css';
-import { getSocialHandleHeader, hasPermission, isAdmin } from 'utils/helpers';
+import { hasPermission, isAdmin } from 'utils/helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -26,12 +26,10 @@ import { MARKETING_ADMIN } from 'utils/constants';
 const LeadsPage = ({
   leads,
   pageType = 'singleCampaign',
-  socialColumns = [],
   pageSize,
 }: {
   leads: any;
   pageType?: string;
-  socialColumns?: string[];
   pageSize?: string;
 }) => {
   const { colorMode } = useColorMode();
@@ -43,6 +41,17 @@ const LeadsPage = ({
   const permissions = useSelector((state: any) => state.auth.permissions);
   const hasPerm = hasPermission([...MARKETING_ADMIN], permissions);
 
+  const isFromCamapignLeads = pageType !== 'allLeads';
+
+  if (!isFromCamapignLeads && !hasPerm) {
+    return (
+      <div>
+        You don't have permission to view this page contact you admin for
+        support
+      </div>
+    );
+  }
+
   const handleChange = (page: any) => {
     params.page = page;
     router.push(`?${queryString.stringify(params)}`);
@@ -53,8 +62,16 @@ const LeadsPage = ({
     router.push(`?${queryString.stringify(params)}`);
   };
 
-  const status = pageType === 'allLeads' ? [] : ['status'];
-  const sc: string[] = getSocialHandleHeader(socialColumns);
+  const postingResponse =
+    hasPerm || isFromCamapignLeads
+      ? [
+          'Posting Response',
+          'Posting Status',
+          'No of Payments',
+          'Successful Payments',
+          'Failed Payments',
+        ]
+      : [];
 
   const tableHeader = [
     'First Name',
@@ -63,13 +80,8 @@ const LeadsPage = ({
     'Phone',
     'Gender',
     'City|State|Zip Code',
-    ...sc,
-    ...status,
+    ...postingResponse,
   ];
-
-  if (hasPerm) {
-    tableHeader.push('Posting Response');
-  }
 
   const renderPagination = () => (
     <>
@@ -93,8 +105,6 @@ const LeadsPage = ({
       />
     </button>
   );
-
-  console.log(leads?.data);
 
   return (
     <Box>
@@ -147,12 +157,16 @@ const LeadsPage = ({
 
               <Tbody>
                 {leads?.data.map((data: any, i: number) => {
-                  if (
-                    data?.UserCampaigns &&
-                    !data?.UserCampaigns[0].isPostingSuccess &&
-                    !hasPerm
-                  )
-                    return null;
+                  const campaign = data?.UserCampaigns[0];
+                  const totalPayments = data?.payments.length;
+                  totalPayments;
+                  const failedPayments =
+                    data?.payments?.filter(
+                      (payment: any) => payment.status === 'FAILED'
+                    )?.length || 0;
+
+                  if (!data?.UserCampaigns[0]) return null;
+
                   return (
                     <Tr key={`lead_data_${i}`}>
                       <Td
@@ -195,31 +209,28 @@ const LeadsPage = ({
                           data.postalCode || ''
                         }`}
                       </Td>
-                      {socialColumns.length >= 1 &&
-                        !!socialColumns[0] &&
-                        socialColumns?.map((s: string, j: number) => (
-                          <Td
-                            key={`social_${j}`}
-                            fontSize="16px"
-                            whiteSpace="nowrap"
-                          >
-                            {data[s] || 'N/A'}
+
+                      {(hasPerm || isFromCamapignLeads) && (
+                        <>
+                          <Td fontSize="16px" whiteSpace="nowrap">
+                            {campaign?.isPostingSuccess
+                              ? 'Successful'
+                              : 'Failed'}
                           </Td>
-                        ))}
-                      {status.length > 0 && (
-                        <Td fontSize="16px" whiteSpace="nowrap">
-                          {data?.UserCampaigns?.at(0)?.paymentStatus}
-                        </Td>
+
+                          <Td fontSize="16px" whiteSpace="nowrap">
+                            {campaign?.postingResponse?.response
+                              ? `${campaign.postingResponse.response.errors[0].error}`
+                              : 'No response recorded'}
+                          </Td>
+
+                          <Td>{totalPayments}</Td>
+
+                          <Td>{totalPayments - failedPayments}</Td>
+
+                          <Td>{failedPayments}</Td>
+                        </>
                       )}
-                      {hasPerm &&
-                      data?.UserCampaigns &&
-                      data?.UserCampaigns[0].postingResponse?.response ? (
-                        <Td fontSize="16px" whiteSpace="nowrap">
-                          {`${data?.UserCampaigns[0].postingResponse.response.result} |
-                        ${data?.UserCampaigns[0].postingResponse.response.msg} |
-                        ${data?.UserCampaigns[0].postingResponse.response.errors[0].error}`}
-                        </Td>
-                      ) : null}
                     </Tr>
                   );
                 })}

@@ -600,8 +600,10 @@ const CreateCampaign = ({
         formData: inputs.formData,
         campaignDate: inputs.campaignDate,
         prices: inputs.prices,
+        payoutAmount: inputs.payoutAmount,
         ...smsObj,
       };
+
       if (inputs.isJoinable && !inputs.expectedResponse) {
         //@ts-ignore
         formDataObject = {

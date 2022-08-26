@@ -9,6 +9,7 @@ import {
   CREATE_PAYMENT_INFO,
   GET_COUNTRIES,
   UPDATE_STATES,
+  GET_DASHBOARD_INFO,
 } from '../actionTypes';
 
 const generals = (
@@ -21,6 +22,7 @@ const generals = (
       country: [],
       state: {},
     },
+    dashboardData: undefined,
   },
   action: any
 ) => {
@@ -112,10 +114,17 @@ const generals = (
         },
       };
 
+    case GET_DASHBOARD_INFO:
+      return {
+        ...state,
+        dashboardData: action.payload,
+      };
+
     case 'RESET':
       return {
         ...state,
         paymentInfo: undefined,
+        dashboardData: undefined,
       };
 
     default:

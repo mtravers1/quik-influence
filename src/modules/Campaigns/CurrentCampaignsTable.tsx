@@ -98,14 +98,17 @@ const CurrentCampaignsTable = () => {
         return window.open(`${window.location.origin}${value}`, '_blank');
       }
 
-      if (value.includes('leads/')) {
-        const socialFields = campaigns?.campaigns.find(
-          (data: any) => data.id === value.split('leads/')[1]
-        );
-        return router.push(
-          `${value}?sc=${getNameProp(socialFields.formData.form).join(',')}`
-        );
-      }
+      // if (value.includes('leads/')) {
+      //   const socialFields = campaigns?.campaigns.find(
+      //     (data: any) => data.id === value.split('leads/')[1]
+      //   );
+
+      //   console.log(socialFields);
+
+      //   return router.push(
+      //     `${value}?sc=${getNameProp(socialFields.formData.form).join(',')}`
+      //   );
+      // }
       return router.push(value);
     }
 

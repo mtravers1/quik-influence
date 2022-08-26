@@ -48,6 +48,14 @@ export default [
     type: 'date',
     pattern: FREE_TEXT_REGEX,
   },
+  {
+    name: 'payoutAmount',
+    label: 'Payout Amount',
+    errorMessage: 'Enter your influencer payout amount',
+    required: true,
+    type: 'number',
+    pattern: FREE_TEXT_REGEX,
+  },
   // {
   //     name: 'type',
   //     label: 'Campaign Type',

@@ -13,7 +13,6 @@ const Dashboard = () => {
   const { allLeads, loading } = useSelector((state: any) => state.leads);
   const router = useRouter();
   const dispatch = useDispatch();
-  const socialColumns = router.query.sc as string;
   const page = (router.query.page as string) || '1';
   const pageSize = (router.query.pageSize as string) || DEFAULT_PAGE_SIZE;
   const [selectedFilters, setSelectedFilters] = useState(undefined);
@@ -39,12 +38,7 @@ const Dashboard = () => {
         {loading ? (
           <TablePageLoader />
         ) : (
-          <Leads
-            leads={allLeads}
-            pageType="allLeads"
-            socialColumns={socialColumns?.split(',')}
-            pageSize={pageSize}
-          />
+          <Leads leads={allLeads} pageType="allLeads" pageSize={pageSize} />
         )}
       </MainContent>
     </>
