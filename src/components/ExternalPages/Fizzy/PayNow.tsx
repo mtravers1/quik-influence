@@ -16,27 +16,28 @@ import { axiosInstance } from 'utils/helpers';
 import loader from 'assets/loader.gif';
 import NextImage from 'next/image';
 
+// 6% of the total amount
+const taxPercentage = 0.06;
+
 const products: any = [
   {
     name: 'Fizzy Delta-8 Infused Seltzer',
     packSize: '6 pack',
     price: 35.99,
-    tax: 2.52,
     weight: 2.72,
     width: 7,
     length: 7,
     height: 7,
   },
-  // {
-  //   name: 'Fizzy Delta-12 Infused Seltzer',
-  //   packSize: '12 pack',
-  //   price: 59.99,
-  //   tax: 2.92,
-  //   weight: 5,
-  //   width: 9,
-  //   length: 9,
-  //   height: 9,
-  // },
+  {
+    name: 'Fizzy Delta-12 Infused Seltzer',
+    packSize: '12 pack',
+    price: 65.99,
+    weight: 5.44,
+    width: 7,
+    length: 10,
+    height: 7,
+  },
 ];
 
 export const PayNow: FC<{
@@ -50,7 +51,9 @@ export const PayNow: FC<{
   const [currentProduct, setCurrentproduct] = useState(0);
 
   const [total, setTotal] = useState(0);
-  const [totalTax, setTotalTax] = useState(products[currentProduct].tax);
+  const [totalTax, setTotalTax] = useState(
+    products[currentProduct].price * taxPercentage
+  );
   const [flavour, setFlavour] = useState('Wild Strawberry');
 
   const [shippingRate, setShippingRate] = useState(0);
@@ -66,14 +69,14 @@ export const PayNow: FC<{
   const toast = useToast();
 
   useEffect(() => {
-    const newTax = Number((products[currentProduct].tax * number).toFixed(2));
+    const newTax = Number(
+      (products[currentProduct].price * number * taxPercentage).toFixed(2)
+    );
     setTotalTax(newTax);
 
     const newTotalAmount = Number(
       (number * products[currentProduct].price + newTax).toFixed(2)
     );
-
-    console.log((number * products[currentProduct].price + newTax).toFixed(2));
 
     setTotal(newTotalAmount);
 

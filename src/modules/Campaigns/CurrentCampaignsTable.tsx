@@ -82,7 +82,7 @@ const CurrentCampaignsTable = () => {
   const onSelect = async (e: any) => {
     const { value } = e.target;
 
-    if (value.includes('/')) {
+    if (value.includes('/') && !value.includes('copy')) {
       if (value.includes('edit')) {
         dispatch(
           getSingleCampaign(
@@ -124,7 +124,7 @@ const CurrentCampaignsTable = () => {
       case 'copy':
         if (typeof window !== 'undefined') {
           navigator.clipboard
-            .writeText(`${window.location.origin}/campaign/${id}?lp=${url}`)
+            .writeText(`${window.location.origin}/${urlData}`)
             .then(success =>
               toast({
                 title: 'Copied to clipboard',
