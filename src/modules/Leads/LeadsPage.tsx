@@ -41,9 +41,9 @@ const LeadsPage = ({
   const permissions = useSelector((state: any) => state.auth.permissions);
   const hasPerm = hasPermission([...MARKETING_ADMIN], permissions);
 
-  const isFromCamapignLeads = pageType !== 'allLeads';
+  const isFromCampaignLeads = pageType !== 'allLeads';
 
-  if (!isFromCamapignLeads && !hasPerm) {
+  if (!isFromCampaignLeads && !hasPerm) {
     return (
       <div>
         You don't have permission to view this page contact you admin for
@@ -63,7 +63,7 @@ const LeadsPage = ({
   };
 
   const postingResponse =
-    hasPerm || isFromCamapignLeads
+    hasPerm && isFromCampaignLeads
       ? [
           'Posting Response',
           'Posting Status',
@@ -158,14 +158,14 @@ const LeadsPage = ({
               <Tbody>
                 {leads?.data.map((data: any, i: number) => {
                   const campaign = data?.UserCampaigns?.at(0);
-                  const totalPayments = data?.payments.length;
+                  const totalPayments = data?.payments?.length;
                   totalPayments;
                   const failedPayments =
                     data?.payments?.filter(
                       (payment: any) => payment.status === 'FAILED'
                     )?.length || 0;
 
-                  if (!data?.UserCampaigns?.at(0)) return null;
+                  if (isFromCampaignLeads && !campaign) return null;
 
                   return (
                     <Tr key={`lead_data_${i}`}>
@@ -210,7 +210,7 @@ const LeadsPage = ({
                         }`}
                       </Td>
 
-                      {(hasPerm || isFromCamapignLeads) && (
+                      {hasPerm && isFromCampaignLeads && (
                         <>
                           <Td fontSize="16px" whiteSpace="nowrap">
                             {campaign?.isPostingSuccess
