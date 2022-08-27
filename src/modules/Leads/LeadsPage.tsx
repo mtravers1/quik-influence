@@ -157,7 +157,7 @@ const LeadsPage = ({
 
               <Tbody>
                 {leads?.data.map((data: any, i: number) => {
-                  const campaign = data?.UserCampaigns[0];
+                  const campaign = data?.UserCampaigns?.at(0);
                   const totalPayments = data?.payments.length;
                   totalPayments;
                   const failedPayments =
@@ -165,7 +165,7 @@ const LeadsPage = ({
                       (payment: any) => payment.status === 'FAILED'
                     )?.length || 0;
 
-                  if (!data?.UserCampaigns[0]) return null;
+                  if (!data?.UserCampaigns?.at(0)) return null;
 
                   return (
                     <Tr key={`lead_data_${i}`}>
