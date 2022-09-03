@@ -12,11 +12,6 @@ import {
 } from '@chakra-ui/react';
 import LoginOtp from 'components/ExternalPages/Fizzy/login';
 
-const campaignId =
-  process.env.NODE_ENV === 'development'
-    ? 'a3041737-60a0-469e-afd6-f33f25f2b066'
-    : 'b26ab176-9946-4085-94a0-254a318527f4';
-
 const filterUserData = (userData: any) => ({
   firstName: userData.firstName,
   lastName: userData.lastName,
@@ -36,15 +31,15 @@ const filterOtherInfo = (otherInfoData: any) => ({
 });
 
 const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
+  const router = useRouter();
+
   const [openModal, setOpenModal] = useState(false);
   const [userDataInfo, setUserData] = useState<any>();
   const [otherInfo, setOtherInfo] = useState<any>({
-    campaignId,
+    campaignId: router.query.campaignId,
   });
 
   const [fetchdata, sethasFetched] = useState(false);
-
-  const router = useRouter();
 
   useEffect(() => {
     let campaign_data;
@@ -58,7 +53,7 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
     }
 
     if (router.query.refresh) {
-      window.location.href = `${window.location.origin}${window.location.pathname}?campaign_admin_id=${router?.query.campaign_admin_id}`;
+      window.location.href = `${window.location.origin}${window.location.pathname}?campaign_admin_id=${router?.query.campaign_admin_id}?&campaignId=${router?.query.campaignId}`;
     }
 
     sethasFetched(true);
@@ -141,12 +136,22 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const response = await axiosInstance.get(
-    `/users/campaign/products/${campaignId}`
-  );
+export async function getServerSideProps(ctx: any) {
+  const { campaignId } = ctx.query;
 
-  return { props: { products: response.data.data } };
+  let products = [];
+
+  try {
+    const response = await axiosInstance.get(
+      `/users/campaign/products/${campaignId}`
+    );
+
+    products = response.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+
+  return { props: { products } };
 }
 
 export default Fizzy;
