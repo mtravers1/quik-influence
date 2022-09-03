@@ -51,6 +51,10 @@ const RenderCampaignsTable = ({
         label: 'Copy link',
         value: `copy:campaign/${campaign.id}?lp_campaign_id=${campaign.CampaignAdmins[0].lp_campaign_id}&lp_campaign_key=${campaign.CampaignAdmins[0].lp_campaign_key}&campaign_admin_id=${campaign.CampaignAdmins[0].id}`,
       },
+      {
+        label: 'View Products',
+        value: `/dashboard/campaigns/products/${campaign.id}`,
+      },
     ];
 
     const launchButton =

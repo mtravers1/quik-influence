@@ -131,7 +131,9 @@ const LeadsForm = ({
       // handleStripe(inputs.email, res.status === 200);
 
       if (typeof window !== 'undefined')
-        router.push(`${redirectUrl}?refresh=true`);
+        router.push(
+          `${redirectUrl}?refresh=true?campaign_admin_id=${query.campaign_admin_id}`
+        );
     },
   });
 

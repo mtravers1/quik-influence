@@ -166,3 +166,18 @@ a {
 .billing-form input.invalid {
   border-left: 2px solid red;
 }
+
+.icon-with-tooltip {
+  position: relative;
+}
+
+.icon-with-tooltip .tool-tipx {
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  white-space: nowrap;
+}
+
+.icon-with-tooltip:hover .tool-tipx {
+  visibility: visible;
+}

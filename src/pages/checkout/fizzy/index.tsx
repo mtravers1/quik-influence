@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { useRouter } from 'next/router';
+import { axiosInstance } from 'utils/helpers';
 import { Payment } from 'components/ExternalPages/Fizzy/payment';
 import { FizzyLayout } from 'layout/fizzy';
 import {
@@ -10,6 +11,11 @@ import {
   Box,
 } from '@chakra-ui/react';
 import LoginOtp from 'components/ExternalPages/Fizzy/login';
+
+const campaignId =
+  process.env.NODE_ENV === 'development'
+    ? 'a3041737-60a0-469e-afd6-f33f25f2b066'
+    : 'b26ab176-9946-4085-94a0-254a318527f4';
 
 const filterUserData = (userData: any) => ({
   firstName: userData.firstName,
@@ -29,14 +35,11 @@ const filterOtherInfo = (otherInfoData: any) => ({
   campaignId: otherInfoData.campaignId,
 });
 
-const Fizzy = () => {
+const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
   const [openModal, setOpenModal] = useState(false);
   const [userDataInfo, setUserData] = useState<any>();
   const [otherInfo, setOtherInfo] = useState<any>({
-    campaignId:
-      process.env.NODE_ENV === 'development'
-        ? 'a3041737-60a0-469e-afd6-f33f25f2b066'
-        : 'b26ab176-9946-4085-94a0-254a318527f4',
+    campaignId,
   });
 
   const [fetchdata, sethasFetched] = useState(false);
@@ -55,7 +58,7 @@ const Fizzy = () => {
     }
 
     if (router.query.refresh) {
-      window.location.href = `${window.location.origin}${window.location.pathname}`;
+      window.location.href = `${window.location.origin}${window.location.pathname}?campaign_admin_id=${router?.query.campaign_admin_id}`;
     }
 
     sethasFetched(true);
@@ -106,12 +109,17 @@ const Fizzy = () => {
           userData={userDataInfo || {}}
           openLoginOtp={openLoginOtp}
           otherInfo={otherInfo || {}}
+          products={products}
         />
       </FizzyLayout>
 
       <Modal blockScrollOnMount={false} isOpen={openModal} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent minW="40vw" p="8" borderRadius={0}>
+        <ModalContent
+          minW={{ base: '90vw', xl: '40vw' }}
+          p="8"
+          borderRadius={0}
+        >
           <ModalBody>
             {userDataInfo?.phone ? (
               <Box marginBottom="20px" fontSize="16px">
@@ -132,5 +140,13 @@ const Fizzy = () => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  const response = await axiosInstance.get(
+    `/users/campaign/products/${campaignId}`
+  );
+
+  return { props: { products: response.data.data } };
+}
 
 export default Fizzy;
