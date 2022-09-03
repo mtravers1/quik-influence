@@ -14,7 +14,10 @@ import {
   FIRST_TEN_CAMPAIGNS,
   JOINABLE_CAMPAIGNS_LOADING,
   JOINABLE_CAMPAIGNS,
-  JOINABLE_CAMPAIGNS_ERROR,
+  GET_ALL_CAMPIGN_PRODUCTS,
+  CREATE_CAMPAIGN_PRODUCT,
+  EDIT_CAMPAIGN_PRODUCT,
+  ARCHIVE_CAMPAIGN_PRODUCT,
 } from '../actionTypes';
 
 export const loadingJoinableCampaign =
@@ -233,3 +236,63 @@ export const setSMSCampaign = (campaign: any) => async (dispatch: any) => {
     payload: campaign,
   });
 };
+
+export const getCampaignProducts =
+  (campaignId: any, serverProducts: any) => async (dispatch: any) => {
+    let products = serverProducts;
+
+    if (!products) {
+      products = await axiosInstance.get(
+        `/users/campaign/products/${campaignId}?all=true`
+      );
+    }
+
+    dispatch({
+      type: GET_ALL_CAMPIGN_PRODUCTS,
+      payload: {
+        products: products.map((product: any) => {
+          const { name, payoutAmount, meta, ...rest } = product;
+          return { name, payoutAmount, ...meta, ...rest };
+        }),
+
+        campaignId,
+      },
+    });
+  };
+
+export const createCampaignProduct =
+  (data: any, product: any, campaignId: any) => async (dispatch: any) => {
+    const res = await axiosInstance.post(
+      `/users/campaign/products/${campaignId}`,
+      data
+    );
+
+    dispatch({
+      type: CREATE_CAMPAIGN_PRODUCT,
+      payload: { product: { ...product, id: res.data.data.id }, campaignId },
+    });
+  };
+
+export const editCampaignProduct =
+  (data: any, product: any, campaignId: any, productId: any) =>
+  async (dispatch: any) => {
+    await axiosInstance.put(`/users/campaign/products/${productId}`, data);
+
+    dispatch({
+      type: EDIT_CAMPAIGN_PRODUCT,
+      payload: { product: product, campaignId, productId },
+    });
+  };
+
+export const archiveCampaignProduct =
+  (productId: any, status: string, campaignId: string) =>
+  async (dispatch: any) => {
+    const action = status === 'ACTIVE' ? 'unarchive' : 'archive';
+
+    axiosInstance.put(`/users/campaign/products/${action}/${productId}`);
+
+    dispatch({
+      type: ARCHIVE_CAMPAIGN_PRODUCT,
+      payload: { productId, status, campaignId },
+    });
+  };
