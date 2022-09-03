@@ -53,7 +53,7 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
     }
 
     if (router.query.refresh) {
-      window.location.href = `${window.location.origin}${window.location.pathname}?campaign_admin_id=${router?.query.campaign_admin_id}?&campaignId=${router?.query.campaignId}`;
+      window.location.href = `${window.location.origin}${window.location.pathname}?campaign_admin_id=${router?.query.campaign_admin_id}&campaignId=${router?.query.campaignId}`;
     }
 
     sethasFetched(true);
