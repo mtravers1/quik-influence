@@ -160,7 +160,6 @@ export const PayNow: FC<{
 
   const onSuccessHandler = async (response: any) => {
     const paymentDets = {
-      campaignId: otherInfo.campaignId,
       shipmentId,
       taxAmount: totalTax,
       amount: total,
