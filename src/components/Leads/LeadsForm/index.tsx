@@ -58,7 +58,9 @@ const LeadsForm = ({
           'Email and phone already exist for this campaign' &&
         campaignData.name.toLowerCase().includes('fizzy')
       ) {
-        router.push(`${redirectUrl}?refresh=true`);
+        router.push(
+          `${redirectUrl}?refresh=true&campaign_admin_id=${query.campaign_admin_id}`
+        );
       }
     },
     cb: async inputs => {
@@ -132,7 +134,7 @@ const LeadsForm = ({
 
       if (typeof window !== 'undefined')
         router.push(
-          `${redirectUrl}?refresh=true?campaign_admin_id=${query.campaign_admin_id}`
+          `${redirectUrl}?refresh=true&campaign_admin_id=${query.campaign_admin_id}`
         );
     },
   });
