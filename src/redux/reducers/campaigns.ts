@@ -1,4 +1,3 @@
-import { actions } from 'react-table';
 import {
   CAMPAIGNS,
   CAMPAIGNS_ERROR,
@@ -12,6 +11,10 @@ import {
   JOINABLE_CAMPAIGNS_LOADING,
   JOINABLE_CAMPAIGNS,
   JOINABLE_CAMPAIGNS_ERROR,
+  GET_ALL_CAMPIGN_PRODUCTS,
+  CREATE_CAMPAIGN_PRODUCT,
+  EDIT_CAMPAIGN_PRODUCT,
+  ARCHIVE_CAMPAIGN_PRODUCT,
 } from 'redux/actionTypes';
 
 export const initialState = {
@@ -21,12 +24,15 @@ export const initialState = {
   loading: true,
   leads: {},
   firstCampaigns: null,
+  products: {},
 };
 
 const campaigns = (
-  state = initialState,
+  state: any = initialState,
   action: { type: any; payload: any }
 ) => {
+  const campaignProducts = state.products[action.payload?.campaignId] || [];
+
   switch (action.type) {
     case CAMPAIGNS_LOADING:
       return {
@@ -111,6 +117,64 @@ const campaigns = (
           ...state.joinableCampaigns,
           data: action.payload,
           loading: false,
+        },
+      };
+
+    case GET_ALL_CAMPIGN_PRODUCTS:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [action.payload.campaignId]: action.payload.products,
+        },
+      };
+
+    case CREATE_CAMPAIGN_PRODUCT:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [action.payload.campaignId]: [
+            ...campaignProducts,
+            action.payload.product,
+          ],
+        },
+      };
+
+    case EDIT_CAMPAIGN_PRODUCT:
+      const products = campaignProducts.map((product: any) => {
+        if (product.id === action.payload.productId) {
+          return action.payload.product;
+        }
+
+        return product;
+      });
+
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [action.payload.campaignId]: products,
+        },
+      };
+
+    case ARCHIVE_CAMPAIGN_PRODUCT:
+      const allProducts = campaignProducts.map((product: any) => {
+        if (product.id === action.payload.productId) {
+          return {
+            ...product,
+            status: action.payload.status,
+          };
+        }
+
+        return product;
+      });
+
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [action.payload.campaignId]: allProducts,
         },
       };
 

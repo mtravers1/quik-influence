@@ -1,4 +1,5 @@
 import { useEffect, useState, FC } from 'react';
+import { useRouter } from 'next/router';
 import DropdownSelect from 'components/DropdownSelect';
 import {
   Box,
@@ -19,32 +20,14 @@ import NextImage from 'next/image';
 // 6% of the total amount
 const taxPercentage = 0.06;
 
-const products: any = [
-  {
-    name: 'Fizzy Delta-8 Infused Seltzer',
-    packSize: '6 pack',
-    price: 35.99,
-    weight: 2.72,
-    width: 7,
-    length: 7,
-    height: 7,
-  },
-  {
-    name: 'Fizzy Delta-12 Infused Seltzer',
-    packSize: '12 pack',
-    price: 65.99,
-    weight: 5.44,
-    width: 7,
-    length: 10,
-    height: 7,
-  },
-];
-
 export const PayNow: FC<{
   userData: any;
   openLoginOtp: any;
   otherInfo: any;
-}> = ({ userData, openLoginOtp, otherInfo }) => {
+  products: any;
+}> = ({ userData, openLoginOtp, otherInfo, products }) => {
+  const router = useRouter();
+
   const [agreed, setAgreed] = useState(false);
   const [number, setNumber] = useState(1);
 
@@ -52,7 +35,7 @@ export const PayNow: FC<{
 
   const [total, setTotal] = useState(0);
   const [totalTax, setTotalTax] = useState(
-    products[currentProduct].price * taxPercentage
+    products[currentProduct].meta.price * taxPercentage
   );
   const [flavour, setFlavour] = useState('Wild Strawberry');
 
@@ -70,12 +53,12 @@ export const PayNow: FC<{
 
   useEffect(() => {
     const newTax = Number(
-      (products[currentProduct].price * number * taxPercentage).toFixed(2)
+      (products[currentProduct].meta.price * number * taxPercentage).toFixed(2)
     );
     setTotalTax(newTax);
 
     const newTotalAmount = Number(
-      (number * products[currentProduct].price + newTax).toFixed(2)
+      (number * products[currentProduct].meta.price + newTax).toFixed(2)
     );
 
     setTotal(newTotalAmount);
@@ -86,7 +69,7 @@ export const PayNow: FC<{
   useEffect(() => {
     const newTotalAmount = Number(
       (
-        number * products[currentProduct].price +
+        number * products[currentProduct].meta.price +
         totalTax +
         shippingRate
       ).toFixed(2)
@@ -114,10 +97,10 @@ export const PayNow: FC<{
           // })),
           parcels: [
             {
-              weight: products[currentProduct].weight * number,
-              length: products[currentProduct].length * number,
-              width: products[currentProduct].width,
-              height: products[currentProduct].height,
+              weight: products[currentProduct].meta.weight * number,
+              length: products[currentProduct].meta.length * number,
+              width: products[currentProduct].meta.width,
+              height: products[currentProduct].meta.height,
               distance_unit: 'in',
               mass_unit: 'kg',
             },
@@ -183,12 +166,13 @@ export const PayNow: FC<{
       amount: total,
       nonce: response.opaqueData.dataValue,
       item: {
-        itemId: '245',
-        description: `${products[currentProduct].name} - ${flavour}, ${products[currentProduct].packSize} ×${number}`,
-        name: `Fizzy ${products[currentProduct].packSize}`,
-        unitPrice: products[currentProduct].price,
+        itemId: products[currentProduct].id,
+        description: `${products[currentProduct].name} - ${flavour}, ${products[currentProduct].meta.description} ×${number}`,
+        name: `Fizzy ${products[currentProduct].meta.description}`,
+        unitPrice: products[currentProduct].meta.price,
         quantity: number,
       },
+      campaignAdminId: router.query.campaign_admin_id,
     };
 
     try {
@@ -335,7 +319,7 @@ export const PayNow: FC<{
 
               <Box>
                 {products[currentProduct].name} - {flavour},{' '}
-                {products[currentProduct].packSize} ×{number}
+                {products[currentProduct].meta.description} ×{number}
               </Box>
             </Flex>
           </Box>
@@ -359,7 +343,7 @@ export const PayNow: FC<{
               <Flex marginBottom="20px">
                 <Box marginRight="30px">Subtotal</Box>
                 <Box>
-                  ${(number * products[currentProduct].price).toFixed(2)}
+                  ${(number * products[currentProduct].meta.price).toFixed(2)}
                 </Box>
               </Flex>
               <Flex marginBottom="20px" alignItems="center" position="relative">

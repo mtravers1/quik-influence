@@ -44,7 +44,12 @@ export const AccountUpdatePrompt = () => {
   return (
     <Modal blockScrollOnMount={true} isOpen={showModal} onClose={closeModal}>
       <ModalOverlay />
-      <ModalContent minW="40vw" p="8" mt="20%" borderRadius={0}>
+      <ModalContent
+        minW={{ base: '90vw', xl: '40vw' }}
+        p="8"
+        mt="20%"
+        borderRadius={0}
+      >
         <ModalBody>
           <Box
             marginBottom="20px"
