@@ -59,7 +59,7 @@ const LeadsForm = ({
         campaignData.name.toLowerCase().includes('fizzy')
       ) {
         router.push(
-          `${redirectUrl}?refresh=true&campaign_admin_id=${query.campaign_admin_id}`
+          `${redirectUrl}?refresh=true&campaign_admin_id=${query.campaign_admin_id}&campaignId=${campaignId}`
         );
       }
     },
@@ -134,7 +134,7 @@ const LeadsForm = ({
 
       if (typeof window !== 'undefined')
         router.push(
-          `${redirectUrl}?refresh=true&campaign_admin_id=${query.campaign_admin_id}`
+          `${redirectUrl}?refresh=true&campaign_admin_id=${query.campaign_admin_id}&campaignId=${campaignId}`
         );
     },
   });
