@@ -71,7 +71,6 @@ const CampaignProducts = (props: any) => {
 
   const archiveProduct = (product: any, e: any) => {
     e.stopPropagation();
-
     const status = product.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
 
     dispatch(archiveCampaignProduct(product.id, status, campaignId));
