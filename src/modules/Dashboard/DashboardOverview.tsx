@@ -14,67 +14,51 @@ import { getDashboardInfo } from 'redux/actions/general';
 import { CustomBarChart } from '../../components/BarChart';
 import { CustomPieChart } from 'components/PieChart';
 import { CustomLineChart } from 'components/LineChart';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-// const DateInput = ({
-//   name,
-//   onChange,
-//   value: val,
-//   placeholder,
-//   minDate,
-//   maxDate,
-// }: Props) => {
-//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//   const handleChange = (output: string, e) => {
-//     e?.persist();
-//     e?.stopPropagation?.();
-//     onChange({
-//       target: {
-//         name,
-//         value: output,
-//       },
-//     });
-//   };
-
-//   return (
-//     <Box width="500px">
-//       <DatePicker
-//         onChange={handleChange}
-//         selected={new Date(val || Date.now())}
-//         dateFormat="yyyy-MM-dd"
-//         onMonthChange={() => {
-//           // console.log(e, r);
-//         }}
-//         maxDate={new Date(maxDate)}
-//         minDate={new Date(minDate)}
-//       />
-//     </Box>
-//   );
-// };
+import { CustomDateRange } from 'components/DateRange/dateRange';
+import { DateRange } from 'components/DateRange';
 
 const DashboardOverview = () => {
   const { colorMode } = useColorMode();
   const [loading, setLoading] = useState(false);
+  const [date, setDate] = useState({});
 
   const { dashboardData } = useSelector((state: any) => state.generals);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!dashboardData) {
-      fetchDashboardData();
+      fetchDashboardData(date);
     }
   }, []);
 
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = async (date: any) => {
     setLoading(true);
-    await dispatch(getDashboardInfo());
+    await dispatch(getDashboardInfo(date));
+    setLoading(false);
+  };
+
+  const handleDateChange = async (date: any) => {
+    setDate(date);
+
+    setLoading(true);
+    await dispatch(getDashboardInfo(date));
     setLoading(false);
   };
 
   return (
     <Box>
-      {/* <DateInput /> */}
+      <Box
+        height="40px"
+        position="relative"
+        marginBottom="30px"
+        display="flex"
+        justifyContent="flex-end"
+      >
+        <Box position="absolute" zIndex="50">
+          <CustomDateRange handleChange={handleDateChange} />
+        </Box>
+      </Box>
 
       <Box display="flex" marginBottom="20px">
         <CustomPieChart
