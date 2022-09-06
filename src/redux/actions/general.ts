@@ -110,8 +110,11 @@ export const updateStates =
   };
 
 export const getDashboardInfo =
-  () => async (dispatch: (arg0: { type: string; payload: any }) => void) => {
-    const res = await axiosInstance.get('/admin/dashboard');
+  (date: any) =>
+  async (dispatch: (arg0: { type: string; payload: any }) => void) => {
+    const res = await axiosInstance.get(
+      `/admin/dashboard?from=${date.startDate}&to=${date.endDate}`
+    );
 
     dispatch({
       type: GET_DASHBOARD_INFO,

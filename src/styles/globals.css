@@ -181,3 +181,11 @@ a {
 .icon-with-tooltip:hover .tool-tipx {
   visibility: visible;
 }
+
+.rdrStaticRange {
+  color: #333;
+}
+
+.rdrInputRange span {
+  color: #333;
+}
