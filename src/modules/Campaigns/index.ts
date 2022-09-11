@@ -1,5 +1,9 @@
-import CampaignsOverview from "./CampaignsOverview";
-import {campaignsMenu, createCampaignsMenu} from './sideBarOption'
-export default CampaignsOverview
+import CampaignsOverview from './CampaignsOverview';
+import {
+  campaignsMenu,
+  createCampaignsMenu,
+  campaignInfluencersMenu,
+} from './sideBarOption';
+export default CampaignsOverview;
 
-export {campaignsMenu, createCampaignsMenu}
+export { campaignsMenu, createCampaignsMenu, campaignInfluencersMenu };
