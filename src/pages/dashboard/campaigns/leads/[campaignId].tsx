@@ -45,11 +45,7 @@ const CampaignsLeads = () => {
         </MainContent>
       ) : (
         <MainContent filter={<Filters setAllSelectedFilters={() => {}} />}>
-          <Leads
-            leads={campaignsLeads}
-            socialColumns={socialColumns?.split(',')}
-            pageSize={pageSize}
-          />
+          <Leads leads={campaignsLeads} pageSize={pageSize} />
         </MainContent>
       )}
     </>

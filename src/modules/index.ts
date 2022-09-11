@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { dashboardMenu, creditsMenu } from './Dashboard';
-import { campaignsMenu } from './Campaigns';
+import { campaignsMenu, campaignInfluencersMenu } from './Campaigns';
 import { leadMenu } from './Leads';
 import { searchMenu } from './Search';
 
@@ -10,16 +10,18 @@ export const useSideBarMenuOptions = () => {
   return {
     dashboardMenu,
     campaignsMenu: { ...campaignsMenu, child: firstCampaigns || [] },
+    campaignInfluencersMenu,
     creditsMenu,
     leadMenu,
-    searchMenu
+    searchMenu,
   };
 };
 
 export const SideBarMenuOptions = {
   dashboardMenu,
+  campaignInfluencersMenu,
   campaignsMenu,
   creditsMenu,
   leadMenu,
-  searchMenu
+  searchMenu,
 };
