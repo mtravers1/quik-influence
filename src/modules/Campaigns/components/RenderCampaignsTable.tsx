@@ -2,11 +2,14 @@ import { Table, Thead, Tr, Th, Tbody, Td, Flex, Box } from '@chakra-ui/react';
 import DropdownSelect from 'components/DropdownSelect';
 import React from 'react';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
 import { basicTheme } from 'utils/constants/colorConstants';
 import { OPEN } from 'utils/constants/formConstants';
 import LoaderGif from 'assets/loader.gif';
 import NoRecordsMessage from 'components/NoRecordsMessage';
 import { getStyles } from 'modules/Leads/css';
+import { hasPermission } from 'utils/helpers';
+import { CAN_HANDLE_INFLUENCERS } from 'utils/constants';
 
 interface RenderCampaignsTableProps {
   colorMode: string;
@@ -26,6 +29,7 @@ const RenderCampaignsTable = ({
   tableHeaders,
 }: RenderCampaignsTableProps) => {
   const style = getStyles(colorMode);
+  const permissions = useSelector((state: any) => state.auth.permissions);
 
   const DropDownList = (campaign: any) => {
     const { isJoinable, CampaignAdmins } = campaign;
@@ -81,7 +85,24 @@ const RenderCampaignsTable = ({
           ]
         : [];
 
-    return [...regularButtons, ...launchButton, ...editButton];
+    const viewInfluencersButton = hasPermission(
+      CAN_HANDLE_INFLUENCERS,
+      permissions
+    )
+      ? [
+          {
+            label: 'View influencers',
+            value: `/dashboard/campaigns/influencers/${campaign.id}`,
+          },
+        ]
+      : [];
+
+    return [
+      ...regularButtons,
+      ...launchButton,
+      ...editButton,
+      ...viewInfluencersButton,
+    ];
   };
 
   return (

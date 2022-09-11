@@ -26,6 +26,7 @@ import { axiosInstance } from 'utils/helpers';
 import loader from 'assets/loader.gif';
 import CustomButton from 'components/Button';
 import Image from 'next/image';
+import { PaymentInformation } from 'components/PaymentInfo';
 
 export const PaymentInfoComp = () => {
   const { paymentInfo } = useSelector(state => state.generals);
@@ -181,26 +182,7 @@ const PaymentInfoCard = ({ info, setEditInfo }) => {
         </Flex>
       )}
 
-      <Box>
-        <Box as="strong">Account name:</Box> {info.accName || 'N/A'}
-      </Box>
-      <Box>
-        <Box as="strong">Account Number:</Box> {info.accNo || 'N/A'}
-      </Box>
-      <Box>
-        <Box as="strong">Bank name:</Box> {info.bankName || 'N/A'}
-      </Box>
-      <Box>
-        <Box as="strong">Sort code:</Box> {info.sortCode || 'N/A'}
-      </Box>
-      <Box>
-        <Box as="strong">
-          Futher Instruction: {info.instructions ? '' : 'N/A'}
-        </Box>
-      </Box>
-      {info.instructions && (
-        <Box paddingLeft="25px">{info.instructions || 'N/A'}</Box>
-      )}
+      <PaymentInformation info={info} />
 
       {info.isDefault && (
         <Flex justifyContent="flex-end">

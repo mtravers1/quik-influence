@@ -25,3 +25,14 @@ export const createCampaignsMenu: SideBarOptionMenu = {
   isActive: false,
   child: [],
 };
+
+export const campaignInfluencersMenu: SideBarOptionMenu = {
+  name: 'Influencers',
+  icon: faCalendarMinus,
+  path: '/dashboard/influencers',
+  order: 2,
+  permission: ['can_manage_influencers'],
+  isShown: true,
+  isActive: false,
+  child: [],
+};
