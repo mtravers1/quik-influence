@@ -22,20 +22,17 @@ const CheckBox: FC<{
       {useCustom && (
         <Box
           border="2px solid #fff"
-          width="25px"
-          height="25px"
-          borderRadius="100%"
-          padding="4px"
+          width="15px"
+          height="15px"
+          padding="1px"
+          background="#fff"
+          as="label"
+          htmlFor={name}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
-          {value && (
-            <Box
-              border="5px solid transparent"
-              background="#fff"
-              borderRadius="100%"
-              width="100%"
-              height="100%"
-            ></Box>
-          )}
+          {value && <Box background="#333" width="100%" height="100%"></Box>}
         </Box>
       )}
 
