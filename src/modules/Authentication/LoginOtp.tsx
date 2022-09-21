@@ -122,6 +122,7 @@ const Login = () => {
           height="30px"
           alignItems="center"
           cursor="pointer"
+          fontSize={14}
         >
           Resend Otp
           {loadingOtp && <Image src={loader} alt="" width={30} height={30} />}

@@ -16,6 +16,7 @@ import {
   createTags,
   createFormInputs,
 } from 'redux/actions/general';
+import '../styles/date-of-birth-js.min.css';
 import '../styles/globals.css';
 import '../styles/404.css';
 
