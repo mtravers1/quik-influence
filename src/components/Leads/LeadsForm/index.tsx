@@ -325,15 +325,16 @@ const LeadsForm = ({
         })}
         {showConsent && (
           <Flex p="10px" className="consent">
-            <input
-              type="checkbox"
-              checked={submitForm}
-              onChange={() => setSubmitForm(!submitForm)}
-              id="consent"
+            <CheckBox
+              name="consent"
+              value={submitForm}
+              handleChange={() => setSubmitForm(!submitForm)}
+              label=""
+              useCustom
             />
 
             <Box
-              marginLeft="20px"
+              marginLeft="10px"
               as="label"
               htmlFor="consent"
               cursor="pointer"
