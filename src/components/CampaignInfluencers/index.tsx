@@ -102,6 +102,8 @@ export const CampaignInfluencers: FC<{
   );
 
   useEffect(() => {
+    console.log(debouncedSearch);
+
     if (debouncedSearch === undefined) return;
 
     params.search = debouncedSearch;

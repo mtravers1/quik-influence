@@ -11,9 +11,17 @@ export default [
   },
   {
     name: 'description',
-    label: 'Please enter the description',
+    label: 'Please enter a short product description',
     errorMessage: 'Enter label',
     required: true,
+    type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'longDesc',
+    label: 'Please enter the description',
+    errorMessage: 'Enter label',
+    required: false,
     type: 'text',
     pattern: FREE_TEXT_REGEX,
   },
@@ -33,7 +41,6 @@ export default [
     type: 'number',
     pattern: FREE_TEXT_REGEX,
   },
-
   {
     name: 'weight',
     label: 'Weight ( kg )',
@@ -66,4 +73,5 @@ export default [
     type: 'number',
     pattern: FREE_TEXT_REGEX,
   },
+
 ];
