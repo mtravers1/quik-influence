@@ -14,6 +14,7 @@ import loader from 'assets/loader.gif';
 import Image from 'next/image';
 import { useSelectLocations } from 'hooks/useSelectLocations';
 import { setCookie } from 'utils/helpers';
+import { DatePicker } from 'components/DatePicker';
 
 const LeadsForm = ({
   campaignId,
@@ -261,9 +262,36 @@ const LeadsForm = ({
                 </FormControl>
               );
 
+            case 'date':
+              return (
+                <FormControl
+                  borderWidth={1}
+                  borderColor="grey.200"
+                  padding="10px 10px 10px 30px"
+                  borderRadius={40}
+                  margin="3px 0"
+                >
+                  <DatePicker
+                    name={data?.name}
+                    placeholder={data?.label}
+                    paddingLeft={8}
+                    onChange={handleChange}
+                    value={inputTypes[data?.name]}
+                    datatest-id={`test-${data?.name}`}
+                    options={data?.options}
+                    label={data?.label}
+                  />
+
+                  {errors[data.name] && (
+                    <FormErrorMessage paddingLeft={50} fontSize={12}>
+                      {data.errorMessage}
+                    </FormErrorMessage>
+                  )}
+                </FormControl>
+              );
+
             case 'textarea':
             case 'text':
-            case 'date':
             case 'number':
             default:
               return (
@@ -280,7 +308,6 @@ const LeadsForm = ({
                     paddingLeft={50}
                     onChange={handleChange}
                     value={inputTypes[data?.name]}
-                    s
                     datatest-id={`test-${data?.name}`}
                     options={data?.options}
                     type={data?.type}

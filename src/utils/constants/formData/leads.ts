@@ -58,7 +58,7 @@ export default [
     label: 'Date of Birth',
     icon: faBirthdayCake,
     errorMessage: 'Enter your date of birth',
-    required: true,
+    required: false,
     type: 'date',
     pattern: FREE_TEXT_REGEX,
   },
