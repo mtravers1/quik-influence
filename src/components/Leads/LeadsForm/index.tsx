@@ -144,8 +144,6 @@ const LeadsForm = ({
     inputTypes.country
   );
 
-  console.log(inputTypes);
-
   return (
     <Flex
       display="flex"

@@ -35,6 +35,7 @@ export const DatePicker = props => {
       border="unset"
       fontSize="15px"
       placeholder={props.label}
+      
     />
   );
 };

@@ -186,10 +186,6 @@ const datepickerMethods = {
       this.showDatepicker();
     });
 
-    this.getDatepickerTargetNode().addEventListener('blur', () => {
-      this.hideDatepicker();
-    });
-
     // when user press escape then hide the datepicker
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
