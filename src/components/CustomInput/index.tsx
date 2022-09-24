@@ -1,4 +1,4 @@
-import { Box, Input, InputProps, Select, SelectProps } from '@chakra-ui/react';
+import { Box, Input, Select } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const RenderCustomInput = (props: any) => {
