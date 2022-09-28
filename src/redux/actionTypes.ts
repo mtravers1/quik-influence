@@ -48,6 +48,9 @@ export const CREATE_CAMPAIGN_PRODUCT = 'CREATE_CAMPAIGN_PRODUCT';
 export const EDIT_CAMPAIGN_PRODUCT = 'EDIT_CAMPAIGN_PRODUCT';
 export const ARCHIVE_CAMPAIGN_PRODUCT = 'ARCHIVE_CAMPAIGN_PRODUCT';
 
+export const SET_MENU = 'SET_MENU';
+export const SET_OPEN_PANEL = 'SET_OPEN_PANEL';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;

@@ -12,6 +12,8 @@ import {
   UPDATE_STATES,
   GET_DASHBOARD_INFO,
   UPDATE_DASHBOARD_INFO,
+  SET_MENU,
+  SET_OPEN_PANEL
 } from '../actionTypes';
 import axios from 'axios';
 
@@ -119,6 +121,24 @@ export const getDashboardInfo =
     dispatch({
       type: GET_DASHBOARD_INFO,
       payload: res.data.data,
+    });
+  };
+
+export const setMenu =
+  (state: any) =>
+  async (dispatch: (arg0: { type: string; payload: any }) => void) => {
+    dispatch({
+      type: SET_MENU,
+      payload: state,
+    });
+  };
+
+export const setOpenPanel =
+  (state: any) =>
+  async (dispatch: (arg0: { type: string; payload: any }) => void) => {
+    dispatch({
+      type: SET_OPEN_PANEL,
+      payload: state,
     });
   };
 

@@ -10,6 +10,8 @@ import {
   GET_COUNTRIES,
   UPDATE_STATES,
   GET_DASHBOARD_INFO,
+  SET_MENU,
+  SET_OPEN_PANEL,
 } from '../actionTypes';
 
 const generals = (
@@ -23,6 +25,10 @@ const generals = (
       state: {},
     },
     dashboardData: undefined,
+    menu: {
+      presentMenu: '',
+      openPanel: false,
+    },
   },
   action: any
 ) => {
@@ -125,6 +131,15 @@ const generals = (
         ...state,
         paymentInfo: undefined,
         dashboardData: undefined,
+      };
+
+    case 'SET_MENU':
+      return {
+        ...state,
+        menu: {
+          ...state.menu,
+          ...action.payload,
+        },
       };
 
     default:
