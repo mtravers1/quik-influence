@@ -17,7 +17,8 @@ export const Payment: FC<{
   openLoginOtp: any;
   otherInfo: any;
   products: any;
-}> = ({ userData, openLoginOtp, otherInfo, products }) => {
+  showErrorMessage: any;
+}> = ({ userData, openLoginOtp, otherInfo, products, showErrorMessage }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const { countryData } = useSelector((state: any) => state.generals);
@@ -61,6 +62,7 @@ export const Payment: FC<{
               setCurrentPage={setCurrentPage}
               userData={userData}
               openLoginOtp={openLoginOtp}
+              showErrorMessage={showErrorMessage}
             />
           )}
 
@@ -70,6 +72,7 @@ export const Payment: FC<{
               openLoginOtp={openLoginOtp}
               otherInfo={otherInfo}
               products={products}
+              showErrorMessage={showErrorMessage}
             />
           )}
         </>

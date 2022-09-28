@@ -25,7 +25,8 @@ export const PayNow: FC<{
   openLoginOtp: any;
   otherInfo: any;
   products: any;
-}> = ({ userData, openLoginOtp, otherInfo, products }) => {
+  showErrorMessage?: any;
+}> = ({ userData, openLoginOtp, otherInfo, products, showErrorMessage }) => {
   const router = useRouter();
 
   const [agreed, setAgreed] = useState(false);
@@ -122,13 +123,9 @@ export const PayNow: FC<{
       }
 
       if (err.response.status === 400) {
-        toast({
+        showErrorMessage({
           title: err.response?.data?.data?.type || 'An error occured',
           description: err.response?.data?.data?.message?.[0].text || '',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-          position: 'top-right',
         });
       }
     }
@@ -190,14 +187,10 @@ export const PayNow: FC<{
       });
 
       setShowOrderModal(true);
-    } catch (err) {
-      toast({
-        title: `An error occured`,
-        description: '',
-        status: 'error',
-        duration: 4000,
-        isClosable: true,
-        position: 'top-right',
+    } catch (err: any) {
+      showErrorMessage({
+        title: err?.response?.data?.data?.title || 'An error occured',
+        description: err?.response?.data?.data?.description || '',
       });
     }
   };
@@ -416,7 +409,7 @@ export const PayNow: FC<{
         onClose={closeOrderModal}
       >
         <ModalOverlay />
-        <ModalContent minW="40vw" p="8" mt="30%" borderRadius={0}>
+        <ModalContent minW="40vw" p="8" mt="20%" borderRadius={0}>
           <ModalBody>
             <Box
               marginBottom="20px"

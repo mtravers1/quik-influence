@@ -33,7 +33,19 @@ const filterOtherInfo = (otherInfoData: any) => ({
 const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
   const router = useRouter();
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState<{
+    status: boolean;
+    state: string;
+    message?: {
+      title?: string;
+      description?: string;
+    };
+  }>({
+    status: false,
+    state: '',
+    message: {},
+  });
+
   const [userDataInfo, setUserData] = useState<any>();
   const [otherInfo, setOtherInfo] = useState<any>({
     campaignId: router.query.campaignId,
@@ -60,7 +72,7 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
   }, []);
 
   const openLoginOtp = () => {
-    setOpenModal(true);
+    setOpenModal({ status: true, state: 'login' });
   };
 
   useEffect(() => {
@@ -74,7 +86,7 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
   }, [fetchdata, userDataInfo, otherInfo]);
 
   const onClose = () => {
-    setOpenModal(false);
+    setOpenModal({ status: false, state: '' });
   };
 
   const updateOnLogin = (data: any) => {
@@ -97,6 +109,10 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
     }
   };
 
+  const showErrorMessage = (message: {}) => {
+    setOpenModal({ status: true, state: 'error', message });
+  };
+
   return (
     <>
       <FizzyLayout>
@@ -105,10 +121,15 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
           openLoginOtp={openLoginOtp}
           otherInfo={otherInfo || {}}
           products={products}
+          showErrorMessage={showErrorMessage}
         />
       </FizzyLayout>
 
-      <Modal blockScrollOnMount={false} isOpen={openModal} onClose={onClose}>
+      <Modal
+        blockScrollOnMount={false}
+        isOpen={openModal.status}
+        onClose={onClose}
+      >
         <ModalOverlay />
         <ModalContent
           minW={{ base: '90vw', xl: '40vw' }}
@@ -116,19 +137,44 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
           borderRadius={0}
         >
           <ModalBody>
-            {userDataInfo?.phone ? (
-              <Box marginBottom="20px" fontSize="16px">
-                You'll recieve a <strong>one time password</strong> so you can
-                continue
-              </Box>
-            ) : (
-              <Box marginBottom="20px" fontSize="16px">
-                Enter your phone number and we will send you an OTP
+            {openModal.state === 'login' && (
+              <>
+                {userDataInfo?.phone ? (
+                  <Box marginBottom="20px" fontSize="16px">
+                    You'll recieve a <strong>one time password</strong> so you
+                    can continue
+                  </Box>
+                ) : (
+                  <Box marginBottom="20px" fontSize="16px">
+                    Enter your phone number and we will send you an OTP
+                  </Box>
+                )}
+                <LoginOtp
+                  callback={updateOnLogin}
+                  phone={userDataInfo?.phone}
+                />
+              </>
+            )}
+
+            {openModal.state === 'error' && (
+              <Box fontSize="16px">
+                <Box marginBottom="30px">
+                  Please bear with us, An Error occured!
+                </Box>
+
+                {openModal.message?.title && (
+                  <Box marginBottom="10px" fontWeight="bold" fontSize="20px">
+                    {openModal.message?.title}
+                  </Box>
+                )}
+
+                {openModal.message?.description && (
+                  <Box marginBottom="10px">
+                    {openModal.message?.description}
+                  </Box>
+                )}
               </Box>
             )}
-            <LoginOtp callback={updateOnLogin} phone={userDataInfo?.phone} />
-
-            <Box></Box>
           </ModalBody>
         </ModalContent>
       </Modal>
