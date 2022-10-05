@@ -42,10 +42,11 @@ export const PayNow: FC<{
   const router = useRouter();
 
   const [agreed, setAgreed] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const [total, setTotal] = useState(0);
   const [totalTax, setTotalTax] = useState(
-    products[currentProduct].meta.price * taxPercentage
+    products[currentProduct].meta.price * quantity * taxPercentage
   );
 
   const [shippingRate, setShippingRate] = useState(0);
@@ -166,11 +167,17 @@ export const PayNow: FC<{
     };
 
     try {
-      await axiosInstance.post('/users/createOrder', paymentDets, {
+      const res = await axiosInstance.post('/users/createOrder', paymentDets, {
         headers: {
           token: userData.token,
         },
       });
+
+      if (res.data.data.isShipmentFailed) {
+        setSuccessMessage(
+          "Your order was successful but we couldn't ship it, please contact us at admin@journeyhemp.com"
+        );
+      }
 
       toast({
         title: `Your payment is processing`,
@@ -355,7 +362,8 @@ export const PayNow: FC<{
             </Box>
 
             <Box textAlign="center">
-              Your order is on its way. You will receive an email confirmation
+              {successMessage ||
+                'Your order is on its way. You will receive an email confirmation'}
             </Box>
           </ModalBody>
         </ModalContent>
