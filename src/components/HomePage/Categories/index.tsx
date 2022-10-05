@@ -52,8 +52,6 @@ const Categories = ({ info }: { info: any }) => {
       }
     }
 
-    // console.log(tempArrayMap);
-
     if (splicedArray.length) return;
     setSplicedArray(sortArray);
     setArrayMap(tempArrayMap);
