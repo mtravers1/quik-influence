@@ -189,3 +189,15 @@ a {
 .rdrInputRange span {
   color: #333;
 }
+
+.swiper#thumbs .swiper-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.select-arrow-removed {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}

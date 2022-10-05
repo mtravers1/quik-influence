@@ -14,7 +14,8 @@ export const BillingPage: FC<{
   setCurrentPage: Function;
   userData: any;
   openLoginOtp: any;
-}> = ({ setCurrentPage, userData, openLoginOtp }) => {
+  showErrorMessage: any;
+}> = ({ setCurrentPage, userData, openLoginOtp, showErrorMessage }) => {
   const next = () => {
     setCurrentPage(1);
   };
@@ -24,6 +25,7 @@ export const BillingPage: FC<{
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
     initials: userData,
+    showErrorToast: false,
     cb: async inputs => {
       let newData = {};
       Object.assign(newData, inputs);
@@ -46,10 +48,12 @@ export const BillingPage: FC<{
       window.location.reload();
       setEdit(false);
     },
-    runOnError: (error: any) => {
+    runOnError: (error: any, errorMessage: string) => {
       if (error.response.status === 401) {
         openLoginOtp();
       }
+
+      showErrorMessage({ title: errorMessage });
     },
   });
 

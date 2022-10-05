@@ -1,6 +1,5 @@
 import { useEffect, useState, FC } from 'react';
 import { useRouter } from 'next/router';
-import DropdownSelect from 'components/DropdownSelect';
 import {
   Box,
   Flex,
@@ -25,19 +24,30 @@ export const PayNow: FC<{
   openLoginOtp: any;
   otherInfo: any;
   products: any;
-}> = ({ userData, openLoginOtp, otherInfo, products }) => {
+  showErrorMessage?: any;
+  currentFlavour?: string;
+  quantity?: number;
+  currentProduct?: number;
+}> = ({
+  userData,
+  openLoginOtp,
+  otherInfo,
+  products,
+  showErrorMessage,
+  currentFlavour,
+  quantity = 0,
+  currentProduct = 0,
+}) => {
   const router = useRouter();
 
   const [agreed, setAgreed] = useState(false);
-  const [number, setNumber] = useState(1);
-
-  const [currentProduct, setCurrentproduct] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const [total, setTotal] = useState(0);
   const [totalTax, setTotalTax] = useState(
-    products[currentProduct].meta.price * taxPercentage
+    products[currentProduct].meta.price * quantity * taxPercentage
   );
-  const [flavour, setFlavour] = useState('Wild Strawberry');
 
   const [shippingRate, setShippingRate] = useState(0);
   const [shipmentId, setShippmentId] = useState(undefined);
@@ -47,29 +57,35 @@ export const PayNow: FC<{
 
   const closeOrderModal = () => {
     setShowOrderModal(false);
+
+    if (typeof window !== 'undefined') {
+      location.reload();
+    }
   };
 
   const toast = useToast();
 
   useEffect(() => {
     const newTax = Number(
-      (products[currentProduct].meta.price * number * taxPercentage).toFixed(2)
+      (products[currentProduct].meta.price * quantity * taxPercentage).toFixed(
+        2
+      )
     );
     setTotalTax(newTax);
 
     const newTotalAmount = Number(
-      (number * products[currentProduct].meta.price + newTax).toFixed(2)
+      (quantity * products[currentProduct].meta.price + newTax).toFixed(2)
     );
 
     setTotal(newTotalAmount);
 
     getShippingCost(newTotalAmount);
-  }, [number, currentProduct]);
+  }, [quantity, currentProduct]);
 
   useEffect(() => {
     const newTotalAmount = Number(
       (
-        number * products[currentProduct].meta.price +
+        quantity * products[currentProduct].meta.price +
         totalTax +
         shippingRate
       ).toFixed(2)
@@ -97,14 +113,15 @@ export const PayNow: FC<{
           // })),
           parcels: [
             {
-              weight: products[currentProduct].meta.weight * number,
-              length: products[currentProduct].meta.length * number,
+              weight: products[currentProduct].meta.weight * quantity,
+              length: products[currentProduct].meta.length * quantity,
               width: products[currentProduct].meta.width,
               height: products[currentProduct].meta.height,
               distance_unit: 'in',
               mass_unit: 'kg',
             },
           ],
+          quantity,
         },
         {
           headers: { token: userData.token },
@@ -122,13 +139,9 @@ export const PayNow: FC<{
       }
 
       if (err.response.status === 400) {
-        toast({
+        showErrorMessage({
           title: err.response?.data?.data?.type || 'An error occured',
           description: err.response?.data?.data?.message?.[0].text || '',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-          position: 'top-right',
         });
       }
     }
@@ -140,24 +153,6 @@ export const PayNow: FC<{
     setAgreed(!agreed);
   };
 
-  const addMore = () => {
-    setNumber(number + 1);
-  };
-  const subtract = () => {
-    if (number > 1) {
-      setNumber(number - 1);
-    }
-  };
-
-  const updateflavour = (e: any) => {
-    setFlavour(e.target.value);
-  };
-
-  const updateProduct = (e: any) => {
-    setCurrentproduct(e.target.value);
-    setNumber(1);
-  };
-
   const onSuccessHandler = async (response: any) => {
     const paymentDets = {
       shipmentId,
@@ -166,20 +161,29 @@ export const PayNow: FC<{
       nonce: response.opaqueData.dataValue,
       item: {
         itemId: products[currentProduct].id,
-        description: `${products[currentProduct].name} - ${flavour}, ${products[currentProduct].meta.description} ×${number}`,
-        name: `Fizzy ${products[currentProduct].meta.description}`,
+        description: `${products[currentProduct].name} - ${currentFlavour}, ${products[currentProduct].option} ×${quantity}`,
+        name: `Fizzy ${products[currentProduct].option}`,
         unitPrice: products[currentProduct].meta.price,
-        quantity: number,
+        quantity: quantity,
+        flavour: currentFlavour,
       },
       campaignAdminId: router.query.campaign_admin_id,
     };
 
+    setLoading(true);
+
     try {
-      await axiosInstance.post('/users/createOrder', paymentDets, {
+      const res = await axiosInstance.post('/users/createOrder', paymentDets, {
         headers: {
           token: userData.token,
         },
       });
+
+      if (res.data.data.isShipmentFailed) {
+        setSuccessMessage(
+          "Your order was successful but we couldn't ship it, please contact us at admin@journeyhemp.com"
+        );
+      }
 
       toast({
         title: `Your payment is processing`,
@@ -190,20 +194,34 @@ export const PayNow: FC<{
       });
 
       setShowOrderModal(true);
-    } catch (err) {
-      toast({
-        title: `An error occured`,
-        description: '',
-        status: 'error',
-        duration: 4000,
-        isClosable: true,
-        position: 'top-right',
+    } catch (err: any) {
+      showErrorMessage({
+        title: err?.response?.data?.data?.title || 'An error occured',
+        description: err?.response?.data?.data?.description || '',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
+      {loading && (
+        <Box
+          background="rgba(0, 0, 0, 0.5)"
+          position="fixed"
+          width="100vw"
+          height="100vh"
+          top="0"
+          left="0"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <NextImage src={loader} alt="" width={200} height={200} />
+        </Box>
+      )}
+
       <Box
         border="1px solid rgb(62, 62, 62)"
         flexGrow={1}
@@ -229,27 +247,9 @@ export const PayNow: FC<{
               marginBottom="20px"
               justifyContent="space-between"
             >
-              <Box as="h1">Select Flavour</Box>
+              <Box as="h1">Selected Flavour</Box>
               <Flex alignItems="center">
-                <DropdownSelect
-                  // error={errors[data.name] ? data.errorMessage : undefined}
-                  onChange={updateflavour}
-                  options={[
-                    {
-                      label: 'Wild Strawberry',
-                      value: 'Wild Strawberry',
-                    },
-                    {
-                      label: 'Mango Tango',
-                      value: 'Mango Tango',
-                    },
-                  ]}
-                  selected={flavour}
-                  selectProps={{
-                    height: '4.5rem',
-                    fontSize: '1.4rem',
-                  }}
-                />
+                <Box>{currentFlavour}</Box>
               </Flex>
             </Flex>
             <Flex
@@ -258,52 +258,9 @@ export const PayNow: FC<{
               marginBottom="20px"
               justifyContent="space-between"
             >
-              <Box as="h1">Select Product</Box>
+              <Box as="h1">Selected Product</Box>
               <Flex alignItems="center">
-                <DropdownSelect
-                  // error={errors[data.name] ? data.errorMessage : undefined}
-                  onChange={updateProduct}
-                  options={products.map((product: any, index: number) => ({
-                    label: product.name,
-                    value: index,
-                  }))}
-                  selected={currentProduct.toString()}
-                  selectProps={{
-                    height: '4.5rem',
-                    fontSize: '1.4rem',
-                  }}
-                />
-              </Flex>
-            </Flex>
-            <Flex
-              borderBottom="1px solid rgb(62, 62, 62)"
-              padding="10px 0"
-              marginBottom="20px"
-              justifyContent="space-between"
-            >
-              <Box as="h1">Product</Box>
-              <Flex alignItems="center">
-                <Flex
-                  width="25px"
-                  justifyContent="center"
-                  border="1px solid rgb(62, 62, 62)"
-                  onClick={subtract}
-                  cursor="pointer"
-                  fontSize="16px"
-                >
-                  <Box>-</Box>
-                </Flex>
-                <Box margin="0 20px">{number}</Box>
-                <Flex
-                  width="25px"
-                  justifyContent="center"
-                  border="1px solid rgb(62, 62, 62)"
-                  onClick={addMore}
-                  cursor="pointer"
-                  fontSize="16px"
-                >
-                  <Box>+</Box>
-                </Flex>
+                <Box>{products[currentProduct].option}</Box>
               </Flex>
             </Flex>
             <Flex
@@ -317,8 +274,8 @@ export const PayNow: FC<{
               </Box>
 
               <Box>
-                {products[currentProduct].name} - {flavour},{' '}
-                {products[currentProduct].meta.description} ×{number}
+                {products[currentProduct].name} - {currentFlavour},{' '}
+                {products[currentProduct].option} ×{quantity}
               </Box>
             </Flex>
           </Box>
@@ -342,7 +299,7 @@ export const PayNow: FC<{
               <Flex marginBottom="20px">
                 <Box marginRight="30px">Subtotal</Box>
                 <Box>
-                  ${(number * products[currentProduct].meta.price).toFixed(2)}
+                  ${(quantity * products[currentProduct].meta.price).toFixed(2)}
                 </Box>
               </Flex>
               <Flex marginBottom="20px" alignItems="center" position="relative">
@@ -416,7 +373,7 @@ export const PayNow: FC<{
         onClose={closeOrderModal}
       >
         <ModalOverlay />
-        <ModalContent minW="40vw" p="8" mt="30%" borderRadius={0}>
+        <ModalContent minW="40vw" p="8" mt="20%" borderRadius={0}>
           <ModalBody>
             <Box
               marginBottom="20px"
@@ -429,7 +386,8 @@ export const PayNow: FC<{
             </Box>
 
             <Box textAlign="center">
-              Your order is on its way. You will receive an email confirmation
+              {successMessage ||
+                'Your order is on its way. You will receive an email confirmation'}
             </Box>
           </ModalBody>
         </ModalContent>
