@@ -1,6 +1,5 @@
 import { useEffect, useState, FC } from 'react';
 import { useRouter } from 'next/router';
-import DropdownSelect from 'components/DropdownSelect';
 import {
   Box,
   Flex,
@@ -42,6 +41,7 @@ export const PayNow: FC<{
   const router = useRouter();
 
   const [agreed, setAgreed] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
   const [total, setTotal] = useState(0);
@@ -57,6 +57,10 @@ export const PayNow: FC<{
 
   const closeOrderModal = () => {
     setShowOrderModal(false);
+
+    if (typeof window !== 'undefined') {
+      location.reload();
+    }
   };
 
   const toast = useToast();
@@ -166,6 +170,8 @@ export const PayNow: FC<{
       campaignAdminId: router.query.campaign_admin_id,
     };
 
+    setLoading(true);
+
     try {
       const res = await axiosInstance.post('/users/createOrder', paymentDets, {
         headers: {
@@ -193,11 +199,29 @@ export const PayNow: FC<{
         title: err?.response?.data?.data?.title || 'An error occured',
         description: err?.response?.data?.data?.description || '',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
+      {loading && (
+        <Box
+          background="rgba(0, 0, 0, 0.5)"
+          position="fixed"
+          width="100vw"
+          height="100vh"
+          top="0"
+          left="0"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <NextImage src={loader} alt="" width={200} height={200} />
+        </Box>
+      )}
+
       <Box
         border="1px solid rgb(62, 62, 62)"
         flexGrow={1}
