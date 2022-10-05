@@ -1,16 +1,8 @@
 import { useEffect, useState, FC } from 'react';
 import { useRouter } from 'next/router';
 import { axiosInstance } from 'utils/helpers';
-import { Payment } from 'components/ExternalPages/Fizzy/payment';
-import { FizzyLayout } from 'layout/fizzy';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  Box,
-} from '@chakra-ui/react';
-import LoginOtp from 'components/ExternalPages/Fizzy/login';
+import { FizzyHomePage } from 'components/ExternalPages/Fizzy/homepage';
+import { FizzyCheckout } from 'components/ExternalPages/Fizzy/paymentSection';
 
 const filterUserData = (userData: any) => ({
   firstName: userData.firstName,
@@ -30,9 +22,18 @@ const filterOtherInfo = (otherInfoData: any) => ({
   campaignId: otherInfoData.campaignId,
 });
 
-const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
+const Fizzy: FC<{ products: any; additionalData: any }> = ({
+  products = [],
+  additionalData,
+}) => {
   const router = useRouter();
+  const [currentProduct, setCurrentProduct] = useState<any>(0);
+  const [currentFlavour, setCurrentFlavour] = useState<string>(
+    additionalData.flavours[0].value
+  );
+  const [quantity, setQuantity] = useState<number>(1);
 
+  const [page, setPage] = useState(0);
   const [openModal, setOpenModal] = useState<{
     status: boolean;
     state: string;
@@ -115,69 +116,34 @@ const Fizzy: FC<{ products: any }> = ({ products = [] }) => {
 
   return (
     <>
-      <FizzyLayout>
-        <Payment
-          userData={userDataInfo || {}}
-          openLoginOtp={openLoginOtp}
-          otherInfo={otherInfo || {}}
+      {page === 0 && (
+        <FizzyHomePage
           products={products}
-          showErrorMessage={showErrorMessage}
+          additionalData={additionalData}
+          currentProduct={currentProduct}
+          setCurrentProduct={setCurrentProduct}
+          setCurrentFlavour={setCurrentFlavour}
+          quantity={quantity}
+          setQuantity={setQuantity}
+          setPage={setPage}
         />
-      </FizzyLayout>
+      )}
 
-      <Modal
-        blockScrollOnMount={false}
-        isOpen={openModal.status}
-        onClose={onClose}
-      >
-        <ModalOverlay />
-        <ModalContent
-          minW={{ base: '90vw', xl: '40vw' }}
-          p="8"
-          borderRadius={0}
-        >
-          <ModalBody>
-            {openModal.state === 'login' && (
-              <>
-                {userDataInfo?.phone ? (
-                  <Box marginBottom="20px" fontSize="16px">
-                    You'll recieve a <strong>one time password</strong> so you
-                    can continue
-                  </Box>
-                ) : (
-                  <Box marginBottom="20px" fontSize="16px">
-                    Enter your phone number and we will send you an OTP
-                  </Box>
-                )}
-                <LoginOtp
-                  callback={updateOnLogin}
-                  phone={userDataInfo?.phone}
-                />
-              </>
-            )}
-
-            {openModal.state === 'error' && (
-              <Box fontSize="16px">
-                <Box marginBottom="30px">
-                  Please bear with us, An Error occured!
-                </Box>
-
-                {openModal.message?.title && (
-                  <Box marginBottom="10px" fontWeight="bold" fontSize="20px">
-                    {openModal.message?.title}
-                  </Box>
-                )}
-
-                {openModal.message?.description && (
-                  <Box marginBottom="10px">
-                    {openModal.message?.description}
-                  </Box>
-                )}
-              </Box>
-            )}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      {page === 1 && (
+        <FizzyCheckout
+          products={products}
+          userDataInfo={userDataInfo}
+          otherInfo={otherInfo}
+          setOpenModal={setOpenModal}
+          showErrorMessage={showErrorMessage}
+          openModal={openModal}
+          updateOnLogin={updateOnLogin}
+          currentFlavour={currentFlavour}
+          quantity={quantity}
+          currentProduct={currentProduct}
+          setPage={setPage}
+        />
+      )}
     </>
   );
 };
@@ -186,18 +152,48 @@ export async function getServerSideProps(ctx: any) {
   const { campaignId } = ctx.query;
 
   let products = [];
+  let additionalData = {
+    description: '',
+    price_html: '',
+    flavours: [],
+  };
 
   try {
     const response = await axiosInstance.get(
       `/users/campaign/products/${campaignId}`
     );
 
-    products = response.data.data;
+    const productResponse = response.data.data;
+
+    products = productResponse?.map((product: any, i: number) => ({
+      images: product.meta.moreInfo.images.map((image: any) => image.src),
+      id: product.id,
+      name: product.meta.moreInfo.name,
+      meta: {
+        price: product.meta.price,
+        weight: product.meta.weight,
+        length: product.meta.length,
+        width: product.meta.width,
+        height: product.meta.height,
+      },
+      option: product.meta.moreInfo.attributes[1].options[i + 2],
+      moreInfo: product.meta.moreInfo,
+    }));
+
+    additionalData.description = productResponse[0].meta.moreInfo.description;
+    additionalData.price_html = productResponse[0].meta.moreInfo.price_html;
+    additionalData.flavours =
+      productResponse[0].meta.moreInfo.attributes[0].options.map(
+        (option: string) => ({
+          name: option,
+          value: option,
+        })
+      );
   } catch (err) {
     console.log(err);
   }
 
-  return { props: { products } };
+  return { props: { products, additionalData } };
 }
 
 export default Fizzy;
