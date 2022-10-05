@@ -19,6 +19,8 @@ import {
 import '../styles/date-of-birth-js.min.css';
 import '../styles/globals.css';
 import '../styles/404.css';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
 
 const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
