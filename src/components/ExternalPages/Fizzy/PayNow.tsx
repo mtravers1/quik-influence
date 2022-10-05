@@ -15,6 +15,7 @@ import { Authorize } from './authorize';
 import { axiosInstance } from 'utils/helpers';
 import loader from 'assets/loader.gif';
 import NextImage from 'next/image';
+import CheckBox from 'components/Input/CheckBox';
 
 // 6% of the total amount
 const taxPercentage = 0.06;
@@ -345,15 +346,22 @@ export const PayNow: FC<{
           </Box>
 
           <Flex marginBottom="30px" alignItems="center">
-            <input type="checkbox" onInput={handleInput} />
+            <CheckBox
+              value={agreed}
+              name="consent"
+              handleChange={handleInput}
+              label=""
+              useCustom
+            />
 
-            <Link href="https://www.journeyhemp.com/terms-conditions/">
-              <a target="_">
-                <Box marginLeft="20px">
-                  I have read and agree to the website terms and conditions *
+            <Box marginLeft="20px" as="label" htmlFor="consent">
+              I have read and agree to the website{' '}
+              <Link href="https://www.journeyhemp.com/terms-conditions/">
+                <Box as="a" target="_" color="white">
+                  terms and conditions *
                 </Box>
-              </a>
-            </Link>
+              </Link>
+            </Box>
           </Flex>
         </Box>
 

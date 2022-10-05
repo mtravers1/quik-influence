@@ -3,7 +3,7 @@ import { Box, Flex, Checkbox } from '@chakra-ui/react';
 
 const CheckBox: FC<{
   name: string;
-  value: any;
+  value?: any;
   handleChange: (event: any) => void;
   label: string;
   useCustom?: boolean;
