@@ -29,10 +29,7 @@ export const FizzyHomePage: FC<{
       title: 'Flavour',
       defaultText: 'Select a flavour',
       options: additionalData.flavours,
-      handleSelect: (e: any) => {
-        console.log('e', e.target.value);
-        setCurrentFlavour(e.target.value);
-      },
+      handleSelect: (e: any) => setCurrentFlavour(e.target.value),
     },
     {
       title: 'Quantity',
@@ -41,9 +38,7 @@ export const FizzyHomePage: FC<{
         name: product.option,
         value: i,
       })),
-      handleSelect: (e: any) => {
-        setCurrentProduct(e.target.value);
-      },
+      handleSelect: (e: any) => setCurrentProduct(e.target.value),
     },
   ];
 

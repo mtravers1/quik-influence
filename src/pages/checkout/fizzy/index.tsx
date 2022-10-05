@@ -176,7 +176,7 @@ export async function getServerSideProps(ctx: any) {
         width: product.meta.width,
         height: product.meta.height,
       },
-      option: product.meta.moreInfo.attributes[1].options[i + 2],
+      option: product.meta.productType,
       moreInfo: product.meta.moreInfo,
     }));
 
@@ -189,6 +189,8 @@ export async function getServerSideProps(ctx: any) {
           value: option,
         })
       );
+
+    products.sort((a: any, b: any) => b.option.localeCompare(a.option));
   } catch (err) {
     console.log(err);
   }

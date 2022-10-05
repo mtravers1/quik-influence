@@ -7,16 +7,12 @@ export const QuantitySelector: FC<{ value: number; handleChange: any }> = ({
 }) => {
   const increment = () => {
     handleChange(value + 1);
-    console.log('clicked increment');
   };
 
   const decrement = () => {
     if (value > 1) {
       handleChange(value - 1);
-      console.log('clicked decrement inner');
     }
-
-    console.log('clicked decrement');
   };
 
   return (
