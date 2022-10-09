@@ -53,17 +53,6 @@ const LeadsForm = ({
   } = useInput({
     inputs: form,
     initials: { country: 'US' },
-    runOnError: (error: any) => {
-      if (
-        error.response?.data?.message ===
-          'Email and phone already exist for this campaign' &&
-        campaignData.name.toLowerCase().includes('fizzy')
-      ) {
-        router.push(
-          `${redirectUrl}?refresh=true&campaign_admin_id=${query.campaign_admin_id}&campaignId=${campaignId}`
-        );
-      }
-    },
     cb: async inputs => {
       if (showConsent && !submitForm) return;
 
@@ -122,6 +111,7 @@ const LeadsForm = ({
         }),
         10
       );
+
       localStorage.setItem(
         'campaign_data',
         JSON.stringify({

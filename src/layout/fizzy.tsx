@@ -7,6 +7,7 @@ import insta from './assets/insta.png';
 import email from './assets/email.png';
 import phone from './assets/phone.png';
 import logo from './assets/Journey_default.png';
+import styles from './style.module.css';
 
 const links = [
   { href: '#', img: fb, target: '_blank' },
@@ -16,12 +17,15 @@ const links = [
   { href: 'tel:(561) 453-0671', img: phone, target: '_self' },
 ];
 
-export const FizzyLayout: FC<{ maxWidth?: string }> = ({
-  children,
-  maxWidth = '1200px',
-}) => {
+export const FizzyLayout: FC<{ maxWidth?: string }> = ({ children }) => {
   return (
-    <Flex background="#242424" as="main" minH="100Vh" flexDirection="column">
+    <Flex
+      background="#000"
+      as="main"
+      minH="100Vh"
+      flexDirection="column"
+      className={styles.fizzy}
+    >
       <Flex
         as="header"
         justifyContent="space-between"
@@ -75,48 +79,55 @@ export const FizzyLayout: FC<{ maxWidth?: string }> = ({
         </Box>
       </Flex>
 
-      <Box
-        as="section"
-        padding={{ base: '100px 15px', md: '100px 30px' }}
-        flexGrow={1}
-      >
-        <Flex
-          maxW={maxWidth}
-          margin="auto"
-          padding={{ base: '15px', md: '25px' }}
-          backgroundColor="rgba(0,0,0,0.7)"
-          width="100%"
-          height="100%"
-          flexDirection="column"
-        >
-          <Flex
-            flexDirection={{ base: 'column', lg: 'row' }}
-            borderTop="1px solid rgb(62, 62, 62)"
-            borderBottom="1px solid rgb(62, 62, 62)"
-            alignItems={{ base: 'flex-start', md: 'center' }}
-            marginBottom="30px"
+      {children}
+
+      <Box background="#252525">
+        <Box maxW="1250px" margin="auto" width="100%" padding="30px 15px 40px">
+          <Box color="#15bce7" fontWeight="bold" marginBottom="30px">
+            FDA DISCLAIMER: The statements made regarding these products have
+            not been evaluated by the Food and Drug Administration. The efficacy
+            of these products has not been confirmed by FDA-approved research.
+            These products are not intended to diagnose, treat, cure or prevent
+            any disease. All information presented here is not meant as a
+            substitute for or alternative to information from health care
+            practitioners. Please consult your health care professional about
+            potential interactions or other possible complications before using
+            any product. The Federal Food, Drug, and Cosmetic Act require this
+            notice.
+          </Box>
+
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            flexDirection={{
+              base: 'column',
+              md: 'row',
+            }}
           >
-            {[
-              'Hello',
-              'Support: (888) 992-8701',
-              'Email: admin@journeyhemp.com',
-            ].map((item, i) => (
-              <Box
-                borderRight={{
-                  base: 'none',
-                  lg: i === 2 ? 'none' : '1px solid rgb(62, 62, 62)',
-                }}
-                flexGrow={1}
-                padding="20px"
-                fontSize={i === 0 ? '18px' : { base: '18px', md: '24px' }}
-                color="#0bcbfb"
-              >
-                {item}
-              </Box>
-            ))}
-          </Flex>
-          {children}
-        </Flex>
+            <Box>
+              <Image
+                src={logo}
+                alt="Journey"
+                height="80px"
+                width="200px"
+                objectFit="contain"
+              />
+            </Box>
+
+            <Box color="#15bce7" fontWeight="bold">
+              © Copyright 2022• Journey Hemp Co. • (888) 992-8701 •
+              admin@journeyhemp.com
+            </Box>
+
+            <img
+              src="https://www.journeyhemp.com/wp-content/uploads/2021/07/visa_mastercard.png"
+              style={{
+                height: '50px',
+              }}
+            />
+          </Box>
+        </Box>
       </Box>
     </Flex>
   );
