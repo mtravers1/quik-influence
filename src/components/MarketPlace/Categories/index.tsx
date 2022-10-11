@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Image, Container } from '@chakra-ui/react';
+import styles from './style.module.scss';
 
 interface BannerProps {
   icons: string;
@@ -22,11 +23,11 @@ const categories: BannerProps[] = [
 
 export const ProductCategories = () => {
   return (
-    <Container className="product--categories" padding="100px 0" display="flex">
+    <Container padding="100px 0" display="flex">
       {categories.map((category: BannerProps) => (
         <Box
           key={category.id}
-          className="product--categories__card"
+          className={styles['product--categories__card']}
           display="flex"
           flexDirection="column"
           alignItems="center"
@@ -36,10 +37,11 @@ export const ProductCategories = () => {
             height="200px"
             borderRadius="50%"
             overflow="hidden"
-            className="product--categories__card__image"
+            className={styles['product--categories__card__image']}
             display="flex"
             justifyContent="center"
             alignItems="center"
+            data-name="product--categories__card__image"
           >
             <Image
               src={category.icons}

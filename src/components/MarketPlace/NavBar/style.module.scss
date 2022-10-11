@@ -1,0 +1,33 @@
+.market-place--nav__nav_buttons {
+  button {
+    padding: 0 20px;
+    border-left: 1px solid rgba(#fff, 0.5);
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: unset;
+
+      svg {
+        color: red;
+        transition: color 0.3s ease;
+      }
+    }
+
+    &:first-child {
+      border-left: none;
+    }
+  }
+}
+
+.market-place--nav--hamburger {
+  outline: none;
+  &:hover {
+    background: unset;
+
+    svg {
+      color: red;
+      transition: color 0.3s ease;
+    }
+  }
+}

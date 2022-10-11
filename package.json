@@ -28,6 +28,7 @@
     "@stripe/stripe-js": "^1.23.0",
     "aws-sdk": "^2.1119.0",
     "axios": "^0.25.0",
+    "classnames": "^2.3.2",
     "date-fns": "^2.29.2",
     "date-of-birth-js": "^2.0.5",
     "dotenv": "^16.0.0",

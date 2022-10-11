@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 const defaultStyles = {
@@ -58,7 +59,11 @@ const NavBar = ({ children }: { children: (styles: any) => any }) => {
     };
   }, [currentScroll, navRef]);
 
-  return <div ref={navRef}>{children(styles)}</div>;
+  return (
+    <Box ref={navRef} width="100%">
+      {children(styles)}
+    </Box>
+  );
 };
 
 export default NavBar;

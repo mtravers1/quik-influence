@@ -1,5 +1,7 @@
 import { Box, BoxProps } from '@chakra-ui/react';
 import { useRef } from 'react';
+import styles from './style.module.scss';
+import classnames from 'classnames';
 
 interface DropDownHeaderProps extends BoxProps {
   isMobile?: boolean;
@@ -27,13 +29,13 @@ export const DropDown = (props: DropDownHeaderProps) => {
   }
 
   const handleMouseEnter = () => {
-    dropDownRef.current.classList.add('cux--drop-down--active');
+    dropDownRef.current.classList.add(styles['cux--drop-down--active']);
   };
   const handleMouseLeave = () => {
-    dropDownRef.current.classList.remove('cux--drop-down--active');
+    dropDownRef.current.classList.remove(styles['cux--drop-down--active']);
   };
   const handleClick = () => {
-    dropDownRef.current.classList.toggle('cux--drop-down--active');
+    dropDownRef.current.classList.toggle(styles['cux--drop-down--active']);
   };
 
   const defaultFunc = () => {};
@@ -49,18 +51,28 @@ export const DropDown = (props: DropDownHeaderProps) => {
   delete allStyles.config;
 
   return (
-    <Box {...allStyles} {...dropDownMethods} className="cux--drop-down">
+    <Box
+      {...allStyles}
+      {...dropDownMethods}
+      className={styles['cux--drop-down']}
+    >
       <Box
-        className={`cux--drop-down__header${
-          props?.config?.useMobileStyles ? ' mobile-style' : ''
-        }`}
+        className={[
+          classnames(styles['cux--drop-down__header'], {
+            [styles['cux--drop-down__header_mobile']]:
+              props?.config?.useMobileStyles,
+          }),
+        ].join(' ')}
       >
         {header}
       </Box>
       <Box
-        className={`cux--drop-down__drop_down${
-          props?.config?.useMobileStyles ? ' mobile-style' : ''
-        }`}
+        className={[
+          classnames(styles['cux--drop-down__drop_down'], {
+            [styles['cux--drop-down__drop_down_mobile']]:
+              props?.config?.useMobileStyles,
+          }),
+        ].join(' ')}
         ref={dropDownRef}
       >
         {dropdown}

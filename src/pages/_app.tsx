@@ -22,7 +22,6 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
 import '../styles/market-place.scss';
 import '../styles/date-of-birth-js.min.css';
 import '../styles/globals.css';

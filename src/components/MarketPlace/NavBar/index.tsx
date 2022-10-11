@@ -20,6 +20,7 @@ import {
 } from '../DropDown';
 import { NavLink } from 'components/navLink';
 import { faHamburger, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import navStyles from './style.module.scss';
 
 export const NavBar = () => {
   const { router, buttonList, navLinks, menu, closeMenu, openMenu } =
@@ -32,7 +33,8 @@ export const NavBar = () => {
           <Box
             {...styles}
             height={{ base: '80px', lg: '140px' }}
-            className="market-regular"
+            width="100%"
+            zIndex={1}
           >
             <Box
               as="header"
@@ -47,7 +49,6 @@ export const NavBar = () => {
                 display="flex"
                 alignItems="center"
                 justifyContent="space-between"
-                className="market-place--nav"
                 padding="10px 15px"
               >
                 <Box
@@ -56,7 +57,7 @@ export const NavBar = () => {
                     base: 'flex',
                     lg: 'none',
                   }}
-                  className="market-place--nav--hamburger"
+                  className={navStyles['market-place--nav--hamburger']}
                   onClick={() => openMenu('main')}
                 >
                   <FontAwesomeIcon
@@ -74,7 +75,7 @@ export const NavBar = () => {
                   objectPosition="left"
                 />
 
-                <Box className="market-place--nav__nav_buttons">
+                <Box className={navStyles['market-place--nav__nav_buttons']}>
                   {buttonList.map((buttonProp: ButtonListProps) => (
                     <Box
                       as="button"

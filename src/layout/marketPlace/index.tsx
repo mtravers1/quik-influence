@@ -2,7 +2,10 @@ import { NavBar } from 'components/MarketPlace/NavBar';
 import { Box } from '@chakra-ui/react';
 import { FC } from 'react';
 
-export const MarketPlaceLayout: FC = ({ children }) => {
+export const MarketPlaceLayout: FC<{ className?: string }> = ({
+  children,
+  className,
+}) => {
   return (
     <Box
       display="flex"
@@ -10,6 +13,7 @@ export const MarketPlaceLayout: FC = ({ children }) => {
       minHeight="100vh"
       width="100%"
       background="#121212"
+      className={'market-place'}
     >
       <NavBar />
       {children}
