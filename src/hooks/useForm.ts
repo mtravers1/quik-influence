@@ -8,6 +8,7 @@ type props = {
   validateForm?: boolean;
   initials?: any;
   runOnError?: any;
+  showErrorToast?: boolean;
 };
 
 export default function Input({
@@ -16,6 +17,7 @@ export default function Input({
   validateForm = true,
   initials = {},
   runOnError,
+  showErrorToast = true,
 }: props) {
   const toast = useToast();
 
@@ -150,15 +152,18 @@ export default function Input({
         : error.message;
 
       // add a toast or do soemthing with the error
-      toast({
-        title: err,
-        description: '',
-        status: 'error',
-        duration: 4000,
-        isClosable: true,
-      });
+      {
+        showErrorToast &&
+          toast({
+            title: err,
+            description: '',
+            status: 'error',
+            duration: 4000,
+            isClosable: true,
+          });
+      }
 
-      runOnError?.(error);
+      runOnError?.(error, err);
 
       console.log(error);
       setLoading(false);
