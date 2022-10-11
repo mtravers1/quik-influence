@@ -72,8 +72,8 @@ const TextInput: React.FC<TextInputProps> = ({
           color={colorMode === 'light' ? quikColorConstants.black : '#FFFFFF'}
           htmlFor={inputId}
           data-testid="textInput-label"
-          {...labelProps}
           fontSize="16px"
+          {...labelProps}
         >
           {label}
           {extraLabel && (

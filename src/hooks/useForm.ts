@@ -61,9 +61,9 @@ export default function Input({
   const [inputTypes, setInputTypes] = useState(initialInputs);
   const [errors, setErrors] = useState(initialError);
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleSubmit = async (e?: SyntheticEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
 
     const requiredKeys = inputs?.reduce((acc: any, input: any) => {
       if (input.required || inputTypes[input.name]) {

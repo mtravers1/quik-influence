@@ -64,6 +64,15 @@ export const chipBg: Q = {
   dark: '#000',
 };
 
+export const basicTextColor = { light: '#1B1C1E', dark: 'white' }
+
+export const basicTextRgba = { light: 'blackRgba', dark: 'white' }
+
+export const borderTransparentThemeColor: Q = {
+  light: 'rgba(0,0,0,0.10)',
+  dark: 'rgba(255, 255, 255, 0.10)',
+}
+
 export const tableBorderTheme: Q = { light: 'gray.700', dark: 'gray.300' };
 export const tableTextTheme: Q = { light: 'gray.700', dark: '#gray.300' };
 

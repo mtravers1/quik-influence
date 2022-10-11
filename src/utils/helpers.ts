@@ -1,3 +1,4 @@
+import { createStandaloneToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { omitBy, isNil } from 'lodash';
 import { ADMINS_ID, Q_TOKEN } from './constants';
@@ -5,6 +6,9 @@ import { ADMINS_ID, Q_TOKEN } from './constants';
 import { DropdownSelectOption } from 'components/DropdownSelect';
 import { FilterDataProps } from 'types';
 import { format } from 'date-fns';
+import theme from 'styles/theme';
+
+const customToast = createStandaloneToast({ theme })
 
 export const baseurl = process.env.BACKEND_URL;
 
@@ -170,7 +174,7 @@ export function isInViewport(element: any) {
     rect.top >= 0 &&
     rect.left >= 0 &&
     rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
+    (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
@@ -240,3 +244,24 @@ export const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 });
+
+export const handleErrorResponse = (error: any) => {
+  if (error.response) {
+    if (error.response.status === 500) {
+      error.message = 'Network error please try again'
+    } else error.message = error?.response?.data?.message || error.message
+  } else error.message = error.message || 'Error occurred'
+
+  const err = Array.isArray(error.message)
+    ? error.message.join(', ')
+    : error.message
+
+  // add a toast or do something with the error
+  customToast({
+    title: err,
+    description: '',
+    status: 'error',
+    duration: 4000,
+    isClosable: true,
+  })
+}

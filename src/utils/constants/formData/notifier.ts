@@ -1,0 +1,60 @@
+import { FREE_TEXT_REGEX } from '../regexConstants'
+
+export default [
+  {
+    name: 'applicationId',
+    label: 'App Segment',
+    errorMessage: 'Select an app segment',
+    required: true,
+    type: 'select',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'name',
+    label: 'Notification Name',
+    errorMessage: 'Enter notification name',
+    required: true,
+    type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'title',
+    label: 'Message subject',
+    errorMessage: 'Enter message subject',
+    required: true,
+    type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'message',
+    label: 'Message',
+    errorMessage: 'Enter message',
+    required: true,
+    type: 'textarea',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'url',
+    label: 'Destination url',
+    errorMessage: 'Enter destination url',
+    required: true,
+    type: 'text',
+    pattern: FREE_TEXT_REGEX,
+  },
+  {
+    name: 'imageUrl',
+    label: 'Image url',
+    // errorMessage: 'Enter image url',
+    required: false,
+    type: 'text',
+    pattern: '',
+  },
+  // {
+  //   name: 'buttonText',
+  //   label: 'Button text (optional)',
+  //   errorMessage: 'Enter button text',
+  //   required: false,
+  //   type: 'text',
+  //   pattern: FREE_TEXT_REGEX,
+  // },
+]

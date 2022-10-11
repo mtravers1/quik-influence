@@ -3,6 +3,7 @@ import { dashboardMenu, creditsMenu } from './Dashboard';
 import { campaignsMenu, campaignInfluencersMenu } from './Campaigns';
 import { leadMenu } from './Leads';
 import { searchMenu } from './Search';
+import { notificationMenu } from './Notifications';
 
 export const useSideBarMenuOptions = () => {
   const { firstCampaigns } = useSelector((state: any) => state.campaigns);
@@ -13,6 +14,7 @@ export const useSideBarMenuOptions = () => {
     campaignInfluencersMenu,
     creditsMenu,
     leadMenu,
+    notificationMenu,
     searchMenu,
   };
 };
@@ -23,5 +25,6 @@ export const SideBarMenuOptions = {
   campaignsMenu,
   creditsMenu,
   leadMenu,
+  notificationMenu,
   searchMenu,
 };
