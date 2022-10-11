@@ -131,9 +131,6 @@ export const FizzyHomePage: FC<{
                   margin="20px 0 30px 0"
                 >
                   {products[currentProduct].meta.price}
-                  <Box as="span" display="inline-block" marginLeft="30px">
-                    Available on backorder
-                  </Box>
                 </Box>
 
                 <Box
