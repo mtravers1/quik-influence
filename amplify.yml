@@ -4,7 +4,9 @@ frontend:
     preBuild:
       commands:
         - npm i -g npm@latest
-        - echo "//registry.npm.pkg.github.com/:_authToken=${NPM_TOKEN}" > .npmrc
+        - npm config set registry https://npm.pkg.github.com
+        - npm config set always-auth true
+        - npm config set //https://npm.pkg.github.com/:_authToken=${NPM_TOKEN}
         - npm ci
         - cat .npmrc
     build:
