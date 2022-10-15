@@ -4,7 +4,7 @@ frontend:
     preBuild:
       commands:
         - npm i -g npm@latest
-        - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+        - echo -e "always-auth=true\n@alliance-software-development:registry=https://npm.pkg.github.com/\n//npm.pkg.github.com/:_authToken=$NPM_TOKEN" > .npmrc
         - npm ci
     build:
       commands:
