@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - npm i -g npm@latest
+        - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
         - npm ci
     build:
       commands:
