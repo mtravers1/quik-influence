@@ -5,8 +5,7 @@ frontend:
       commands:
         - npm i -g npm@latest
         - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-        - npm i @alliance-software-development/asd-media-react -f
-        - npm ci
+        - npm ci -f
         - cat .npmrc
     build:
       commands:
