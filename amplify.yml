@@ -4,10 +4,8 @@ frontend:
     preBuild:
       commands:
         - npm i -g npm@latest
-        # - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-        - npx npm-cli-login -u $NPM_USER -p $NPM_PASS -e $NPM_EMAIL -r $NPM_REG
-        - npm config set always-auth true
-        - npm config set registry=$NPM_REG
+        - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+        - npm i @alliance-software-development/asd-media-react
         - npm ci
         - cat .npmrc
     build:
