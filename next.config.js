@@ -20,6 +20,9 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   // webpack: (config, { dev, webpack }) => {
   //   /* getting env variables from our internal defined files */
   //   const fileEnv = dotenv.config({ path: process.env.TYPE ? `envs/.${process.env.TYPE}.env` : `envs/.env` }).parsed;
