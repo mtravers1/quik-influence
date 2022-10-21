@@ -21,10 +21,19 @@ import {
 import { NavLink } from 'components/navLink';
 import { faHamburger, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import navStyles from './style.module.scss';
+import { BookMark } from 'assets/bookmark';
+import { Fragment } from 'react';
 
 export const NavBar = () => {
-  const { router, buttonList, navLinks, menu, closeMenu, openMenu } =
-    useNavLink();
+  const {
+    router,
+    buttonList,
+    navLinks,
+    menu,
+    closeMenu,
+    openMenu,
+    bottomButtonList,
+  } = useNavLink();
 
   return (
     <>
@@ -76,7 +85,7 @@ export const NavBar = () => {
                 />
 
                 <Box className={navStyles['market-place--nav__nav_buttons']}>
-                  {buttonList.map((buttonProp: ButtonListProps) => (
+                  {buttonList.map((buttonProp: ButtonListProps, i) => (
                     <Box
                       as="button"
                       background="unset"
@@ -86,12 +95,53 @@ export const NavBar = () => {
                           ? () => openMenu(buttonProp.clickName as string)
                           : () => {}
                       }
+                      key={`market-place--nav__nav_buttons_${i}`}
                     >
-                      <FontAwesomeIcon
-                        icon={buttonProp.icon}
-                        style={{ width: '20px', height: '20px' }}
-                        color="#fff"
-                      />
+                      {buttonProp.name !== 'WishList' ? (
+                        <FontAwesomeIcon
+                          icon={buttonProp.icon}
+                          style={{ width: '20px', height: '20px' }}
+                          color="#fff"
+                        />
+                      ) : (
+                        <BookMark />
+                      )}
+                    </Box>
+                  ))}
+                </Box>
+
+                <Box
+                  className={navStyles['market-place--nav__nav_bottom_buttons']}
+                  display={{
+                    base: 'flex',
+                    lg: 'none',
+                  }}
+                >
+                  {bottomButtonList.map((buttonProp: ButtonListProps, i) => (
+                    <Box
+                      as="button"
+                      background="unset"
+                      display={buttonProp.display}
+                      onClick={
+                        buttonProp.actionType === 'click'
+                          ? () => openMenu(buttonProp.clickName as string)
+                          : () => {}
+                      }
+                      key={`market-place--nav__nav_bottom_buttons_${i}`}
+                    >
+                      {buttonProp.name !== 'wishlist' ? (
+                        <FontAwesomeIcon
+                          icon={buttonProp.icon}
+                          style={{ width: '20px', height: '20px' }}
+                          color="#fff"
+                        />
+                      ) : (
+                        <BookMark />
+                      )}
+
+                      <Box fontSize="11px" marginTop="2px">
+                        {buttonProp.name}
+                      </Box>
                     </Box>
                   ))}
                 </Box>
@@ -169,7 +219,11 @@ const RenderNavWithChildren: any = (
   const renderMenu = (links: NavLinkProps[]) => {
     return links.map((link: NavLinkProps, index: any) => {
       return (
-        <DropDown {...dropStyle} config={config}>
+        <DropDown
+          {...dropStyle}
+          config={config}
+          key={`drop_down_el_${link.name}`}
+        >
           <DropDownHeader>
             <SimpleDropDownNavLink link={link} config={config} />
           </DropDownHeader>
@@ -179,11 +233,11 @@ const RenderNavWithChildren: any = (
               background={config?.useMobileStyles ? '' : '#2d2d2d'}
               padding="10px"
             >
-              {link.subPages.map((subLink: NavLinkProps) => (
-                <>
+              {link.subPages.map((subLink: NavLinkProps, i) => (
+                <Fragment key={`drop_${i}`}>
                   <SimpleDropDownNavLink link={subLink} config={config} />
                   {subLink?.subPages ? renderMenu(subLink.subPages) : null}
-                </>
+                </Fragment>
               ))}
             </DropDownChildren>
           )}

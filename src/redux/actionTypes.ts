@@ -51,6 +51,10 @@ export const ARCHIVE_CAMPAIGN_PRODUCT = 'ARCHIVE_CAMPAIGN_PRODUCT';
 export const SET_MENU = 'SET_MENU';
 export const SET_OPEN_PANEL = 'SET_OPEN_PANEL';
 
+export const ADD_ITEMS_TO_CART = 'ADD_ITEMS_TO_CART';
+export const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM';
+export const GET_CURRENT_PRODUCT = 'GET_CURRENT_PRODUCT';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;

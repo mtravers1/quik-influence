@@ -1,0 +1,35 @@
+.market-place-footer__title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.market-place-footer__link_container {
+  list-style: none;
+
+  li {
+    margin-bottom: 5px;
+  }
+}
+
+.market-place-footer__market-place__section {
+  input {
+    background: unset;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #e5e5e5;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    background: rgb(215, 70, 70);
+    padding: 10px 15px;
+    width: 100%;
+    max-width: 300px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}

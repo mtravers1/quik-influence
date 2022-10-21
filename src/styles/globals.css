@@ -210,3 +210,12 @@ a {
     transform: rotate(360deg);
   }
 }
+
+.clipped-text {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--number);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  hyphens: auto;
+}

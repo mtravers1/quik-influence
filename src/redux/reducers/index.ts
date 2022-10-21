@@ -4,6 +4,8 @@ import auth from './auth';
 import campaigns from './campaigns';
 import generals from './generals';
 import leads from './leads';
+import cart from './cart';
+import product from './product';
 
 const reducers = combineReducers({
   nav,
@@ -11,6 +13,8 @@ const reducers = combineReducers({
   campaigns,
   leads,
   generals,
+  cart,
+  product,
 });
 
 export default reducers;

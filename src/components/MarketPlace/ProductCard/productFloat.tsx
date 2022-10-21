@@ -1,36 +1,61 @@
 import { FC } from 'react';
 import { Box } from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faShare } from '@fortawesome/free-solid-svg-icons';
 import { BookMark } from 'assets/bookmark';
 import { BookMarked } from 'assets/bookmarked';
 import styles from './style.module.scss';
+import { ProductCardButton } from './productCardButton';
+import { ProductActionButton } from './productActionButton';
 
-export const ProductFloat: FC<{ bookmarked: boolean }> = ({ bookmarked }) => {
+export const ProductFloat: FC<{
+  bookmarked: boolean;
+  discount?: number;
+  expandFunc?: any;
+  stock: number;
+  addToCart: any;
+  productOptions: boolean;
+  productLink: string;
+  isProductInCart: boolean;
+}> = ({
+  bookmarked,
+  discount,
+  expandFunc,
+  stock,
+  addToCart,
+  productOptions,
+  productLink,
+  isProductInCart,
+}) => {
   return (
     <>
       <Box position="absolute" top="18px" left="18px">
-        <Box
-          padding="3px 7px"
-          background="red"
-          borderRadius="5px"
-          fontWeight="bold"
-          fontSize="12px"
-        >
-          -42%
-        </Box>
+        {discount && (
+          <Box
+            padding="3px 7px"
+            background="red"
+            borderRadius="5px"
+            fontWeight="bold"
+            fontSize="12px"
+            color="#fff"
+            width="fit-content"
+          >
+            -{discount}%
+          </Box>
+        )}
 
-        <Box
-          padding="3px 7px"
-          background="#fff"
-          color="red"
-          borderRadius="5px"
-          fontWeight="bold"
-          fontSize="12px"
-          marginTop="8px"
-        >
-          Out of stock
-        </Box>
+        {stock === 0 && (
+          <Box
+            padding="3px 7px"
+            background="#fff"
+            color="red"
+            borderRadius="5px"
+            fontWeight="bold"
+            fontSize="12px"
+            marginTop="8px"
+          >
+            Out of stock
+          </Box>
+        )}
       </Box>
 
       {/* Product Buttons Block */}
@@ -39,35 +64,42 @@ export const ProductFloat: FC<{ bookmarked: boolean }> = ({ bookmarked }) => {
         top="18px"
         right="18px"
         className={styles['product-card_float']}
+        display={{ base: 'none', md: 'block' }}
       >
         <Box>
-          <ActionButton>
+          <ProductActionButton tooltip="Add to Wishlist">
             {bookmarked ? <BookMarked /> : <BookMark />}
-          </ActionButton>
+          </ProductActionButton>
         </Box>
+        {expandFunc && (
+          <Box className={styles['product-card_float__slide']}>
+            <ProductActionButton
+              icon={faExpand}
+              handleClick={expandFunc}
+              tooltip="Quick View"
+            />
+          </Box>
+        )}
         <Box className={styles['product-card_float__slide']}>
-          <ActionButton icon={faExpand} />
+          <ProductActionButton icon={faShare} tooltip="Share" />
         </Box>
-        <Box className={styles['product-card_float__slide']}>
-          <ActionButton icon={faShare} />
-        </Box>
-        <Box>{/* Add to cart or select options block */}</Box>
+      </Box>
+
+      <Box
+        className={styles['product-card__option']}
+        height="30px"
+        display={{ base: 'none', md: 'block' }}
+      >
+        <Box></Box>
+
+        <ProductCardButton
+          className={styles['product-card_float__slide']}
+          addToCart={addToCart}
+          productOptions={productOptions}
+          productLink={productLink}
+          isProductInCart={isProductInCart}
+        />
       </Box>
     </>
-  );
-};
-
-const ActionButton: FC<{ icon?: any }> = ({ icon, children }) => {
-  return (
-    <Box
-      as="button"
-      background="#fff"
-      width="40px"
-      height="40px"
-      borderRadius="50%"
-      className={styles['product-card__float__button']}
-    >
-      {children || <FontAwesomeIcon icon={icon} color="red" stroke="green" />}
-    </Box>
   );
 };

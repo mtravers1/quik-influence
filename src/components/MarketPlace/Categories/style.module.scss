@@ -6,7 +6,7 @@
       &::after {
         border: 2px dashed red;
         // transform: rotate(360deg);
-        animation: 9s linear 0s infinite normal none running rotate;
+        // animation: 9s linear 0s infinite normal none running rotate;
       }
     }
   }
@@ -24,22 +24,22 @@
     top: 0;
     left: 0;
     border: 2px solid #fff;
-    border-radius: 50%;
+    border-radius: 20px;
     transition: all 0.4s ease 0s;
   }
 
   img {
-    border-radius: 50%;
-    width: 75%;
-    height: 75%;
+    border-radius: 20px;
+    width: 80%;
+    height: 80%;
   }
 }
 
 @keyframes rotate {
   0% {
-    transform: rotate(0deg);
+    transform: rotateY(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotateY(360deg);
   }
 }

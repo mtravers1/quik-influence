@@ -57,3 +57,8 @@ export const formDataRelatedToSpecificUser = [
 export const MARKETING_ADMIN = ['can_approve_or_reject_campaign'];
 export const ADMIN_USER_AFFILIATE = ['can_get_joinable_campaigns'];
 export const CAN_HANDLE_INFLUENCERS = ['can_manage_influencers'];
+
+export const MARKET_PLACE_NEW_PRODUCTS = 'new';
+export const MARKET_PLACE_POPULAR_PRODUCTS = 'popular';
+
+export const CART_CLICK_NAME = 'cart';

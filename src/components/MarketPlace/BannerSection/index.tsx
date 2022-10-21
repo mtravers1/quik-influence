@@ -2,7 +2,6 @@ import { Box, Image, Container } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import React from 'react';
 import Link from 'next/link';
-
 import { EffectFade, Navigation, Pagination } from 'swiper';
 
 interface BannerProps {

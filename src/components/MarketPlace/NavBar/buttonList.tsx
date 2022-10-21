@@ -3,11 +3,13 @@ import {
   faUser,
   faCartPlus,
   faList,
+  faHome,
 } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMenu } from 'redux/actions/general';
+import { CART_CLICK_NAME } from 'utils/constants';
 
 export const useNavLink = () => {
   const router = useRouter();
@@ -24,17 +26,13 @@ export const useNavLink = () => {
     {
       icon: faUser,
       actionType: 'click',
-      name: 'User',
-      display: {
-        base: 'none',
-        lg: 'inline-flex',
-      },
+      name: 'Account',
     },
     {
       icon: faCartPlus,
       actionType: 'click',
       name: 'Cart',
-      clickName: 'cart',
+      clickName: CART_CLICK_NAME,
     },
     {
       icon: faList,
@@ -45,6 +43,31 @@ export const useNavLink = () => {
         lg: 'inline-flex',
       },
       clickName: 'wishlist',
+    },
+  ];
+
+  const bottomButtonList = [
+    {
+      icon: faList,
+      actionType: '',
+      name: 'WishList',
+      clickName: 'wishlist',
+    },
+    {
+      icon: faCartPlus,
+      actionType: 'click',
+      name: 'Cart',
+      clickName: 'cart',
+    },
+    {
+      icon: faHome,
+      actionType: '',
+      name: 'Home',
+    },
+    {
+      icon: faUser,
+      actionType: 'click',
+      name: 'Account',
     },
   ];
 
@@ -94,6 +117,7 @@ export const useNavLink = () => {
     menu,
     closeMenu,
     openMenu,
+    bottomButtonList,
   };
 };
 
