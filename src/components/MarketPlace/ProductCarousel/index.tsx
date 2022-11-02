@@ -102,28 +102,26 @@ export const MarketProductCarousel: FC<{
             slidesPerView={5}
           >
             {images.map(el => (
-              <>
-                <SwiperSlide key={`carousel_el_${el}_sub`}>
-                  <Box
-                    backgroundColor="#000"
-                    cursor="pointer"
-                    position="absolute"
-                    top="0"
+              <SwiperSlide key={`carousel_el_${el}_sub`}>
+                <Box
+                  backgroundColor="#000"
+                  cursor="pointer"
+                  position="absolute"
+                  top="0"
+                  width="100%"
+                  height="100%"
+                >
+                  <Image
+                    src={el}
+                    alt="Product Image"
+                    objectFit="cover"
                     width="100%"
                     height="100%"
-                  >
-                    <Image
-                      src={el}
-                      alt="Product Image"
-                      objectFit="cover"
-                      width="100%"
-                      height="100%"
-                    />
-                  </Box>
+                  />
+                </Box>
 
-                  <Image src="/trans-image.png" objectFit="cover" />
-                </SwiperSlide>
-              </>
+                <Image src="/trans-image.png" objectFit="cover" />
+              </SwiperSlide>
             ))}
           </Swiper>
         </Box>

@@ -14,23 +14,7 @@ import Link from 'next/link';
 import { useProduct } from 'hooks/useProduct';
 import { ProductPrice } from './productPrice';
 import { getCurrentProduct } from 'redux/actions/product';
-
-export interface ProductDataType {
-  id: string;
-  name: string;
-  amount: number;
-  discount?: number;
-  description?: string;
-  longDesc: string;
-  meta: {
-    images: string[];
-    stock: number;
-    options: {
-      key: string;
-      value: string[];
-    }[];
-  };
-}
+import { ProductDataType } from 'modules/MarketPlace/interfaces';
 
 const defaultproduct = {
   id: '',
@@ -45,6 +29,7 @@ const defaultproduct = {
     stock: 0,
     options: [],
   },
+  totalUserRating: 0,
 };
 
 export const ProductCard: FC<{
@@ -127,6 +112,7 @@ export const ProductCard: FC<{
           productOptions={!!data.meta.options?.length}
           productLink={productLink}
           isProductInCart={isProductInCart}
+          product={data}
         />
       </Box>
 
@@ -182,6 +168,7 @@ export const ProductCard: FC<{
               productLink={productLink}
               addToCart={addToCart}
               isProductInCart={isProductInCart}
+              data={data}
             />
           </Box>
         </Box>

@@ -28,6 +28,7 @@ import '../styles/globals.css';
 import '../styles/404.css';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
+import { getAllCartItems } from 'redux/actions/cart';
 
 const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
@@ -47,7 +48,8 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
     dispatch(createFormInputs(pageProps?.formInputs));
     setLoading(true);
 
-    dispatch(login());
+    await dispatch(login());
+    await dispatch(getAllCartItems());
 
     setLoading(false);
   };

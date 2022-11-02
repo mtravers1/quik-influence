@@ -6,7 +6,7 @@ import {
   ModalContent,
   ModalOverlay,
 } from '@chakra-ui/react';
-import { ProductDataType } from 'components/MarketPlace/ProductCard';
+import { ProductDataType } from 'modules/MarketPlace/interfaces';
 import { MarketProductCarousel } from 'components/MarketPlace/ProductCarousel';
 import { ProductInfo } from 'components/MarketPlace/ProductInfo';
 

@@ -17,6 +17,10 @@ export const useNavLink = () => {
   const { menu } = useSelector((state: any) => state.generals);
   const dispatch = useDispatch();
 
+  const baseLink = campaignAdminId
+    ? `/market-place/${campaignId}/${campaignAdminId}`
+    : `/market-place/${campaignId}`;
+
   const buttonList = [
     {
       icon: faSearch,
@@ -74,11 +78,11 @@ export const useNavLink = () => {
   const navLinks = [
     {
       name: 'Home',
-      href: `/market-place/${campaignId}/${campaignAdminId}`,
+      href: `${baseLink}/`,
     },
     {
       name: 'About',
-      href: `#`,
+      href: `${baseLink}/about`,
     },
     {
       name: 'Shop',

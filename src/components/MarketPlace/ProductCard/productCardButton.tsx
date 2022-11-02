@@ -1,10 +1,13 @@
 import { FC } from 'react';
 import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavLink } from '../NavBar/buttonList';
 import { CART_CLICK_NAME } from 'utils/constants';
+import { getCurrentProduct } from 'redux/actions/product';
+import { ProductDataType } from 'modules/MarketPlace/interfaces';
 
 export const ProductCardButton: FC<{
   className?: string;
@@ -12,27 +15,32 @@ export const ProductCardButton: FC<{
   productLink: string;
   addToCart: any;
   isProductInCart: boolean;
+  data: ProductDataType;
 }> = ({
   className,
   productOptions,
   productLink,
   addToCart,
   isProductInCart,
+  data,
 }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const { openMenu } = useNavLink();
   let handleClick = () => {};
 
   if (productOptions) {
-    handleClick = () => router.push(productLink);
+    handleClick = () => {
+      dispatch(getCurrentProduct(data));
+      router.push(productLink);
+    };
   } else {
     if (isProductInCart) {
       handleClick = () => openMenu(CART_CLICK_NAME);
     } else
       handleClick = async () => {
         await addToCart();
-        openMenu(CART_CLICK_NAME);
       };
   }
 
@@ -51,8 +59,9 @@ export const ProductCardButton: FC<{
       onClick={handleClick}
     >
       <FontAwesomeIcon icon={faCartPlus} color="red" />{' '}
-      {isProductInCart && 'Added to cart'}
+      {isProductInCart && !productOptions ? 'Added to cart' : ''}
       {!isProductInCart && (productOptions ? 'Select Options' : 'Add To Cart')}
+      {isProductInCart && productOptions ? 'Select Options' : ''}
     </Box>
   );
 };

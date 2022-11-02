@@ -1,39 +1,51 @@
-export const itemInCart = (cart: any, item: any) => {
+import { CartItemDataType, CartDataType } from 'modules/MarketPlace/interfaces';
+
+export const itemInCart = (
+  cart: CartItemDataType[],
+  item: CartItemDataType
+) => {
   return cart.find((cartItem: any) => cartItem.id === item.id);
 };
 
-export const calculateTotal = (cart: any, item: any) => {
+export const calculateTotal = (cart: any, item: CartItemDataType) => {
   return (cart.total || 0) + item.product.amount * item.quantity;
 };
 
-export const addToCartLoggedOut = (cartItem: any) => {
-  let prevcartItems: any = localStorage.getItem('cartItems') || '{}';
-  prevcartItems = JSON.parse(prevcartItems) || {};
+export const addToCartLoggedOut = (cartItem: CartItemDataType) => {
+  const localCartStr: CartDataType | string =
+    localStorage.getItem('cartItems') || '{}';
 
-  const CampaignCartProducts = prevcartItems.prevcartItems || [];
+  const localCart: CartDataType = JSON.parse(localCartStr);
+
+  const CampaignCartProducts = localCart.CampaignCartProducts || [];
   CampaignCartProducts.push(cartItem);
 
-  prevcartItems.total = calculateTotal(prevcartItems, cartItem);
-  prevcartItems.CampaignCartProducts = CampaignCartProducts;
-  localStorage.setItem('cartItems', JSON.stringify(prevcartItems));
+  localCart.total = calculateTotal(localCart, cartItem);
+  localCart.CampaignCartProducts = CampaignCartProducts;
+  localStorage.setItem('cartItems', JSON.stringify(localCart));
 };
 
-export const updateCartItemQuantity = (cart: any, cartItem: any) => {
+export const updateCartItemQuantity = (
+  cart: CartDataType,
+  cartItem: CartItemDataType
+) => {
   const _cart = Object.assign({}, cart);
 
-  const previousItem = itemInCart(_cart.CampaignCartProducts, cartItem);
+  const previousItem: CartItemDataType | undefined = itemInCart(
+    _cart.CampaignCartProducts,
+    cartItem
+  );
 
   // check if its a change in quantity
-  if (previousItem.quantity !== cartItem.quantity) {
+  if (previousItem?.quantity !== cartItem.quantity) {
     const previousItemAmount =
-      previousItem.product.amount * previousItem.quantity;
+      (previousItem?.product?.amount || 0) * (previousItem?.quantity || 0);
 
     // remove the cost of the previous amount from the total
     let newTotal = _cart.total - previousItemAmount;
     // now add the cost of the new amount to the total
     newTotal = newTotal + cartItem.product.amount * cartItem.quantity;
-
-    _cart.total = calculateTotal(_cart, cartItem);
+    _cart.total = newTotal;
   }
 
   // if the new quantity is 0, remove the item from the cart
@@ -49,6 +61,27 @@ export const updateCartItemQuantity = (cart: any, cartItem: any) => {
       return item;
     });
   }
+
+  return _cart;
+};
+
+export const deleteCartItemLocal = (cart: CartDataType, cartItemId: string) => {
+  const _cart: CartDataType = Object.assign({}, cart);
+
+  const previousItem: CartItemDataType | undefined =
+    _cart.CampaignCartProducts.find(
+      (cartItem: any) => cartItem.id === cartItemId
+    );
+
+  // remove the cost of the previous amount from the total
+  let newTotal =
+    _cart.total -
+    (previousItem?.product?.amount || 0) * (previousItem?.quantity || 0);
+  _cart.total = newTotal;
+
+  _cart.CampaignCartProducts = _cart.CampaignCartProducts.filter(
+    (item: any) => item.id !== cartItemId
+  );
 
   return _cart;
 };

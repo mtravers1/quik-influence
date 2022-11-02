@@ -1,80 +1,48 @@
 import { nanoid } from 'nanoid';
-import { ProductDataType } from 'components/MarketPlace/ProductCard';
+import {
+  ProductDataType,
+  CartItemDataType,
+} from 'modules/MarketPlace/interfaces';
 
-export const generateCartItems = (
-  itemInCart: any,
-  product: ProductDataType,
-  quantity: number,
-  user: any,
-  productVariant: any
-) => {
-  let cartItem: any;
+export const generateCartItems = ({
+  itemInCart,
+  quantity,
+  user,
+  productVariant,
+  product,
+}: {
+  itemInCart: any;
+  quantity: number;
+  user: any;
+  productVariant: any;
+  product: ProductDataType;
+}): CartItemDataType => {
+  let cartItem: CartItemDataType;
 
-  if (!product.meta.options?.length) {
-    cartItem = {
-      id: itemInCart?.id || nanoid(),
-      productId: product.id,
-      quantity,
-      userId: user?.id,
-    };
-  } else {
-    let totalQuantity = quantity;
-
-    if (itemInCart) {
-      const prevTotalQuantity = itemInCart.variant.reduce(
-        (acc: number, curr: any) => acc + curr.quantity,
-        0
-      );
-
-      totalQuantity = quantity + prevTotalQuantity;
-    }
-
-    cartItem = {
-      id: itemInCart?.id || nanoid(),
-      productId: product.id,
-      quantity: totalQuantity,
-      variant: { ...productVariant, quantity },
-    };
-  }
+  cartItem = {
+    id: itemInCart?.id || nanoid(),
+    productId: product?.id,
+    quantity,
+    userId: user?.id,
+    variant: productVariant,
+    product,
+  };
 
   return cartItem;
 };
 
-export const generateUpdatedCartItem = (
-    itemInCart: any,
-    product: ProductDataType,
-    quantity: number,
-    user: any,
-    productVariant: any
-  ) => {
-    let cartItem: any;
-  
-    if (!product.meta.options?.length) {
-      cartItem = {
-        id: itemInCart?.id || nanoid(),
-        productId: product.id,
-        quantity,
-        userId: user?.id,
-      };
-    } else {
-      let totalQuantity = quantity;
-  
-      if (itemInCart) {
-        const prevTotalQuantity = itemInCart.variant.reduce(
-          (acc: number, curr: any) => acc + curr.quantity,
-          0
-        );
-  
-        totalQuantity = quantity + prevTotalQuantity;
-      }
-  
-      cartItem = {
-        id: itemInCart?.id || nanoid(),
-        productId: product.id,
-        quantity: totalQuantity,
-        variant: { ...productVariant, quantity },
-      };
-    }
-  
-    return cartItem;
-  };
+export const getVariantItemInCart = (
+  itemInCart: any,
+  productVariant: any,
+  product: ProductDataType
+): CartItemDataType | undefined => {
+  if (product?.meta?.options?.length) {
+    return itemInCart?.find((item: any) => {
+      const isSame = product.meta.options.every((option: any) => {
+        return item.variant[option.key] === productVariant?.[option.key];
+      }, true);
+
+      return isSame;
+    });
+  }
+};

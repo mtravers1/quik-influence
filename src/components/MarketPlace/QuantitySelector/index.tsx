@@ -1,12 +1,13 @@
 import { FC } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
-import { ProductDataType } from '../ProductCard';
+import { Box } from '@chakra-ui/react';
+import { ProductDataType } from 'modules/MarketPlace/interfaces';
 
 export const ProductQuantitySelector: FC<{
   value: number;
   handleChange: any;
   data?: ProductDataType;
-}> = ({ handleChange, value, data }) => {
+  disableType?: boolean;
+}> = ({ handleChange, value, data, disableType }) => {
   const increment = () => {
     handleChange(value + 1);
   };
@@ -64,6 +65,7 @@ export const ProductQuantitySelector: FC<{
         fontWeight="500"
         fontSize="16px"
         width={{ base: '120px', md: '150px' }}
+        disabled={disableType}
       />
       <Box
         as="input"

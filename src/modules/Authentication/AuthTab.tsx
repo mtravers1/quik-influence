@@ -4,7 +4,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import quikColorConstants from 'utils/constants/colorConstants';
 import Login from './Login';
 import Register from './Register';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 const CustomTab: React.FC<{ title: string }> = ({ title }) => (
   <Tab

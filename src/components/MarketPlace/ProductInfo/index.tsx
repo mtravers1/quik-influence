@@ -1,7 +1,6 @@
 import { FC, useState, useRef, useLayoutEffect } from 'react';
 import { Box, Select, Flex } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { ProductDataType } from '../ProductCard';
+import { ProductDataType } from 'modules/MarketPlace/interfaces';
 import { ProductQuantitySelector } from '../QuantitySelector';
 import { useProduct } from 'hooks/useProduct';
 import { BookMark } from 'assets/bookmark';
@@ -9,8 +8,6 @@ import { BookMarked } from 'assets/bookmarked';
 import { ProductActionButton } from '../ProductCard/productActionButton';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
 import { ProductPrice } from '../ProductCard/productPrice';
-import { useNavLink } from '../NavBar/buttonList';
-import { CART_CLICK_NAME } from 'utils/constants';
 
 export const ProductInfo: FC<{ product: ProductDataType }> = ({ product }) => {
   const {
@@ -21,8 +18,6 @@ export const ProductInfo: FC<{ product: ProductDataType }> = ({ product }) => {
     updateProductVariant,
     addToCart,
     isProductInCart,
-    productLink,
-    updateCartItem,
   } = useProduct(product);
 
   const [viewMore, setViewMore] = useState(0);
@@ -33,7 +28,7 @@ export const ProductInfo: FC<{ product: ProductDataType }> = ({ product }) => {
     if (!product) return;
 
     if (descriptionRef.current?.clientHeight > 88) {
-      setViewMore(4);
+      setViewMore(7);
       setShowViewMoreButton(true);
     }
   }, [product]);
@@ -43,7 +38,7 @@ export const ProductInfo: FC<{ product: ProductDataType }> = ({ product }) => {
   };
 
   const collapse = () => {
-    setViewMore(4);
+    setViewMore(7);
   };
 
   return (
@@ -85,7 +80,7 @@ export const ProductInfo: FC<{ product: ProductDataType }> = ({ product }) => {
           </Box>
         )}
       </Box>
-      <Box marginTop="20px">
+      <Box marginTop="20px" maxW="400px">
         {product?.meta?.options?.map((option, index) => (
           <Box marginBottom="20px" key={`product_option_selects_${index}`}>
             <Box as="label" marginBottom="5px">
@@ -126,8 +121,6 @@ export const ProductInfo: FC<{ product: ProductDataType }> = ({ product }) => {
           addToCart={addToCart}
           isProductInCart={isProductInCart}
           productOptions={product?.meta?.options?.length > 0}
-          productLink={productLink}
-          updateCartItem={updateCartItem}
         />
       </Flex>
       <Flex marginTop="20px">
@@ -166,34 +159,7 @@ const ProductButton: FC<{
   addToCart: any;
   isProductInCart: boolean;
   productOptions: boolean;
-  productLink: string;
-  updateCartItem: any;
-}> = ({
-  addToCart,
-  isProductInCart,
-  productOptions,
-  productLink,
-  updateCartItem,
-}) => {
-  const router = useRouter();
-  let handleClick = () => {};
-  const { openMenu } = useNavLink();
-
-  if (productOptions) {
-    handleClick = () => router.push(productLink);
-  } else {
-    if (isProductInCart) {
-      handleClick = async () => {
-        await updateCartItem();
-        openMenu(CART_CLICK_NAME);
-      };
-    } else
-      handleClick = async () => {
-        await addToCart();
-        openMenu(CART_CLICK_NAME);
-      };
-  }
-
+}> = ({ addToCart, isProductInCart, productOptions }) => {
   return (
     <Box
       as="button"
@@ -203,10 +169,10 @@ const ProductButton: FC<{
       whiteSpace="nowrap"
       margin={{ base: '20px 0 0 0', md: '0 0 0 10px' }}
       flexGrow={1}
-      onClick={handleClick}
+      onClick={addToCart}
     >
       {isProductInCart && !productOptions && 'Update cart'}
-      {!isProductInCart && 'Add To Cart'}
+      {(!isProductInCart || productOptions) && 'Add To Cart'}
     </Box>
   );
 };

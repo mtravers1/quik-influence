@@ -5,7 +5,8 @@ export const ProductPrice: FC<{
   discountPrice?: number;
   amount: number;
   fontSize?: string;
-}> = ({ discountPrice, amount, fontSize = '16px' }) => {
+  colored?: boolean;
+}> = ({ discountPrice, amount, fontSize = '16px', colored }) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -23,7 +24,9 @@ export const ProductPrice: FC<{
           </Box>
         </>
       ) : (
-        <Box as="span">{formatter.format(amount)}</Box>
+        <Box as="span" color={colored ? 'red' : ''}>
+          {formatter.format(amount)}
+        </Box>
       )}
     </Box>
   );

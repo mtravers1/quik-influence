@@ -6,6 +6,7 @@ import { BookMarked } from 'assets/bookmarked';
 import styles from './style.module.scss';
 import { ProductCardButton } from './productCardButton';
 import { ProductActionButton } from './productActionButton';
+import { ProductDataType } from 'modules/MarketPlace/interfaces';
 
 export const ProductFloat: FC<{
   bookmarked: boolean;
@@ -16,6 +17,7 @@ export const ProductFloat: FC<{
   productOptions: boolean;
   productLink: string;
   isProductInCart: boolean;
+  product: ProductDataType;
 }> = ({
   bookmarked,
   discount,
@@ -25,6 +27,7 @@ export const ProductFloat: FC<{
   productOptions,
   productLink,
   isProductInCart,
+  product,
 }) => {
   return (
     <>
@@ -98,6 +101,7 @@ export const ProductFloat: FC<{
           productOptions={productOptions}
           productLink={productLink}
           isProductInCart={isProductInCart}
+          data={product}
         />
       </Box>
     </>

@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { ProductDataType } from 'components/MarketPlace/ProductCard';
+import {
+  ProductDataType,
+  CartItemDataType,
+} from 'modules/MarketPlace/interfaces';
 import { addItemsToCart, updateCartItems } from 'redux/actions/cart';
-import { nanoid } from 'nanoid';
-import { generateCartItems, generateUpdatedCartItem } from './helper';
+import { generateCartItems, getVariantItemInCart } from './helper';
+import { useNavLink } from 'components/MarketPlace/NavBar/buttonList';
+import { CART_CLICK_NAME } from 'utils/constants';
+import {} from 'components/MarketPlace/Cart/miniCartItem';
 
 export const useProduct = (product: ProductDataType) => {
   const {
@@ -14,55 +19,91 @@ export const useProduct = (product: ProductDataType) => {
   } = useSelector((state: any) => state);
   const dispatch = useDispatch();
   const { query } = useRouter();
+  const { campaignId, campaignAdminId } = query;
+  const { openMenu } = useNavLink();
 
-  const itemInCart = cart.CampaignCartProducts.find(
+  const itemInCart = cart.CampaignCartProducts.filter(
     (item: any) => item.product.id === product.id
   );
 
-  const { campaignId, campaignAdminId } = query;
+  const [quantity, setQuantity] = useState(itemInCart?.at?.(0)?.quantity || 1);
 
-  const [quantity, setQuantity] = useState(itemInCart?.quantity || 1);
   const [productVariant, setProductVariant] = useState<any>();
+  const [variantItemInCart, setVariantItemInCart] = useState<any>(
+    getVariantItemInCart(itemInCart, productVariant, product)
+  );
+
+  const [discountPrice] = useState(
+    product.discount
+      ? product.amount - (product.amount * product.discount) / 100
+      : 0
+  );
 
   const bookmarked = wishlist;
 
-  let discountPrice;
-
-  if (product.discount) {
-    discountPrice = product.amount - (product.amount * product.discount) / 100;
-  }
-
-  // If a product has variants, then the product facing the user will seem like for every variation they choose we have added a new product to th cart. mean while on the backend we will just update the the array of variants in the cart, an update to this will just be an update the quantity of the variant in the cart. Which means the user can supposedly add this item multiple times to the cart.
-
-  // On the other hand if the product doesn't have a variant, then we can only add it to the cart and make update to it in the cart.
+  useEffect(() => {
+    if (product.meta.options?.length) {
+      setVariantItemInCart(
+        getVariantItemInCart(itemInCart, productVariant, product)
+      );
+    }
+  }, [productVariant, itemInCart]);
 
   const addToCart = async () => {
+    let added;
 
-    if(product.meta.options?.length) {
-      
+    if (
+      (product.meta.options?.length && !variantItemInCart) ||
+      (!product.meta.options?.length && !itemInCart.length)
+    ) {
+      added = await addNewItemToCart();
+    } else {
+      added = await updateCartItem();
     }
-    
-    const cartItem = generateCartItems(
-      itemInCart,
+
+    if (added) {
+      openMenu(CART_CLICK_NAME);
+    }
+  };
+
+  const addNewItemToCart = async () => {
+    if (product.meta.options?.length) {
+      // be sure the client has chosen all the options
+      if (
+        Object.keys(productVariant || {}).length !== product.meta.options.length
+      ) {
+        // jude:(todo) show the user an error message
+        return;
+      }
+    }
+
+    const cartItem: CartItemDataType = generateCartItems({
+      itemInCart: itemInCart?.at?.(0),
       product,
       quantity,
       user,
-      productVariant
-    );
+      productVariant,
+    });
 
     await dispatch(addItemsToCart(cartItem, product));
+    return true;
   };
 
   const updateCartItem = async () => {
-    const cartItem = generateUpdatedCartItem(
-      itemInCart,
+    const prevItemInCart = product?.meta?.options?.length
+      ? variantItemInCart
+      : itemInCart?.at?.(0);
+
+    const cartItem = generateCartItems({
+      itemInCart: prevItemInCart,
       product,
       quantity,
       user,
-      productVariant
-    );
+      productVariant,
+    });
 
     await dispatch(updateCartItems(cartItem, product));
+    return true;
   };
 
   const updateQuantity = (newQuantity: number) => {
@@ -75,7 +116,9 @@ export const useProduct = (product: ProductDataType) => {
     setProductVariant({ ...(productVariant || {}), ...variant });
   };
 
-  const productLink = `/market-place/${campaignId}/${campaignAdminId}/product/${product.id}`;
+  const productLink = campaignAdminId
+    ? `/market-place/${campaignId}/${campaignAdminId}/product/${product.id}`
+    : `/market-place/${campaignId}/product/${product.id}`;
 
   return {
     quantity,
@@ -84,7 +127,7 @@ export const useProduct = (product: ProductDataType) => {
     discountPrice,
     productLink,
     addToCart,
-    isProductInCart: !!itemInCart as boolean,
+    isProductInCart: !!itemInCart?.length as boolean,
     updateProductVariant,
     updateCartItem,
   };

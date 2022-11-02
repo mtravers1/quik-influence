@@ -10,6 +10,7 @@ export const MarketPlaceFooter = () => {
         base: '60px',
         lg: '0px',
       }}
+      marginTop="70px"
     >
       <Box
         className="container"

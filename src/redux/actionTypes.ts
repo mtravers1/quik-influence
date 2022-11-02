@@ -51,9 +51,12 @@ export const ARCHIVE_CAMPAIGN_PRODUCT = 'ARCHIVE_CAMPAIGN_PRODUCT';
 export const SET_MENU = 'SET_MENU';
 export const SET_OPEN_PANEL = 'SET_OPEN_PANEL';
 
+export const INITIALIZE_CART = 'INITIALIZE_CART';
 export const ADD_ITEMS_TO_CART = 'ADD_ITEMS_TO_CART';
 export const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM';
 export const GET_CURRENT_PRODUCT = 'GET_CURRENT_PRODUCT';
+export const DELETE_CART_ITEM = 'DELETE_CART_ITEM';
+export const CLEAR_CART = 'CLEAR_CART';
 
 export type DispatchWithPayload = (arg0: {
   type: string;

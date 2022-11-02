@@ -13,7 +13,17 @@ import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
 import Link from 'next/link';
 
-const Login = () => {
+const Login = ({
+  signupLink,
+  loginLink,
+  forgotPasswordLink,
+  loginApi,
+}: {
+  signupLink?: string;
+  loginLink?: string;
+  forgotPasswordLink?: string;
+  loginApi?: string;
+}) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const toast = useToast();
@@ -23,10 +33,13 @@ const Login = () => {
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
     cb: async inputs => {
-      const response = await axiosInstance.post('/auth/admin/login', {
-        email: inputs.email,
-        password: inputs.loginPassword,
-      });
+      const response = await axiosInstance.post(
+        loginApi || '/auth/admin/login',
+        {
+          email: inputs.email,
+          password: inputs.loginPassword,
+        }
+      );
 
       dispatch(login(response.data.data));
 
@@ -40,7 +53,7 @@ const Login = () => {
 
       if (redirect) return router.push(redirect as string);
 
-      router.push('/dashboard');
+      router.push(loginLink || '/dashboard');
     },
   });
 
@@ -74,8 +87,8 @@ const Login = () => {
         ))}
       </Box>
 
-      <Flex justifyContent="flex-end">
-        <Link href="/reset-password">
+      <Flex justifyContent="flex-end" marginBottom="20px">
+        <Link href={forgotPasswordLink || '/reset-password'}>
           <Box
             as="p"
             color={quikColorConstants.influenceRed}
@@ -87,15 +100,29 @@ const Login = () => {
         </Link>
       </Flex>
 
-      <CustomButton
-        maxW="204px"
-        height="50px"
-        padding={0}
-        mt={4}
-        onClick={handleSubmit}
-      >
-        Login {loading && <Image src={loader} alt="" width={50} height={50} />}
-      </CustomButton>
+      <Box display="flex" justifyContent="space-between">
+        <CustomButton
+          maxW="204px"
+          height="50px"
+          padding={0}
+          mt={4}
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          Login{' '}
+          {loading && <Image src={loader} alt="" width={50} height={50} />}
+        </CustomButton>
+
+        {signupLink && (
+          <Link href={signupLink}>
+            <Box as="a" display="block" flexGrow={1} marginLeft="20px">
+              <CustomButton height="50px" padding={0} mt={4} disabled={loading}>
+                Signup
+              </CustomButton>
+            </Box>
+          </Link>
+        )}
+      </Box>
     </form>
   );
 };

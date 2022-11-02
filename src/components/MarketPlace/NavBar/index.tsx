@@ -23,6 +23,9 @@ import { faHamburger, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import navStyles from './style.module.scss';
 import { BookMark } from 'assets/bookmark';
 import { Fragment } from 'react';
+import { CART_CLICK_NAME } from 'utils/constants';
+import { MiniCartPage } from '../Cart/miniCartPage';
+import { useSelector } from 'react-redux';
 
 export const NavBar = () => {
   const {
@@ -35,6 +38,8 @@ export const NavBar = () => {
     bottomButtonList,
   } = useNavLink();
 
+  const { cart } = useSelector((state: any) => state);
+
   return (
     <>
       <NavWrapper>
@@ -43,7 +48,7 @@ export const NavBar = () => {
             {...styles}
             height={{ base: '80px', lg: '140px' }}
             width="100%"
-            zIndex={1}
+            zIndex={10}
           >
             <Box
               as="header"
@@ -96,7 +101,13 @@ export const NavBar = () => {
                           : () => {}
                       }
                       key={`market-place--nav__nav_buttons_${i}`}
+                      position="relative"
                     >
+                      {buttonProp.name === 'Cart' && (
+                        <CartCircle
+                          cartItemsLength={cart?.CampaignCartProducts.length}
+                        />
+                      )}
                       {buttonProp.name !== 'WishList' ? (
                         <FontAwesomeIcon
                           icon={buttonProp.icon}
@@ -128,7 +139,13 @@ export const NavBar = () => {
                           : () => {}
                       }
                       key={`market-place--nav__nav_bottom_buttons_${i}`}
+                      position="relative"
                     >
+                      {buttonProp.name === 'Cart' && (
+                        <CartCircle
+                          cartItemsLength={cart?.CampaignCartProducts.length}
+                        />
+                      )}
                       {buttonProp.name !== 'wishlist' ? (
                         <FontAwesomeIcon
                           icon={buttonProp.icon}
@@ -166,7 +183,7 @@ export const NavBar = () => {
         )}
       </NavWrapper>
       <SideSlideBar showModal={menu.openPanel} closeModal={closeMenu}>
-        <Box>
+        <Flex height="100%" flexGrow={1} flexDir="column">
           <Flex
             height="50px"
             justifyContent="space-between"
@@ -205,9 +222,28 @@ export const NavBar = () => {
                 useMobileStyles: true,
               }
             )}
-        </Box>
+
+          {menu.presentMenu === CART_CLICK_NAME && <MiniCartPage />}
+        </Flex>
       </SideSlideBar>
     </>
+  );
+};
+
+const CartCircle = ({ cartItemsLength }: { cartItemsLength: number }) => {
+  return (
+    <Box
+      background="red"
+      borderRadius="100%"
+      position="absolute"
+      width="20px"
+      height="20px"
+      top="-15px"
+      right="10px"
+      fontWeight="600"
+    >
+      {cartItemsLength}
+    </Box>
   );
 };
 
@@ -305,7 +341,7 @@ const SideSlideBar = ({
     >
       <ModalOverlay />
       <ModalContent
-        minW="350px"
+        minW="400px"
         minH="100vh"
         p="3"
         marginTop={0}
@@ -313,7 +349,9 @@ const SideSlideBar = ({
         position="fixed"
         right="0"
       >
-        <ModalBody>{children}</ModalBody>
+        <ModalBody display="flex" flexDirection="column">
+          {children}
+        </ModalBody>
       </ModalContent>
     </Modal>
   );

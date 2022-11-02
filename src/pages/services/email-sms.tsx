@@ -58,6 +58,8 @@ export const getStaticProps: GetStaticProps = async () => {
     {}
   );
 
+  console.log(pageContent);
+
   return {
     props: {
       pageContent: { ...pageContent, footer: footer.data.data[0] },

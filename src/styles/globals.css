@@ -15,7 +15,9 @@ a {
 
 * {
   box-sizing: border-box;
+  outline: none;
 }
+
 .uploadcare--widget__button,
 .uploadcare--button,
 .uploadcare--button_primary,
@@ -218,4 +220,47 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   hyphens: auto;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.review-sec {
+  max-height: 500px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 5px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-clip: padding-box;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #777;
+  }
+
+  &::-webkit-scrollbar-button {
+    background: transparent;
+  }
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none !important;
+  color: inherit !important;
+  cursor: pointer;
 }
