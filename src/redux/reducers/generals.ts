@@ -12,7 +12,18 @@ import {
   GET_DASHBOARD_INFO,
   SET_MENU,
   SET_OPEN_PANEL,
+  OPEN_MESSAGE_MODAL,
+  CLOSE_MESSAGE_MODAL,
 } from '../actionTypes';
+
+const initialMessageModal = {
+  open: false,
+  message: {
+    title: '',
+    description: '',
+    isError: false,
+  },
+};
 
 const generals = (
   state = {
@@ -29,6 +40,7 @@ const generals = (
       presentMenu: '',
       openPanel: false,
     },
+    messageModal: initialMessageModal,
   },
   action: any
 ) => {
@@ -126,6 +138,21 @@ const generals = (
         dashboardData: action.payload,
       };
 
+    case OPEN_MESSAGE_MODAL:
+      return {
+        ...state,
+        messageModal: {
+          open: true,
+          message: action.payload,
+        },
+      };
+
+    case CLOSE_MESSAGE_MODAL:
+      return {
+        ...state,
+        messageModal: initialMessageModal,
+      };
+
     case 'RESET':
       return {
         ...state,
@@ -133,7 +160,7 @@ const generals = (
         dashboardData: undefined,
       };
 
-    case 'SET_MENU':
+    case SET_MENU:
       return {
         ...state,
         menu: {

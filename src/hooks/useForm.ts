@@ -152,18 +152,16 @@ export default function Input({
         : error.message;
 
       // add a toast or do soemthing with the error
-      {
-        showErrorToast &&
-          toast({
+
+      runOnError
+        ? runOnError?.(error, err)
+        : toast({
             title: err,
             description: '',
             status: 'error',
             duration: 4000,
             isClosable: true,
           });
-      }
-
-      runOnError?.(error, err);
 
       console.log(error);
       setLoading(false);

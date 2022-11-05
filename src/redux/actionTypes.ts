@@ -58,6 +58,9 @@ export const GET_CURRENT_PRODUCT = 'GET_CURRENT_PRODUCT';
 export const DELETE_CART_ITEM = 'DELETE_CART_ITEM';
 export const CLEAR_CART = 'CLEAR_CART';
 
+export const OPEN_MESSAGE_MODAL = 'OPEN_MESSAGE_MODAL';
+export const CLOSE_MESSAGE_MODAL = 'CLOSE_MESSAGE_MODAL';
+
 export type DispatchWithPayload = (arg0: {
   type: string;
   payload: boolean;

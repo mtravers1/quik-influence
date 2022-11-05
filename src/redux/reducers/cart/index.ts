@@ -23,10 +23,7 @@ const cart = (state = initailState, action: any) => {
       if (!action.payload.userId) {
         const localCartStr: CartDataType | string =
           localStorage.getItem('cartItems') ||
-          `{
-              total: 0,
-              CampaignCartProducts: []
-            }`;
+          `{"total":0,"CampaignCartProducts":[]}`;
 
         const localCart: CartDataType = JSON.parse(localCartStr);
         return localCart;

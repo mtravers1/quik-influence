@@ -10,7 +10,7 @@ const BaseButton: React.FC<ButtonProps> = ({ children, ...props }) => (
   <Button
     width="full"
     padding="2rem"
-    borderRadius={10}
+    borderRadius={5}
     fontSize="2xl"
     transition="all 0.4s cubic-bezier(.08,.52,.52,1)"
     {...props}
@@ -65,7 +65,7 @@ const CustomButton: React.FC<CustomButtonPropType> = ({
           color={quikColorConstants.influenceRed}
           bgColor="transparent"
           _hover={{
-            textDecoration: 'underline'
+            textDecoration: 'underline',
           }}
           {...props}
         >

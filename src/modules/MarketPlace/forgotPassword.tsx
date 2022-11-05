@@ -1,45 +1,44 @@
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { Box } from '@chakra-ui/react';
-import { useToast } from '@chakra-ui/react';
-import Register from 'modules/Authentication/Register';
-import { login } from 'redux/actions/auth';
+import { ResetPassword } from 'modules/Authentication/reset';
 import { MarketPlaceLayout } from 'layout/marketPlace';
 import { TitlePlace } from 'components/MarketPlace/TitlePlace';
 import { axiosInstance } from 'utils/helpers';
-import formdata from 'utils/constants/formData/registerPassword';
-import { openMessagModal } from 'redux/actions/general';
+import { openMessagModal, closeMessagModal } from 'redux/actions/general';
+import formdata from 'utils/constants/formData/resetPhone';
 
-export const MarketViewSignup = () => {
+export const MarketViewResetPassword = () => {
   const { query, push } = useRouter();
   const dispatch = useDispatch();
-  const toast = useToast();
   const { campaignId, campaignAdminId, redirect } = query;
 
   const baseLink = campaignAdminId
     ? `/market-place/${campaignId}/${campaignAdminId}`
     : `/market-place/${campaignId}`;
 
-  const registerLink = `${baseLink}/shop`;
-  const loginLink = `${baseLink}/login`;
-
-  const RegisterApi = '/auth/user/register';
-
-  const registrationCallBack = async (inputs: any) => {
-    const response = await axiosInstance.post(RegisterApi, inputs);
-
-    dispatch(login(response.data.data));
-
-    toast({
-      title: 'Account created.',
-      description: "We've created your account for you.",
-      duration: 4000,
-      isClosable: true,
+  const forgotPasswordCallback = async (inputs: any) => {
+    await axiosInstance.put('/auth/user/forgot-password', {
+      phone: inputs.phone,
     });
 
-    if (redirect) return push(redirect as string);
+    dispatch(
+      openMessagModal({
+        isError: false,
+        title: 'Success!',
+        description: `Hi An OTP has been sent to your phone number at ${inputs.phone}`,
+      })
+    );
 
-    push(registerLink);
+    setTimeout(() => {
+      dispatch(closeMessagModal());
+
+      push(
+        `${baseLink}/change-password?phone=${encodeURIComponent(inputs.phone)}${
+          redirect ? `&redirect=${encodeURIComponent(redirect as string)}` : ''
+        }`
+      );
+    }, 2000);
   };
 
   const errorCb = (error: any, errorMessage: string) => {
@@ -54,7 +53,7 @@ export const MarketViewSignup = () => {
 
   return (
     <MarketPlaceLayout>
-      <TitlePlace>CREATE AN ACCOUNT WITH US</TitlePlace>
+      <TitlePlace>FORGOT PASSWORD?</TitlePlace>
       <Box
         maxW="500px"
         margin="auto"
@@ -62,12 +61,10 @@ export const MarketViewSignup = () => {
         padding="20px 30px 30px"
         boxShadow="0px 0px 10px rgba(0, 0, 0, 0.25)"
       >
-        <Register
-          useOtp={false}
-          cb={registrationCallBack}
-          extFormData={formdata}
-          loginLink={loginLink}
+        <ResetPassword
+          cb={forgotPasswordCallback}
           runOnError={errorCb}
+          extFormData={formdata}
         />
       </Box>
     </MarketPlaceLayout>

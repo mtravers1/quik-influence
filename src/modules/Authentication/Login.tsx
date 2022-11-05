@@ -1,28 +1,34 @@
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useToast } from '@chakra-ui/react';
+import Link from 'next/link';
 import Image from 'next/image';
 import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
 import useForm from 'hooks/useForm';
 import formdata from 'utils/constants/formData/login';
-import { FormControl, FormErrorMessage, Box, Flex } from '@chakra-ui/react';
+import {
+  FormControl,
+  FormErrorMessage,
+  Box,
+  Flex,
+  Button,
+} from '@chakra-ui/react';
 import { axiosInstance } from 'utils/helpers';
 import { login } from 'redux/actions/auth';
 import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
-import Link from 'next/link';
 
 const Login = ({
   signupLink,
-  loginLink,
   forgotPasswordLink,
-  loginApi,
+  cb,
+  runOnError,
 }: {
   signupLink?: string;
-  loginLink?: string;
   forgotPasswordLink?: string;
-  loginApi?: string;
+  cb?: any;
+  runOnError?: any;
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -30,31 +36,31 @@ const Login = ({
 
   const { redirect } = router.query;
 
+  const handleLogin = async (inputs: any) => {
+    const response = await axiosInstance.post('/auth/admin/login', {
+      email: inputs.email,
+      password: inputs.loginPassword,
+    });
+
+    dispatch(login(response.data.data));
+
+    toast({
+      title: 'LoggedIn successfully Approved!',
+      description: `Welcome back ${response.data.data.admin.firstName}`,
+      duration: 4000,
+      isClosable: true,
+      position: 'top-right',
+    });
+
+    if (redirect) return router.push(redirect as string);
+
+    router.push('/dashboard');
+  };
+
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
-    cb: async inputs => {
-      const response = await axiosInstance.post(
-        loginApi || '/auth/admin/login',
-        {
-          email: inputs.email,
-          password: inputs.loginPassword,
-        }
-      );
-
-      dispatch(login(response.data.data));
-
-      toast({
-        title: 'LoggedIn successfully Approved!',
-        description: `Welcome back ${response.data.data.admin.firstName}`,
-        duration: 4000,
-        isClosable: true,
-        position: 'top-right',
-      });
-
-      if (redirect) return router.push(redirect as string);
-
-      router.push(loginLink || '/dashboard');
-    },
+    cb: cb || handleLogin,
+    runOnError,
   });
 
   return (
@@ -116,9 +122,18 @@ const Login = ({
         {signupLink && (
           <Link href={signupLink}>
             <Box as="a" display="block" flexGrow={1} marginLeft="20px">
-              <CustomButton height="50px" padding={0} mt={4} disabled={loading}>
-                Signup
-              </CustomButton>
+              <Button
+                height="50px"
+                mt={4}
+                color="#333"
+                background="#fff"
+                flexGrow={1}
+                borderRadius={5}
+                width="100%"
+                fontSize="14px"
+              >
+                Sign up
+              </Button>
             </Box>
           </Link>
         )}

@@ -1,45 +1,44 @@
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { Box } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
-import Register from 'modules/Authentication/Register';
-import { login } from 'redux/actions/auth';
+import { Box } from '@chakra-ui/react';
 import { MarketPlaceLayout } from 'layout/marketPlace';
 import { TitlePlace } from 'components/MarketPlace/TitlePlace';
 import { axiosInstance } from 'utils/helpers';
-import formdata from 'utils/constants/formData/registerPassword';
 import { openMessagModal } from 'redux/actions/general';
+import { ChangePasswordPage } from 'modules/Authentication/change-password';
 
-export const MarketViewSignup = () => {
+export const MarketViewChangePassword = () => {
   const { query, push } = useRouter();
   const dispatch = useDispatch();
   const toast = useToast();
-  const { campaignId, campaignAdminId, redirect } = query;
+  const { campaignId, campaignAdminId, redirect, phone } = query;
 
   const baseLink = campaignAdminId
     ? `/market-place/${campaignId}/${campaignAdminId}`
     : `/market-place/${campaignId}`;
 
-  const registerLink = `${baseLink}/shop`;
-  const loginLink = `${baseLink}/login`;
+  const changePasswordCb = async (inputs: any) => {
+    if (inputs.password !== inputs.confirm_password) {
+      return toast({
+        title: `Your passwords don't match`,
+        description: '',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
 
-  const RegisterApi = '/auth/user/register';
-
-  const registrationCallBack = async (inputs: any) => {
-    const response = await axiosInstance.post(RegisterApi, inputs);
-
-    dispatch(login(response.data.data));
-
-    toast({
-      title: 'Account created.',
-      description: "We've created your account for you.",
-      duration: 4000,
-      isClosable: true,
+    await axiosInstance.put('/auth/user/reset-password', {
+      phone,
+      password: inputs.password,
+      otp: inputs.otp,
     });
 
     if (redirect) return push(redirect as string);
 
-    push(registerLink);
+    push(`${baseLink}/login`);
   };
 
   const errorCb = (error: any, errorMessage: string) => {
@@ -54,7 +53,7 @@ export const MarketViewSignup = () => {
 
   return (
     <MarketPlaceLayout>
-      <TitlePlace>CREATE AN ACCOUNT WITH US</TitlePlace>
+      <TitlePlace>UPDATE YOUR PASSWORD</TitlePlace>
       <Box
         maxW="500px"
         margin="auto"
@@ -62,13 +61,7 @@ export const MarketViewSignup = () => {
         padding="20px 30px 30px"
         boxShadow="0px 0px 10px rgba(0, 0, 0, 0.25)"
       >
-        <Register
-          useOtp={false}
-          cb={registrationCallBack}
-          extFormData={formdata}
-          loginLink={loginLink}
-          runOnError={errorCb}
-        />
+        <ChangePasswordPage cb={changePasswordCb} runOnError={errorCb} />
       </Box>
     </MarketPlaceLayout>
   );

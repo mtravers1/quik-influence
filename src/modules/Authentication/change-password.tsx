@@ -11,37 +11,46 @@ import { axiosInstance } from 'utils/helpers';
 import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
 
-export const ChangePasswordPage = () => {
+export const ChangePasswordPage = ({
+  cb,
+  runOnError,
+}: {
+  cb: any;
+  runOnError: any;
+}) => {
   const router = useRouter();
   const toast = useToast();
   const [loadingResend, setLoadingResend] = useState<boolean>();
 
   const { redirect, email } = router.query;
 
+  const handleResetPassword = async (inputs: any) => {
+    if (inputs.password !== inputs.confirm_password) {
+      return toast({
+        title: `Your passwords don't match`,
+        description: '',
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
+
+    await axiosInstance.put('/auth/admin/resetPassword', {
+      email,
+      password: inputs.password,
+      otp: inputs.otp,
+    });
+
+    if (redirect) return router.push(redirect as string);
+
+    router.push('/login');
+  };
+
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
     inputs: formdata,
-    cb: async inputs => {
-      if (inputs.password !== inputs.confirm_password) {
-        return toast({
-          title: `Your passwords don't match`,
-          description: '',
-          status: 'error',
-          duration: 4000,
-          isClosable: true,
-          position: 'top-right',
-        });
-      }
-
-      await axiosInstance.put('/auth/admin/resetPassword', {
-        email,
-        password: inputs.password,
-        otp: inputs.otp,
-      });
-
-      if (redirect) return router.push(redirect as string);
-
-      router.push('/login');
-    },
+    runOnError,
+    cb: cb || handleResetPassword,
   });
 
   const resendOtp = async () => {

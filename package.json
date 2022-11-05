@@ -15,6 +15,7 @@
     "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
+    "@alliance-software-development/asd-content-editable-wrapper": "^1.1.1",
     "@alliance-software-development/asd-media-react": "^1.0.1",
     "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.8.1",

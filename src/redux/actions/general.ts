@@ -13,7 +13,9 @@ import {
   GET_DASHBOARD_INFO,
   UPDATE_DASHBOARD_INFO,
   SET_MENU,
-  SET_OPEN_PANEL
+  SET_OPEN_PANEL,
+  OPEN_MESSAGE_MODAL,
+  CLOSE_MESSAGE_MODAL,
 } from '../actionTypes';
 import axios from 'axios';
 
@@ -142,4 +144,17 @@ export const setOpenPanel =
     });
   };
 
-// GET_DASHBOARD_INFO, UPDATE_DASHBOARD_INFO;
+export const openMessagModal =
+  (message: { title?: string; description?: string; isError: boolean }) =>
+  (dispatch: any) => {
+    dispatch({
+      type: OPEN_MESSAGE_MODAL,
+      payload: message,
+    });
+  };
+
+export const closeMessagModal = () => (dispatch: any) => {
+  dispatch({
+    type: CLOSE_MESSAGE_MODAL,
+  });
+};

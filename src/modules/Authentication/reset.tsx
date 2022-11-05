@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useToast } from '@chakra-ui/react';
 import Image from 'next/image';
@@ -11,30 +10,45 @@ import { axiosInstance } from 'utils/helpers';
 import quikColorConstants from 'utils/constants/colorConstants';
 import loader from 'assets/loader.gif';
 
-export const ResetPassword = () => {
+export const ResetPassword = ({
+  cb,
+  runOnError,
+  extFormData,
+}: {
+  cb: any;
+  runOnError: any;
+  extFormData?: any;
+}) => {
   const router = useRouter();
   const toast = useToast();
 
   const { redirect } = router.query;
 
+  const handleResetPassword = async (inputs: any) => {
+    await axiosInstance.patch('/auth/admin/forgotPassword', {
+      email: inputs.email,
+    });
+
+    toast({
+      title: `An otp has been sent to  ${inputs.email}`,
+      description: '',
+      duration: 4000,
+      isClosable: true,
+    });
+
+    if (redirect) return router.push(redirect as string);
+
+    router.push(
+      `/change-password?email=${encodeURIComponent(
+        inputs.email
+      )}&redirect=${redirect}`
+    );
+  };
+
   const { handleChange, inputTypes, handleSubmit, errors, loading } = useForm({
-    inputs: formdata,
-    cb: async inputs => {
-      await axiosInstance.patch('/auth/admin/forgotPassword', {
-        email: inputs.email,
-      });
-
-      toast({
-        title: `An otp has been sent to  ${inputs.email}`,
-        description: '',
-        duration: 4000,
-        isClosable: true,
-      });
-
-      if (redirect) return router.push(redirect as string);
-
-      router.push(`/change-password?email=${encodeURIComponent(inputs.email)}`);
-    },
+    inputs: extFormData || formdata,
+    runOnError,
+    cb: cb || handleResetPassword,
   });
 
   return (
@@ -43,7 +57,7 @@ export const ResetPassword = () => {
         marginBottom="15px"
         borderTop={`1px solid ${quikColorConstants.influenceRed}`}
       >
-        {formdata.map((data, i) => (
+        {(extFormData || formdata).map((data: any, i: number) => (
           <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
             <TextInput
               name={data.name}

@@ -5,7 +5,9 @@ import {
   Box,
   useToast,
   Text,
+  Button,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { login } from 'redux/actions/auth';
 import Image from 'next/image';
@@ -20,7 +22,20 @@ import NextLink from 'components/NextLink';
 import queryString from 'query-string';
 import { useRouter } from 'next/router';
 
-const Register = () => {
+const Register = ({
+  useOtp = true,
+  cb,
+  extFormData,
+  loginLink,
+  runOnError,
+}: {
+  signupLink?: string;
+  useOtp?: boolean;
+  cb?: any;
+  extFormData?: any;
+  loginLink?: any;
+  runOnError?: any;
+}) => {
   const toast = useToast();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -35,6 +50,29 @@ const Register = () => {
     query?.terms ? false : isTermsChecked ? true : false
   );
 
+  const handleRegister = async (inputs: any) => {
+    if (!submitForm) return setShowTermsError(true);
+
+    const response = await axiosInstance.post(
+      '/auth/admin/otpRegister',
+      inputs
+    );
+
+    toast({
+      title: 'Account created.',
+      description: "We've created your account for you.",
+      duration: 4000,
+      isClosable: true,
+    });
+
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('email', inputs.email);
+    }
+
+    setShowOtpInput(true);
+    setStripeRedirectUrl(response.data.data.url);
+  };
+
   let {
     handleChange,
     handleModChange,
@@ -43,29 +81,9 @@ const Register = () => {
     errors,
     loading,
   } = useForm({
-    inputs: formdata,
-    cb: async inputs => {
-      if (!submitForm) return setShowTermsError(true);
-
-      const response = await axiosInstance.post(
-        '/auth/admin/otpRegister',
-        inputs
-      );
-
-      toast({
-        title: 'Account created.',
-        description: "We've created your account for you.",
-        duration: 4000,
-        isClosable: true,
-      });
-
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem('email', inputs.email);
-      }
-
-      setShowOtpInput(true);
-      setStripeRedirectUrl(response.data.data.url);
-    },
+    inputs: extFormData || formdata,
+    cb: cb || handleRegister,
+    runOnError,
   });
 
   useEffect(() => {
@@ -94,36 +112,38 @@ const Register = () => {
   return (
     <form action="post">
       <Box marginBottom="15px">
-        {formdata.slice(0, showOtpInput ? 5 : 4).map((data, i) => (
-          <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
-            <TextInput
-              name={data.name}
-              label={data.label}
-              labelProps={{
-                fontSize: '1.2rem',
-              }}
-              value={inputTypes[data.name] || query[data.name]}
-              formControlProps={{
-                pt: 8,
-              }}
-              handleChange={handleChange}
-              type={data.type}
-              placeholder={data.label}
-              TextInputProps={{
-                border:
-                  data.name === 'otp'
-                    ? `2px solid ${quikColorConstants.influenceRed} !important`
-                    : undefined,
-              }}
-            />
+        {(extFormData || formdata)
+          .slice(0, showOtpInput || !useOtp ? 5 : 4)
+          .map((data: any, i: number) => (
+            <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
+              <TextInput
+                name={data.name}
+                label={data.label}
+                labelProps={{
+                  fontSize: '1.2rem',
+                }}
+                value={inputTypes[data.name] || query[data.name]}
+                formControlProps={{
+                  pt: 8,
+                }}
+                handleChange={handleChange}
+                type={data.type}
+                placeholder={data.label}
+                TextInputProps={{
+                  border:
+                    data.name === 'otp'
+                      ? `2px solid ${quikColorConstants.influenceRed} !important`
+                      : undefined,
+                }}
+              />
 
-            {errors[data.name] && (
-              <FormErrorMessage fontSize="14px">
-                {data.errorMessage}
-              </FormErrorMessage>
-            )}
-          </FormControl>
-        ))}
+              {errors[data.name] && (
+                <FormErrorMessage fontSize="14px">
+                  {data.errorMessage}
+                </FormErrorMessage>
+              )}
+            </FormControl>
+          ))}
       </Box>
       {showTermsError && (
         <Text color="red">Please accept the Terms of Service</Text>
@@ -149,29 +169,52 @@ const Register = () => {
         </Box>
       </Box>
 
-      {!showOtpInput ? (
-        <CustomButton
-          maxW="204px"
-          height="50px"
-          padding={0}
-          mt={4}
-          onClick={handleSubmit}
-        >
-          Signup
-          {loading && <Image src={loader} alt="" width={50} height={50} />}
-        </CustomButton>
-      ) : (
-        <CustomButton
-          maxW="250px"
-          height="50px"
-          padding={0}
-          mt={4}
-          onClick={submitOtp}
-        >
-          Enter Otp to continue
-          {loadingOtp && <Image src={loader} alt="" width={50} height={50} />}
-        </CustomButton>
-      )}
+      <Box display="flex" justifyContent="space-between">
+        {!showOtpInput || useOtp ? (
+          <CustomButton
+            maxW="204px"
+            height="50px"
+            padding={0}
+            mt={4}
+            onClick={handleSubmit}
+            disabled={!submitForm}
+          >
+            Signup
+            {loading && <Image src={loader} alt="" width={50} height={50} />}
+          </CustomButton>
+        ) : (
+          <CustomButton
+            maxW="250px"
+            height="50px"
+            padding={0}
+            mt={4}
+            onClick={submitOtp}
+            disabled={loadingOtp || !submitForm}
+          >
+            Enter Otp to continue
+            {loadingOtp && <Image src={loader} alt="" width={50} height={50} />}
+          </CustomButton>
+        )}
+
+        {loginLink && (
+          <Link href={loginLink}>
+            <Box as="a" display="block" flexGrow={1} marginLeft="20px">
+              <Button
+                height="50px"
+                mt={4}
+                color="#333"
+                background="#fff"
+                flexGrow={1}
+                borderRadius={5}
+                width="100%"
+                fontSize="14px"
+              >
+                Have an account?
+              </Button>
+            </Box>
+          </Link>
+        )}
+      </Box>
     </form>
   );
 };
