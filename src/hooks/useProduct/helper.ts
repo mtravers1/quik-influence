@@ -9,23 +9,23 @@ export const generateCartItems = ({
   quantity,
   user,
   productVariant,
-  product,
+  CampaignProduct,
 }: {
   itemInCart: any;
   quantity: number;
   user: any;
   productVariant: any;
-  product: ProductDataType;
+  CampaignProduct: ProductDataType;
 }): CartItemDataType => {
   let cartItem: CartItemDataType;
 
   cartItem = {
     id: itemInCart?.id || nanoid(),
-    productId: product?.id,
+    productId: CampaignProduct?.id,
     quantity,
-    userId: user?.id,
+    userId: user?.admin?.id || user?.user?.id,
     variant: productVariant,
-    product,
+    CampaignProduct,
   };
 
   return cartItem;

@@ -7,16 +7,15 @@ import { TitlePlace } from 'components/MarketPlace/TitlePlace';
 import { axiosInstance } from 'utils/helpers';
 import { openMessagModal } from 'redux/actions/general';
 import { ChangePasswordPage } from 'modules/Authentication/change-password';
+import { useNavLink } from 'components/MarketPlace/NavBar/buttonList';
 
 export const MarketViewChangePassword = () => {
   const { query, push } = useRouter();
   const dispatch = useDispatch();
   const toast = useToast();
-  const { campaignId, campaignAdminId, redirect, phone } = query;
+  const { redirect, phone } = query;
 
-  const baseLink = campaignAdminId
-    ? `/market-place/${campaignId}/${campaignAdminId}`
-    : `/market-place/${campaignId}`;
+  const { baseLink } = useNavLink();
 
   const changePasswordCb = async (inputs: any) => {
     if (inputs.password !== inputs.confirm_password) {

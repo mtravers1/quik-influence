@@ -1,8 +1,12 @@
 import { Box, Image, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
+import { CART_CLICK_NAME } from 'utils/constants';
+import { useNavLink } from '../NavBar/buttonList';
 import styles from './style.module.scss';
 
 export const MarketPlaceFooter = () => {
+  const { baseLink, openMenu } = useNavLink();
+
   return (
     <Box
       background="#000"
@@ -42,22 +46,22 @@ export const MarketPlaceFooter = () => {
               as="ul"
               className={styles['market-place-footer__link_container']}
             >
-              <Link href="/">
+              <Link href={baseLink}>
                 <a>
                   <Box as="li">Home</Box>
                 </a>
               </Link>
-              <Link href="/">
+              <Link href={`${baseLink}/shop`}>
                 <a>
                   <Box as="li">Shop</Box>
                 </a>
               </Link>
-              <Link href="/">
+              <Link href="/privacy">
                 <a>
                   <Box as="li">Privacy & Policy</Box>
                 </a>
               </Link>
-              <Link href="/">
+              <Link href="/terms-conditions">
                 <a>
                   <Box as="li">Terms & Conditions</Box>
                 </a>
@@ -73,10 +77,22 @@ export const MarketPlaceFooter = () => {
               as="ul"
               className={styles['market-place-footer__link_container']}
             >
-              <Box as="li">Login</Box>
-              <Box as="li">My Cart</Box>
-              <Box as="li">Wishlisy</Box>
-              <Box as="li">My Account</Box>
+              <Link href={`${baseLink}/login`}>
+                <a>
+                  <Box as="li">Login</Box>
+                </a>
+              </Link>
+
+              <Box as="li" onClick={() => openMenu(CART_CLICK_NAME)}>
+                My Cart
+              </Box>
+              <Box as="li">Wishlist</Box>
+
+              <Link href={`${baseLink}/dashboard`}>
+                <a>
+                  <Box as="li">My Account</Box>
+                </a>
+              </Link>
             </Box>
           </Box>
           <Box

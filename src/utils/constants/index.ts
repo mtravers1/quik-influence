@@ -62,3 +62,4 @@ export const MARKET_PLACE_NEW_PRODUCTS = 'new';
 export const MARKET_PLACE_POPULAR_PRODUCTS = 'popular';
 
 export const CART_CLICK_NAME = 'cart';
+export const PRODUCT_PAGE_LIMIT = 25;

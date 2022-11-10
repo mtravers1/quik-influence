@@ -8,16 +8,16 @@ import { MarketPlaceLayout } from 'layout/marketPlace';
 import { TitlePlace } from 'components/MarketPlace/TitlePlace';
 import { axiosInstance } from 'utils/helpers';
 import { openMessagModal } from 'redux/actions/general';
+import { useNavLink } from 'components/MarketPlace/NavBar/buttonList';
+import { getAllCartItems } from 'redux/actions/cart';
 
 export const MarketViewLogin = () => {
   const { query, push } = useRouter();
   const dispatch = useDispatch();
   const toast = useToast();
-  const { campaignId, campaignAdminId, redirect } = query;
+  const { redirect } = query;
 
-  const baseLink = campaignAdminId
-    ? `/market-place/${campaignId}/${campaignAdminId}`
-    : `/market-place/${campaignId}`;
+  const { baseLink, campaignId, campaignAdminId } = useNavLink();
 
   const signupLink = `${baseLink}/signup`;
   const loginLink = `${baseLink}/shop`;
@@ -31,7 +31,17 @@ export const MarketViewLogin = () => {
       password: inputs.loginPassword,
     });
 
+    const data = response.data.data;
+
     dispatch(login(response.data.data));
+    dispatch(
+      getAllCartItems(
+        null,
+        data?.user?.id || data?.admin?.id,
+        campaignId,
+        campaignAdminId
+      )
+    );
 
     toast({
       title: 'LoggedIn successfully Approved!',

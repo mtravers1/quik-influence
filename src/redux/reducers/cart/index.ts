@@ -26,7 +26,13 @@ const cart = (state = initailState, action: any) => {
           `{"total":0,"CampaignCartProducts":[]}`;
 
         const localCart: CartDataType = JSON.parse(localCartStr);
+
         return localCart;
+      } else {
+        localStorage.setItem(
+          'cartItems',
+          `{"total":0,"CampaignCartProducts":[]}`
+        );
       }
 
       return action.payload.cart;

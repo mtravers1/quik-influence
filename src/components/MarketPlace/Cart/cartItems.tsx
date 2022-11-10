@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Box, Tr, Td, Image, BoxProps } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { useProduct } from 'hooks/useProduct';
@@ -13,12 +13,13 @@ import loader from 'assets/loader.gif';
 import Link from 'next/link';
 
 export const CartItemComp = ({ cartItem }: { cartItem: CartItemDataType }) => {
-  const { discountPrice, productLink } = useProduct(cartItem.product);
+  const { discountPrice, productLink } = useProduct(cartItem.CampaignProduct);
   const dispatch = useDispatch();
+  const { user } = useSelector((state: any) => state.auth);
 
   const updateQuantity = async (quantity: number) => {
     await dispatch(
-      updateCartItems({ ...cartItem, quantity }, cartItem.product)
+      updateCartItems({ ...cartItem, quantity }, cartItem.CampaignProduct)
     );
   };
 
@@ -29,7 +30,9 @@ export const CartItemComp = ({ cartItem }: { cartItem: CartItemDataType }) => {
 
     try {
       setLoadingRemove(true);
-      await dispatch(deleteCartItems(cartItem.id, cartItem.userId));
+      await dispatch(
+        deleteCartItems(cartItem.id, user?.admin?.id || user?.user?.id)
+      );
     } catch (e) {
       console.log(e);
       // jude:(todo) handle error
@@ -65,7 +68,7 @@ export const CartItemComp = ({ cartItem }: { cartItem: CartItemDataType }) => {
                 flexGrow={1}
               >
                 <Image
-                  src={cartItem.product.meta.images[0]}
+                  src={cartItem.CampaignProduct.meta.images[0]}
                   alt="Product Image"
                   objectFit="cover"
                   objectPosition={'center'}
@@ -82,7 +85,7 @@ export const CartItemComp = ({ cartItem }: { cartItem: CartItemDataType }) => {
         <Link href={productLink}>
           <a>
             <Box fontSize="15px" fontWeight="500">
-              {cartItem.product.name}
+              {cartItem.CampaignProduct.name}
             </Box>
           </a>
         </Link>
@@ -100,7 +103,7 @@ export const CartItemComp = ({ cartItem }: { cartItem: CartItemDataType }) => {
           </Box>
 
           <ProductPrice
-            amount={cartItem.product.amount}
+            amount={cartItem.CampaignProduct.amount}
             discountPrice={discountPrice}
           />
         </Box>
@@ -113,7 +116,7 @@ export const CartItemComp = ({ cartItem }: { cartItem: CartItemDataType }) => {
         >
           <ProductQuantitySelector
             value={cartItem.quantity}
-            data={cartItem.product}
+            data={cartItem.CampaignProduct}
             handleChange={updateQuantity}
             disableType
           />
@@ -140,7 +143,9 @@ export const CartItemComp = ({ cartItem }: { cartItem: CartItemDataType }) => {
             SUBTOTAL:
           </Box>
 
-          <ProductPrice amount={cartItem.product.amount * cartItem.quantity} />
+          <ProductPrice
+            amount={cartItem.CampaignProduct.amount * cartItem.quantity}
+          />
         </Box>
       </TableData>
 

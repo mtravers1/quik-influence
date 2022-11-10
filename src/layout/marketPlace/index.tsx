@@ -11,7 +11,7 @@ import { MarketPlaceFooter } from 'components/MarketPlace/MarketPlaceFooter';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeMessagModal } from 'redux/actions/general';
 
-export const MarketPlaceLayout: FC<{ className?: string }> = ({
+export const MarketPlaceLayout: FC<{ className?: string, }> = ({
   children,
   className,
 }) => {

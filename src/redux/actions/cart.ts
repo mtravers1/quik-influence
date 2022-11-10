@@ -20,9 +20,10 @@ const getCartItem = async (
   let cartRestponse;
 
   if (cartItem.userId) {
-    const res = await axiosInstance.post('/cart', {
+    const res = await axiosInstance.post('/users/campaign/cart/add', {
       productId: product.id,
       quantity: cartItem.quantity,
+      variant: cartItem.variant,
     });
     cartRestponse = res.data.data;
   } else {
@@ -36,9 +37,9 @@ const getCartItem = async (
 };
 
 export const addItemsToCart =
-  (cartItem: CartItemDataType, product: ProductDataType) =>
+  (cartItem: CartItemDataType, CampaignProduct: ProductDataType) =>
   async (dispatch: (arg0: { type: string; payload: any }) => void) => {
-    const cartRestponse = await getCartItem(cartItem, product);
+    const cartRestponse = await getCartItem(cartItem, CampaignProduct);
 
     dispatch({
       type: ADD_ITEMS_TO_CART,
@@ -49,9 +50,9 @@ export const addItemsToCart =
   };
 
 export const updateCartItems =
-  (cartItem: CartItemDataType, product: ProductDataType) =>
+  (cartItem: CartItemDataType, CampaignProduct: ProductDataType) =>
   async (dispatch: (arg0: { type: string; payload: any }) => void) => {
-    const cartRestponse = await getCartItem(cartItem, product);
+    const cartRestponse = await getCartItem(cartItem, CampaignProduct);
 
     dispatch({
       type: UPDATE_CART_ITEM,
@@ -65,7 +66,7 @@ export const deleteCartItems =
   (cartItemId: string, userId: string) =>
   async (dispatch: (arg0: { type: string; payload: any }) => void) => {
     if (userId) {
-      await axiosInstance.delete(`/cart/${cartItemId}`);
+      await axiosInstance.delete(`/users/campaign/cart/remove/${cartItemId}`);
     }
 
     dispatch({
@@ -78,11 +79,11 @@ export const deleteCartItems =
   };
 
 export const clearCartItems =
-  (userId: string) =>
+  (userId: string, cartId?: string) =>
   async (dispatch: (arg0: { type: string; payload: any }) => void) => {
     if (userId) {
       try {
-        await axiosInstance.delete(`/cart`);
+        await axiosInstance.delete(`/users/campaign/cart/${cartId}`);
       } catch (err) {
         // jude:(todo) handle error
 
@@ -99,20 +100,16 @@ export const clearCartItems =
   };
 
 export const getAllCartItems =
-  (
-    userId: string,
-    serverCartItems: CartDataType,
-    campaignId: string,
-    campaignAdminId: string
-  ) =>
+  (serverCart: any, userId?: string, campaignId?: any, campaignAdminId?: any) =>
   async (dispatch: (arg0: { type: string; payload: any }) => void) => {
     try {
       if (!userId) {
+        console.log('User Id is not available');
         throw Error('No user');
       }
 
       const cartItems =
-        serverCartItems || (await getCartItems(campaignId, campaignAdminId));
+        serverCart || (await getCartItems(campaignId, campaignAdminId));
       const localCartStr: CartDataType | string =
         localStorage.getItem('cartItems') || '{}';
 
@@ -123,11 +120,18 @@ export const getAllCartItems =
 
         for (const item of localCart?.CampaignCartProducts) {
           try {
-            const accepted = await axiosInstance.post('/cart/add', item);
+            const accepted = await axiosInstance.post(
+              '/users/campaign/cart/add',
+              {
+                productId: item.CampaignProduct.id,
+                quantity: item.quantity,
+                variant: item.variant,
+              }
+            );
 
             updatedCampaignCartProducts.push({
               ...item,
-              id: accepted.data.data.id,
+              ...accepted.data.data,
             });
           } catch (err) {}
         }
@@ -144,8 +148,8 @@ export const getAllCartItems =
       let serverCartItemsMap = {};
       let localCartItemsMap = {};
 
-      if (serverCartItems?.CampaignCartProducts?.length) {
-        serverCartItemsMap = cartItems.CampaignCartProducts.reduce(
+      if (cartItems?.CampaignCartProducts?.length) {
+        serverCartItemsMap = cartItems?.CampaignCartProducts.reduce(
           (acc: any, cur: any) => {
             acc[cur.id] = cur;
 
@@ -172,12 +176,15 @@ export const getAllCartItems =
       };
 
       const combinedCartItems = Object.values(combinedCartMap);
+
+      console.log(combinedCartItems);
+
       const totalCartAmount = combinedCartItems.reduce((acc: any, cur: any) => {
-        return acc + cur.quantity * cur.product.price;
+        return acc + cur.quantity * cur.CampaignProduct.amount;
       }, 0);
 
       dispatch({
-        type: 'INITIALIZE_CART',
+        type: INITIALIZE_CART,
         payload: {
           userId,
           cart: {
@@ -188,7 +195,7 @@ export const getAllCartItems =
       });
     } catch (err) {
       dispatch({
-        type: 'INITIALIZE_CART',
+        type: INITIALIZE_CART,
         payload: {
           userId,
         },

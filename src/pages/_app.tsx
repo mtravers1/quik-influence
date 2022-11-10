@@ -5,7 +5,7 @@ import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Fonts from 'utils/Fonts';
-import { axiosInstance } from 'utils/helpers';
+import { axiosInstance, getCookie } from 'utils/helpers';
 import theme from '../styles/theme';
 import { wrapper } from '../store';
 import { CONTENT_URL } from 'utils/constants';
@@ -15,6 +15,7 @@ import {
   createFormData,
   createTags,
   createFormInputs,
+  saveMarketPlacePresets,
 } from 'redux/actions/general';
 
 // swiper styles
@@ -29,6 +30,8 @@ import '../styles/404.css';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import { getAllCartItems } from 'redux/actions/cart';
+import { CategoryDataType } from 'modules/MarketPlace/interfaces';
+import { getCartItems } from 'modules/MarketPlace/serverSideFunc';
 
 const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
@@ -48,14 +51,30 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
     dispatch(createFormInputs(pageProps?.formInputs));
     setLoading(true);
 
-    await dispatch(login());
-    await dispatch(getAllCartItems());
+    const user = dispatch(login());
+
+    if (router.pathname.includes('market-place')) {
+      dispatch(saveMarketPlacePresets('categories', pageProps?.categories));
+
+      await dispatch(
+        getAllCartItems(
+          pageProps?.serverCart,
+          // @ts-ignore
+          user?.user?.id || user?.admin.id,
+          router.query?.campaignId,
+          router.query?.campaignAdminId
+        )
+      );
+    }
 
     setLoading(false);
   };
 
   useEffect(() => {
     runBeforeLoad();
+  }, []);
+
+  useEffect(() => {
     axiosInstance.interceptors.response.use(
       res => {
         return res;
@@ -66,6 +85,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
           !excludedPages.includes(router.pathname)
         ) {
           localStorage.removeItem('_q_inf');
+
           router.push(`/login?redirect=${router.asPath}`);
         }
         return Promise.reject(err);
@@ -89,11 +109,17 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   );
 }
 
-QuikInfluenceApp.getInitialProps = async () => {
+QuikInfluenceApp.getInitialProps = async (context: any) => {
   let nav: any;
   let formData: any;
   let formInputs: any;
   let tags: any;
+  let categories: CategoryDataType[] = [];
+  let serverCart: any = {};
+
+  // const { campaignId } = ctx.query;
+
+  const route = context.router.route;
 
   try {
     nav = await axiosInstance.get(
@@ -108,12 +134,33 @@ QuikInfluenceApp.getInitialProps = async () => {
     console.log(err);
   }
 
+  try {
+    if (route.includes('market-place')) {
+      const res = await axiosInstance.get('/users/campaign/product-categories');
+      categories = res.data.data;
+
+      const token = getCookie('token', context.ctx.req.headers.cookie);
+
+      serverCart = await getCartItems(
+        context.router.query.campaignId,
+        context.router.query.campaignAdminId,
+        {
+          token,
+        }
+      );
+    }
+  } catch (err) {
+    // console.log(err);
+  }
+
   return {
     pageProps: {
       nav: nav?.data?.data,
       formData: formData?.data.data,
       tags: tags?.data.data,
       formInputs: formInputs?.data.data,
+      categories,
+      serverCart,
     },
   };
 };

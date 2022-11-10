@@ -1,20 +1,31 @@
-import { ProductDataType } from 'modules/MarketPlace/interfaces';
+import {
+  CategoryDataType,
+  PaginatedProductDataType,
+} from 'modules/MarketPlace/interfaces';
 import { MarketPlaceView } from 'modules/MarketPlace/MarketPlace';
-import { getProducts } from 'modules/MarketPlace/serverSideFunc';
+import { getPageData } from 'modules/MarketPlace/serverSideFunc';
 
 const MarketPlaceInfluencer = ({
-  products,
+  newProducts,
+  mostViewedProducts,
 }: {
-  products: ProductDataType[];
+  newProducts: PaginatedProductDataType;
+  mostViewedProducts: PaginatedProductDataType;
+  catogories: CategoryDataType[];
 }) => {
-  return <MarketPlaceView products={products} />;
+  return (
+    <MarketPlaceView
+      newProducts={newProducts}
+      mostViewedProducts={mostViewedProducts}
+    />
+  );
 };
 
 export async function getServerSideProps(ctx: any) {
   const { campaignId } = ctx.query;
-  const { products } = await getProducts(campaignId);
+  const { newProducts, mostViewedProducts } = await getPageData(campaignId);
 
-  return { props: { products } };
+  return { props: { newProducts, mostViewedProducts } };
 }
 
 export default MarketPlaceInfluencer;

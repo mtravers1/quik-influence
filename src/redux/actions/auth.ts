@@ -22,7 +22,7 @@ export const doneloading = () => async (dispatch: DispatchWithPayload) => {
   });
 };
 
-export const login = (userData?: any) => async (dispatch: any) => {
+export const login = (userData?: any) => (dispatch: any) => {
   dispatch(loading());
   let user = userData;
 
@@ -39,6 +39,8 @@ export const login = (userData?: any) => async (dispatch: any) => {
   });
 
   dispatch(doneloading());
+
+  return user;
 };
 
 export const getUserPermissions = () => async (dispatch: any) => {

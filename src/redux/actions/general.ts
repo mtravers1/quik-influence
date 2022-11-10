@@ -16,6 +16,7 @@ import {
   SET_OPEN_PANEL,
   OPEN_MESSAGE_MODAL,
   CLOSE_MESSAGE_MODAL,
+  SAVE_MARKET_PLACE_PRESETS,
 } from '../actionTypes';
 import axios from 'axios';
 
@@ -158,3 +159,14 @@ export const closeMessagModal = () => (dispatch: any) => {
     type: CLOSE_MESSAGE_MODAL,
   });
 };
+
+export const saveMarketPlacePresets =
+  (key: string, values: any) => (dispatch: any) => {
+    dispatch({
+      type: SAVE_MARKET_PLACE_PRESETS,
+      payload: {
+        key,
+        values,
+      },
+    });
+  };

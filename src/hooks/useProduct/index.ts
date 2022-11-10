@@ -22,8 +22,10 @@ export const useProduct = (product: ProductDataType) => {
   const { campaignId, campaignAdminId } = query;
   const { openMenu } = useNavLink();
 
+  console.log(cart);
+
   const itemInCart = cart.CampaignCartProducts.filter(
-    (item: any) => item.product.id === product.id
+    (item: any) => item.CampaignProduct.id === product?.id
   );
 
   const [quantity, setQuantity] = useState(itemInCart?.at?.(0)?.quantity || 1);
@@ -79,7 +81,7 @@ export const useProduct = (product: ProductDataType) => {
 
     const cartItem: CartItemDataType = generateCartItems({
       itemInCart: itemInCart?.at?.(0),
-      product,
+      CampaignProduct: product,
       quantity,
       user,
       productVariant,
@@ -96,7 +98,7 @@ export const useProduct = (product: ProductDataType) => {
 
     const cartItem = generateCartItems({
       itemInCart: prevItemInCart,
-      product,
+      CampaignProduct: product,
       quantity,
       user,
       productVariant,

@@ -8,7 +8,7 @@ export const itemInCart = (
 };
 
 export const calculateTotal = (cart: any, item: CartItemDataType) => {
-  return (cart.total || 0) + item.product.amount * item.quantity;
+  return (cart.total || 0) + item.CampaignProduct.amount * item.quantity;
 };
 
 export const addToCartLoggedOut = (cartItem: CartItemDataType) => {
@@ -39,12 +39,13 @@ export const updateCartItemQuantity = (
   // check if its a change in quantity
   if (previousItem?.quantity !== cartItem.quantity) {
     const previousItemAmount =
-      (previousItem?.product?.amount || 0) * (previousItem?.quantity || 0);
+      (previousItem?.CampaignProduct?.amount || 0) *
+      (previousItem?.quantity || 0);
 
     // remove the cost of the previous amount from the total
     let newTotal = _cart.total - previousItemAmount;
     // now add the cost of the new amount to the total
-    newTotal = newTotal + cartItem.product.amount * cartItem.quantity;
+    newTotal = newTotal + cartItem.CampaignProduct.amount * cartItem.quantity;
     _cart.total = newTotal;
   }
 
@@ -76,7 +77,8 @@ export const deleteCartItemLocal = (cart: CartDataType, cartItemId: string) => {
   // remove the cost of the previous amount from the total
   let newTotal =
     _cart.total -
-    (previousItem?.product?.amount || 0) * (previousItem?.quantity || 0);
+    (previousItem?.CampaignProduct?.amount || 0) *
+      (previousItem?.quantity || 0);
   _cart.total = newTotal;
 
   _cart.CampaignCartProducts = _cart.CampaignCartProducts.filter(

@@ -10,11 +10,14 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMenu } from 'redux/actions/general';
 import { CART_CLICK_NAME } from 'utils/constants';
+import { slugify } from 'utils/helpers';
 
 export const useNavLink = () => {
   const router = useRouter();
   const { campaignId, campaignAdminId } = router.query;
-  const { menu } = useSelector((state: any) => state.generals);
+  const { menu, marketPlacePresets } = useSelector(
+    (state: any) => state.generals
+  );
   const dispatch = useDispatch();
 
   const baseLink = campaignAdminId
@@ -86,13 +89,11 @@ export const useNavLink = () => {
     },
     {
       name: 'Shop',
-      href: ``,
-      subPages: [
-        {
-          name: 'Food',
-          href: `/food`,
-        },
-      ],
+      href: `${baseLink}/shop`,
+      subPages: marketPlacePresets.categories.map((category: any) => ({
+        name: category.name,
+        href: `${baseLink}/shop/${slugify(category.name)}`,
+      })),
     },
   ];
 
@@ -122,6 +123,9 @@ export const useNavLink = () => {
     closeMenu,
     openMenu,
     bottomButtonList,
+    baseLink,
+    campaignId,
+    campaignAdminId,
   };
 };
 

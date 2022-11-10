@@ -17,26 +17,19 @@ import { ProductPrice } from 'components/MarketPlace/ProductCard/productPrice';
 import Link from 'next/link';
 import { clearCartItems } from 'redux/actions/cart';
 import { TitlePlace } from 'components/MarketPlace/TitlePlace';
+import { useNavLink } from 'components/MarketPlace/NavBar/buttonList';
 
-export const CartPageView = ({ serverCart }: { serverCart: CartDataType }) => {
+export const CartPageView = () => {
   let { cart, user }: { cart: CartDataType; user: any } = useSelector(
     (state: any) => state
   );
-  if (!cart) {
-    cart = serverCart;
-  }
+
   const dispatch = useDispatch();
+  const { baseLink } = useNavLink();
 
   const handleCartClearing = () => {
-    dispatch(clearCartItems(user?.id));
+    dispatch(clearCartItems(user?.id, cart?.id));
   };
-
-  const { query } = useRouter();
-  const { campaignId, campaignAdminId } = query;
-
-  const baseLink = campaignAdminId
-    ? `/market-place/${campaignId}/${campaignAdminId}`
-    : `/market-place/${campaignId}`;
 
   let checkoutLink: string = '';
 

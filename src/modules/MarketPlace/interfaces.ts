@@ -16,6 +16,10 @@ export interface ProductDataType {
   totalUserRating?: number;
 }
 
+export interface PaginatedProductDataType extends ProductPaginationMeta {
+  rows: ProductDataType[];
+}
+
 export interface CategoryDataType {
   name: string;
   image: string;
@@ -27,7 +31,7 @@ export interface CategoryDataType {
 export interface CartItemDataType {
   id: string;
   quantity: number;
-  product: ProductDataType;
+  CampaignProduct: ProductDataType;
   userId: any;
   variant: any;
   productId?: string;
@@ -37,4 +41,11 @@ export interface CartDataType {
   id?: string;
   total: number;
   CampaignCartProducts: CartItemDataType[];
+}
+
+export interface ProductPaginationMeta {
+  count: number;
+  recieved: number;
+  totalPages: number;
+  currentPage: number;
 }

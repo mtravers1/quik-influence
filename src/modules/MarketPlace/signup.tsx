@@ -9,16 +9,15 @@ import { TitlePlace } from 'components/MarketPlace/TitlePlace';
 import { axiosInstance } from 'utils/helpers';
 import formdata from 'utils/constants/formData/registerPassword';
 import { openMessagModal } from 'redux/actions/general';
+import { useNavLink } from 'components/MarketPlace/NavBar/buttonList';
 
 export const MarketViewSignup = () => {
   const { query, push } = useRouter();
   const dispatch = useDispatch();
   const toast = useToast();
-  const { campaignId, campaignAdminId, redirect } = query;
+  const { redirect } = query;
 
-  const baseLink = campaignAdminId
-    ? `/market-place/${campaignId}/${campaignAdminId}`
-    : `/market-place/${campaignId}`;
+  const { baseLink } = useNavLink();
 
   const registerLink = `${baseLink}/shop`;
   const loginLink = `${baseLink}/login`;

@@ -10,7 +10,10 @@ import { ProductDataType } from 'modules/MarketPlace/interfaces';
 import { MarketProductCarousel } from 'components/MarketPlace/ProductCarousel';
 import { ProductInfo } from 'components/MarketPlace/ProductInfo';
 
-export const ProductList: FC<{ children: any }> = ({ children }) => {
+export const ProductList: FC<{ children: any; gap?: string }> = ({
+  children,
+  gap = '30px',
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<ProductDataType | null>(
     null
@@ -36,9 +39,7 @@ export const ProductList: FC<{ children: any }> = ({ children }) => {
           lg: 'repeat(4, 1fr)',
         }}
         maxWidth="1200px"
-        margin="30px auto"
-        padding="0 15px"
-        gridGap="30px"
+        gridGap={gap}
       >
         {children(openQuickViewModal)}
       </Box>

@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Box, Image, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useProduct } from 'hooks/useProduct';
 import { getCurrentProduct } from 'redux/actions/product';
 import { ProductQuantitySelector } from '../QuantitySelector';
@@ -13,26 +13,29 @@ import { CartItemDataType } from 'modules/MarketPlace/interfaces';
 export const MiniCartItem: FC<{ cartItem: CartItemDataType }> = ({
   cartItem,
 }) => {
-  const product = cartItem.product;
-  const { discountPrice, productLink } = useProduct(cartItem.product);
+  const CampaignProduct = cartItem.CampaignProduct;
+  const { discountPrice, productLink } = useProduct(cartItem.CampaignProduct);
   const [loadingRemove, setLoadingRemove] = useState(false);
+  const { user } = useSelector((state: any) => state.auth);
 
   const dispatch = useDispatch();
 
   const setCurrentProduct = () => {
-    dispatch(getCurrentProduct(cartItem.product));
+    dispatch(getCurrentProduct(cartItem.CampaignProduct));
   };
 
   const updateQuantity = async (quantity: number) => {
-    await dispatch(updateCartItems({ ...cartItem, quantity }, product));
+    await dispatch(updateCartItems({ ...cartItem, quantity }, CampaignProduct));
   };
 
   const deleteCartItem = async (e: any) => {
     e.stopPropagation();
 
+    console.log(cartItem);
+
     try {
       setLoadingRemove(true);
-      dispatch(deleteCartItems(cartItem.id, cartItem.userId));
+      dispatch(deleteCartItems(cartItem.id, user?.admin?.id || user?.user?.id));
     } catch (e) {
       // jude:(todo) handle error
     } finally {
@@ -65,7 +68,7 @@ export const MiniCartItem: FC<{ cartItem: CartItemDataType }> = ({
                   flexGrow={1}
                 >
                   <Image
-                    src={product.meta?.images[0]}
+                    src={CampaignProduct.meta?.images[0]}
                     alt="Product Image"
                     objectFit="cover"
                     objectPosition={'center'}
@@ -90,7 +93,7 @@ export const MiniCartItem: FC<{ cartItem: CartItemDataType }> = ({
                   WebkitLineClamp: 4,
                 }}
               >
-                {product.name}
+                {CampaignProduct.name}
               </Box>
 
               <Box width="40px">
@@ -118,7 +121,7 @@ export const MiniCartItem: FC<{ cartItem: CartItemDataType }> = ({
             >
               <Box>{cartItem.quantity}</Box> <Box margin="0 5px">x</Box>
               <ProductPrice
-                amount={product.amount}
+                amount={CampaignProduct.amount}
                 discountPrice={discountPrice}
                 colored
               />
@@ -126,7 +129,7 @@ export const MiniCartItem: FC<{ cartItem: CartItemDataType }> = ({
 
             <ProductQuantitySelector
               value={cartItem.quantity}
-              data={product}
+              data={CampaignProduct}
               handleChange={updateQuantity}
               disableType
             />

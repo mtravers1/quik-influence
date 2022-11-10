@@ -35,6 +35,7 @@ export const setToken = (token: string) => {
 
   if (typeof window !== 'undefined') {
     localStorage.setItem(Q_TOKEN, token);
+    setCookie('token', token, 3);
   }
 };
 
@@ -213,9 +214,12 @@ export const truncateText = (str: string, num: number) => {
   return str.slice(0, num) + '...';
 };
 
-export const getCookie = (cname: string) => {
+export const getCookie = (cname: string, cookieString?: any) => {
   let name = cname + '=';
-  let decodedCookie = decodeURIComponent(document.cookie);
+
+  const choosenCookieString = cookieString || document.cookie;
+
+  let decodedCookie = decodeURIComponent(choosenCookieString);
   let ca = decodedCookie.split(';');
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
@@ -240,3 +244,17 @@ export const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 });
+
+export const slugify = (str: string) => {
+  return str
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]+/g, '');
+};
+
+export const unSlugiFy = (str: string) => {
+  return str
+    .toLowerCase()
+    .replace(/-/g, ' ')
+    .replace(/[^\w-]+/g, '');
+};

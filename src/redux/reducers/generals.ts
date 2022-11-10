@@ -11,9 +11,9 @@ import {
   UPDATE_STATES,
   GET_DASHBOARD_INFO,
   SET_MENU,
-  SET_OPEN_PANEL,
   OPEN_MESSAGE_MODAL,
   CLOSE_MESSAGE_MODAL,
+  SAVE_MARKET_PLACE_PRESETS,
 } from '../actionTypes';
 
 const initialMessageModal = {
@@ -41,6 +41,9 @@ const generals = (
       openPanel: false,
     },
     messageModal: initialMessageModal,
+    marketPlacePresets: {
+      categories: [],
+    },
   },
   action: any
 ) => {
@@ -151,6 +154,15 @@ const generals = (
       return {
         ...state,
         messageModal: initialMessageModal,
+      };
+
+    case SAVE_MARKET_PLACE_PRESETS:
+      return {
+        ...state,
+        marketPlacePresets: {
+          ...state.marketPlacePresets,
+          [action.payload.key]: action.payload.values,
+        },
       };
 
     case 'RESET':

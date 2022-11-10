@@ -7,15 +7,14 @@ import { TitlePlace } from 'components/MarketPlace/TitlePlace';
 import { axiosInstance } from 'utils/helpers';
 import { openMessagModal, closeMessagModal } from 'redux/actions/general';
 import formdata from 'utils/constants/formData/resetPhone';
+import { useNavLink } from 'components/MarketPlace/NavBar/buttonList';
 
 export const MarketViewResetPassword = () => {
   const { query, push } = useRouter();
   const dispatch = useDispatch();
-  const { campaignId, campaignAdminId, redirect } = query;
+  const { redirect } = query;
 
-  const baseLink = campaignAdminId
-    ? `/market-place/${campaignId}/${campaignAdminId}`
-    : `/market-place/${campaignId}`;
+  const { baseLink } = useNavLink();
 
   const forgotPasswordCallback = async (inputs: any) => {
     await axiosInstance.put('/auth/user/forgot-password', {

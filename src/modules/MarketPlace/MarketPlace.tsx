@@ -1,12 +1,15 @@
+import { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { MarketPlaceLayout } from 'layout/marketPlace';
 import { BannerSection } from 'components/MarketPlace/BannerSection';
 import { ProductCategories } from 'components/MarketPlace/Categories';
-import { Fragment, useState } from 'react';
 import { ProductCard } from 'components/MarketPlace/ProductCard';
 import { Box } from '@chakra-ui/react';
 import { ProductList } from 'layout/marketPlace/productList';
-import { ProductDataType } from 'modules/MarketPlace/interfaces';
+import {
+  PaginatedProductDataType,
+  ProductDataType,
+} from 'modules/MarketPlace/interfaces';
 import {
   MARKET_PLACE_NEW_PRODUCTS,
   MARKET_PLACE_POPULAR_PRODUCTS,
@@ -14,13 +17,12 @@ import {
 import { PageTitle } from 'components/MarketPlace/PageTitle';
 
 export const MarketPlaceView = ({
-  products,
+  newProducts,
+  mostViewedProducts,
 }: {
-  products: ProductDataType[];
+  newProducts: PaginatedProductDataType;
+  mostViewedProducts: PaginatedProductDataType;
 }) => {
-  const router = useRouter();
-  const { params } = router.query;
-
   const [selectedProducts, setSelectedProducts] = useState(
     MARKET_PLACE_NEW_PRODUCTS
   );
@@ -28,18 +30,20 @@ export const MarketPlaceView = ({
   const setNew = () => setSelectedProducts(MARKET_PLACE_NEW_PRODUCTS);
   const setPopular = () => setSelectedProducts(MARKET_PLACE_POPULAR_PRODUCTS);
 
-  const productSelectData = [
-    {
+  const productSelectData: any = {
+    [MARKET_PLACE_NEW_PRODUCTS]: {
       title: 'New',
       onClick: setNew,
       active: selectedProducts === MARKET_PLACE_NEW_PRODUCTS,
+      data: newProducts.rows,
     },
-    {
+    [MARKET_PLACE_POPULAR_PRODUCTS]: {
       title: 'Popular',
       onClick: setPopular,
       active: selectedProducts === MARKET_PLACE_POPULAR_PRODUCTS,
+      data: mostViewedProducts.rows,
     },
-  ];
+  };
 
   return (
     <MarketPlaceLayout>
@@ -54,7 +58,7 @@ export const MarketPlaceView = ({
           fontWeight="500"
           alignItems="center"
         >
-          {productSelectData.map((selection, i) => (
+          {Object.values(productSelectData).map((selection: any, i) => (
             <Fragment key={`product_selection_${i}`}>
               <Box
                 as="h2"
@@ -69,19 +73,24 @@ export const MarketPlaceView = ({
             </Fragment>
           ))}
         </Box>
-        <ProductList>
-          {(openQuickViewModal: any) => (
-            <>
-              {products?.map((product: ProductDataType, i) => (
-                <ProductCard
-                  data={product}
-                  openQuickViewModal={openQuickViewModal}
-                  key={`product_card_${i}`}
-                />
-              ))}
-            </>
-          )}
-        </ProductList>
+
+        <Box margin="30px auto" padding="0 15px" maxW="1200px">
+          <ProductList>
+            {(openQuickViewModal: any) => (
+              <>
+                {productSelectData[selectedProducts].data?.map(
+                  (product: ProductDataType, i: any) => (
+                    <ProductCard
+                      data={product}
+                      openQuickViewModal={openQuickViewModal}
+                      key={`product_card_${i}`}
+                    />
+                  )
+                )}
+              </>
+            )}
+          </ProductList>
+        </Box>
       </Box>
     </MarketPlaceLayout>
   );

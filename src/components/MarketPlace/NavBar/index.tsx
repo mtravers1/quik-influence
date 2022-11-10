@@ -22,7 +22,7 @@ import { NavLink } from 'components/navLink';
 import { faHamburger, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import navStyles from './style.module.scss';
 import { BookMark } from 'assets/bookmark';
-import { Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { CART_CLICK_NAME } from 'utils/constants';
 import { MiniCartPage } from '../Cart/miniCartPage';
 import { useSelector } from 'react-redux';
@@ -271,7 +271,11 @@ const RenderNavWithChildren: any = (
             >
               {link.subPages.map((subLink: NavLinkProps, i) => (
                 <Fragment key={`drop_${i}`}>
-                  <SimpleDropDownNavLink link={subLink} config={config} />
+                  <SimpleDropDownNavLink
+                    link={subLink}
+                    config={config}
+                    marginBottom="10px"
+                  />
                   {subLink?.subPages ? renderMenu(subLink.subPages) : null}
                 </Fragment>
               ))}
@@ -285,13 +289,14 @@ const RenderNavWithChildren: any = (
   return renderMenu(links);
 };
 
-const SimpleDropDownNavLink = ({
-  link,
-  config,
-}: {
+interface SimpleDropDownNavLinkProps extends BoxProps {
   link: NavLinkProps;
   config?: DropDownConfigType;
-}) => {
+}
+
+const SimpleDropDownNavLink: FC<SimpleDropDownNavLinkProps> = props => {
+  const { link, config, ...rest } = props;
+
   return (
     <NavLink exact href={link.href}>
       <Flex
@@ -305,6 +310,9 @@ const SimpleDropDownNavLink = ({
               }
             : () => {}
         }
+        {...rest}
+        fontSize="15px"
+        fontWeight="bold"
       >
         {link.name}
         {link.subPages && (

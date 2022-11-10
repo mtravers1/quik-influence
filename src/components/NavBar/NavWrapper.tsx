@@ -60,7 +60,7 @@ const NavBar = ({ children }: { children: (styles: any) => any }) => {
   }, [currentScroll, navRef]);
 
   return (
-    <Box ref={navRef} width="100%">
+    <Box ref={navRef} width="100%" className="nav-bar">
       {children(styles)}
     </Box>
   );
