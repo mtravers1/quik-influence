@@ -1,0 +1,34 @@
+.checkout-container {
+  box-sizing: content-box;
+}
+
+.main {
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.sidebar {
+  padding-left: 4%;
+  position: relative;
+  z-index: 1;
+  transition: 0.3s ease;
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 200vh;
+    height: 100%;
+    left: -100%;
+    top: 0;
+    background: #2d2d2d;
+    z-index: -1;
+  }
+
+  &.aside--collapsed {
+    height: 0;
+    padding: 0;
+  }
+}

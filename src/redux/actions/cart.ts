@@ -17,7 +17,8 @@ const getCartItem = async (
   cartItem: CartItemDataType,
   product: ProductDataType
 ) => {
-  let cartRestponse;
+  let cart;
+  let singleCartItem;
 
   if (cartItem.userId) {
     const res = await axiosInstance.post('/users/campaign/cart/add', {
@@ -25,26 +26,30 @@ const getCartItem = async (
       quantity: cartItem.quantity,
       variant: cartItem.variant,
     });
-    cartRestponse = res.data.data;
+    cart = res.data.data;
   } else {
-    cartRestponse = {
+    singleCartItem = {
       ...cartItem,
       product,
     };
   }
 
-  return cartRestponse;
+  return { cart, singleCartItem };
 };
 
 export const addItemsToCart =
   (cartItem: CartItemDataType, CampaignProduct: ProductDataType) =>
   async (dispatch: (arg0: { type: string; payload: any }) => void) => {
-    const cartRestponse = await getCartItem(cartItem, CampaignProduct);
+    const { cart, singleCartItem } = await getCartItem(
+      cartItem,
+      CampaignProduct
+    );
 
     dispatch({
       type: ADD_ITEMS_TO_CART,
       payload: {
-        cartItem: cartRestponse,
+        cart,
+        cartItem: singleCartItem,
       },
     });
   };
@@ -52,12 +57,16 @@ export const addItemsToCart =
 export const updateCartItems =
   (cartItem: CartItemDataType, CampaignProduct: ProductDataType) =>
   async (dispatch: (arg0: { type: string; payload: any }) => void) => {
-    const cartRestponse = await getCartItem(cartItem, CampaignProduct);
+    const { cart, singleCartItem } = await getCartItem(
+      cartItem,
+      CampaignProduct
+    );
 
     dispatch({
       type: UPDATE_CART_ITEM,
       payload: {
-        cartItem: cartRestponse,
+        cart,
+        cartItem: singleCartItem,
       },
     });
   };
@@ -177,8 +186,6 @@ export const getAllCartItems =
 
       const combinedCartItems = Object.values(combinedCartMap);
 
-      console.log(combinedCartItems);
-
       const totalCartAmount = combinedCartItems.reduce((acc: any, cur: any) => {
         return acc + cur.quantity * cur.CampaignProduct.amount;
       }, 0);
@@ -188,6 +195,7 @@ export const getAllCartItems =
         payload: {
           userId,
           cart: {
+            id: cartItems?.id,
             total: totalCartAmount,
             CampaignCartProducts: combinedCartItems,
           },

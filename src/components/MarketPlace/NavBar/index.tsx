@@ -48,7 +48,7 @@ export const NavBar = () => {
             {...styles}
             height={{ base: '80px', lg: '140px' }}
             width="100%"
-            zIndex={10}
+            zIndex={30}
           >
             <Box
               as="header"

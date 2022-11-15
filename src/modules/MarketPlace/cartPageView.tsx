@@ -20,9 +20,10 @@ import { TitlePlace } from 'components/MarketPlace/TitlePlace';
 import { useNavLink } from 'components/MarketPlace/NavBar/buttonList';
 
 export const CartPageView = () => {
-  let { cart, user }: { cart: CartDataType; user: any } = useSelector(
-    (state: any) => state
-  );
+  let {
+    cart,
+    auth: { user },
+  }: { cart: CartDataType; auth: any } = useSelector((state: any) => state);
 
   const dispatch = useDispatch();
   const { baseLink } = useNavLink();
@@ -34,7 +35,7 @@ export const CartPageView = () => {
   let checkoutLink: string = '';
 
   if (user?.id) {
-    checkoutLink = `${baseLink}/checkout`;
+    checkoutLink = `${baseLink}/checkout/${cart?.id}`;
   } else {
     checkoutLink = `${baseLink}/login?redirect=${baseLink}/checkout`;
   }

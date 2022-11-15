@@ -30,9 +30,7 @@ export const CartItemComp = ({ cartItem }: { cartItem: CartItemDataType }) => {
 
     try {
       setLoadingRemove(true);
-      await dispatch(
-        deleteCartItems(cartItem.id, user?.admin?.id || user?.user?.id)
-      );
+      await dispatch(deleteCartItems(cartItem.id, user?.id));
     } catch (e) {
       console.log(e);
       // jude:(todo) handle error

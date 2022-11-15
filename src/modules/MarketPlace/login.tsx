@@ -29,12 +29,13 @@ export const MarketViewLogin = () => {
     const response = await axiosInstance.post(loginApi, {
       email: inputs.email,
       password: inputs.loginPassword,
+      campaignAdminId,
     });
 
     const data = response.data.data;
 
     dispatch(login(response.data.data));
-    dispatch(
+    await dispatch(
       getAllCartItems(
         null,
         data?.user?.id || data?.admin?.id,

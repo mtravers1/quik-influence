@@ -8,7 +8,7 @@ const Login = () => {
   const { colorMode } = useColorMode();
   const user = getUser();
 
-  if (user.admin) window.location.href = '/dashboard';
+  if (user) window.location.href = '/dashboard';
 
   return (
     <>

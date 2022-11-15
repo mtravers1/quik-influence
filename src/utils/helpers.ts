@@ -69,7 +69,7 @@ export function getUser() {
   let isExpired: boolean = false;
 
   if (typeof window !== 'undefined') {
-    ctoken = localStorage.getItem(Q_TOKEN);
+    ctoken = localStorage.getItem(Q_TOKEN) || getCookie('token');
   }
 
   if (ctoken !== 'null') {
@@ -78,7 +78,7 @@ export function getUser() {
 
   isExpired = user && user.exp && user.exp < Date.now() / 1000;
 
-  return { admin: user, token: ctoken, isExpired };
+  return { ...user, token: ctoken, isExpired };
 }
 
 export const getNumberRange = (
@@ -178,7 +178,7 @@ export function isInViewport(element: any) {
 
 export const isAdmin = () => {
   const user = getUser();
-  return user.admin && ADMINS_ID.includes(user.admin.roleId);
+  return user && ADMINS_ID.includes(user.roleId);
 };
 
 export const hasPermission = (
@@ -238,6 +238,10 @@ export const setCookie = (cName: string, cValue: string, expDays: number) => {
   date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000);
   const expires = 'expires=' + date.toUTCString();
   document.cookie = cName + '=' + cValue + '; ' + expires + '; path=/';
+};
+
+export const eraseCookie = (cName: string) => {
+  document.cookie = cName + '=; Max-Age=0';
 };
 
 export const formatter = new Intl.NumberFormat('en-US', {

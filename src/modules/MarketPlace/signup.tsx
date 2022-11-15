@@ -17,7 +17,7 @@ export const MarketViewSignup = () => {
   const toast = useToast();
   const { redirect } = query;
 
-  const { baseLink } = useNavLink();
+  const { baseLink, campaignAdminId } = useNavLink();
 
   const registerLink = `${baseLink}/shop`;
   const loginLink = `${baseLink}/login`;
@@ -25,7 +25,10 @@ export const MarketViewSignup = () => {
   const RegisterApi = '/auth/user/register';
 
   const registrationCallBack = async (inputs: any) => {
-    const response = await axiosInstance.post(RegisterApi, inputs);
+    const response = await axiosInstance.post(RegisterApi, {
+      ...inputs,
+      campaignAdminId,
+    });
 
     dispatch(login(response.data.data));
 

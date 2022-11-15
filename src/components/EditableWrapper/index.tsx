@@ -117,7 +117,7 @@ const EditableWrapper: FC<EditableWrapperProps> = props => {
     }
   };
 
-  if (!user.admin)
+  if (!user)
     return (
       <Box position="relative" {...filterProps(props)}>
         {children}

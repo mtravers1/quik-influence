@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import queryString from 'query-string';
@@ -92,8 +92,6 @@ export const useProductFilters = () => {
   };
 
   const handlePagination = (page: number) => {
-    console.log(page);
-
     const newParams = {
       ...params,
       page,

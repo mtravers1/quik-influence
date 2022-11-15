@@ -23,7 +23,7 @@ export const generateCartItems = ({
     id: itemInCart?.id || nanoid(),
     productId: CampaignProduct?.id,
     quantity,
-    userId: user?.admin?.id || user?.user?.id,
+    userId: user?.id,
     variant: productVariant,
     CampaignProduct,
   };

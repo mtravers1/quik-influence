@@ -32,7 +32,7 @@ const generals = (
     formInputs: [],
     paymentInfo: undefined,
     countryData: {
-      country: [],
+      country: [{ label: 'United States', value: 'US' }],
       state: {},
     },
     dashboardData: undefined,

@@ -144,3 +144,7 @@ export const getShopItems = async (query: any) => {
 
   return { products };
 };
+
+export const getRates = async (campaignId: string) => {
+  
+}

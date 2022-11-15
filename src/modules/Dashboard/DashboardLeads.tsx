@@ -58,7 +58,7 @@ const DashboardLeads = () => {
         // Send Email
         const response = await fetchPostJSON('/api/send_email', {
           subject: 'QuickInfluence Lead Email Testing',
-          to: user?.admin?.email || 'mojaray2k@gmail.com',
+          to: user?.email || 'mojaray2k@gmail.com',
           body: inputs.message,
         });
 
@@ -82,7 +82,7 @@ const DashboardLeads = () => {
       if (choosenLeadSendtype === 'sms') {
         // Send SMS.
         const response = await fetchPostJSON('/api/messages', {
-          to: user.admin.phone || '+12026078069',
+          to: user.phone || '+12026078069',
           body: inputs.message,
         });
 

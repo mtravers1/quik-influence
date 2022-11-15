@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import axios from 'axios';
 import { stateNamesObj } from 'utils/constants/stateConstants';
 
-export const useSelectLocations = (selectedCountry: string) => {
+export const useSelectLocations = (selectedCountry?: string) => {
   const { countryData } = useSelector((state: any) => state.generals);
 
   // const dispatch = useDispatch();
@@ -46,7 +46,7 @@ export const useSelectLocations = (selectedCountry: string) => {
 
   return {
     internalSelectOptions: {
-      ...countryData,
+      country: countryData.country,
       state: stateNamesObj,
     },
     loadingStates,

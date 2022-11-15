@@ -14,3 +14,37 @@
     font-size: 15px;
   }
 }
+
+.filter-container {
+  width: 280px;
+  transition: 0.3s ease;
+
+  @media (max-width: 832px) {
+    background: #000;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 300px;
+    left: -100%;
+    padding-top: 30px;
+  }
+
+  &.filter-container--collapse {
+    left: 0;
+  }
+}
+
+.filter-container-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0.3s ease, opacity 0.3s ease;
+  width: 0;
+
+  &.filter-container-backdrop--collapse {
+    visibility: visible;
+    opacity: 1;
+    width: 100vh;
+  }
+}

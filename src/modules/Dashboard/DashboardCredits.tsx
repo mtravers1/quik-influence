@@ -105,7 +105,7 @@ const DashboardCredits = () => {
       const chargeRes = await fetchPostJSON('/api/create_charge', {
         token: response.id,
         amount: inputs.amount,
-        receipt_email: user.admin.email,
+        receipt_email: user.email,
       });
 
       if (chargeRes.statusCode === 500) {

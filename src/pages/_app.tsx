@@ -5,7 +5,7 @@ import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Fonts from 'utils/Fonts';
-import { axiosInstance, getCookie } from 'utils/helpers';
+import { axiosInstance, eraseCookie, getCookie } from 'utils/helpers';
 import theme from '../styles/theme';
 import { wrapper } from '../store';
 import { CONTENT_URL } from 'utils/constants';
@@ -33,7 +33,13 @@ import { getAllCartItems } from 'redux/actions/cart';
 import { CategoryDataType } from 'modules/MarketPlace/interfaces';
 import { getCartItems } from 'modules/MarketPlace/serverSideFunc';
 
-const excludedPages = ['/checkout/fizzy', '/', '/login', '/register'];
+const excludedPages = [
+  '/checkout/fizzy',
+  '/',
+  '/login',
+  '/register',
+  '/market-place',
+];
 function QuikInfluenceApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -51,7 +57,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
     dispatch(createFormInputs(pageProps?.formInputs));
     setLoading(true);
 
-    const user = dispatch(login());
+    const user = dispatch(login(pageProps?.userProfile));
 
     if (router.pathname.includes('market-place')) {
       dispatch(saveMarketPlacePresets('categories', pageProps?.categories));
@@ -60,7 +66,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
         getAllCartItems(
           pageProps?.serverCart,
           // @ts-ignore
-          user?.user?.id || user?.admin.id,
+          user?.id,
           router.query?.campaignId,
           router.query?.campaignAdminId
         )
@@ -85,6 +91,7 @@ function QuikInfluenceApp({ Component, pageProps }: AppProps) {
           !excludedPages.includes(router.pathname)
         ) {
           localStorage.removeItem('_q_inf');
+          eraseCookie('token');
 
           router.push(`/login?redirect=${router.asPath}`);
         }
@@ -116,6 +123,7 @@ QuikInfluenceApp.getInitialProps = async (context: any) => {
   let tags: any;
   let categories: CategoryDataType[] = [];
   let serverCart: any = {};
+  let userProfile: any;
 
   // const { campaignId } = ctx.query;
 
@@ -153,6 +161,27 @@ QuikInfluenceApp.getInitialProps = async (context: any) => {
     // console.log(err);
   }
 
+  try {
+    if (route.includes('market-place')) {
+      const token = getCookie('token', context.ctx.req.headers.cookie);
+
+      const res = await axiosInstance.get(
+        route.includes('market-place')
+          ? '/auth/profile/user'
+          : '/auth/profile/admin',
+        {
+          headers: {
+            token,
+          },
+        }
+      );
+
+      userProfile = res.data.data;
+    }
+  } catch (err) {
+    // console.log(err);
+  }
+
   return {
     pageProps: {
       nav: nav?.data?.data,
@@ -161,6 +190,7 @@ QuikInfluenceApp.getInitialProps = async (context: any) => {
       formInputs: formInputs?.data.data,
       categories,
       serverCart,
+      userProfile,
     },
   };
 };

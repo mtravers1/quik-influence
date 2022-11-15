@@ -42,14 +42,7 @@ const cart = (state = initailState, action: any) => {
         addToCartLoggedOut(action.payload.cartItem);
       }
 
-      return {
-        ...state,
-        total: calculateTotal(state, action.payload.cartItem),
-        CampaignCartProducts: [
-          ...state.CampaignCartProducts,
-          action.payload.cartItem,
-        ],
-      };
+      return action.payload.cart;
 
     case UPDATE_CART_ITEM:
       newCart = updateCartItemQuantity(state, action.payload.cartItem);
@@ -58,10 +51,7 @@ const cart = (state = initailState, action: any) => {
         localStorage.setItem('cartItems', JSON.stringify(newCart));
       }
 
-      return {
-        ...state,
-        ...updateCartItemQuantity(state, action.payload.cartItem),
-      };
+      return action.payload.cart;
 
     case DELETE_CART_ITEM:
       newCart = deleteCartItemLocal(state, action.payload.cartItemId);

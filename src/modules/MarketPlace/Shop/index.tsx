@@ -69,43 +69,49 @@ export const MarketPlaceShop = ({
     <MarketPlaceLayout>
       <TitlePlace>Shop</TitlePlace>
 
+      <Box maxW="1200px" margin="auto" padding="0 15px">
+        <Flex
+          background="#000"
+          justifyContent="space-between"
+          alignItems="center"
+          borderRadius="5px"
+          padding="15px"
+        >
+          <Box as="h3" fontWeight="450" fontSize="15px">
+            {paginationMeta.count} Products found
+          </Box>
+
+          <Box>
+            <Box as="span" fontWeight="450" fontSize="15px">
+              Sort By
+            </Box>
+
+            <Box
+              as="select"
+              margin="0 10px"
+              padding="10px 15px"
+              onChange={handleSortChange}
+              value={filters.sort}
+              background="transparent"
+              border="1px solid"
+            >
+              {sorts.map(sort => (
+                <option key={sort.value} value={sort.value}>
+                  {sort.label}
+                </option>
+              ))}
+            </Box>
+          </Box>
+        </Flex>
+      </Box>
+
       <Flex
         maxW="1200px"
         margin="auto"
-        background="#000"
-        padding="15px"
-        justifyContent="space-between"
-        alignItems="center"
-        borderRadius="5px"
+        marginTop="20px"
+        flexDir={{ base: 'column', md: 'row' }}
+        padding="0 15px"
       >
-        <Box as="h3" fontWeight="450" fontSize="15px">
-          {paginationMeta.count} Products found
-        </Box>
-
-        <Box>
-          <Box as="span" fontWeight="450" fontSize="15px">
-            Sort By
-          </Box>
-
-          <Box
-            as="select"
-            margin="0 10px"
-            padding="10px 15px"
-            onChange={handleSortChange}
-            value={filters.sort}
-            background="transparent"
-            border="1px solid"
-          >
-            {sorts.map(sort => (
-              <option key={sort.value} value={sort.value}>
-                {sort.label}
-              </option>
-            ))}
-          </Box>
-        </Box>
-      </Flex>
-
-      <Flex maxW="1200px" margin="auto" marginTop="20px">
         <ProductFilters />
         <Box background="#000" padding="10px" borderRadius="5px">
           <ProductList gap="10px">

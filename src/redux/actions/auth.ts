@@ -24,14 +24,22 @@ export const doneloading = () => async (dispatch: DispatchWithPayload) => {
 
 export const login = (userData?: any) => (dispatch: any) => {
   dispatch(loading());
-  let user = userData;
+
+  let user;
+  if (userData) {
+    user = {
+      ...userData,
+      ...(userData?.user || {}),
+      ...(userData?.admin || {}),
+    };
+  }
 
   if (!user) {
     // call for re-authentication
     user = getUser();
   }
-
-  user && setToken(user.token);
+  const userToken = getUser()?.token;
+  setToken(user?.token || userToken);
 
   dispatch({
     type: LOGIN,

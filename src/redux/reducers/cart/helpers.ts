@@ -8,6 +8,9 @@ export const itemInCart = (
 };
 
 export const calculateTotal = (cart: any, item: CartItemDataType) => {
+  console.log('item ====>', item);
+  console.log('cart ====>', cart);
+
   return (cart.total || 0) + item.CampaignProduct.amount * item.quantity;
 };
 

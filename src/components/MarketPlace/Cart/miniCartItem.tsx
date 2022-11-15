@@ -35,7 +35,7 @@ export const MiniCartItem: FC<{ cartItem: CartItemDataType }> = ({
 
     try {
       setLoadingRemove(true);
-      dispatch(deleteCartItems(cartItem.id, user?.admin?.id || user?.user?.id));
+      dispatch(deleteCartItems(cartItem.id, user?.id));
     } catch (e) {
       // jude:(todo) handle error
     } finally {

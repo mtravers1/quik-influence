@@ -22,8 +22,6 @@ export const useProduct = (product: ProductDataType) => {
   const { campaignId, campaignAdminId } = query;
   const { openMenu } = useNavLink();
 
-  console.log(cart);
-
   const itemInCart = cart.CampaignCartProducts.filter(
     (item: any) => item.CampaignProduct.id === product?.id
   );
