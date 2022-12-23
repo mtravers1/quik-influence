@@ -38,10 +38,10 @@ export default [
     pattern: PHONE_NUMBER_REGEX,
   },
   {
-    name: 'otp',
-    label: 'Please check your email to retrieve your One Time Password (OTP).',
-    errorMessage: 'Enter your otp',
-    type: 'text',
+    name: 'password',
+    label: 'Password',
+    errorMessage: 'Enter your password',
+    type: 'password',
     pattern: FREE_TEXT_REGEX,
   },
 ];
