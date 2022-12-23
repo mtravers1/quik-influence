@@ -6,8 +6,6 @@ import {
   useToast,
   Text,
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
-import { login } from 'redux/actions/auth';
 import Image from 'next/image';
 import CustomButton from 'components/Button';
 import { TextInput } from 'components/Input';
@@ -22,14 +20,10 @@ import { useRouter } from 'next/router';
 
 const Register = () => {
   const toast = useToast();
-  const dispatch = useDispatch();
   const router = useRouter();
   const { query } = router;
   const isTermsChecked = query.terms === 'checked';
 
-  const [showOtpInput, setShowOtpInput] = useState(false);
-  const [loadingOtp, setLoadingOtp] = useState(false);
-  const [stripeRedirectUrl, setStripeRedirectUrl] = useState();
   const [submitForm, setSubmitForm] = useState(isTermsChecked);
   const [showTermsError, setShowTermsError] = useState<boolean>(
     query?.terms ? false : isTermsChecked ? true : false
@@ -48,8 +42,14 @@ const Register = () => {
       if (!submitForm) return setShowTermsError(true);
 
       const response = await axiosInstance.post(
-        '/auth/admin/otpRegister',
-        inputs
+        '/auth/admin/register',
+        inputs,
+        {
+          headers: {
+            connectstripe: true,
+            redirecturl: `${window.location.origin}/dashboard`,
+          },
+        }
       );
 
       toast({
@@ -63,8 +63,7 @@ const Register = () => {
         sessionStorage.setItem('email', inputs.email);
       }
 
-      setShowOtpInput(true);
-      setStripeRedirectUrl(response.data.data.url);
+      router.push(response.data.data.accountLink);
     },
   });
 
@@ -73,28 +72,10 @@ const Register = () => {
     handleModChange(query);
   }, [query]);
 
-  const submitOtp = async () => {
-    setLoadingOtp(true);
-
-    try {
-      const response = await axiosInstance.post('/auth/admin/otpLogin', {
-        email: inputTypes.email,
-        otp: inputTypes.otp,
-      });
-
-      dispatch(login(response.data.data));
-
-      // Redirect to User profile page
-      router.push('/dashboard/profile/edit');
-    } catch (err) {}
-
-    setLoadingOtp(false);
-  };
-
   return (
     <form action="post">
       <Box marginBottom="15px">
-        {formdata.slice(0, showOtpInput ? 5 : 4).map((data, i) => (
+        {formdata.map((data, i) => (
           <FormControl isInvalid={errors[data.name]} key={`register_${i}`}>
             <TextInput
               name={data.name}
@@ -149,29 +130,16 @@ const Register = () => {
         </Box>
       </Box>
 
-      {!showOtpInput ? (
-        <CustomButton
-          maxW="204px"
-          height="50px"
-          padding={0}
-          mt={4}
-          onClick={handleSubmit}
-        >
-          Signup
-          {loading && <Image src={loader} alt="" width={50} height={50} />}
-        </CustomButton>
-      ) : (
-        <CustomButton
-          maxW="250px"
-          height="50px"
-          padding={0}
-          mt={4}
-          onClick={submitOtp}
-        >
-          Enter Otp to continue
-          {loadingOtp && <Image src={loader} alt="" width={50} height={50} />}
-        </CustomButton>
-      )}
+      <CustomButton
+        maxW="204px"
+        height="50px"
+        padding={0}
+        mt={4}
+        onClick={handleSubmit}
+      >
+        Signup
+        {loading && <Image src={loader} alt="" width={50} height={50} />}
+      </CustomButton>
     </form>
   );
 };

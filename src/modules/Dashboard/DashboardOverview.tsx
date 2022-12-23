@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Box } from '@chakra-ui/layout';
-import { useColorMode } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NumberChartComp } from 'components/NumberChartComp';
 import {
@@ -19,7 +18,6 @@ import { CustomDateRange } from 'components/DateRange/dateRange';
 import { DateRange } from 'components/DateRange';
 
 const DashboardOverview = () => {
-  const { colorMode } = useColorMode();
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState({});
 
