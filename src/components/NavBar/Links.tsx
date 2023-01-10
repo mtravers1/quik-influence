@@ -5,6 +5,10 @@ import { css } from '@emotion/react';
 import useLinks from './useLinks';
 
 import styles from './links.module.css'
+
+import styles from './link.module.css'
+
+import Link from 'next/link'
 const DeskTopLinks = ({
   links,
   path,
@@ -42,6 +46,10 @@ const DeskTopLinks = ({
           links.map((link, i) => {
             return link?.isNotClickable ? (
               
+
+              <>
+              <a className={styles.shop} href='https://shop.quikinfluence.com/'> Shop</a>
+
               <Box
                 display="inline-flex"
                 alignItems="center"
@@ -54,6 +62,8 @@ const DeskTopLinks = ({
                 <div>
                 <a className={styles.shop} href='https://shop.quikinfluence.com/'>Shop  </a>
                 </div>
+
+
                 <Box
                   fontSize="16px"
                   padding="0px 30px 0px 30px"
@@ -95,6 +105,7 @@ const DeskTopLinks = ({
                 )}
                 
               </Box>
+              </>
             ) : (
               <NextLink
                 href={link?.link || '/'}
