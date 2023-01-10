@@ -41,6 +41,7 @@ const DeskTopLinks = ({
         {links?.length &&
           links.map((link, i) => {
             return link?.isNotClickable ? (
+              
               <Box
                 display="inline-flex"
                 alignItems="center"
@@ -50,8 +51,9 @@ const DeskTopLinks = ({
                 overflow="hidden"
                 key={`nav_links_${i}`}
               >
-            <a className={styles.shop} href='https://shop.quikinfluence.com/'>Shop  </a>
-
+                <div>
+                <a className={styles.shop} href='https://shop.quikinfluence.com/'>Shop  </a>
+                </div>
                 <Box
                   fontSize="16px"
                   padding="0px 30px 0px 30px"
@@ -91,6 +93,7 @@ const DeskTopLinks = ({
                     ))}
                   </Flex>
                 )}
+                
               </Box>
             ) : (
               <NextLink
