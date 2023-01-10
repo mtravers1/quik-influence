@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import useLinks from './useLinks';
-import Link from 'next/link'
+
 import styles from './links.module.css'
 const DeskTopLinks = ({
   links,
@@ -50,7 +50,7 @@ const DeskTopLinks = ({
                 overflow="hidden"
                 key={`nav_links_${i}`}
               >
-                              <a className={styles.shop} href='https://shop.quikinfluence.com/'>Shop  </a>
+            <a className={styles.shop} href='https://shop.quikinfluence.com/'>Shop  </a>
 
                 <Box
                   fontSize="16px"
@@ -81,7 +81,7 @@ const DeskTopLinks = ({
                         fontSize="14px"
                         padding="0px 15px"
                         style={{
-                          fontWeight: '600',
+                          fontWeight: 600,
                           color: getLinkColor(path, menu?.link, 2),
                         }}
                         whiteSpace="nowrap"
@@ -99,7 +99,7 @@ const DeskTopLinks = ({
                 fontSize="16px"
                 padding="0px 15px"
                 style={{
-                  fontWeight: '600',
+                  fontWeight: 600,
                   color: getLinkColor(path, link?.link, 1),
                   borderRight: showBorder(i),
                 }}
