@@ -43,7 +43,7 @@ const DeskTopLinks = ({
           links.map((link, i) => {
             return link?.isNotClickable ? (
               <>
-              <a className={styles.shop} href='https://shop.quikinfluence.com/'>Shop</a>
+              <a className={styles.shop} href='https://shop.quikinfluence.com/'> Shop</a>
 
               <Box
                 display="inline-flex"
