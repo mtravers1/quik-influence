@@ -4,6 +4,8 @@ import { Box, Flex } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import useLinks from './useLinks';
 import styles from './link.module.css'
+
+import Link from 'next/link'
 const DeskTopLinks = ({
   links,
   path,
@@ -52,13 +54,15 @@ const DeskTopLinks = ({
                 overflow="hidden"
                 key={`nav_links_${i}`}
               >
+
                 <Box
                   fontSize="16px"
-                  padding="0px 30px"
+                  padding="0px 30px 0px 30px"
                   fontWeight="600"
                   cursor="pointer"
                   color={getLinkColor(path, link?.link, 1)}
                 >
+ 
                   {link.name}
                 </Box>
 
