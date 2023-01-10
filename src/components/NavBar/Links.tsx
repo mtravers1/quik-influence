@@ -84,7 +84,7 @@ const DeskTopLinks = ({
                         fontSize="14px"
                         padding="0px 15px"
                         style={{
-                          fontWeight: '600',
+                          fontWeight: 600,
                           color: getLinkColor(path, menu?.link, 2),
                         }}
                         whiteSpace="nowrap"
@@ -103,7 +103,7 @@ const DeskTopLinks = ({
                 fontSize="16px"
                 padding="0px 15px"
                 style={{
-                  fontWeight: '600',
+                  fontWeight: 600,
                   color: getLinkColor(path, link?.link, 1),
                   borderRight: showBorder(i),
                 }}
