@@ -6,7 +6,6 @@ import useLinks from './useLinks';
 
 import styles from './links.module.css'
 
-import styles from './link.module.css'
 
 import Link from 'next/link'
 const DeskTopLinks = ({
