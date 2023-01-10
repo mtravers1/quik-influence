@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import useLinks from './useLinks';
-import styles from './link.module.css'
+
+import styles from './links.module.css'
+
 
 import Link from 'next/link'
 const DeskTopLinks = ({
@@ -42,6 +44,8 @@ const DeskTopLinks = ({
         {links?.length &&
           links.map((link, i) => {
             return link?.isNotClickable ? (
+              
+
               <>
               <a className={styles.shop} href='https://shop.quikinfluence.com/'> Shop</a>
 
@@ -54,6 +58,10 @@ const DeskTopLinks = ({
                 overflow="hidden"
                 key={`nav_links_${i}`}
               >
+                <div>
+                <a className={styles.shop} href='https://shop.quikinfluence.com/'>Shop  </a>
+                </div>
+
 
                 <Box
                   fontSize="16px"
@@ -94,6 +102,7 @@ const DeskTopLinks = ({
                     ))}
                   </Flex>
                 )}
+                
               </Box>
               </>
             ) : (
