@@ -77,6 +77,7 @@ const MobileLinks = ({
                 borderBottom="solid 1.75px"
                 width="310px"
                 paddingBottom="10px"
+                color="black"
                 paddingTop="10px"
                 href="https://www.shop.quikinfluence.com">Shop</Link>
                 {/* <span style={{padding:"5px"}}></span> */}
