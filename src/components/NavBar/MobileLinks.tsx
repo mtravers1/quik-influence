@@ -1,5 +1,5 @@
 import NextLink from 'components/NextLink';
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Box, Flex, Image, Link } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import useLinks from './useLinks';
 import hamburger from 'assets/hamburger.png';
@@ -69,6 +69,17 @@ const MobileLinks = ({
         {links?.length &&
           links.map((link, i) => {
             return link?.isNotClickable ? (
+              <>
+               <Link  
+                fontSize="16px"
+                fontWeight="600"
+                cursor="pointer"
+                borderBottom="solid 1.75px"
+                width="310px"
+                paddingBottom="10px"
+                paddingTop="10px"
+                href="https://www.shop.quikinfluence.com">Shop</Link>
+                {/* <span style={{padding:"5px"}}></span> */}
               <Box
                 display="inline-flex"
                 alignItems="flex-start"
@@ -80,6 +91,8 @@ const MobileLinks = ({
                 flexDir="column"
                 key={`nav_links_${i}`}
               >
+               
+              
                 <Box
                   fontSize="16px"
                   fontWeight="600"
@@ -88,6 +101,9 @@ const MobileLinks = ({
                 >
                   {link.name}
                 </Box>
+                
+                
+                
 
                 {link.submenu && (
                   <Flex
@@ -116,10 +132,15 @@ const MobileLinks = ({
                       >
                         {menu.name}
                       </NextLink>
+                      
                     ))}
+                  
                   </Flex>
+                  
                 )}
+                
               </Box>
+              </>
             ) : (
               <NextLink
                 href={link?.link || '/'}
@@ -135,6 +156,7 @@ const MobileLinks = ({
                 {link.name}
               </NextLink>
             );
+            
           })}
       </Flex>
     </Flex>
